@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compost — Capital Allocation Layer for Hyperliquid</title>
+  <meta name="description" content="The capital formation layer for Hyperliquid Builder markets. Aggregate HYPE, allocate across vetted HIP-3/HIP-4 markets, earn infrastructure-grade yield.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Compost — Capital Allocation Layer">
+  <meta property="og:description" content="The capital formation layer for Hyperliquid Builder markets. One token. Infrastructure-grade yield.">
+  <meta property="og:image" content="/assets/og-image.svg">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@compostfi">
+  <meta name="twitter:title" content="Compost — Capital Allocation Layer">
+  <meta name="twitter:description" content="The capital formation layer for Hyperliquid Builder markets. One token. Infrastructure-grade yield.">
+  <meta name="twitter:image" content="/assets/og-image.svg">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Earth tones palette */
+      --bg-deep: #0a0a09;
+      --bg-layer-1: #111110;
+      --bg-layer-2: #1a1918;
+      --bg-layer-3: #252422;
+
+      --stone: #3d3a36;
+      --sand: #8a8279;
+      --warm-gray: #6b665e;
+
+      --text-primary: #e8e4df;
+      --text-secondary: #9a958d;
+      --text-muted: #5c574f;
+
+      /* The living green */
+      --accent: #4a7c59;
+      --accent-bright: #5d9a6f;
+      --accent-muted: #3a5c45;
+
+      /* Typography */
+      --font-main: 'Outfit', -apple-system, sans-serif;
+      --tracking-wide: 0.12em;
+      --tracking-normal: 0.04em;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Sedimentary layers background */
+    .strata {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .strata-layer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--stone);
+      opacity: 0;
+      animation: settle 2s ease-out forwards;
+    }
+
+    .strata-layer:nth-child(1) { top: 20%; animation-delay: 0.5s; }
+    .strata-layer:nth-child(2) { top: 35%; animation-delay: 0.7s; }
+    .strata-layer:nth-child(3) { top: 55%; animation-delay: 0.9s; }
+    .strata-layer:nth-child(4) { top: 75%; animation-delay: 1.1s; }
+    .strata-layer:nth-child(5) { top: 90%; animation-delay: 1.3s; }
+
+    @keyframes settle {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 0.15; transform: translateY(0); }
+    }
+
+    /* Main container */
+    .container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Wordmark */
+    .wordmark {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 200;
+      letter-spacing: var(--tracking-wide);
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: emerge 1.5s ease-out 0.2s forwards;
+    }
+
+    @keyframes emerge {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tagline */
+    .tagline {
+      font-size: clamp(0.875rem, 2vw, 1.125rem);
+      font-weight: 300;
+      letter-spacing: var(--tracking-normal);
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: emerge 1.5s ease-out 0.4s forwards;
+    }
+
+    /* Divider with growth accent */
+    .divider {
+      width: 100%;
+      max-width: 400px;
+      height: 1px;
+      background: linear-gradient(90deg,
+        var(--accent-muted) 0%,
+        var(--accent) 50%,
+        transparent 100%
+      );
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: grow 1.8s ease-out 0.6s forwards;
+    }
+
+    @keyframes grow {
+      0% { opacity: 0; width: 0; }
+      100% { opacity: 1; width: 100%; max-width: 400px; }
+    }
+
+    /* Description blocks */
+    .description {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .description p {
+      font-size: clamp(0.8125rem, 1.5vw, 0.9375rem);
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 480px;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      animation: emerge 1.5s ease-out forwards;
+    }
+
+    .description p:nth-child(1) { animation-delay: 0.8s; }
+    .description p:nth-child(2) { animation-delay: 1s; }
+    .description p:nth-child(3) { animation-delay: 1.2s; }
+
+    .description .highlight {
+      color: var(--accent-bright);
+    }
+
+    .description .highlight-line {
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-top: 0.5rem;
+    }
+
+    .status {
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: var(--tracking-normal);
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: emerge 1.5s ease-out 1.4s forwards;
+    }
+
+    /* Links */
+    .links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      opacity: 0;
+      animation: emerge 1.5s ease-out 1.2s forwards;
+    }
+
+    .link {
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.75rem 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .link::after {
+      content: '';
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.4s ease;
+    }
+
+    .link:hover {
+      color: var(--text-primary);
+    }
+
+    .link:hover::after {
+      width: 100%;
+    }
+
+    .link--muted {
+      color: var(--text-muted);
+    }
+
+    .link--muted:hover {
+      color: var(--text-secondary);
+    }
+
+    .link--cta {
+      color: var(--accent-bright);
+      border: 1px solid var(--accent-muted);
+      padding: 0.75rem 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .link--cta::after {
+      display: none;
+    }
+
+    .link--cta:hover {
+      background: var(--accent-muted);
+      color: var(--text-primary);
+      border-color: var(--accent);
+    }
+
+    /* Growth indicator */
+    .growth-indicator {
+      position: fixed;
+      left: 2rem;
+      bottom: 0;
+      width: 2px;
+      height: 0;
+      background: linear-gradient(to top, var(--accent), transparent);
+      animation: rise 3s ease-out 1.5s forwards;
+    }
+
+    @keyframes rise {
+      0% { height: 0; }
+      100% { height: 120px; }
+    }
+
+    /* Layer cards - value accrual visualization */
+    .layers {
+      position: fixed;
+      right: 4rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      opacity: 0;
+      animation: emerge 2s ease-out 1.8s forwards;
+    }
+
+    .layer-bar {
+      height: 3px;
+      background: var(--bg-layer-3);
+      border-radius: 1px;
+      opacity: 0;
+      animation: accrue 1s ease-out forwards;
+    }
+
+    .layer-bar:nth-child(1) { width: 60px; animation-delay: 2s; }
+    .layer-bar:nth-child(2) { width: 80px; animation-delay: 2.1s; }
+    .layer-bar:nth-child(3) { width: 100px; animation-delay: 2.2s; background: var(--accent-muted); }
+    .layer-bar:nth-child(4) { width: 70px; animation-delay: 2.3s; }
+    .layer-bar:nth-child(5) { width: 50px; animation-delay: 2.4s; }
+
+    @keyframes accrue {
+      0% { opacity: 0; transform: translateX(10px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 3rem 1.5rem;
+      }
+
+      .layers {
+        display: none;
+      }
+
+      .growth-indicator {
+        left: 1rem;
+      }
+
+      .links {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+    }
+
+    /* Subtle grain overlay */
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+  </style>
+</head>
+<body>
+  <!-- Sedimentary background layers -->
+  <div class="strata">
+    <div class="strata-layer"></div>
+    <div class="strata-layer"></div>
+    <div class="strata-layer"></div>
+    <div class="strata-layer"></div>
+    <div class="strata-layer"></div>
+  </div>
+
+  <!-- Grain texture -->
+  <div class="grain"></div>
+
+  <!-- Growth indicator -->
+  <div class="growth-indicator"></div>
+
+  <!-- Value layers visualization -->
+  <div class="layers">
+    <div class="layer-bar"></div>
+    <div class="layer-bar"></div>
+    <div class="layer-bar"></div>
+    <div class="layer-bar"></div>
+    <div class="layer-bar"></div>
+  </div>
+
+  <!-- Main content -->
+  <main class="container">
+    <h1 class="wordmark">COMPOST</h1>
+    <p class="tagline">The capital formation layer for Hyperliquid Builder markets</p>
+
+    <div class="divider"></div>
+
+    <div class="description">
+      <p>
+        HIP-3 and HIP-4 markets require <span class="highlight">500K+ HYPE</span> to deploy.
+        We aggregate capital, allocate across vetted Builder markets, and pass through
+        staking yield plus Builder fee splits.
+      </p>
+      <p>
+        Diversified exposure to markets such as Kinetiq, trade.xyz, Ventuals, and Felix.
+      </p>
+      <p class="highlight-line">
+        One token. Infrastructure-grade yield.
+      </p>
+    </div>
+
+    <p class="status">Architecture and vault partnerships in progress.</p>
+
+    <nav class="links">
+      <a href="#" class="link link--cta">Join waitlist</a>
+      <a href="https://twitter.com/compostfi" class="link" target="_blank" rel="noopener">@compostfi</a>
+    </nav>
+  </main>
+</body>
+</html>

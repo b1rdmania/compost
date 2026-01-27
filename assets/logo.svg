@@ -1,0 +1,12 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Stacked Layers Logo - Sedimentary accumulation with growth -->
+
+  <!-- Growth stem emerging from top -->
+  <rect x="30" y="8" width="4" height="16" rx="2" fill="#4a7c59"/>
+  <circle cx="32" cy="6" r="3" fill="#5d9a6f"/>
+
+  <!-- Sedimentary layers -->
+  <rect x="12" y="28" width="40" height="6" rx="1" fill="#3d3a36"/>
+  <rect x="16" y="38" width="32" height="6" rx="1" fill="#252422"/>
+  <rect x="20" y="48" width="24" height="6" rx="1" fill="#1a1918"/>
+</svg>
