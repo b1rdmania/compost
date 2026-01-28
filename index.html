@@ -778,6 +778,86 @@
       color: var(--text-muted);
     }
 
+    /* Market stats row */
+    .market-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .market-stat {
+      text-align: center;
+    }
+
+    .market-stat-value {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 200;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.375rem;
+    }
+
+    .market-stat-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Market card as link */
+    a.market-card {
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .market-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      transition: color 0.2s;
+    }
+
+    .market-card-link::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+
+    .market-card:hover .market-card-link {
+      color: var(--accent);
+    }
+
+    .market-card:hover .market-card-link::after {
+      transform: translateX(3px);
+    }
+
+    /* Dune link */
+    .market-footer-dune {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9375rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .market-footer-dune:hover {
+      color: var(--accent);
+    }
+
+    .market-footer-dune::after {
+      content: '→';
+    }
+
     /* ==================== PRINCIPLES - 2 COLUMN ==================== */
     .principles-grid {
       display: grid;
@@ -1119,8 +1199,17 @@
 
       .market-footer {
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
         text-align: center;
+      }
+
+      .market-stats-row {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .market-stat-value {
+        font-size: 2.25rem;
       }
 
       .status-section {
@@ -1350,53 +1439,74 @@
     <!-- Market Context -->
     <section id="markets">
       <div class="container">
-        <div class="markets-intro reveal">
-          <div class="markets-intro-text">
-            <div class="section-divider"></div>
-            <h2 class="section-header">HIP-3 markets are live</h2>
-            <p class="section-subtitle">Builder markets on Hyperliquid are generating real fees today. Diversified exposure to the ecosystem's best builders.</p>
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <h2 class="section-header">Where the yield comes from</h2>
+          <p class="section-subtitle">Builder markets on Hyperliquid are generating real fees today. Compost allocates across the best.</p>
+        </div>
+
+        <div class="market-stats-row reveal">
+          <div class="market-stat">
+            <div class="market-stat-value">$25B+</div>
+            <div class="market-stat-label">Cumulative volume</div>
           </div>
-          <div class="markets-big-stat">
-            <div class="markets-big-stat-value">$1.3B+</div>
-            <div class="markets-big-stat-label">Volume in 3 weeks</div>
+          <div class="market-stat">
+            <div class="market-stat-value">$793M+</div>
+            <div class="market-stat-label">Open interest</div>
+          </div>
+          <div class="market-stat">
+            <div class="market-stat-value">7+</div>
+            <div class="market-stat-label">Live markets</div>
           </div>
         </div>
 
         <div class="market-cards reveal">
-          <div class="market-card">
+          <a href="https://trade.xyz" target="_blank" rel="noopener" class="market-card">
             <div class="market-card-name">trade.xyz</div>
             <div class="market-card-category">Equities</div>
-            <div class="market-card-status"><span class="highlight">$1.3B+</span> volume</div>
-          </div>
-          <div class="market-card">
-            <div class="market-card-name">Kinetiq</div>
+            <div class="market-card-status"><span class="highlight">$12.7B+</span> volume</div>
+            <div class="market-card-link">trade.xyz</div>
+          </a>
+          <a href="https://markets.kinetiq.xyz" target="_blank" rel="noopener" class="market-card">
+            <div class="market-card-name">Kinetiq Markets</div>
             <div class="market-card-category">Global Indices</div>
-            <div class="market-card-status"><span class="highlight">$70M+</span> day one</div>
-          </div>
-          <div class="market-card">
+            <div class="market-card-status"><span class="highlight">$363M</span> 30d volume</div>
+            <div class="market-card-link">markets.kinetiq.xyz</div>
+          </a>
+          <a href="https://usefelix.com" target="_blank" rel="noopener" class="market-card">
             <div class="market-card-name">Felix</div>
-            <div class="market-card-category">Commodities</div>
-            <div class="market-card-status">Live</div>
-          </div>
-          <div class="market-card">
+            <div class="market-card-category">Equities</div>
+            <div class="market-card-status">TSLA + more coming</div>
+            <div class="market-card-link">usefelix.com</div>
+          </a>
+          <a href="https://hyena.trade" target="_blank" rel="noopener" class="market-card">
             <div class="market-card-name">HyENA</div>
             <div class="market-card-category">USDe Perps</div>
             <div class="market-card-status">Ethena-backed</div>
-          </div>
-          <div class="market-card">
+            <div class="market-card-link">hyena.trade</div>
+          </a>
+          <a href="https://ventuals.com" target="_blank" rel="noopener" class="market-card">
+            <div class="market-card-name">Ventuals</div>
+            <div class="market-card-category">Pre-IPO</div>
+            <div class="market-card-status">SpaceX, OpenAI, Anthropic</div>
+            <div class="market-card-link">ventuals.com</div>
+          </a>
+          <a href="https://vaultus.xyz" target="_blank" rel="noopener" class="market-card">
             <div class="market-card-name">Vaultus</div>
             <div class="market-card-category">Structured</div>
             <div class="market-card-status">Live</div>
-          </div>
+            <div class="market-card-link">vaultus.xyz</div>
+          </a>
           <div class="market-card coming">
-            <div class="market-card-name">More coming</div>
-            <div class="market-card-category">Expanding</div>
-            <div class="market-card-status">FX, prediction markets, more</div>
+            <div class="market-card-name">Pipeline</div>
+            <div class="market-card-category">Coming Soon</div>
+            <div class="market-card-status">FX, prediction markets, sports, politics</div>
           </div>
         </div>
 
         <div class="market-footer reveal">
           <div class="market-footer-note">Builder deployers receive <span class="accent">50%</span> of all trading fees. Protocol-enforced — not discretionary, not a promise. Code.</div>
+          <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="market-footer-dune">View live stats</a>
         </div>
       </div>
     </section>
