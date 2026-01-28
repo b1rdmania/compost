@@ -375,36 +375,35 @@
       border-top: 1px solid var(--border);
     }
 
-    .opportunity-grid {
+    /* Beat 1: The Setup */
+    .opportunity-setup {
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 4rem;
       align-items: start;
-      margin-bottom: 2.5rem;
+      margin-bottom: 5rem;
     }
 
     .opportunity-text {
-      max-width: 560px;
+      max-width: 520px;
     }
 
     .opportunity-text p {
       font-size: 1.125rem;
       font-weight: 400;
       color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      line-height: 1.8;
+      margin-bottom: 1.25rem;
+      line-height: 1.7;
     }
 
-    .opportunity-text p:first-of-type {
-      font-size: 1.25rem;
-      color: var(--text-secondary);
+    .opportunity-text p:last-child {
+      margin-bottom: 0;
     }
 
     .opportunity-stats {
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
-      padding-top: 1rem;
+      gap: 2rem;
     }
 
     .opportunity-stat {
@@ -412,7 +411,7 @@
     }
 
     .opportunity-stat-value {
-      font-size: 3rem;
+      font-size: 2.75rem;
       font-weight: 200;
       color: var(--accent);
       line-height: 1;
@@ -425,13 +424,88 @@
       color: var(--text-muted);
     }
 
-    .opportunity-callout {
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
+    /* Beat 2: The Barrier */
+    .opportunity-barrier {
+      margin-bottom: 4rem;
     }
 
-    .opportunity-callout p {
-      font-size: 1.375rem;
+    .barrier-headline {
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      margin-bottom: 2.5rem;
+    }
+
+    .barrier-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .barrier-box {
+      background: var(--bg-subtle);
+      border: 1px solid var(--accent-muted);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      min-width: 180px;
+    }
+
+    .barrier-box-title {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .barrier-box-subtitle {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .barrier-arrow {
+      color: var(--accent);
+      font-size: 1.5rem;
+      opacity: 0.6;
+    }
+
+    .barrier-subtext {
+      text-align: center;
+      font-size: 0.9375rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Beat 3: The Problem */
+    .opportunity-problem {
+      margin-bottom: 4rem;
+    }
+
+    .problem-headline {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .problem-text {
+      font-size: 1.125rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    /* Beat 4: The Punchline */
+    .opportunity-punchline {
+      padding-top: 3rem;
+      border-top: 1px solid var(--accent-muted);
+    }
+
+    .opportunity-punchline p {
+      font-size: 1.5rem;
       font-weight: 300;
       color: var(--text-primary);
       line-height: 1.5;
@@ -899,9 +973,9 @@
         margin-top: 0;
       }
 
-      .opportunity-grid {
+      .opportunity-setup {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 2.5rem;
       }
 
       .opportunity-stats {
@@ -912,6 +986,24 @@
 
       .opportunity-stat {
         text-align: left;
+      }
+
+      .barrier-flow {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .barrier-arrow {
+        transform: rotate(90deg);
+      }
+
+      .barrier-box {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .opportunity-punchline p {
+        font-size: 1.25rem;
       }
 
       .markets-intro {
@@ -1029,16 +1121,16 @@
     <!-- The Opportunity -->
     <section class="opportunity-section" id="opportunity">
       <div class="container">
+        <!-- Beat 1: The Setup -->
         <div class="reveal">
           <div class="section-divider"></div>
           <h2 class="section-header">The opportunity</h2>
         </div>
 
-        <div class="opportunity-grid reveal">
+        <div class="opportunity-setup reveal">
           <div class="opportunity-text">
             <p>Hyperliquid is the fastest-growing perpetuals exchange in crypto.</p>
-            <p>Its Builder markets (HIP-3) let teams launch new trading pairs — equities, commodities, FX, prediction markets, and more.</p>
-            <p>These markets are already live. trade.xyz did $1.3B volume in its first 3 weeks.</p>
+            <p>Anyone can now launch new markets — stocks, commodities, FX, prediction markets — all on-chain.</p>
           </div>
           <div class="opportunity-stats">
             <div class="opportunity-stat">
@@ -1056,7 +1148,34 @@
           </div>
         </div>
 
-        <div class="opportunity-callout reveal">
+        <!-- Beat 2: The Barrier -->
+        <div class="opportunity-barrier reveal">
+          <h3 class="barrier-headline">But there's a barrier.</h3>
+          <div class="barrier-flow">
+            <div class="barrier-box">
+              <div class="barrier-box-title">Stake 500K HYPE</div>
+              <div class="barrier-box-subtitle">(~$11M)</div>
+            </div>
+            <span class="barrier-arrow">→</span>
+            <div class="barrier-box">
+              <div class="barrier-box-title">Launch a market</div>
+            </div>
+            <span class="barrier-arrow">→</span>
+            <div class="barrier-box">
+              <div class="barrier-box-title">Earn 50% of fees</div>
+            </div>
+          </div>
+          <p class="barrier-subtext">This is protocol-enforced. Code, not promises.</p>
+        </div>
+
+        <!-- Beat 3: The Problem -->
+        <div class="opportunity-problem reveal">
+          <h3 class="problem-headline">The problem?</h3>
+          <p class="problem-text">You don't have $11M. And even if you did — which market do you pick? How do you vet the operator?</p>
+        </div>
+
+        <!-- Beat 4: The Punchline -->
+        <div class="opportunity-punchline reveal">
           <p>Compost gives you diversified access to this yield — without needing $11M or picking individual markets yourself.</p>
         </div>
       </div>
