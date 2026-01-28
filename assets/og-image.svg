@@ -4,17 +4,18 @@
   <!-- Background -->
   <rect width="1200" height="630" fill="#0a0a0a"/>
 
-  <!-- Green glow behind mark -->
+  <!-- Green glow behind mark - more prominent -->
   <defs>
-    <radialGradient id="glow" cx="50%" cy="40%" r="35%">
-      <stop offset="0%" stop-color="#4dcf6a" stop-opacity="0.2"/>
+    <radialGradient id="glow" cx="50%" cy="42%" r="40%">
+      <stop offset="0%" stop-color="#4dcf6a" stop-opacity="0.3"/>
+      <stop offset="60%" stop-color="#4dcf6a" stop-opacity="0.1"/>
       <stop offset="100%" stop-color="#4dcf6a" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <ellipse cx="600" cy="250" rx="300" ry="250" fill="url(#glow)"/>
+  <ellipse cx="600" cy="260" rx="350" ry="280" fill="url(#glow)"/>
 
-  <!-- Mark centered, large -->
-  <g transform="translate(520, 120) scale(3)">
+  <!-- Mark centered, larger (scale 4 vs 3) -->
+  <g transform="translate(472, 80) scale(4)">
     <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
     <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
     <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
@@ -22,6 +23,6 @@
     <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
   </g>
 
-  <!-- compost.fi below mark -->
-  <text x="600" y="480" text-anchor="middle" font-family="Outfit, -apple-system, sans-serif" font-size="64" font-weight="300" letter-spacing="0.02em" fill="#e8e4df">compost<tspan fill="#4dcf6a">.fi</tspan></text>
+  <!-- compost.fi closer to mark -->
+  <text x="600" y="460" text-anchor="middle" font-family="Outfit, -apple-system, sans-serif" font-size="64" font-weight="300" letter-spacing="0.02em" fill="#e8e4df">compost<tspan fill="#4dcf6a">.fi</tspan></text>
 </svg>
