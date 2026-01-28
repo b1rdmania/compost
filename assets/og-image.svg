@@ -14,8 +14,8 @@
   </defs>
   <ellipse cx="600" cy="260" rx="350" ry="280" fill="url(#glow)"/>
 
-  <!-- Mark centered, larger (scale 4 vs 3) -->
-  <g transform="translate(472, 80) scale(4)">
+  <!-- Mark centered, scale 4.6 (15% larger than 4) -->
+  <g transform="translate(453, 68) scale(4.6)">
     <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
     <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
     <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
