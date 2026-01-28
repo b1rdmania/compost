@@ -1,21 +1,20 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Open Graph Image - compost.fi branding -->
+  <!-- Open Graph Image - compost.fi -->
 
   <!-- Background -->
-  <rect width="1200" height="630" fill="#0a0a09"/>
+  <rect width="1200" height="630" fill="#0a0a0a"/>
 
-  <!-- Sedimentary strata lines -->
-  <line x1="0" y1="126" x2="1200" y2="126" stroke="#3d3a36" stroke-opacity="0.15"/>
-  <line x1="0" y1="220" x2="1200" y2="220" stroke="#3d3a36" stroke-opacity="0.15"/>
-  <line x1="0" y1="346" x2="1200" y2="346" stroke="#3d3a36" stroke-opacity="0.15"/>
-  <line x1="0" y1="472" x2="1200" y2="472" stroke="#3d3a36" stroke-opacity="0.15"/>
-  <line x1="0" y1="567" x2="1200" y2="567" stroke="#3d3a36" stroke-opacity="0.15"/>
+  <!-- Green glow behind mark -->
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="40%" r="35%">
+      <stop offset="0%" stop-color="#4dcf6a" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#4dcf6a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="600" cy="250" rx="300" ry="250" fill="url(#glow)"/>
 
-  <!-- Growth indicator left -->
-  <rect x="80" y="430" width="2" height="120" fill="url(#growth-gradient)"/>
-
-  <!-- Logo mark centered - V26 Saturated scaled up -->
-  <g transform="translate(520, 160) scale(2.5)">
+  <!-- Mark centered, large -->
+  <g transform="translate(520, 120) scale(3)">
     <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
     <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
     <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
@@ -23,26 +22,6 @@
     <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
   </g>
 
-  <!-- Wordmark: compost.fi -->
-  <text x="600" y="420" text-anchor="middle" font-family="Outfit, -apple-system, sans-serif" font-size="72" font-weight="300" letter-spacing="0.02em" fill="#e8e4df">compost<tspan fill="#4dcf6a">.fi</tspan></text>
-
-  <!-- Tagline -->
-  <text x="600" y="480" text-anchor="middle" font-family="Outfit, -apple-system, sans-serif" font-size="20" font-weight="300" letter-spacing="0.04em" fill="#9a958d">Capital allocation layer for Hyperliquid Builder markets</text>
-
-  <!-- Layer bars right side -->
-  <g transform="translate(1040, 280)">
-    <rect x="0" y="0" width="60" height="3" rx="1" fill="#252422"/>
-    <rect x="-20" y="8" width="80" height="3" rx="1" fill="#252422"/>
-    <rect x="-40" y="16" width="100" height="3" rx="1" fill="#2ba84a" opacity="0.6"/>
-    <rect x="-20" y="24" width="70" height="3" rx="1" fill="#252422"/>
-    <rect x="0" y="32" width="50" height="3" rx="1" fill="#252422"/>
-  </g>
-
-  <!-- Gradient definition -->
-  <defs>
-    <linearGradient id="growth-gradient" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0%" stop-color="#2ba84a"/>
-      <stop offset="100%" stop-color="#2ba84a" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
+  <!-- compost.fi below mark -->
+  <text x="600" y="480" text-anchor="middle" font-family="Outfit, -apple-system, sans-serif" font-size="64" font-weight="300" letter-spacing="0.02em" fill="#e8e4df">compost<tspan fill="#4dcf6a">.fi</tspan></text>
 </svg>
