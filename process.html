@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How We Built compost.fi</title>
+  <meta name="description" content="The design process behind compost.fi — built entirely through AI conversation with Claude Code.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="How We Built compost.fi">
+  <meta property="og:description" content="The design process behind compost.fi — built entirely through AI conversation with Claude Code.">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:type" content="article">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@compostfi">
+  <meta name="twitter:title" content="How We Built compost.fi">
+  <meta name="twitter:description" content="The design process behind compost.fi — built entirely through AI conversation with Claude Code.">
+  <meta name="twitter:image" content="/assets/og-image.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-subtle: #111111;
+      --bg-card: #0f0f0f;
+      --border: #1a1a1a;
+      --border-hover: #2a2a2a;
+      --text-primary: #e5e5e5;
+      --text-secondary: #a3a3a3;
+      --text-muted: #666666;
+      --accent: #4dcf6a;
+      --accent-dim: #2ba84a;
+      --accent-glow: rgba(77, 207, 106, 0.15);
+      --accent-glow-strong: rgba(77, 207, 106, 0.3);
+      --font: 'Outfit', -apple-system, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.03;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-lockup {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.625rem;
+      text-decoration: none;
+    }
+
+    .nav-mark {
+      width: 22px;
+      height: 30px;
+      margin-bottom: -2px;
+    }
+
+    .nav-wordmark {
+      font-size: 1.125rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+    }
+
+    .nav-wordmark .tld {
+      color: var(--accent);
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--accent);
+    }
+
+    /* Article layout */
+    .article {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    /* Scroll reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .highlight {
+      color: var(--accent);
+    }
+
+    .tld {
+      color: var(--accent);
+    }
+
+    /* Green divider line */
+    .section-divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin-bottom: 2rem;
+    }
+
+    /* ==================== HERO ==================== */
+    .process-hero {
+      padding: 10rem 0 6rem;
+      text-align: center;
+    }
+
+    .process-hero-mark {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .process-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 200;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .process-hero-subtitle {
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .process-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .process-meta-item {
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .process-meta-item span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ==================== SECTIONS ==================== */
+    .process-section {
+      padding: 5rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .process-section-header {
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 200;
+      margin-bottom: 1rem;
+    }
+
+    .process-section-subtitle {
+      font-size: 1.0625rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+
+    .process-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Prose */
+    .prose p {
+      font-size: 1.0625rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ==================== TOOL CARDS ==================== */
+    .tool-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .tool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .tool-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .tool-card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+
+    .tool-card-name {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .tool-card-desc {
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ==================== PHILOSOPHY QUOTES ==================== */
+    .philosophy-quote {
+      border-left: 2px solid var(--accent);
+      padding: 1.25rem 0 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .philosophy-quote p {
+      font-size: 1.0625rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    .philosophy-quote cite {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      font-style: normal;
+      margin-top: 0.75rem;
+    }
+
+    .principles-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .principle-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .principle-bullet {
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      margin-top: 0.55rem;
+    }
+
+    .principle-item p {
+      font-size: 0.9375rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ==================== LOGO GALLERY ==================== */
+    .logo-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .logo-stage {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 2rem 1.5rem 1.25rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .logo-stage:hover {
+      border-color: var(--border-hover);
+    }
+
+    .logo-stage svg {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+    }
+
+    .logo-stage-version {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.25rem;
+    }
+
+    .logo-stage-name {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    /* Evolution strip */
+    .evolution-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      gap: 0.5rem;
+    }
+
+    .evolution-strip svg {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .evolution-arrow {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+
+    /* ==================== COLOR SWATCHES ==================== */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .swatch {
+      overflow: hidden;
+    }
+
+    .swatch-color {
+      height: 64px;
+      border: 1px solid var(--border);
+    }
+
+    .swatch-info {
+      padding: 0.75rem 0 0;
+    }
+
+    .swatch-name {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .swatch-hex {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    /* Typography specimen */
+    .type-specimen {
+      margin-bottom: 2.5rem;
+    }
+
+    .type-sample {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .type-sample:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .type-sample-text {
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .type-sample-meta {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    /* Lockup demos */
+    .lockup-demos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .lockup-demo {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      min-height: 140px;
+    }
+
+    .lockup-demo-label {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .lockup-horizontal {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+
+    .lockup-horizontal svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .lockup-horizontal span {
+      font-size: 1.125rem;
+      font-weight: 200;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+    }
+
+    .lockup-stacked {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .lockup-stacked svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .lockup-stacked span {
+      font-size: 0.875rem;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+    }
+
+    .lockup-formal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.375rem;
+    }
+
+    .lockup-formal svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .lockup-formal .lockup-formal-name {
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+    }
+
+    .lockup-formal .lockup-formal-sub {
+      font-size: 0.6875rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* ==================== CALLOUT ==================== */
+    .callout {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem 1.75rem;
+      margin: 2rem 0;
+    }
+
+    .callout p {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .callout .callout-label {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Code snippet */
+    .code-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      overflow-x: auto;
+    }
+
+    .code-block-label {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .code-block pre {
+      font-family: 'SF Mono', 'Fira Code', 'Fira Mono', monospace;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    .code-block pre .code-comment {
+      color: var(--text-muted);
+    }
+
+    .code-block pre .code-prop {
+      color: #c4b5fd;
+    }
+
+    .code-block pre .code-val {
+      color: var(--accent);
+    }
+
+    .code-block pre .code-sel {
+      color: #fbbf24;
+    }
+
+    /* Story beats */
+    .story-beats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .story-beat {
+      text-align: center;
+      padding: 1.25rem 1rem;
+      border: 1px solid var(--border);
+    }
+
+    .story-beat-num {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .story-beat-name {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .story-beat-desc {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    /* ==================== GIT TIMELINE ==================== */
+    .git-timeline {
+      position: relative;
+      padding-left: 2rem;
+      border-left: 2px solid var(--border);
+    }
+
+    .git-commit {
+      position: relative;
+      padding-bottom: 1.5rem;
+    }
+
+    .git-commit:last-child {
+      padding-bottom: 0;
+    }
+
+    .git-commit::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 0.45rem;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+      transform: translateX(calc(-50% + 1px));
+    }
+
+    .git-commit-msg {
+      font-size: 0.9375rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      font-family: monospace;
+    }
+
+    .git-commit-desc {
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-top: 0.125rem;
+    }
+
+    /* ==================== INSIGHT CARDS ==================== */
+    .insight-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .insight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .insight-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .insight-card-num {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .insight-card h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .insight-card p {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      padding: 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-domain {
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+    }
+
+    .footer-domain .tld {
+      color: var(--accent);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-link {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: var(--accent);
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 968px) {
+      .tool-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .logo-gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .principles-list {
+        grid-template-columns: 1fr;
+      }
+
+      .lockup-demos {
+        grid-template-columns: 1fr;
+      }
+
+      .story-beats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .insight-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .evolution-strip {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 1.5rem;
+      }
+
+      .evolution-arrow {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .article {
+        padding: 0 1.5rem;
+      }
+
+      .process-hero {
+        padding: 7rem 0 4rem;
+      }
+
+      .process-section {
+        padding: 3.5rem 0;
+      }
+
+      .tool-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .logo-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .story-beats {
+        grid-template-columns: 1fr;
+      }
+
+      .swatch-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .process-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-lockup">
+        <svg class="nav-mark" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/>
+          <path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/>
+          <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span class="nav-wordmark">compost<span class="tld">.fi</span></span>
+      </a>
+      <a href="/" class="nav-link">Back to site</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="process-hero">
+    <div class="article">
+      <svg class="process-hero-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+        <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+        <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+        <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+        <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+      </svg>
+      <h1>How we built compost<span class="tld">.fi</span></h1>
+      <p class="process-hero-subtitle">Brand, logo, and landing page — built with Claude Code, custom skills, and Gemini image generation.</p>
+      <div class="process-meta">
+        <span class="process-meta-item"><span>Opus 4.5</span> + <span>Haiku 4.5</span></span>
+        <span class="process-meta-item"><span>Gemini 3 Pro</span> image gen</span>
+        <span class="process-meta-item"><span>~2,600</span> API calls</span>
+        <span class="process-meta-item"><span>26</span> SVG iterations</span>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- The Stack -->
+    <section class="process-section" id="tools">
+      <div class="article">
+        <div class="reveal">
+          <div class="process-label">The stack</div>
+          <h2 class="process-section-header">Models, skills, and tools</h2>
+          <p class="process-section-subtitle">The actual infrastructure behind the conversation.</p>
+        </div>
+
+        <div class="reveal" style="margin-bottom: 2.5rem;">
+          <div class="process-label">Language models</div>
+          <div class="tool-cards" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="tool-card">
+              <div class="tool-card-name">Claude Opus 4.5</div>
+              <div class="tool-card-desc">Primary model. ~2,300 API calls for main conversation, code generation, SVG iteration, and design decisions.</div>
+            </div>
+            <div class="tool-card">
+              <div class="tool-card-name">Claude Haiku 4.5</div>
+              <div class="tool-card-desc">Subagent model. ~340 calls for file exploration, codebase search, and parallel task execution.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal" style="margin-bottom: 2.5rem;">
+          <div class="process-label">Image generation</div>
+          <div class="tool-cards" style="grid-template-columns: 1fr;">
+            <div class="tool-card">
+              <div class="tool-card-name">Gemini 3 Pro Image Preview</div>
+              <div class="tool-card-desc">Via custom "Art" skill with <code style="color: var(--accent);">nano-banana-pro</code> model alias. Generated reference images that guided the SVG logo direction. Called through a TypeScript CLI tool (<code style="color: var(--accent);">Generate.ts</code>) that wraps the Google API.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal" style="margin-bottom: 2.5rem;">
+          <div class="process-label">Custom skills</div>
+          <div class="tool-cards" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="tool-card">
+              <div class="tool-card-name">Art skill</div>
+              <div class="tool-card-desc">Image generation workflows for editorial illustrations, diagrams, and brand assets. Routes requests to appropriate models and handles output to ~/Downloads for preview.</div>
+            </div>
+            <div class="tool-card">
+              <div class="tool-card-name">frontend-design skill</div>
+              <div class="tool-card-desc">Guidelines for production-grade interfaces. Emphasizes distinctive aesthetics, avoiding "AI slop" — generic fonts, purple gradients, cookie-cutter layouts.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="process-label">Infrastructure</div>
+          <div class="tool-cards">
+            <div class="tool-card">
+              <div class="tool-card-icon">&lt;/&gt;</div>
+              <div class="tool-card-name">Raw SVG</div>
+              <div class="tool-card-desc">Logo iterations as bezier path data. No design software — version-controlled, diffable code.</div>
+            </div>
+            <div class="tool-card">
+              <div class="tool-card-icon">&#x25CF;</div>
+              <div class="tool-card-name">Git</div>
+              <div class="tool-card-desc">Design history as commit log. Every iteration tracked.</div>
+            </div>
+            <div class="tool-card">
+              <div class="tool-card-icon">&#x25B2;</div>
+              <div class="tool-card-name">Vercel</div>
+              <div class="tool-card-desc">Deploy on push. The HTML file is the product.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 1: Brand Philosophy -->
+    <section class="process-section" id="philosophy">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <div class="process-label">Phase 1</div>
+          <h2 class="process-section-header">Brand philosophy</h2>
+          <p class="process-section-subtitle">Before a single pixel, we wrote a manifesto.</p>
+        </div>
+
+        <div class="reveal">
+          <div class="prose" style="margin-bottom: 2.5rem;">
+            <p>The session started with a philosophy document — <em>Quiet Infrastructure</em> — that defined the brand's visual language before any code was written. This became the reference point for every subsequent decision about color, typography, and composition.</p>
+          </div>
+
+          <div class="philosophy-quote">
+            <p>Capital moves like water through soil — invisible, patient, essential. This philosophy treats financial infrastructure not as machinery but as living systems: layers accumulating, value percolating downward and upward simultaneously, growth emerging from decomposition.</p>
+            <cite>— compost-philosophy.md</cite>
+          </div>
+
+          <div class="philosophy-quote">
+            <p>The palette must feel institutional yet alive, as if a Swiss private bank discovered permaculture.</p>
+            <cite>— on color</cite>
+          </div>
+
+          <div class="philosophy-quote">
+            <p>Words are sparse, clinical, confident. Thin sans-serifs in small point sizes — the typography of serious infrastructure, not marketing.</p>
+            <cite>— on type</cite>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="process-label" style="margin-top: 2.5rem;">Key principles</div>
+          <div class="principles-list">
+            <div class="principle-item">
+              <div class="principle-bullet"></div>
+              <p>Horizontal bands — sedimentary layers suggesting accumulation</p>
+            </div>
+            <div class="principle-item">
+              <div class="principle-bullet"></div>
+              <p>Earth tones anchor; living green appears sparingly</p>
+            </div>
+            <div class="principle-item">
+              <div class="principle-bullet"></div>
+              <p>Negative space isn't emptiness but potential</p>
+            </div>
+            <div class="principle-item">
+              <div class="principle-bullet"></div>
+              <p>Asymmetry creates interest; balance creates trust</p>
+            </div>
+            <div class="principle-item">
+              <div class="principle-bullet"></div>
+              <p>Compost as metaphor: decay becoming fertility</p>
+            </div>
+            <div class="principle-item">
+              <div class="principle-bullet"></div>
+              <p>The eye moves slowly — compounding cannot be rushed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 2: Logo Evolution -->
+    <section class="process-section" id="logo">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <div class="process-label">Phase 2</div>
+          <h2 class="process-section-header">Logo evolution</h2>
+          <p class="process-section-subtitle">Image generation for direction, then 26 SVG iterations through conversation.</p>
+        </div>
+
+        <div class="prose reveal" style="margin-bottom: 2.5rem;">
+          <p>The Art skill generated reference images using Gemini 3 Pro — visual concepts that established the direction before any SVG code was written. The image below guided the core idea: a shoot emerging from stacked soil layers.</p>
+        </div>
+
+        <div class="reveal" style="margin-bottom: 2.5rem;">
+          <div style="background: var(--bg-card); border: 1px solid var(--border); padding: 1.5rem; display: flex; gap: 1.5rem; align-items: center;">
+            <img src="/assets/reference.png" alt="AI-generated reference image" style="width: 120px; height: 120px; object-fit: cover; border: 1px solid var(--border);">
+            <div>
+              <div class="process-label" style="margin-bottom: 0.5rem;">Reference image</div>
+              <p style="font-size: 0.9375rem; color: var(--text-muted); line-height: 1.6; margin: 0;">Generated with Gemini 3 Pro Image Preview via the Art skill. This informed the visual language — the shoot, the earth-tone layers, the minimal composition — which was then translated into hand-coded SVG paths.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="logo-gallery reveal">
+          <!-- V1: Ball -->
+          <div class="logo-stage">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="10" r="6" fill="#5d9a6f"/>
+              <rect x="29" y="14" width="6" height="14" rx="3" fill="#4a7c59"/>
+              <rect x="10" y="30" width="44" height="8" rx="2" fill="#5c5247"/>
+              <rect x="14" y="40" width="36" height="8" rx="2" fill="#3d3630"/>
+              <rect x="18" y="50" width="28" height="8" rx="2" fill="#252220"/>
+            </svg>
+            <div class="logo-stage-version">v1</div>
+            <div class="logo-stage-name">Ball + stem</div>
+          </div>
+
+          <!-- V2: Two-leaf -->
+          <div class="logo-stage">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="26" cy="12" rx="4" ry="7" transform="rotate(-30 26 12)" fill="#5d9a6f"/>
+              <ellipse cx="38" cy="12" rx="4" ry="7" transform="rotate(30 38 12)" fill="#5d9a6f"/>
+              <rect x="29" y="10" width="6" height="18" rx="3" fill="#4a7c59"/>
+              <rect x="10" y="30" width="44" height="8" rx="2" fill="#5c5247"/>
+              <rect x="14" y="40" width="36" height="8" rx="2" fill="#3d3630"/>
+              <rect x="18" y="50" width="28" height="8" rx="2" fill="#252220"/>
+            </svg>
+            <div class="logo-stage-version">v2</div>
+            <div class="logo-stage-name">Two leaves</div>
+          </div>
+
+          <!-- V3: Single stem -->
+          <div class="logo-stage">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="29" y="8" width="6" height="20" rx="3" fill="#4a7c59"/>
+              <rect x="10" y="30" width="44" height="8" rx="2" fill="#5c5247"/>
+              <rect x="14" y="40" width="36" height="8" rx="2" fill="#3d3630"/>
+              <rect x="18" y="50" width="28" height="8" rx="2" fill="#252220"/>
+            </svg>
+            <div class="logo-stage-version">v3</div>
+            <div class="logo-stage-name">Single stem</div>
+          </div>
+
+          <!-- V6: First curves -->
+          <div class="logo-stage">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M28 28 Q26 20 30 14 Q32 12 36 14 Q30 18 30 28 Z" fill="#6b9a7a"/>
+              <path d="M36 14 Q48 18 48 28 Q48 32 42 30 Q36 28 32 20 Q30 14 36 14 Z" fill="#7db08d"/>
+              <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+              <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+              <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+            </svg>
+            <div class="logo-stage-version">v6</div>
+            <div class="logo-stage-name">First curves</div>
+          </div>
+
+          <!-- V9: Refined organic -->
+          <div class="logo-stage">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M26 28 C24 22 26 18 30 14 C33 11 40 12 43 17 C45 21 42 24 38 23 C35 22 33 19 32 16 C30 20 30 26 30 28 Z" fill="#7db08d"/>
+              <path d="M26 28 C24 22 28 18 30 14 L33 15 C30 19 28 24 30 28 Z" fill="#5d8a6d"/>
+              <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+              <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+              <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+            </svg>
+            <div class="logo-stage-version">v9</div>
+            <div class="logo-stage-name">Refined organic</div>
+          </div>
+
+          <!-- V26: Production -->
+          <div class="logo-stage" style="border-color: var(--accent-dim);">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+              <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+              <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+              <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+              <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+            </svg>
+            <div class="logo-stage-version">v26 — production</div>
+            <div class="logo-stage-name">Saturated, tight leaf</div>
+          </div>
+        </div>
+
+        <!-- Evolution strip -->
+        <div class="evolution-strip reveal">
+          <svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="10" r="6" fill="#5d9a6f"/><rect x="29" y="14" width="6" height="14" rx="3" fill="#4a7c59"/><rect x="10" y="30" width="44" height="8" rx="2" fill="#5c5247"/><rect x="14" y="40" width="36" height="8" rx="2" fill="#3d3630"/><rect x="18" y="50" width="28" height="8" rx="2" fill="#252220"/></svg>
+          <span class="evolution-arrow">→</span>
+          <svg viewBox="0 0 64 64" fill="none"><ellipse cx="26" cy="12" rx="4" ry="7" transform="rotate(-30 26 12)" fill="#5d9a6f"/><ellipse cx="38" cy="12" rx="4" ry="7" transform="rotate(30 38 12)" fill="#5d9a6f"/><rect x="29" y="10" width="6" height="18" rx="3" fill="#4a7c59"/><rect x="10" y="30" width="44" height="8" rx="2" fill="#5c5247"/><rect x="14" y="40" width="36" height="8" rx="2" fill="#3d3630"/><rect x="18" y="50" width="28" height="8" rx="2" fill="#252220"/></svg>
+          <span class="evolution-arrow">→</span>
+          <svg viewBox="0 0 64 64" fill="none"><rect x="29" y="8" width="6" height="20" rx="3" fill="#4a7c59"/><rect x="10" y="30" width="44" height="8" rx="2" fill="#5c5247"/><rect x="14" y="40" width="36" height="8" rx="2" fill="#3d3630"/><rect x="18" y="50" width="28" height="8" rx="2" fill="#252220"/></svg>
+          <span class="evolution-arrow">→</span>
+          <svg viewBox="0 0 64 64" fill="none"><path d="M28 28 Q26 20 30 14 Q32 12 36 14 Q30 18 30 28 Z" fill="#6b9a7a"/><path d="M36 14 Q48 18 48 28 Q48 32 42 30 Q36 28 32 20 Q30 14 36 14 Z" fill="#7db08d"/><rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/><rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/><rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/></svg>
+          <span class="evolution-arrow">→</span>
+          <svg viewBox="0 0 64 64" fill="none"><path d="M26 28 C24 22 26 18 30 14 C33 11 40 12 43 17 C45 21 42 24 38 23 C35 22 33 19 32 16 C30 20 30 26 30 28 Z" fill="#7db08d"/><path d="M26 28 C24 22 28 18 30 14 L33 15 C30 19 28 24 30 28 Z" fill="#5d8a6d"/><rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/><rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/><rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/></svg>
+          <span class="evolution-arrow">→</span>
+          <svg viewBox="0 0 64 64" fill="none"><path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/><path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/><rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/><rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/><rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 3: Design System -->
+    <section class="process-section" id="design-system">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <div class="process-label">Phase 3</div>
+          <h2 class="process-section-header">Design system</h2>
+          <p class="process-section-subtitle">CSS variables, type scale, and lockup variants extracted into reusable tokens.</p>
+        </div>
+
+        <!-- Color swatches -->
+        <div class="reveal">
+          <div class="process-label">Colors</div>
+          <div class="swatch-grid">
+            <div class="swatch">
+              <div class="swatch-color" style="background: #0a0a0a;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Background</div>
+                <div class="swatch-hex">#0a0a0a</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #111111;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Subtle</div>
+                <div class="swatch-hex">#111111</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #4dcf6a;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Accent</div>
+                <div class="swatch-hex">#4dcf6a</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #2ba84a;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Accent dim</div>
+                <div class="swatch-hex">#2ba84a</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #8a7d6d;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Pot top</div>
+                <div class="swatch-hex">#8a7d6d</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #5c5347;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Pot mid</div>
+                <div class="swatch-hex">#5c5347</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #3d3630;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Pot base</div>
+                <div class="swatch-hex">#3d3630</div>
+              </div>
+            </div>
+            <div class="swatch">
+              <div class="swatch-color" style="background: #e5e5e5;"></div>
+              <div class="swatch-info">
+                <div class="swatch-name">Text primary</div>
+                <div class="swatch-hex">#e5e5e5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <div class="reveal">
+          <div class="process-label">Typography — Outfit</div>
+          <div class="type-specimen">
+            <div class="type-sample">
+              <div class="type-sample-text" style="font-size: 2.5rem; font-weight: 200;">The capital formation layer</div>
+              <div class="type-sample-meta">Outfit 200 — Headlines — 2.5rem</div>
+            </div>
+            <div class="type-sample">
+              <div class="type-sample-text" style="font-size: 1.125rem; font-weight: 300;">Infrastructure-grade yield from Hyperliquid builder markets.</div>
+              <div class="type-sample-meta">Outfit 300 — Body — 1.125rem</div>
+            </div>
+            <div class="type-sample">
+              <div class="type-sample-text" style="font-size: 0.875rem; font-weight: 400; color: var(--text-muted);">PROTOCOL ENFORCED &nbsp; &bull; &nbsp; NO PROTOCOL TOKEN &nbsp; &bull; &nbsp; FULL TRANSPARENCY</div>
+              <div class="type-sample-meta">Outfit 400 — Labels — 0.875rem uppercase</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lockup demos -->
+        <div class="reveal">
+          <div class="process-label">Lockups</div>
+          <div class="lockup-demos">
+            <div class="lockup-demo">
+              <div class="lockup-horizontal">
+                <svg viewBox="0 0 64 64" fill="none"><path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/><path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/><rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/><rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/><rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/></svg>
+                <span>compost<span class="tld">.fi</span></span>
+              </div>
+              <div class="lockup-demo-label">Horizontal</div>
+            </div>
+            <div class="lockup-demo">
+              <div class="lockup-stacked">
+                <svg viewBox="0 0 64 64" fill="none"><path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/><path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/><rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/><rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/><rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/></svg>
+                <span>COMPOST</span>
+              </div>
+              <div class="lockup-demo-label">Stacked</div>
+            </div>
+            <div class="lockup-demo">
+              <div class="lockup-formal">
+                <svg viewBox="0 0 64 64" fill="none"><path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/><path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/><rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/><rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/><rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/></svg>
+                <span class="lockup-formal-name">Compost Finance</span>
+                <span class="lockup-formal-sub">Capital Formation Layer</span>
+              </div>
+              <div class="lockup-demo-label">Formal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 4: Landing Page -->
+    <section class="process-section" id="landing">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <div class="process-label">Phase 4</div>
+          <h2 class="process-section-header">Landing page</h2>
+          <p class="process-section-subtitle">From brief to production through conversation-driven iteration.</p>
+        </div>
+
+        <div class="prose reveal">
+          <p>The first draft was conventional — hero, value prop, features, CTA. It worked but felt generic. The frontend-design skill's guidance against "AI slop" aesthetics prompted a rethink.</p>
+        </div>
+
+        <div class="callout reveal">
+          <div class="callout-label">Human feedback in the loop</div>
+          <p>"Too safe. Reads like a template." — This kind of directional feedback drove the iteration. The AI can execute fast, but the human has to know what's wrong.</p>
+        </div>
+
+        <div class="prose reveal">
+          <p>The page was restructured around a 4-beat narrative instead of a feature list. The philosophy document provided the framing — tension between patience and opportunity.</p>
+        </div>
+
+        <div class="story-beats reveal">
+          <div class="story-beat">
+            <div class="story-beat-num">Beat 1</div>
+            <div class="story-beat-name">The Setup</div>
+            <div class="story-beat-desc">The opportunity is massive</div>
+          </div>
+          <div class="story-beat">
+            <div class="story-beat-num">Beat 2</div>
+            <div class="story-beat-name">The Barrier</div>
+            <div class="story-beat-desc">But you need $15M</div>
+          </div>
+          <div class="story-beat">
+            <div class="story-beat-num">Beat 3</div>
+            <div class="story-beat-name">The Problem</div>
+            <div class="story-beat-desc">Even then — which market?</div>
+          </div>
+          <div class="story-beat">
+            <div class="story-beat-num">Beat 4</div>
+            <div class="story-beat-name">The Answer</div>
+            <div class="story-beat-desc">Compost: diversified access</div>
+          </div>
+        </div>
+
+        <div class="prose reveal">
+          <p>The shoot animation became the signature moment — the mark growing organically on page load, reinforcing the brand's core metaphor of growth from decomposition.</p>
+        </div>
+
+        <div class="code-block reveal">
+          <div class="code-block-label">Shoot growth animation — CSS</div>
+<pre><span class="code-sel">.hero-mark .shoot</span> {
+  <span class="code-prop">animation</span>: <span class="code-val">grow 2s ease-out forwards</span>;
+  <span class="code-prop">transform-origin</span>: <span class="code-val">bottom center</span>;
+}
+
+<span class="code-sel">@keyframes grow</span> {
+  <span class="code-val">0%</span> {
+    <span class="code-prop">opacity</span>: <span class="code-val">0</span>;
+    <span class="code-prop">transform</span>: <span class="code-val">scaleY(0) translateY(20px)</span>;
+  }
+  <span class="code-val">50%</span> {
+    <span class="code-prop">opacity</span>: <span class="code-val">1</span>;
+  }
+  <span class="code-val">100%</span> {
+    <span class="code-prop">opacity</span>: <span class="code-val">1</span>;
+    <span class="code-prop">transform</span>: <span class="code-val">scaleY(1) translateY(0)</span>;
+  }
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Phase 5: Polish -->
+    <section class="process-section" id="polish">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <div class="process-label">Phase 5</div>
+          <h2 class="process-section-header">Platform debugging</h2>
+          <p class="process-section-subtitle">Browser quirks, meta tags, and image format requirements.</p>
+        </div>
+
+        <div class="prose reveal">
+          <p><strong style="color: var(--text-primary); font-weight: 500;">iOS Safari viewport.</strong> The hero section used <code style="color: var(--accent); font-size: 0.9375rem;">100vh</code> which doesn't account for Safari's address bar. Fixed with <code style="color: var(--accent); font-size: 0.9375rem;">min-height: -webkit-fill-available</code> as a fallback.</p>
+
+          <p><strong style="color: var(--text-primary); font-weight: 500;">Meta tag debugging.</strong> Open Graph images need absolute URLs and specific dimensions. Twitter cards have their own tag format. We tested with multiple sharing debuggers until previews rendered correctly across Twitter, Telegram, and iMessage.</p>
+
+          <p><strong style="color: var(--text-primary); font-weight: 500;">SVG to PNG for Telegram.</strong> Telegram doesn't render SVG in link previews. We exported the logo to PNG at 1200&times;630 for the OG image — the only raster asset in the entire project.</p>
+
+          <p><strong style="color: var(--text-primary); font-weight: 500;">Favicon at multiple sizes.</strong> SVG favicon for modern browsers, with the mark simplified at 16px and 32px sizes so the leaf detail remains legible at small scales.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Git Timeline -->
+    <section class="process-section" id="timeline">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <div class="process-label">Version history</div>
+          <h2 class="process-section-header">Git timeline</h2>
+          <p class="process-section-subtitle">13 commits from philosophy to production.</p>
+        </div>
+
+        <div class="git-timeline reveal">
+          <div class="git-commit">
+            <div class="git-commit-msg">init: brand philosophy and design principles</div>
+            <div class="git-commit-desc">compost-philosophy.md — Quiet Infrastructure manifesto</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">logo: v1–v3 early explorations</div>
+            <div class="git-commit-desc">Ball, two-leaf, single stem — finding the shape language</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">logo: v4–v5 proportion experiments</div>
+            <div class="git-commit-desc">Tight spacing, four-layer pot variants</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">logo: v6 first organic curves</div>
+            <div class="git-commit-desc">Bezier paths replace geometric shapes — the breakthrough</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">logo: v7–v9 refined leaf shape</div>
+            <div class="git-commit-desc">Combined stem + leaf as one flowing path, darker stem overlay</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">logo: v10–v17 proportions and color</div>
+            <div class="git-commit-desc">Tightening curves, adjusting pot ratios, color exploration</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">logo: v18–v26 final refinements</div>
+            <div class="git-commit-desc">Saturation tuning, tighter leaf curl — production mark</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">design-system: colors, typography, lockups</div>
+            <div class="git-commit-desc">CSS variables, Outfit weights, horizontal/stacked/formal variants</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">landing: first complete page draft</div>
+            <div class="git-commit-desc">Hero, value prop, how-it-works, CTA — correct but safe</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">landing: bold redesign with narrative structure</div>
+            <div class="git-commit-desc">4-beat story arc, tension-driven scroll, market cards</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">landing: shoot animation and scroll reveals</div>
+            <div class="git-commit-desc">CSS keyframes for mark growth, intersection observer for sections</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">fix: iOS Safari viewport, meta tags, OG image</div>
+            <div class="git-commit-desc">-webkit-fill-available, absolute OG URLs, Twitter card tags</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">ship: favicon, SVG→PNG for Telegram, final polish</div>
+            <div class="git-commit-desc">Multi-size favicon, raster OG export, noise texture overlay</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Takeaways -->
+    <section class="process-section" id="takeaways">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <div class="process-label">Technical notes</div>
+          <h2 class="process-section-header">How it worked</h2>
+          <p class="process-section-subtitle">The mechanics of the AI-assisted workflow.</p>
+        </div>
+
+        <div class="insight-cards reveal">
+          <div class="insight-card">
+            <div class="insight-card-num">01</div>
+            <h3>Image gen → SVG workflow</h3>
+            <p>Gemini generated reference images to establish visual direction. Those references were then translated into hand-coded SVG through iterative conversation. The AI-generated image was a sketch, not a deliverable.</p>
+          </div>
+          <div class="insight-card">
+            <div class="insight-card-num">02</div>
+            <h3>Skills as packaged expertise</h3>
+            <p>Custom skills (Art, frontend-design) bundled domain knowledge and tool integrations. The Art skill wrapped image gen APIs; frontend-design provided aesthetic guardrails. Reusable across projects.</p>
+          </div>
+          <div class="insight-card">
+            <div class="insight-card-num">03</div>
+            <h3>Subagents for parallelism</h3>
+            <p>Haiku handled file exploration and search while Opus focused on creative work. ~340 subagent calls for codebase exploration meant faster context-gathering without burning expensive tokens.</p>
+          </div>
+          <div class="insight-card">
+            <div class="insight-card-num">04</div>
+            <h3>SVG as version-controlled design</h3>
+            <p>Raw path data instead of binary assets. Each logo iteration was a diffable code change. No Illustrator exports, no asset pipeline — the SVG code <em>is</em> the design file.</p>
+          </div>
+          <div class="insight-card">
+            <div class="insight-card-num">05</div>
+            <h3>Human taste, AI execution</h3>
+            <p>"Tighten the leaf curve." "Too saturated." "Reads like a template." Every creative decision was human-directed. The AI wrote code fast; the human judged whether it was good.</p>
+          </div>
+          <div class="insight-card">
+            <div class="insight-card-num">06</div>
+            <h3>~2,600 API calls total</h3>
+            <p>Not a quick demo — a real working session. Philosophy document, 26 logo iterations, brand guidelines, complete landing page, responsive CSS, animations, meta tags, and this process page.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-domain">compost<span class="tld">.fi</span></div>
+      <nav class="footer-links">
+        <a href="/" class="footer-link">Home</a>
+        <a href="https://twitter.com/compostfi" class="footer-link" target="_blank" rel="noopener">Twitter</a>
+        <a href="#" class="footer-link">Docs</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Scroll reveal -->
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+
+    const revealOnScroll = () => {
+      reveals.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        if (top < windowHeight - 100) {
+          el.classList.add('visible');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
+</body>
+</html>
