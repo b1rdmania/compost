@@ -568,6 +568,113 @@
       letter-spacing: 0.12em;
     }
 
+    /* ==================== WORDMARK GALLERY ==================== */
+    .wordmark-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .wordmark-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem 1.25rem 1.25rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .wordmark-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .wordmark-card.selected {
+      border-color: var(--accent-dim);
+    }
+
+    .wordmark-sample {
+      font-family: var(--font);
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .wordmark-card-label {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .wordmark-card.selected .wordmark-card-label {
+      color: var(--accent);
+    }
+
+    .wordmark-domain .tld-muted {
+      color: var(--text-muted);
+    }
+
+    .wordmark-domain .tld-green {
+      color: var(--accent);
+    }
+
+    /* Context mockup */
+    .context-mockup {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .context-mockup-label {
+      font-size: 0.625rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .context-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .context-footer-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .context-footer-links span {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+    }
+
+    .context-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0.75rem 0;
+    }
+
+    .context-header-nav {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .context-header-nav span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .context-header-nav span:first-child {
+      color: var(--text-secondary);
+    }
+
     /* ==================== CALLOUT ==================== */
     .callout {
       background: var(--bg-card);
@@ -822,6 +929,10 @@
         grid-template-columns: 1fr;
       }
 
+      .wordmark-gallery {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+
       .evolution-strip {
         flex-wrap: wrap;
         justify-content: center;
@@ -865,6 +976,26 @@
 
       .swatch-grid {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      .wordmark-gallery {
+        grid-template-columns: 1fr !important;
+      }
+
+      .wordmark-sample {
+        font-size: 1.25rem !important;
+      }
+
+      .context-footer {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .context-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
       }
 
       .process-meta {
@@ -1173,6 +1304,177 @@
       </div>
     </section>
 
+    <!-- Phase 2.5: Wordmark & Lockups -->
+    <section class="process-section" id="wordmark">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <div class="process-label">Phase 2.5</div>
+          <h2 class="process-section-header">Wordmark exploration</h2>
+          <p class="process-section-subtitle">Testing case, weight, and tracking to find the right typographic voice.</p>
+        </div>
+
+        <div class="prose reveal" style="margin-bottom: 2.5rem;">
+          <p>With the mark finalized, the next question: how does text pair with it? We explored case variations, font weights, and letter-spacing systematically — testing each combination on dark and light backgrounds before committing.</p>
+        </div>
+
+        <!-- Case variations -->
+        <div class="reveal">
+          <div class="process-label">Case variations</div>
+          <div class="wordmark-gallery">
+            <div class="wordmark-card selected">
+              <div class="wordmark-sample" style="font-size: 2rem; font-weight: 200; letter-spacing: 0.12em;">COMPOST</div>
+              <div class="wordmark-card-label">All caps — infrastructure, serious</div>
+            </div>
+            <div class="wordmark-card">
+              <div class="wordmark-sample" style="font-size: 2rem; font-weight: 200; letter-spacing: 0.12em;">Compost</div>
+              <div class="wordmark-card-label">Title case — softer, approachable</div>
+            </div>
+            <div class="wordmark-card">
+              <div class="wordmark-sample" style="font-size: 2rem; font-weight: 200; letter-spacing: 0.12em;">compost</div>
+              <div class="wordmark-card-label">Lowercase — minimal, modern</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weight variations -->
+        <div class="reveal">
+          <div class="process-label">Weight variations</div>
+          <div class="wordmark-gallery" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="wordmark-card selected">
+              <div class="wordmark-sample" style="font-size: 1.5rem; font-weight: 200; letter-spacing: 0.12em;">COMPOST</div>
+              <div class="wordmark-card-label">200 — quiet, premium</div>
+            </div>
+            <div class="wordmark-card">
+              <div class="wordmark-sample" style="font-size: 1.5rem; font-weight: 300; letter-spacing: 0.12em;">COMPOST</div>
+              <div class="wordmark-card-label">300 — balanced</div>
+            </div>
+            <div class="wordmark-card">
+              <div class="wordmark-sample" style="font-size: 1.5rem; font-weight: 400; letter-spacing: 0.12em;">COMPOST</div>
+              <div class="wordmark-card-label">400 — solid</div>
+            </div>
+            <div class="wordmark-card">
+              <div class="wordmark-sample" style="font-size: 1.5rem; font-weight: 500; letter-spacing: 0.12em;">COMPOST</div>
+              <div class="wordmark-card-label">500 — too loud</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tracking variations -->
+        <div class="reveal">
+          <div class="process-label">Letter-spacing</div>
+          <div class="wordmark-gallery" style="grid-template-columns: repeat(4, 1fr);">
+            <div class="wordmark-card selected">
+              <div class="wordmark-sample" style="font-size: 1.5rem; font-weight: 200; letter-spacing: 0.12em;">COMPOST</div>
+              <div class="wordmark-card-label">0.12em — wide, premium</div>
+            </div>
+            <div class="wordmark-card">
+              <div class="wordmark-sample" style="font-size: 1.5rem; font-weight: 200; letter-spacing: 0.10em;">COMPOST</div>
+              <div class="wordmark-card-label">0.10em — slightly tighter</div>
+            </div>
+            <div class="wordmark-card">
+              <div class="wordmark-sample" style="font-size: 1.5rem; font-weight: 200; letter-spacing: 0.06em;">COMPOST</div>
+              <div class="wordmark-card-label">0.06em — balanced</div>
+            </div>
+            <div class="wordmark-card">
+              <div class="wordmark-sample" style="font-size: 1.5rem; font-weight: 200; letter-spacing: 0.02em;">COMPOST</div>
+              <div class="wordmark-card-label">0.02em — dense, techy</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout reveal">
+          <div class="callout-label">Decision</div>
+          <p>Weight 200 with 0.12em tracking. Reads as quiet infrastructure — the typography of Swiss private banks, not crypto marketing. The ultra-light weight forces the eye to slow down.</p>
+        </div>
+
+        <!-- Domain treatment -->
+        <div class="reveal" style="margin-top: 3rem;">
+          <div class="process-label">Domain treatment — compost.fi</div>
+          <div class="prose" style="margin-bottom: 1.5rem;">
+            <p>The <code style="color: var(--accent); font-size: 0.9375rem;">.fi</code> TLD becomes a design element. We tested muted, green (tying to the shoot), and weight differentiation.</p>
+          </div>
+          <div class="wordmark-gallery">
+            <div class="wordmark-card">
+              <div class="wordmark-sample wordmark-domain" style="font-size: 1.5rem; font-weight: 300; letter-spacing: 0.02em;">compost<span class="tld-muted">.fi</span></div>
+              <div class="wordmark-card-label">.fi muted — subtle</div>
+            </div>
+            <div class="wordmark-card selected">
+              <div class="wordmark-sample wordmark-domain" style="font-size: 1.5rem; font-weight: 300; letter-spacing: 0.02em;">compost<span class="tld-green">.fi</span></div>
+              <div class="wordmark-card-label">.fi green — ties to shoot</div>
+            </div>
+            <div class="wordmark-card">
+              <div class="wordmark-sample wordmark-domain" style="font-size: 1.5rem; font-weight: 300; letter-spacing: 0.02em;">compost<span style="font-weight: 200; color: var(--text-muted);">.fi</span></div>
+              <div class="wordmark-card-label">.fi lighter weight</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lockup system -->
+        <div class="reveal" style="margin-top: 3rem;">
+          <div class="process-label">Lockup system</div>
+          <div class="prose" style="margin-bottom: 1.5rem;">
+            <p>Three lockup variants for different contexts: horizontal for headers and inline use, stacked for square formats, and text-only for footers and inline references.</p>
+          </div>
+          <div class="lockup-demos">
+            <div class="lockup-demo">
+              <div class="lockup-horizontal" style="gap: 0.625rem;">
+                <svg viewBox="0 0 64 80" fill="none" style="width: 22px; height: 30px; margin-bottom: -2px;"><path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/><path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/><rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/><rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/><rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/></svg>
+                <span style="font-size: 1.125rem; font-weight: 300; letter-spacing: 0.02em;">compost<span class="tld">.fi</span></span>
+              </div>
+              <div class="lockup-demo-label">Horizontal — headers</div>
+            </div>
+            <div class="lockup-demo">
+              <div class="lockup-stacked" style="gap: 0.5rem;">
+                <svg viewBox="0 0 64 64" fill="none" style="width: 40px; height: 40px;"><path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/><path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/><rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/><rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/><rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/></svg>
+                <span style="font-size: 0.9375rem; font-weight: 300; letter-spacing: 0.02em;">compost<span class="tld">.fi</span></span>
+              </div>
+              <div class="lockup-demo-label">Stacked — square formats</div>
+            </div>
+            <div class="lockup-demo">
+              <span style="font-size: 1.125rem; font-weight: 300; letter-spacing: 0.02em;">compost<span class="tld">.fi</span></span>
+              <div class="lockup-demo-label">Text only — footers</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Context mockups -->
+        <div class="reveal" style="margin-top: 3rem;">
+          <div class="process-label">In context</div>
+          <div class="prose" style="margin-bottom: 1.5rem;">
+            <p>Testing lockups in realistic contexts — footer, docs header — to ensure they hold up at actual usage sizes.</p>
+          </div>
+
+          <div class="context-mockup">
+            <div class="context-mockup-label">Footer</div>
+            <div class="context-footer">
+              <span style="font-size: 0.875rem; font-weight: 300; letter-spacing: 0.02em;">compost<span class="tld">.fi</span></span>
+              <div class="context-footer-links">
+                <span>Twitter</span>
+                <span>Docs</span>
+                <span>GitHub</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="context-mockup">
+            <div class="context-mockup-label">Docs header</div>
+            <div class="context-header">
+              <div class="lockup-horizontal" style="gap: 0.5rem;">
+                <svg viewBox="0 0 64 80" fill="none" style="width: 20px; height: 28px; margin-bottom: -2px;"><path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/><path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/><rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/><rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/><rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/></svg>
+                <span style="font-size: 1rem; font-weight: 300; letter-spacing: 0.02em;">compost<span class="tld">.fi</span></span>
+              </div>
+              <div class="context-header-nav">
+                <span>Overview</span>
+                <span>Architecture</span>
+                <span>API</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Phase 3: Design System -->
     <section class="process-section" id="design-system">
       <div class="article">
@@ -1399,7 +1701,7 @@
           <div class="section-divider"></div>
           <div class="process-label">Version history</div>
           <h2 class="process-section-header">Git timeline</h2>
-          <p class="process-section-subtitle">13 commits from philosophy to production.</p>
+          <p class="process-section-subtitle">15 commits from philosophy to production.</p>
         </div>
 
         <div class="git-timeline reveal">
@@ -1430,6 +1732,14 @@
           <div class="git-commit">
             <div class="git-commit-msg">logo: v18–v26 final refinements</div>
             <div class="git-commit-desc">Saturation tuning, tighter leaf curl — production mark</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">wordmark: case, weight, tracking exploration</div>
+            <div class="git-commit-desc">All caps + 200 weight + 0.12em. Domain treatment with .fi green accent</div>
+          </div>
+          <div class="git-commit">
+            <div class="git-commit-msg">lockups: horizontal, stacked, text-only variants</div>
+            <div class="git-commit-desc">Context mockups for footer and docs header. Breakout mark for headers</div>
           </div>
           <div class="git-commit">
             <div class="git-commit-msg">design-system: colors, typography, lockups</div>
