@@ -1,0 +1,102 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#0a0a0a"/>
+
+  <!-- Title -->
+  <text x="400" y="40" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="20" font-weight="300" text-anchor="middle">Architecture Overview</text>
+
+  <!-- User -->
+  <rect x="50" y="180" width="120" height="80" rx="4" fill="#111111" stroke="#1a1a1a"/>
+  <text x="110" y="215" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">USER</text>
+  <text x="110" y="235" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="14" font-weight="500" text-anchor="middle">HYPE</text>
+
+  <!-- Arrow: User to Vault -->
+  <path d="M170 220 L230 220" stroke="#4dcf6a" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="200" y="210" fill="#666666" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">deposit</text>
+
+  <!-- Vault -->
+  <rect x="240" y="140" width="180" height="160" rx="4" fill="#111111" stroke="#4dcf6a" stroke-width="2"/>
+  <text x="330" y="170" fill="#4dcf6a" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">VAULT CONTRACT</text>
+  <rect x="260" y="190" width="140" height="40" rx="4" fill="#0a0a0a" stroke="#1a1a1a"/>
+  <text x="330" y="215" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">HYPE Holdings</text>
+  <rect x="260" y="240" width="140" height="40" rx="4" fill="#0a0a0a" stroke="#1a1a1a"/>
+  <text x="330" y="265" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">Allocation Logic</text>
+
+  <!-- Arrow: Vault to cHYPE -->
+  <path d="M330 300 L330 340" stroke="#4dcf6a" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- cHYPE Token -->
+  <rect x="270" y="350" width="120" height="60" rx="4" fill="#111111" stroke="#2ba84a"/>
+  <text x="330" y="375" fill="#2ba84a" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">cHYPE TOKEN</text>
+  <text x="330" y="395" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">ERC-20</text>
+
+  <!-- Arrow: cHYPE to User -->
+  <path d="M270 380 L170 260" stroke="#4dcf6a" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arrowhead)"/>
+  <text x="200" y="330" fill="#666666" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">mint</text>
+
+  <!-- Arrow: Vault to HIP-3 -->
+  <path d="M420 200 L500 200" stroke="#4dcf6a" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="460" y="190" fill="#666666" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">allocate</text>
+
+  <!-- HIP-3 Markets -->
+  <rect x="510" y="100" width="140" height="200" rx="4" fill="#111111" stroke="#1a1a1a"/>
+  <text x="580" y="130" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">HIP-3 MARKETS</text>
+
+  <rect x="525" y="150" width="110" height="30" rx="2" fill="#0a0a0a" stroke="#1a1a1a"/>
+  <text x="580" y="170" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">trade.xyz</text>
+
+  <rect x="525" y="190" width="110" height="30" rx="2" fill="#0a0a0a" stroke="#1a1a1a"/>
+  <text x="580" y="210" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Kinetiq</text>
+
+  <rect x="525" y="230" width="110" height="30" rx="2" fill="#0a0a0a" stroke="#1a1a1a"/>
+  <text x="580" y="250" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Felix</text>
+
+  <rect x="525" y="270" width="110" height="15" rx="2" fill="none" stroke="#1a1a1a" stroke-dasharray="2 2"/>
+  <text x="580" y="282" fill="#666666" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">+ more</text>
+
+  <!-- Arrow: Vault to Validators -->
+  <path d="M420 260 L500 340" stroke="#4dcf6a" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="445" y="310" fill="#666666" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">stake</text>
+
+  <!-- Validators -->
+  <rect x="510" y="320" width="140" height="70" rx="4" fill="#111111" stroke="#1a1a1a"/>
+  <text x="580" y="350" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">VALIDATORS</text>
+  <text x="580" y="375" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Base staking yield</text>
+
+  <!-- Fee Router -->
+  <rect x="670" y="180" width="110" height="80" rx="4" fill="#111111" stroke="#8a7d6d"/>
+  <text x="725" y="210" fill="#8a7d6d" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">FEE ROUTER</text>
+  <text x="725" y="235" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">15% protocol</text>
+  <text x="725" y="250" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">85% to vault</text>
+
+  <!-- Arrow: HIP-3 to Fee Router -->
+  <path d="M650 200 L670 210" stroke="#8a7d6d" stroke-width="1.5" marker-end="url(#arrowhead-muted)"/>
+
+  <!-- Arrow: Validators to Fee Router -->
+  <path d="M650 340 L700 260" stroke="#8a7d6d" stroke-width="1.5" marker-end="url(#arrowhead-muted)"/>
+
+  <!-- Arrow: Fee Router to Vault -->
+  <path d="M670 220 L420 220" stroke="#4dcf6a" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="545" y="235" fill="#666666" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">yield</text>
+
+  <!-- Legend -->
+  <rect x="50" y="430" width="700" height="50" rx="4" fill="#111111" stroke="#1a1a1a"/>
+  <circle cx="80" cy="455" r="6" fill="#4dcf6a"/>
+  <text x="95" y="459" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">User flow</text>
+  <circle cx="180" cy="455" r="6" fill="#8a7d6d"/>
+  <text x="195" y="459" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">Yield flow</text>
+  <rect x="280" y="449" width="12" height="12" rx="2" stroke="#4dcf6a" stroke-width="2" fill="none"/>
+  <text x="300" y="459" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">Core contracts</text>
+  <rect x="420" y="449" width="12" height="12" rx="2" stroke="#1a1a1a" fill="#111111"/>
+  <text x="440" y="459" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="10">External systems</text>
+
+  <!-- Arrowhead definitions -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4dcf6a"/>
+    </marker>
+    <marker id="arrowhead-muted" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#8a7d6d"/>
+    </marker>
+  </defs>
+</svg>

@@ -67,6 +67,6 @@ Platforms can integrate Compost yield for their users:
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [cHYPE](chype.md)
-{% endhint %}
+:::

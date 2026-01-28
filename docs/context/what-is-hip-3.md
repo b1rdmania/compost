@@ -55,6 +55,6 @@ Standard fee rate: ~4.5 bps taker (though many markets currently operate in Grow
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [The Barrier](the-barrier.md)
-{% endhint %}
+:::

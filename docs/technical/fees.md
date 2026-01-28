@@ -48,11 +48,11 @@ Net yield to vault: 85 HYPE (85%)
 
 ## Launch Bonus
 
-{% hint style="success" %}
+::: tip
 **First 30 days: 0% protocol fee**
 
 All yield goes to stakers during launch period. Standard 15% fee begins on day 31.
-{% endhint %}
+:::
 
 ---
 
@@ -67,6 +67,6 @@ Contact grow@compost.fi for institutional arrangements.
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Redemptions](redemptions.md)
-{% endhint %}
+:::

@@ -43,6 +43,6 @@ All contracts are verified on:
 
 ---
 
-{% hint style="warning" %}
+::: warning
 Always verify contract addresses before interacting. Bookmark official links.
-{% endhint %}
+:::

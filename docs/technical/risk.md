@@ -111,12 +111,12 @@ Forced shutdown of certain markets, compliance requirements.
 
 ---
 
-{% hint style="warning" %}
+::: warning
 **No investment is risk-free.** Only deposit what you can afford to lose. Do your own research.
-{% endhint %}
+:::
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Integrations](../ecosystem/integrations.md)
-{% endhint %}
+:::

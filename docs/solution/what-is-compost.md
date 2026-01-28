@@ -43,6 +43,6 @@ No governance token. No points. Just yield.
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Who It's For](who-its-for.md)
-{% endhint %}
+:::

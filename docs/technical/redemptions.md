@@ -96,6 +96,6 @@ Check your withdrawal status:
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Risk](risk.md)
-{% endhint %}
+:::

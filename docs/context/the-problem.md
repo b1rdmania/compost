@@ -44,6 +44,6 @@ Compost provides:
 
 ---
 
-{% hint style="success" %}
+::: tip
 **Next:** [What is Compost?](../solution/what-is-compost.md)
-{% endhint %}
+:::

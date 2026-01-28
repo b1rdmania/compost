@@ -1,5 +1,3 @@
-<figure><img src="assets/logo.svg" alt="Compost" width="80"></figure>
-
 # Compost Finance
 
 The capital formation layer for Hyperliquid builder markets.

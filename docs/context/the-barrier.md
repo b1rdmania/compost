@@ -39,6 +39,6 @@ Even if you believe in HIP-3, even if you want exposure to builder market yield 
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [The Opportunity](the-opportunity.md)
-{% endhint %}
+:::

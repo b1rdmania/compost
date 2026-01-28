@@ -43,6 +43,6 @@ In October 2025, Hyperliquid launched one of these primitives: **HIP-3**.
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [What is HIP-3?](what-is-hip-3.md)
-{% endhint %}
+:::

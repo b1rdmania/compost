@@ -1,0 +1,94 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#0a0a0a"/>
+
+  <!-- Title -->
+  <text x="400" y="40" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="20" font-weight="300" text-anchor="middle">Yield Flow</text>
+
+  <!-- Step 1: Deposit -->
+  <rect x="50" y="80" width="200" height="90" rx="4" fill="#111111" stroke="#4dcf6a" stroke-width="2"/>
+  <text x="70" y="105" fill="#4dcf6a" font-family="system-ui, sans-serif" font-size="11" font-weight="500">STEP 1</text>
+  <text x="70" y="125" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="14" font-weight="500">User deposits HYPE</text>
+  <text x="70" y="145" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">Vault receives HYPE</text>
+  <text x="70" y="160" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">cHYPE minted at exchange rate</text>
+
+  <!-- Arrow 1 to 2 -->
+  <path d="M250 125 L280 125" stroke="#4dcf6a" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 2: Allocate -->
+  <rect x="290" y="80" width="200" height="90" rx="4" fill="#111111" stroke="#4dcf6a" stroke-width="2"/>
+  <text x="310" y="105" fill="#4dcf6a" font-family="system-ui, sans-serif" font-size="11" font-weight="500">STEP 2</text>
+  <text x="310" y="125" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="14" font-weight="500">Vault allocates HYPE</text>
+  <text x="310" y="145" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">20-30% → Validator staking</text>
+  <text x="310" y="160" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">70-80% → HIP-3 markets</text>
+
+  <!-- Arrow 2 to 3 -->
+  <path d="M490 125 L520 125" stroke="#4dcf6a" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 3: Yield Accrues -->
+  <rect x="530" y="80" width="220" height="90" rx="4" fill="#111111" stroke="#4dcf6a" stroke-width="2"/>
+  <text x="550" y="105" fill="#4dcf6a" font-family="system-ui, sans-serif" font-size="11" font-weight="500">STEP 3</text>
+  <text x="550" y="125" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="14" font-weight="500">Yield accrues</text>
+  <text x="550" y="145" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">Staking rewards: claimed daily</text>
+  <text x="550" y="160" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">Builder fees: per epoch</text>
+
+  <!-- Arrow 3 to 4 -->
+  <path d="M640 170 L640 200" stroke="#4dcf6a" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 4: Fee Deduction -->
+  <rect x="530" y="210" width="220" height="110" rx="4" fill="#111111" stroke="#8a7d6d" stroke-width="2"/>
+  <text x="550" y="235" fill="#8a7d6d" font-family="system-ui, sans-serif" font-size="11" font-weight="500">STEP 4</text>
+  <text x="550" y="255" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="14" font-weight="500">Protocol fee deducted</text>
+  <text x="550" y="280" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">15% of yield → Protocol</text>
+  <text x="570" y="295" fill="#666666" font-family="system-ui, sans-serif" font-size="10">├ 90% Compost operations</text>
+  <text x="570" y="310" fill="#666666" font-family="system-ui, sans-serif" font-size="10">└ 10% Infrastructure partner</text>
+
+  <!-- Arrow 4 to 5 -->
+  <path d="M530 265 L500 265" stroke="#4dcf6a" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 5: Compound -->
+  <rect x="290" y="210" width="200" height="110" rx="4" fill="#111111" stroke="#4dcf6a" stroke-width="2"/>
+  <text x="310" y="235" fill="#4dcf6a" font-family="system-ui, sans-serif" font-size="11" font-weight="500">STEP 5</text>
+  <text x="310" y="255" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="14" font-weight="500">Net yield compounds</text>
+  <text x="310" y="280" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">Vault HYPE balance ↑</text>
+  <text x="310" y="295" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">cHYPE exchange rate ↑</text>
+  <text x="310" y="310" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">All holders benefit equally</text>
+
+  <!-- Yield Sources Detail -->
+  <text x="50" y="380" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="16" font-weight="300">Yield Sources</text>
+
+  <!-- Validator Staking -->
+  <rect x="50" y="400" width="220" height="80" rx="4" fill="#111111" stroke="#1a1a1a"/>
+  <rect x="50" y="400" width="4" height="80" rx="2" fill="#4dcf6a"/>
+  <text x="70" y="425" fill="#4dcf6a" font-family="system-ui, sans-serif" font-size="12" font-weight="500">Validator Staking</text>
+  <text x="70" y="445" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">~2.5% APY base yield</text>
+  <text x="70" y="460" fill="#666666" font-family="system-ui, sans-serif" font-size="10">Liquidity buffer, 7-day unstake</text>
+
+  <!-- HIP-3 Fees -->
+  <rect x="290" y="400" width="220" height="80" rx="4" fill="#111111" stroke="#1a1a1a"/>
+  <rect x="290" y="400" width="4" height="80" rx="2" fill="#4dcf6a"/>
+  <text x="310" y="425" fill="#4dcf6a" font-family="system-ui, sans-serif" font-size="12" font-weight="500">HIP-3 Builder Fees</text>
+  <text x="310" y="445" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">20-50% of trading fees</text>
+  <text x="310" y="460" fill="#666666" font-family="system-ui, sans-serif" font-size="10">Variable by allocation method</text>
+
+  <!-- Token Incentives -->
+  <rect x="530" y="400" width="220" height="80" rx="4" fill="#111111" stroke="#1a1a1a"/>
+  <rect x="530" y="400" width="4" height="80" rx="2" fill="#8a7d6d"/>
+  <text x="550" y="425" fill="#8a7d6d" font-family="system-ui, sans-serif" font-size="12" font-weight="500">Token Incentives</text>
+  <text x="550" y="445" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">FELIX, KNTQ, etc.</text>
+  <text x="550" y="460" fill="#666666" font-family="system-ui, sans-serif" font-size="10">Held in treasury, funds ops</text>
+
+  <!-- Exchange Rate Example -->
+  <rect x="50" y="510" width="700" height="70" rx="4" fill="#111111" stroke="#1a1a1a"/>
+  <text x="70" y="535" fill="#e5e5e5" font-family="system-ui, sans-serif" font-size="12" font-weight="500">Exchange Rate Example</text>
+  <text x="70" y="555" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">Day 0: 1,000,000 HYPE / 1,000,000 cHYPE = 1.000</text>
+  <text x="320" y="555" fill="#a3a3a3" font-family="system-ui, sans-serif" font-size="11">Day 90: 1,030,000 HYPE / 1,000,000 cHYPE = 1.030</text>
+  <text x="570" y="555" fill="#4dcf6a" font-family="system-ui, sans-serif" font-size="11">+3% yield</text>
+
+  <!-- Arrowhead definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4dcf6a"/>
+    </marker>
+  </defs>
+</svg>

@@ -30,9 +30,9 @@ HIP-3 markets are live and generating real fees.
 
 ## Growth Mode
 
-{% hint style="warning" %}
+::: warning
 **Note on fees:** Most markets currently operate in "Growth Mode" — a 90% fee reduction to bootstrap volume. As markets mature and Growth Mode ends, fee rates will normalise to standard levels (~4.5 bps taker), significantly increasing yield.
-{% endhint %}
+:::
 
 ---
 
@@ -49,6 +49,6 @@ This is real yield. Protocol-enforced. Already happening.
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [The Problem Compost Solves](the-problem.md)
-{% endhint %}
+:::

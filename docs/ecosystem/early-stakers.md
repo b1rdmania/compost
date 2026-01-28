@@ -8,11 +8,11 @@ Compost rewards early believers.
 
 ## Launch Bonus
 
-{% hint style="success" %}
+::: tip
 **First 30 days: 0% protocol fee**
 
 All yield goes to stakers. Day 31+: Standard 15% fee.
-{% endhint %}
+:::
 
 ---
 
@@ -67,6 +67,6 @@ Join the waitlist for:
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Contracts & Addresses](../appendix/contracts.md)
-{% endhint %}
+:::

@@ -55,9 +55,9 @@ Official Compost resources.
 
 ---
 
-{% hint style="warning" %}
+::: warning
 **Verify all links.** Bookmark official pages. Never trust links from DMs.
-{% endhint %}
+:::
 
 ---
 

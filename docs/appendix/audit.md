@@ -43,6 +43,6 @@ None to date.
 
 ---
 
-{% hint style="info" %}
+::: info
 Audit report will be published before mainnet launch.
-{% endhint %}
+:::

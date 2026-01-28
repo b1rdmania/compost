@@ -99,9 +99,9 @@ Allocation decisions are made by the Compost team with oversight from an indepen
 
 ## Current Allocations
 
-{% hint style="warning" %}
+::: warning
 Allocations will be published on launch and updated regularly.
-{% endhint %}
+:::
 
 | Market | Category | Allocation % | Method |
 |--------|----------|--------------|--------|
@@ -119,6 +119,6 @@ Allocations will be published on launch and updated regularly.
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Fees](fees.md)
-{% endhint %}
+:::

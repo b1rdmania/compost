@@ -120,6 +120,6 @@ Contact **grow@compost.fi**.
 
 ---
 
-{% hint style="info" %}
+::: info
 Question not answered? Email **grow@compost.fi**
-{% endhint %}
+:::

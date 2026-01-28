@@ -1,0 +1,152 @@
+/* Import Outfit font - must be first */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap');
+
+/* Compost Brand Colors */
+:root {
+  /* Brand green */
+  --vp-c-brand-1: #4dcf6a;
+  --vp-c-brand-2: #3db85a;
+  --vp-c-brand-3: #2ba84a;
+  --vp-c-brand-soft: rgba(77, 207, 106, 0.15);
+
+  /* Override default colors */
+  --vp-c-green-1: #4dcf6a;
+  --vp-c-green-2: #3db85a;
+  --vp-c-green-3: #2ba84a;
+  --vp-c-green-soft: rgba(77, 207, 106, 0.15);
+}
+
+/* Dark mode - Compost uses dark by default */
+.dark {
+  --vp-c-bg: #0a0a0a;
+  --vp-c-bg-soft: #111111;
+  --vp-c-bg-mute: #1a1a1a;
+  --vp-c-bg-alt: #0f0f0f;
+
+  --vp-c-divider: #1a1a1a;
+  --vp-c-divider-light: #252525;
+
+  --vp-c-text-1: #e5e5e5;
+  --vp-c-text-2: #a3a3a3;
+  --vp-c-text-3: #666666;
+
+  --vp-c-brand-1: #4dcf6a;
+  --vp-c-brand-2: #3db85a;
+  --vp-c-brand-3: #2ba84a;
+
+  /* Sidebar */
+  --vp-sidebar-bg-color: #0a0a0a;
+
+  /* Code blocks */
+  --vp-code-block-bg: #111111;
+  --vp-code-line-highlight-color: rgba(77, 207, 106, 0.08);
+}
+
+/* Light mode fallback */
+:root {
+  --vp-c-brand-1: #2ba84a;
+  --vp-c-brand-2: #259942;
+  --vp-c-brand-3: #1f8a3a;
+}
+
+/* Hero area styling */
+.VPHero .VPImage {
+  max-width: 120px;
+  max-height: 120px;
+}
+
+/* Button styling */
+.VPButton.brand {
+  background-color: #4dcf6a;
+  border-color: #4dcf6a;
+}
+
+.VPButton.brand:hover {
+  background-color: #3db85a;
+  border-color: #3db85a;
+}
+
+/* Links */
+.dark .vp-doc a {
+  color: #4dcf6a;
+}
+
+.dark .vp-doc a:hover {
+  color: #6cdb84;
+}
+
+/* Badges/hints */
+.dark .custom-block.tip {
+  border-color: #4dcf6a;
+  background-color: rgba(77, 207, 106, 0.08);
+}
+
+.dark .custom-block.tip .custom-block-title {
+  color: #4dcf6a;
+}
+
+.dark .custom-block.warning {
+  border-color: #e5c07b;
+  background-color: rgba(229, 192, 123, 0.08);
+}
+
+.dark .custom-block.danger {
+  border-color: #e06c75;
+  background-color: rgba(224, 108, 117, 0.08);
+}
+
+.dark .custom-block.info {
+  border-color: #4dcf6a;
+  background-color: rgba(77, 207, 106, 0.08);
+}
+
+/* Table styling */
+.dark .vp-doc table {
+  border-color: #1a1a1a;
+}
+
+.dark .vp-doc tr {
+  border-color: #1a1a1a;
+  background-color: #0a0a0a;
+}
+
+.dark .vp-doc tr:nth-child(2n) {
+  background-color: #0f0f0f;
+}
+
+.dark .vp-doc th {
+  background-color: #111111;
+  border-color: #1a1a1a;
+}
+
+.dark .vp-doc td {
+  border-color: #1a1a1a;
+}
+
+/* Navigation */
+.dark .VPNavBar {
+  background-color: rgba(10, 10, 10, 0.9);
+  border-bottom-color: #1a1a1a;
+}
+
+/* Footer */
+.dark .VPFooter {
+  background-color: #0a0a0a;
+  border-top-color: #1a1a1a;
+}
+
+/* Sidebar */
+.dark .VPSidebar {
+  background-color: #0a0a0a;
+}
+
+/* Code */
+.dark .vp-doc :not(pre) > code {
+  background-color: rgba(77, 207, 106, 0.1);
+  color: #4dcf6a;
+}
+
+/* Font */
+:root {
+  --vp-font-family-base: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+}

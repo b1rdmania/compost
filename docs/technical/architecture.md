@@ -6,7 +6,7 @@ Overview of the Compost system architecture.
 
 ## Diagram
 
-![Architecture Overview](../assets/architecture-diagram.svg)
+![Architecture Overview](/architecture-diagram.svg)
 
 ---
 
@@ -78,6 +78,6 @@ Yield received
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Yield Sources](yield-sources.md)
-{% endhint %}
+:::

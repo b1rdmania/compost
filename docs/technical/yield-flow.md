@@ -6,7 +6,7 @@ How yield moves from source to your cHYPE.
 
 ## Diagram
 
-![Yield Flow](../assets/yield-flow-diagram.svg)
+![Yield Flow](/yield-flow-diagram.svg)
 
 ---
 
@@ -94,6 +94,6 @@ Your cHYPE balance stays constant. Its value in HYPE increases.
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Allocation](allocation.md)
-{% endhint %}
+:::

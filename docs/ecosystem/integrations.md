@@ -92,6 +92,6 @@ Contact **grow@compost.fi** to discuss integration.
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Institutional Access](institutional.md)
-{% endhint %}
+:::

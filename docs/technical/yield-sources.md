@@ -55,9 +55,9 @@ These tokens are:
 2. Sold periodically
 3. Used to fund operations
 
-{% hint style="info" %}
+::: info
 Token incentives do **not** affect cHYPE yield directly — they're a separate revenue stream for the protocol.
-{% endhint %}
+:::
 
 ---
 
@@ -71,6 +71,6 @@ Token incentives do **not** affect cHYPE yield directly — they're a separate r
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Yield Flow](yield-flow.md)
-{% endhint %}
+:::

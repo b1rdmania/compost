@@ -96,6 +96,6 @@ Include:
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Early Stakers](early-stakers.md)
-{% endhint %}
+:::

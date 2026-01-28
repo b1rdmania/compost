@@ -83,6 +83,6 @@ There is no separate Compost token.
 
 ---
 
-{% hint style="info" %}
+::: info
 **Next:** [Architecture](../technical/architecture.md)
-{% endhint %}
+:::
