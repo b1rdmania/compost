@@ -985,6 +985,45 @@
       margin-bottom: 1.5rem;
     }
 
+    /* Waitlist form */
+    .waitlist-form {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .waitlist-form input {
+      padding: 1rem 1.5rem;
+      font-family: var(--font);
+      font-size: 1rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      min-width: 280px;
+      transition: border-color 0.2s;
+    }
+
+    .waitlist-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .waitlist-form input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .waitlist-message {
+      font-size: 0.9375rem;
+      color: var(--accent);
+      min-height: 1.5rem;
+    }
+
+    .waitlist-message.error {
+      color: #ef4444;
+    }
+
     .status-link {
       font-size: 1rem;
       font-weight: 400;
@@ -1596,9 +1635,11 @@
           <p class="status-text">Building the capital formation layer for Hyperliquid.</p>
           <p class="status-contact">Get involved: <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
 
-          <div class="status-cta">
-            <a href="mailto:grow@compost.fi" class="btn">Join Waitlist</a>
-          </div>
+          <form id="waitlist-form" class="waitlist-form">
+            <input type="email" id="waitlist-email" placeholder="Enter your email" required />
+            <button type="submit" class="btn">Join Waitlist</button>
+          </form>
+          <p id="waitlist-message" class="waitlist-message"></p>
         </div>
       </div>
     </section>
@@ -1611,7 +1652,7 @@
       <nav class="footer-links">
         <a href="/process.html" class="footer-link">Process</a>
         <a href="https://twitter.com/compostfi" class="footer-link" target="_blank" rel="noopener">Twitter</a>
-        <a href="#" class="footer-link">Docs</a>
+        <a href="https://docs.compost.fi" class="footer-link">Docs</a>
       </nav>
     </div>
   </footer>
@@ -1632,6 +1673,43 @@
 
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
+  </script>
+
+  <!-- Waitlist form -->
+  <script>
+    const form = document.getElementById('waitlist-form');
+    const emailInput = document.getElementById('waitlist-email');
+    const message = document.getElementById('waitlist-message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+
+      if (!email) return;
+
+      message.textContent = 'Joining...';
+      message.className = 'waitlist-message';
+
+      try {
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+
+        if (res.ok) {
+          message.textContent = "You're on the list.";
+          emailInput.value = '';
+        } else {
+          const data = await res.json();
+          message.textContent = data.error || 'Something went wrong';
+          message.className = 'waitlist-message error';
+        }
+      } catch (err) {
+        message.textContent = 'Something went wrong';
+        message.className = 'waitlist-message error';
+      }
+    });
   </script>
 </body>
 </html>
