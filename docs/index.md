@@ -18,21 +18,3 @@
 | [What is HIP-3?](/context/what-is-hip-3) | [How cHYPE works](/solution/chype) |
 | [The Opportunity](/context/the-opportunity) | [Architecture](/technical/architecture) |
 
----
-
-## Key Numbers
-
-| Metric | Value |
-|--------|-------|
-| Protocol fee | 15% of yield |
-| Unstake period | 14 days |
-| Liquidity buffer | 20-30% |
-| Max single-market allocation | 25% |
-
----
-
-## Links
-
-**Compost** — [compost.fi](https://compost.fi) · [@compostfi](https://twitter.com/compostfi) · grow@compost.fi
-
-**Hyperliquid** — [hyperliquid.xyz](https://hyperliquid.xyz) · [HIP-3 Stats](https://dune.com/yandhii/hip3) · [Docs](https://hyperliquid.gitbook.io/hyperliquid-docs)
