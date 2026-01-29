@@ -2,7 +2,6 @@
   "name": "compost",
   "version": "0.1.0",
   "description": "Capital allocation layer for Hyperliquid Builder markets",
-  "type": "module",
   "scripts": {
     "dev": "npx serve .",
     "build": "echo 'Static site - no build required'",
