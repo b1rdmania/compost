@@ -18,8 +18,7 @@ export default defineConfig({
 
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Website', link: 'https://compost.fi' },
-      { text: 'Twitter', link: 'https://twitter.com/compostfi' }
+      { text: 'Website', link: 'https://compost.fi' }
     ],
 
     sidebar: [
