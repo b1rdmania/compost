@@ -1,41 +1,43 @@
 # The Barrier
 
-To deploy a HIP-3 market, you must stake 500K HYPE.
-
-At $30/HYPE, that's **~$15 million**.
+HIP-3 markets offer some of the best yield in crypto right now. But there's a catch.
 
 ---
 
-## Why So High?
+## The $15M Problem
 
-This isn't a bug. It's a security mechanism.
+To deploy a HIP-3 market, you must stake **500,000 HYPE**.
 
-| Purpose | How It Works |
-|---------|--------------|
-| Skin in the game | Deployers have significant capital at risk |
-| Slashing | Stake can be slashed for malicious behaviour |
-| Accountability | Creates responsibility without centralised gatekeepers |
-| Quality filter | Only serious operators deploy markets |
+At current prices, that's roughly **$15 million**.
 
----
+This isn't a bug — it's by design. Hyperliquid requires deployers to have serious skin in the game. It filters out bad actors and ensures market quality.
 
-## Slashing Conditions
-
-Deployer stake can be slashed for:
-
-- **Bad oracles** — Manipulated or stale price feeds
-- **Market manipulation** — Coordinated attacks on traders
-- **Parameter abuse** — Malicious leverage or margin settings
+But it also means **almost everyone is locked out** of this opportunity.
 
 ---
 
-## The Problem
+## Who Can Actually Participate?
 
-The $15M barrier ensures quality but creates a problem:
+| Player | Reality |
+|--------|---------|
+| Retail investors | Locked out |
+| Most funds | Locked out |
+| Whales with $15M+ | Can deploy solo |
+| Well-funded teams | Can build their own markets |
 
-**It locks out most participants from the best yield opportunity in crypto right now.**
+Even if you believe in HIP-3, even if you want exposure to builder market yield — the capital requirement is simply too high for almost everyone.
 
-Even if you believe in HIP-3, even if you want exposure to builder market yield — the barrier is too high for almost everyone.
+---
+
+## Why the High Barrier?
+
+It's a security mechanism:
+
+- **Skin in the game** — Deployers have significant capital at risk
+- **Accountability** — Creates responsibility without centralised gatekeepers
+- **Quality filter** — Only serious operators deploy markets
+
+The stake can be slashed for malicious behaviour (bad oracles, market manipulation, parameter abuse). This protects traders but raises the bar for participation.
 
 ---
 

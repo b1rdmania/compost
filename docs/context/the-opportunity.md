@@ -24,7 +24,6 @@ HIP-3 markets are live and generating real fees.
 | [Felix](https://felix.xyz) | Equities | TSLA first, more coming |
 | [HyENA](https://hyena.trade) | USDe perps | Ethena-backed, BTC/ETH/SOL/HYPE |
 | [Ventuals](https://ventuals.com) | Pre-IPO | SpaceX, OpenAI, Anthropic |
-| [Vaultus](https://vaultus.io) | Structured | Live |
 
 ---
 

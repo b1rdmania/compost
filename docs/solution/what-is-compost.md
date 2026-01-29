@@ -1,43 +1,55 @@
 # What is Compost?
 
-Compost is the capital formation layer for Hyperliquid builder markets.
+**The short version:** Compost lets you earn yield from Hyperliquid's builder markets without needing $15 million.
 
-We aggregate capital into a single vault, allocate across vetted HIP-3 markets, and pass through yield to depositors.
+---
+
+## The Opportunity
+
+Hyperliquid's HIP-3 markets are generating real revenue right now. Deployers earn 50% of all trading fees — and volume is in the billions.
+
+But to deploy a market, you need to stake 500K HYPE (~$15M). That locks out almost everyone.
+
+**Compost solves this.** We pool capital together, deploy across multiple markets, and share the yield with depositors.
 
 ---
 
 ## How It Works
 
-1. **Deposit HYPE** into the vault
-2. **Receive cHYPE** — your receipt token
-3. **Vault allocates** capital across HIP-3 markets and validator staking
-4. **Yield accrues** to the vault from builder fees and staking rewards
-5. **cHYPE appreciates** as yield compounds
-6. **Withdraw anytime** — 14-day queue or sell on secondary market
+Think of it like this:
+
+1. **You deposit HYPE** — any amount
+2. **You get cHYPE** — a token that represents your share
+3. **We allocate** your HYPE across vetted HIP-3 markets
+4. **Yield flows in** from trading fees and staking
+5. **Your cHYPE grows** in value as yield compounds
+6. **You withdraw** whenever you want
+
+No minimum. No lock-up. No complexity.
 
 ---
 
-## The Value Proposition
+## Why It Matters
 
-| Without Compost | With Compost |
-|-----------------|--------------|
-| Need $15M to deploy | Any amount of HYPE |
-| Single market exposure | Diversified across markets |
-| Pick operators yourself | Professional vetting |
-| Manage positions | Set and forget |
-| Illiquid | Tradeable cHYPE |
+| Before Compost | With Compost |
+|----------------|--------------|
+| Need $15M to participate | Deposit any amount |
+| Pick markets yourself | Professional selection |
+| Single market risk | Diversified exposure |
+| Manage everything | Set and forget |
+| Illiquid position | Tradeable cHYPE token |
 
 ---
 
-## One Token
+## One Token: cHYPE
 
-**cHYPE** is your receipt token. It represents your share of the vault.
+When you deposit, you receive **cHYPE**. That's it.
 
-- Appreciates as yield accrues
-- Composable across DeFi
-- Tradeable on secondary markets
+- It tracks your share of the vault
+- It appreciates as yield accrues
+- You can trade it, use it as collateral, or just hold it
 
-No governance token. No points. Just yield.
+No governance token. No points. No complexity. Just yield.
 
 ---
 
