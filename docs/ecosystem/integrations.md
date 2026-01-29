@@ -2,15 +2,19 @@
 
 cHYPE is a standard ERC-20 token. It's composable across DeFi.
 
+::: warning Potential Integrations
+The integrations below are examples of what's possible with cHYPE. Specific partnerships will be announced as they're confirmed.
+:::
+
 ---
 
-## Where cHYPE Can Be Used
+## Where cHYPE Could Be Used
 
-| Integration | Use Case |
-|-------------|----------|
-| **Pendle** | Split into PT (principal) + YT (yield) — trade future yield |
-| **Lending** (Morpho, Euler, Felix) | Use as collateral, borrow against yield position |
-| **DEX** (Beets, etc.) | Provide liquidity in cHYPE pairs |
+| Integration Type | Use Case |
+|------------------|----------|
+| **Yield tokenisation** (e.g. Pendle) | Split into PT (principal) + YT (yield) — trade future yield |
+| **Lending protocols** | Use as collateral, borrow against yield position |
+| **DEX liquidity** | Provide liquidity in cHYPE pairs |
 | **Yield aggregators** | Auto-compound strategies |
 | **Structured products** | Use as underlying for other protocols |
 

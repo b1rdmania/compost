@@ -27,8 +27,12 @@ The majority of the vault is allocated to HIP-3 markets.
 | Method | Fee Share | Notes |
 |--------|-----------|-------|
 | Direct deployment | 50% | Protocol-enforced, requires 500K HYPE stake |
-| Partner allocation | 20-40% | Negotiated with deployers (Felix, Ventuals, etc.) |
-| Pooled staking | Variable | Via Kinetiq Launch or similar, pro-rata share |
+| Partner allocation | 20-40% | Negotiated with deployers |
+| Pooled staking | Variable | Via pooled staking platforms, pro-rata share |
+
+::: warning Potential Markets
+Market allocations are subject to due diligence and negotiation. Specific partners and markets will be confirmed prior to launch.
+:::
 
 ### Allocation Strategy
 

@@ -45,9 +45,9 @@ Your 100 cHYPE is worth 100 HYPE on Day 0, and 103 HYPE on Day 90.
 
 ## Composability
 
-cHYPE is a standard ERC-20. Use it anywhere:
+cHYPE is a standard ERC-20. Potential use cases include:
 
-### Pendle
+### Yield Tokenisation
 Split cHYPE into:
 - **PT (Principal Token)** — Fixed yield, redeemable at maturity
 - **YT (Yield Token)** — Variable yield exposure
@@ -55,15 +55,14 @@ Split cHYPE into:
 Trade future yield or lock in fixed rates.
 
 ### Lending
-Use cHYPE as collateral on:
-- Morpho
-- Euler
-- Felix Lending
-
-Borrow against your yield position without selling.
+Use cHYPE as collateral on lending protocols. Borrow against your yield position without selling.
 
 ### Liquidity
 Provide liquidity in cHYPE pairs on DEXs. Earn trading fees on top of vault yield.
+
+::: warning
+Specific integrations will be announced as partnerships are confirmed.
+:::
 
 ---
 
