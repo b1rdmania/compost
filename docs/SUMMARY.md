@@ -33,8 +33,5 @@
 
 ## Appendix
 
-* [Contracts & Addresses](appendix/contracts.md)
-* [Audit Status](appendix/audit.md)
-* [Team](appendix/team.md)
-* [FAQ](appendix/faq.md)
 * [Links](appendix/links.md)
+* [Brand Guidelines](appendix/brand.md)

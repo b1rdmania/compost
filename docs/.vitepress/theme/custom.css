@@ -232,6 +232,7 @@
 .dark .vp-doc h1 {
   font-weight: 500;
   letter-spacing: -0.02em;
+  color: #4dcf6a;
 }
 
 .dark .vp-doc h2 {
@@ -239,12 +240,17 @@
   border-top: 1px solid #1a1a1a;
   padding-top: 24px;
   margin-top: 48px;
+  color: #8a7d6d;
 }
 
 .dark .vp-doc h2:first-of-type {
   border-top: none;
   padding-top: 0;
   margin-top: 32px;
+}
+
+.dark .vp-doc h3 {
+  color: #a3a3a3;
 }
 
 /* Horizontal rule styling */

@@ -97,5 +97,5 @@ Include:
 ---
 
 ::: info
-**Next:** [Contracts & Addresses](../appendix/contracts.md)
+**Next:** [Links](../appendix/links.md)
 :::

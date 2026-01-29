@@ -74,10 +74,6 @@ export default defineConfig({
         text: 'Appendix',
         collapsed: true,
         items: [
-          { text: 'Contracts', link: '/appendix/contracts' },
-          { text: 'Audit', link: '/appendix/audit' },
-          { text: 'Team', link: '/appendix/team' },
-          { text: 'FAQ', link: '/appendix/faq' },
           { text: 'Links', link: '/appendix/links' },
           { text: 'Brand Guidelines', link: '/appendix/brand' }
         ]
