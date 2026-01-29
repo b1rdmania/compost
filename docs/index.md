@@ -36,8 +36,12 @@ hero:
 | [Technical](/technical/architecture) | Architecture, yield flow, allocation |
 | [Ecosystem](/ecosystem/integrations) | Integrations, institutional access |
 
-## Links
+## Compost
 
 [compost.fi](https://compost.fi) · [@compostfi](https://twitter.com/compostfi) · grow@compost.fi
+
+## Hyperliquid
+
+[hyperliquid.xyz](https://hyperliquid.xyz) · [HIP-3 Stats (Dune)](https://dune.com/yandhii/hip3) · [Hyperliquid Docs](https://hyperliquid.gitbook.io/hyperliquid-docs)
 
 </div>
