@@ -258,3 +258,58 @@
 a, .VPFeature, .VPButton, .VPSidebarItem {
   transition: all 0.2s ease;
 }
+
+/* Home page content styling */
+.home-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+
+.home-content h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-top: 48px;
+  margin-bottom: 16px;
+  color: #e5e5e5;
+}
+
+.home-content h2:first-of-type {
+  margin-top: 0;
+}
+
+/* Smaller hero for docs */
+.VPHero .name {
+  font-size: 2.5rem !important;
+}
+
+.VPHero .text {
+  font-size: 1.5rem !important;
+  font-weight: 300 !important;
+  color: #666 !important;
+}
+
+.VPHero .tagline {
+  font-size: 1.1rem !important;
+  max-width: 500px;
+}
+
+/* Hide hero image on home if not needed */
+.VPHero .image-container {
+  display: none;
+}
+
+/* Tighter hero spacing */
+.VPHero {
+  padding: 48px 24px !important;
+}
+
+/* Links line styling */
+.home-content p:last-child {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.home-content p:last-child a {
+  color: #4dcf6a;
+}

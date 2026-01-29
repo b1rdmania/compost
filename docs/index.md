@@ -1,19 +1,28 @@
-# Compost Documentation
-
-The capital formation layer for Hyperliquid builder markets.
-
 ---
+layout: home
+hero:
+  name: Compost
+  text: Documentation
+  tagline: The capital formation layer for Hyperliquid builder markets
+  actions:
+    - theme: brand
+      text: Get Started
+      link: /context/what-is-hyperliquid
+    - theme: alt
+      text: What is Compost?
+      link: /solution/what-is-compost
+---
+
+<div class="home-content">
 
 ## Quick Start
 
-**One token. Diversified exposure. No $15M minimum.**
-
+::: tip One token. Diversified exposure. No $15M minimum.
 1. **Deposit HYPE** into the vault
 2. **Receive cHYPE** — your receipt token
-3. **Yield compounds** automatically from HIP-3 fees and staking
+3. **Yield compounds** from HIP-3 fees + staking
 4. **Withdraw anytime** — 14-day queue or sell on secondary
-
----
+:::
 
 ## Key Numbers
 
@@ -24,20 +33,17 @@ The capital formation layer for Hyperliquid builder markets.
 | Liquidity buffer | 20-30% |
 | Max single-market allocation | 25% |
 
----
+## Navigation
 
-## Start Reading
-
-- **New to Hyperliquid?** Start with [What is Hyperliquid?](/context/what-is-hyperliquid)
-- **Know Hyperliquid?** Jump to [What is Compost?](/solution/what-is-compost)
-- **Technical details?** See [Architecture](/technical/architecture)
-
----
+| Section | What you'll learn |
+|---------|-------------------|
+| [Context](/context/what-is-hyperliquid) | Hyperliquid, HIP-3, and the opportunity |
+| [Solution](/solution/what-is-compost) | How Compost works, cHYPE mechanics |
+| [Technical](/technical/architecture) | Architecture, yield flow, allocation |
+| [Ecosystem](/ecosystem/integrations) | Integrations, institutional access |
 
 ## Links
 
-| Resource | URL |
-|----------|-----|
-| Website | [compost.fi](https://compost.fi) |
-| Twitter | [@compostfi](https://twitter.com/compostfi) |
-| Email | grow@compost.fi |
+[compost.fi](https://compost.fi) · [@compostfi](https://twitter.com/compostfi) · grow@compost.fi
+
+</div>
