@@ -1,22 +1,24 @@
----
-layout: home
-hero:
-  name: Compost
-  text: Documentation
-  tagline: The capital formation layer for Hyperliquid builder markets
-  image:
-    src: /logo.svg
-    alt: Compost
-  actions:
-    - theme: brand
-      text: Get Started
-      link: /context/what-is-hyperliquid
-    - theme: alt
-      text: What is Compost?
-      link: /solution/what-is-compost
+# Welcome to Compost
+
+<div style="display: flex; align-items: center; gap: 24px; margin: 32px 0 48px;">
+  <img src="/logo.svg" alt="Compost" style="width: 72px; height: 72px;" />
+  <div>
+    <div style="font-size: 1.1rem; color: #e5e5e5;">The capital formation layer for Hyperliquid builder markets</div>
+    <div style="color: #666; margin-top: 4px;">One token. Diversified exposure. No $15M minimum.</div>
+  </div>
+</div>
+
 ---
 
-<div class="home-content">
+## Start Here
+
+| New to Hyperliquid? | Know Hyperliquid? |
+|---------------------|-------------------|
+| [What is Hyperliquid?](/context/what-is-hyperliquid) | [What is Compost?](/solution/what-is-compost) |
+| [What is HIP-3?](/context/what-is-hip-3) | [How cHYPE works](/solution/chype) |
+| [The Opportunity](/context/the-opportunity) | [Architecture](/technical/architecture) |
+
+---
 
 ## Key Numbers
 
@@ -27,21 +29,10 @@ hero:
 | Liquidity buffer | 20-30% |
 | Max single-market allocation | 25% |
 
-## Navigation
+---
 
-| Section | What you'll learn |
-|---------|-------------------|
-| [Context](/context/what-is-hyperliquid) | Hyperliquid, HIP-3, and the opportunity |
-| [Solution](/solution/what-is-compost) | How Compost works, cHYPE mechanics |
-| [Technical](/technical/architecture) | Architecture, yield flow, allocation |
-| [Ecosystem](/ecosystem/integrations) | Integrations, institutional access |
+## Links
 
-## Compost
+**Compost** — [compost.fi](https://compost.fi) · [@compostfi](https://twitter.com/compostfi) · grow@compost.fi
 
-[compost.fi](https://compost.fi) · [@compostfi](https://twitter.com/compostfi) · grow@compost.fi
-
-## Hyperliquid
-
-[hyperliquid.xyz](https://hyperliquid.xyz) · [HIP-3 Stats (Dune)](https://dune.com/yandhii/hip3) · [Hyperliquid Docs](https://hyperliquid.gitbook.io/hyperliquid-docs)
-
-</div>
+**Hyperliquid** — [hyperliquid.xyz](https://hyperliquid.xyz) · [HIP-3 Stats](https://dune.com/yandhii/hip3) · [Docs](https://hyperliquid.gitbook.io/hyperliquid-docs)
