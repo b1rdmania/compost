@@ -316,9 +316,9 @@ a, .VPFeature, .VPButton, .VPSidebarItem {
   max-width: 500px;
 }
 
-/* Hide hero image on home if not needed */
+/* Hero image sizing */
 .VPHero .image-container {
-  display: none;
+  max-width: 120px;
 }
 
 /* Tighter hero spacing */

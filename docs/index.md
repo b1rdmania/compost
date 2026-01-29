@@ -4,6 +4,9 @@ hero:
   name: Compost
   text: Documentation
   tagline: The capital formation layer for Hyperliquid builder markets
+  image:
+    src: /logo.svg
+    alt: Compost
   actions:
     - theme: brand
       text: Get Started
@@ -14,15 +17,6 @@ hero:
 ---
 
 <div class="home-content">
-
-## Quick Start
-
-::: tip One token. Diversified exposure. No $15M minimum.
-1. **Deposit HYPE** into the vault
-2. **Receive cHYPE** — your receipt token
-3. **Yield compounds** from HIP-3 fees + staking
-4. **Withdraw anytime** — 14-day queue or sell on secondary
-:::
 
 ## Key Numbers
 
