@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Compost Finance</title>
   <meta name="description" content="The capital formation layer for Hyperliquid builder markets.">
 
@@ -86,7 +86,8 @@
       right: 0;
       z-index: 100;
       padding: 1.5rem 3rem;
-      background: rgba(10, 10, 10, 0.8);
+      padding-top: calc(1.5rem + env(safe-area-inset-top));
+      background: rgba(10, 10, 10, 0.95);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
