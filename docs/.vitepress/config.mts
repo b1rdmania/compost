@@ -4,6 +4,8 @@ export default defineConfig({
   title: 'Compost',
   description: 'The capital formation layer for Hyperliquid builder markets',
 
+  appearance: 'dark',
+
   head: [
     ['link', { rel: 'icon', href: '/logo.svg' }],
     ['meta', { property: 'og:title', content: 'Compost Docs' }],
