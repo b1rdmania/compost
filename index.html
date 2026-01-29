@@ -839,24 +839,23 @@
       transform: translateX(3px);
     }
 
-    /* Dune link */
-    .market-footer-dune {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9375rem;
-      font-weight: 400;
-      color: var(--text-muted);
+    /* Dune CTA - prominent green link */
+    .dune-cta {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: #0a0a0a;
+      background: var(--accent);
+      border-radius: 8px;
       text-decoration: none;
-      transition: color 0.2s;
+      transition: all 0.2s;
     }
 
-    .market-footer-dune:hover {
-      color: var(--accent);
-    }
-
-    .market-footer-dune::after {
-      content: '→';
+    .dune-cta:hover {
+      background: #3db85a;
+      transform: translateY(-2px);
     }
 
     /* ==================== PRINCIPLES - 2 COLUMN ==================== */
@@ -1502,7 +1501,7 @@
 
         <div class="market-footer reveal">
           <div class="market-footer-note">Builder deployers receive <span class="accent">50%</span> of all trading fees. Protocol-enforced — not discretionary, not a promise. Code.</div>
-          <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="market-footer-dune">View live stats</a>
+          <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="dune-cta">View live HIP-3 market stats →</a>
         </div>
       </div>
     </section>
