@@ -150,3 +150,111 @@
 :root {
   --vp-font-family-base: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
+/* Hero styling */
+.VPHero .name {
+  background: linear-gradient(135deg, #4dcf6a 0%, #2ba84a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.VPHero .text {
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.VPHero .tagline {
+  color: #a3a3a3;
+  font-weight: 400;
+}
+
+/* Feature cards - brand styling */
+.dark .VPFeature {
+  background-color: #111111;
+  border: 1px solid #1a1a1a;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.dark .VPFeature:hover {
+  border-color: #4dcf6a;
+  background-color: #0f0f0f;
+}
+
+.dark .VPFeature .title {
+  color: #e5e5e5;
+  font-weight: 500;
+}
+
+.dark .VPFeature .details {
+  color: #a3a3a3;
+  font-weight: 300;
+}
+
+/* Remove default feature icon box if no icon */
+.VPFeature .box {
+  padding: 24px;
+}
+
+/* Home content area */
+.dark .VPHome {
+  background-color: #0a0a0a;
+}
+
+/* Sidebar active item */
+.dark .VPSidebarItem.is-active > .item .link > .text {
+  color: #4dcf6a;
+}
+
+/* Nav bar polish */
+.dark .VPNavBar .title {
+  color: #e5e5e5;
+  font-weight: 500;
+}
+
+/* Content page headings */
+.dark .vp-doc h1 {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.dark .vp-doc h2 {
+  font-weight: 500;
+  border-top: 1px solid #1a1a1a;
+  padding-top: 24px;
+  margin-top: 48px;
+}
+
+.dark .vp-doc h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 32px;
+}
+
+/* Horizontal rule styling */
+.dark .vp-doc hr {
+  border-color: #1a1a1a;
+}
+
+/* Info/tip blocks - cleaner look */
+.dark .custom-block {
+  border-radius: 8px;
+  border-width: 1px;
+  border-left-width: 1px;
+}
+
+/* Button refinements */
+.VPButton.alt {
+  background-color: transparent;
+  border-color: #333;
+}
+
+.dark .VPButton.alt:hover {
+  border-color: #4dcf6a;
+  color: #4dcf6a;
+}
+
+/* Smooth transitions globally */
+a, .VPFeature, .VPButton, .VPSidebarItem {
+  transition: all 0.2s ease;
+}

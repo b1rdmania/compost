@@ -5,7 +5,7 @@ export default defineConfig({
   description: 'The capital formation layer for Hyperliquid builder markets',
 
   head: [
-    ['link', { rel: 'icon', href: '/assets/logo.svg' }],
+    ['link', { rel: 'icon', href: '/logo.svg' }],
     ['meta', { property: 'og:title', content: 'Compost Docs' }],
     ['meta', { property: 'og:description', content: 'The capital formation layer for Hyperliquid builder markets' }],
     ['meta', { name: 'twitter:card', content: 'summary' }],
@@ -13,7 +13,7 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    logo: '/assets/logo.svg',
+    logo: '/logo.svg',
     siteTitle: 'Compost',
 
     nav: [

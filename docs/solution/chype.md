@@ -29,9 +29,7 @@ Unlike rebasing tokens (where your balance changes), cHYPE uses an exchange rate
 
 ## Exchange Rate
 
-```
-cHYPE price = Total HYPE in vault / Total cHYPE supply
-```
+> **cHYPE price** = Total HYPE in vault / Total cHYPE supply
 
 **Example:**
 

@@ -10,12 +10,10 @@ How to exit your Compost position.
 
 Standard withdrawal through the vault.
 
-```
-1. Burn cHYPE
-2. HYPE queued for withdrawal
-3. 14-day unstake period (Hyperliquid protocol constraint)
-4. HYPE released after queue clears
-```
+1. **Burn cHYPE** — initiate withdrawal
+2. **HYPE queued** for withdrawal
+3. **14-day unstake period** (Hyperliquid protocol constraint)
+4. **HYPE released** after queue clears
 
 **No fee on principal.** Protocol fee is already taken on yield.
 
@@ -23,11 +21,9 @@ Standard withdrawal through the vault.
 
 Instant exit via DEX.
 
-```
-1. Sell cHYPE on DEX
-2. Receive HYPE (or other token) immediately
-3. No protocol interaction required
-```
+1. **Sell cHYPE** on DEX
+2. **Receive HYPE** (or other token) immediately
+3. **No protocol interaction** required
 
 **Price may differ from NAV** — premium or discount depending on demand.
 

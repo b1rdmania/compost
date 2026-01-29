@@ -8,14 +8,12 @@ We aggregate capital into a single vault, allocate across vetted HIP-3 markets, 
 
 ## How It Works
 
-```
-1. You deposit HYPE
-2. You receive cHYPE (your receipt token)
-3. Vault allocates capital across HIP-3 markets and validator staking
-4. Yield accrues to the vault
-5. cHYPE appreciates as yield compounds
-6. Withdraw anytime (14-day queue or sell on secondary market)
-```
+1. **Deposit HYPE** into the vault
+2. **Receive cHYPE** — your receipt token
+3. **Vault allocates** capital across HIP-3 markets and validator staking
+4. **Yield accrues** to the vault from builder fees and staking rewards
+5. **cHYPE appreciates** as yield compounds
+6. **Withdraw anytime** — 14-day queue or sell on secondary market
 
 ---
 
