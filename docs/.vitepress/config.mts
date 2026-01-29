@@ -78,7 +78,8 @@ export default defineConfig({
           { text: 'Audit', link: '/appendix/audit' },
           { text: 'Team', link: '/appendix/team' },
           { text: 'FAQ', link: '/appendix/faq' },
-          { text: 'Links', link: '/appendix/links' }
+          { text: 'Links', link: '/appendix/links' },
+          { text: 'Brand Guidelines', link: '/appendix/brand' }
         ]
       }
     ],
