@@ -46,16 +46,6 @@ Net yield to vault: 85 HYPE (85%)
 
 ---
 
-## Launch Bonus
-
-::: tip
-**First 30 days: 0% protocol fee**
-
-All yield goes to stakers during launch period. Standard 15% fee begins on day 31.
-:::
-
----
-
 ## Institutional
 
 Institutional clients may negotiate different terms based on:

@@ -1,0 +1,14 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Favicon size -->
+
+  <!-- Organic leaf -->
+  <ellipse cx="19" cy="6" rx="3" ry="5" transform="rotate(30 19 6)" fill="#5d9a6f"/>
+
+  <!-- Stem -->
+  <rect x="15" y="7" width="2" height="8" rx="1" fill="#4a7c59"/>
+
+  <!-- Pot layers - earth tones -->
+  <rect x="4" y="15" width="24" height="5" rx="1" fill="#5c5247"/>
+  <rect x="6" y="21" width="20" height="5" rx="1" fill="#3d3630"/>
+  <rect x="8" y="27" width="16" height="4" rx="1" fill="#252220"/>
+</svg>

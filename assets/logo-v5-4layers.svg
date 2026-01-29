@@ -1,0 +1,13 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- V5: 4 layers version -->
+
+  <!-- Growth stem -->
+  <rect x="30" y="10" width="4" height="12" rx="2" fill="#4a7c59"/>
+  <circle cx="32" cy="8" r="3" fill="#5d9a6f"/>
+
+  <!-- 4 Sedimentary layers -->
+  <rect x="12" y="22" width="40" height="5" rx="1" fill="#3d3a36"/>
+  <rect x="15" y="29" width="34" height="5" rx="1" fill="#2d2d2d"/>
+  <rect x="18" y="36" width="28" height="5" rx="1" fill="#252422"/>
+  <rect x="21" y="43" width="22" height="5" rx="1" fill="#1a1918"/>
+</svg>

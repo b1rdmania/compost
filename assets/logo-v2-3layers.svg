@@ -1,0 +1,12 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- V2: 3 layers, tighter spacing, stem stops at top layer -->
+
+  <!-- Growth stem - stops at top layer -->
+  <rect x="30" y="12" width="4" height="14" rx="2" fill="#4a7c59"/>
+  <circle cx="32" cy="10" r="3" fill="#5d9a6f"/>
+
+  <!-- 3 Sedimentary layers - tighter spacing -->
+  <rect x="14" y="26" width="36" height="6" rx="1" fill="#3d3a36"/>
+  <rect x="18" y="34" width="28" height="6" rx="1" fill="#252422"/>
+  <rect x="22" y="42" width="20" height="6" rx="1" fill="#1a1918"/>
+</svg>

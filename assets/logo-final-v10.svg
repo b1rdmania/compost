@@ -1,0 +1,17 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- V10: Even smaller leaf -->
+
+  <path d="M26 28
+           C24 22 26 18 30 14
+           C32 12 38 13 40 16
+           C42 19 40 22 37 21
+           C34 20 33 18 32 16
+           C30 20 30 26 30 28 Z"
+        fill="#7db08d"/>
+
+  <path d="M26 28 C24 22 28 18 30 14 L32 15 C30 19 28 24 30 28 Z" fill="#5d8a6d"/>
+
+  <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+  <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+  <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+</svg>

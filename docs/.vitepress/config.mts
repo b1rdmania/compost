@@ -67,8 +67,7 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Integrations', link: '/ecosystem/integrations' },
-          { text: 'Institutional', link: '/ecosystem/institutional' },
-          { text: 'Early Stakers', link: '/ecosystem/early-stakers' }
+          { text: 'Institutional', link: '/ecosystem/institutional' }
         ]
       },
       {

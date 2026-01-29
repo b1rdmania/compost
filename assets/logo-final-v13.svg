@@ -1,0 +1,17 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- V13: Tiny leaf + bright spring green -->
+
+  <path d="M27 28
+           C25 23 27 19 30 15
+           C32 13 36 14 38 17
+           C39 19 38 21 36 20
+           C34 19 33 17 32 16
+           C30 20 30 26 30 28 Z"
+        fill="#68c47a"/>
+
+  <path d="M27 28 C25 23 28 19 30 15 L32 16 C30 19 29 24 30 28 Z" fill="#4a9c5a"/>
+
+  <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+  <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+  <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+</svg>

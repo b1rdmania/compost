@@ -1,0 +1,14 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- V5: Abstract - rounded rect as "growth" -->
+
+  <!-- Abstract growth indicator -->
+  <rect x="28" y="6" width="8" height="22" rx="4" fill="#4a7c59"/>
+
+  <!-- Bright tip -->
+  <circle cx="32" cy="8" r="3" fill="#5d9a6f"/>
+
+  <!-- Pot layers - earth tones -->
+  <rect x="10" y="30" width="44" height="8" rx="2" fill="#5c5247"/>
+  <rect x="14" y="40" width="36" height="8" rx="2" fill="#3d3630"/>
+  <rect x="18" y="50" width="28" height="8" rx="2" fill="#252220"/>
+</svg>

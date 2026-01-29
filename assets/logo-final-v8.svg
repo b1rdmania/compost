@@ -1,0 +1,23 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- V8: Cleaner approach matching reference -->
+
+  <!-- Stem - curved, darker green -->
+  <path d="M28 30 Q24 24 28 16 L32 16 Q28 22 30 30 Z" fill="#5d8a6d"/>
+
+  <!-- Leaf - teardrop tilted right with pointed tip -->
+  <path d="M30 16
+           C30 10 36 6 42 10
+           C48 14 48 22 44 26
+           C40 30 34 28 30 22
+           C28 18 30 16 30 16 Z"
+        fill="#7db08d"/>
+
+  <!-- Pot layer 1 - widest, lightest -->
+  <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+
+  <!-- Pot layer 2 - middle -->
+  <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+
+  <!-- Pot layer 3 - narrowest, darkest -->
+  <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Compost Logo: Pot shape + single curved leaf, gray variant -->
+
+  <!-- Single organic leaf -->
+  <ellipse cx="38" cy="12" rx="6" ry="10" transform="rotate(30 38 12)" fill="#5d9a6f"/>
+
+  <!-- Stem -->
+  <rect x="30" y="14" width="4" height="16" rx="2" fill="#4a7c59"/>
+
+  <!-- Pot layers - gray tones -->
+  <rect x="10" y="30" width="44" height="8" rx="2" fill="#5a5a5a"/>
+  <rect x="14" y="40" width="36" height="8" rx="2" fill="#3a3a3a"/>
+  <rect x="18" y="50" width="28" height="8" rx="2" fill="#1f1f1f"/>
+</svg>

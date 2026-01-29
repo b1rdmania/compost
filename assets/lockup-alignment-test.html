@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lockup Alignment Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: #0a0a09;
+      color: #e8e4df;
+    }
+    h1 {
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5c574f;
+      margin: 0 0 40px 0;
+    }
+    h2 {
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4dcf6a;
+      margin: 40px 0 20px 0;
+      padding-top: 20px;
+      border-top: 1px solid #252422;
+    }
+    .test-row {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin: 20px 0;
+      padding: 20px;
+      background: #111110;
+      border-radius: 8px;
+    }
+    .lockup {
+      display: flex;
+      align-items: center;
+      /* Debug: show alignment line */
+      position: relative;
+    }
+    .lockup::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: rgba(77, 207, 106, 0.3);
+    }
+    .lockup svg {
+      flex-shrink: 0;
+    }
+    .lockup span {
+      font-weight: 200;
+      letter-spacing: 0.12em;
+      line-height: 1;
+    }
+    .meta {
+      font-size: 11px;
+      color: #5c574f;
+      min-width: 100px;
+    }
+
+    /* Size variants */
+    .size-24 { gap: 8px; }
+    .size-24 svg { width: 20px; height: 20px; transform: translateY(-1px); }
+    .size-24 span { font-size: 14px; }
+
+    .size-32 { gap: 10px; }
+    .size-32 svg { width: 28px; height: 28px; transform: translateY(-1px); }
+    .size-32 span { font-size: 16px; }
+
+    .size-48 { gap: 12px; }
+    .size-48 svg { width: 36px; height: 36px; transform: translateY(-2px); }
+    .size-48 span { font-size: 24px; }
+
+    .size-64 { gap: 16px; }
+    .size-64 svg { width: 48px; height: 48px; transform: translateY(-2px); }
+    .size-64 span { font-size: 32px; }
+
+    /* No adjustment version for comparison */
+    .no-adjust svg { transform: none; }
+    .no-adjust::before { background: rgba(255, 100, 100, 0.3); }
+
+    .comparison {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .label {
+      font-size: 10px;
+      color: #5c574f;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Lockup Optical Alignment Test</h1>
+<p style="color: #5c574f; font-size: 13px; margin-bottom: 30px;">
+  Green line = center alignment reference. Mark should sit optically centered to cap height.
+</p>
+
+<h2>24px Test</h2>
+<div class="test-row">
+  <div class="meta">24px</div>
+  <div class="comparison">
+    <div>
+      <div class="label">With optical adjustment (translateY -1px)</div>
+      <div class="lockup size-24">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+          <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+          <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span>COMPOST</span>
+      </div>
+    </div>
+    <div>
+      <div class="label">No adjustment (baseline)</div>
+      <div class="lockup size-24 no-adjust">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+          <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+          <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span>COMPOST</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>32px Test (Header size)</h2>
+<div class="test-row">
+  <div class="meta">32px</div>
+  <div class="comparison">
+    <div>
+      <div class="label">With optical adjustment</div>
+      <div class="lockup size-32">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+          <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+          <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span>COMPOST</span>
+      </div>
+    </div>
+    <div>
+      <div class="label">No adjustment</div>
+      <div class="lockup size-32 no-adjust">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+          <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+          <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span>COMPOST</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>48px Test</h2>
+<div class="test-row">
+  <div class="meta">48px</div>
+  <div class="comparison">
+    <div>
+      <div class="label">With optical adjustment (translateY -2px)</div>
+      <div class="lockup size-48">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+          <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+          <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span>COMPOST</span>
+      </div>
+    </div>
+    <div>
+      <div class="label">No adjustment</div>
+      <div class="lockup size-48 no-adjust">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+          <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+          <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span>COMPOST</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>64px Test</h2>
+<div class="test-row">
+  <div class="meta">64px</div>
+  <div class="comparison">
+    <div>
+      <div class="label">With optical adjustment (translateY -2px)</div>
+      <div class="lockup size-64">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+          <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+          <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span>COMPOST</span>
+      </div>
+    </div>
+    <div>
+      <div class="label">No adjustment</div>
+      <div class="lockup size-64 no-adjust">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+          <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+          <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span>COMPOST</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Clean Preview (no guides)</h2>
+<div class="test-row" style="flex-direction: column; align-items: flex-start; gap: 24px;">
+  <div class="lockup size-24" style="gap: 8px;">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;transform:translateY(-1px);">
+      <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+      <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+      <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+      <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+      <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+    </svg>
+    <span style="font-size:14px;font-weight:200;letter-spacing:0.12em;">COMPOST</span>
+  </div>
+  <div class="lockup size-32" style="gap: 10px;">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:28px;height:28px;transform:translateY(-1px);">
+      <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+      <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+      <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+      <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+      <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+    </svg>
+    <span style="font-size:16px;font-weight:200;letter-spacing:0.12em;">COMPOST</span>
+  </div>
+  <div class="lockup size-48" style="gap: 14px;">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:40px;height:40px;transform:translateY(-2px);">
+      <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+      <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+      <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+      <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+      <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+    </svg>
+    <span style="font-size:24px;font-weight:200;letter-spacing:0.12em;">COMPOST</span>
+  </div>
+  <div class="lockup size-64" style="gap: 16px;">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:48px;height:48px;transform:translateY(-2px);">
+      <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+      <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+      <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+      <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+      <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+    </svg>
+    <span style="font-size:32px;font-weight:200;letter-spacing:0.12em;">COMPOST</span>
+  </div>
+</div>
+
+</body>
+</html>

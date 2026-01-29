@@ -1,0 +1,14 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- V6: Matching Gemini reference more closely -->
+
+  <!-- Stem - curves from bottom-left up to the right -->
+  <path d="M28 28 Q26 20 30 14 Q32 12 36 14 Q30 18 30 28 Z" fill="#6b9a7a"/>
+
+  <!-- Leaf - teardrop tilting right, overlaps stem -->
+  <path d="M36 14 Q48 18 48 28 Q48 32 42 30 Q36 28 32 20 Q30 14 36 14 Z" fill="#7db08d"/>
+
+  <!-- Pot layers - earth tones, rounded, stacked -->
+  <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+  <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+  <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+</svg>

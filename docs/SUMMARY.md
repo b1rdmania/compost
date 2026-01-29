@@ -30,7 +30,6 @@
 
 * [Integrations](ecosystem/integrations.md)
 * [Institutional Access](ecosystem/institutional.md)
-* [Early Stakers](ecosystem/early-stakers.md)
 
 ## Appendix
 

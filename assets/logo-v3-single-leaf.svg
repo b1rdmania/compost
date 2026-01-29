@@ -1,0 +1,13 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- V3: Single leaf, 3 layers -->
+
+  <!-- Growth stem with single leaf -->
+  <rect x="30" y="14" width="4" height="12" rx="2" fill="#4a7c59"/>
+  <!-- Single leaf angled right -->
+  <ellipse cx="36" cy="10" rx="5" ry="3" transform="rotate(45 36 10)" fill="#5d9a6f"/>
+
+  <!-- 3 Sedimentary layers -->
+  <rect x="14" y="26" width="36" height="6" rx="1" fill="#3d3a36"/>
+  <rect x="18" y="34" width="28" height="6" rx="1" fill="#252422"/>
+  <rect x="22" y="42" width="20" height="6" rx="1" fill="#1a1918"/>
+</svg>

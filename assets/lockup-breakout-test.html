@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Breakout Lockup Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: #0a0a09;
+      color: #e8e4df;
+    }
+    h1 {
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5c574f;
+      margin: 0 0 40px 0;
+    }
+    h2 {
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4dcf6a;
+      margin: 50px 0 20px 0;
+      padding-top: 20px;
+      border-top: 1px solid #252422;
+    }
+    .card {
+      background: #111110;
+      border-radius: 12px;
+      padding: 60px 40px;
+      margin: 20px 0;
+    }
+    .card-label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5c574f;
+      margin-bottom: 30px;
+    }
+
+    /* Breakout lockup - layers align with cap height, shoot extends above */
+    .lockup-breakout {
+      display: flex;
+      align-items: flex-end; /* Align to baseline */
+      position: relative;
+    }
+    .lockup-breakout span {
+      font-weight: 200;
+      letter-spacing: 0.12em;
+      color: #e8e4df;
+      line-height: 1;
+    }
+
+    /* Standard lockup for comparison */
+    .lockup-standard {
+      display: flex;
+      align-items: center;
+    }
+    .lockup-standard span {
+      font-weight: 200;
+      letter-spacing: 0.12em;
+      color: #e8e4df;
+      line-height: 1;
+    }
+
+    .comparison {
+      display: flex;
+      gap: 80px;
+      align-items: flex-end;
+    }
+    .variant-label {
+      font-size: 10px;
+      color: #5c574f;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    /* Guide lines */
+    .with-guides {
+      position: relative;
+    }
+    .with-guides::before {
+      content: 'cap height';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 100%;
+      margin-bottom: -1px;
+      height: 1px;
+      background: rgba(77, 207, 106, 0.4);
+      font-size: 8px;
+      color: rgba(77, 207, 106, 0.6);
+      padding-left: 4px;
+    }
+    .with-guides::after {
+      content: 'baseline';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: rgba(255, 100, 100, 0.4);
+      font-size: 8px;
+      color: rgba(255, 100, 100, 0.6);
+      padding-left: 4px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Breakout Lockup — Shoot Extends Above Cap Height</h1>
+<p style="color: #5c574f; font-size: 13px; margin-bottom: 30px; max-width: 600px; line-height: 1.6;">
+  Pot layers align with the cap height of COMPOST. The leaf/shoot breaks out above the text line, creating visual interest and upward momentum.
+</p>
+
+<h2>32px Text — Header Size</h2>
+<div class="card">
+  <div class="comparison">
+    <div>
+      <div class="lockup-breakout" style="gap: 12px;">
+        <!-- Mark with shoot extending above -->
+        <svg width="40" height="56" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -4px;">
+          <!-- Shoot extends into negative space above -->
+          <path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/>
+          <path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/>
+          <!-- Pot layers aligned lower -->
+          <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span style="font-size: 32px;">COMPOST</span>
+      </div>
+      <div class="variant-label">Breakout — shoot extends above</div>
+    </div>
+    <div>
+      <div class="lockup-standard" style="gap: 12px;">
+        <svg width="36" height="36" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: translateY(-2px);">
+          <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+          <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+          <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span style="font-size: 32px;">COMPOST</span>
+      </div>
+      <div class="variant-label">Standard — centered</div>
+    </div>
+  </div>
+</div>
+
+<h2>48px Text — Large Header</h2>
+<div class="card">
+  <div class="comparison">
+    <div>
+      <div class="lockup-breakout" style="gap: 14px;">
+        <svg width="52" height="72" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -6px;">
+          <path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/>
+          <path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/>
+          <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span style="font-size: 48px;">COMPOST</span>
+      </div>
+      <div class="variant-label">Breakout</div>
+    </div>
+    <div>
+      <div class="lockup-standard" style="gap: 16px;">
+        <svg width="48" height="48" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: translateY(-2px);">
+          <path d="M29 28 C27 22 29 18 32 14 C34 12 38 13 40 16 C42 19 39 21 36 20 C33 19 33 17 32 15 C31 19 30 25 31 28 Z" fill="#4dcf6a"/>
+          <path d="M29 28 C27 22 30 18 32 14 L34 15 C31 18 30 24 31 28 Z" fill="#2ba84a"/>
+          <rect x="10" y="32" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="43" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="54" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span style="font-size: 48px;">COMPOST</span>
+      </div>
+      <div class="variant-label">Standard</div>
+    </div>
+  </div>
+</div>
+
+<h2>Breakout Variants — Different Extensions</h2>
+<div class="card">
+  <div style="display: flex; gap: 60px; flex-wrap: wrap;">
+    <div>
+      <div class="lockup-breakout" style="gap: 12px;">
+        <!-- Subtle breakout - 20% above -->
+        <svg width="44" height="52" viewBox="0 0 64 75" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -4px;">
+          <path d="M29 39 C27 33 29 29 32 25 C34 23 38 24 40 27 C42 30 39 32 36 31 C33 30 33 28 32 26 C31 30 30 36 31 39 Z" fill="#4dcf6a"/>
+          <path d="M29 39 C27 33 30 29 32 25 L34 26 C31 29 30 35 31 39 Z" fill="#2ba84a"/>
+          <rect x="10" y="43" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="54" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="65" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span style="font-size: 36px;">COMPOST</span>
+      </div>
+      <div class="variant-label">Subtle (20% above)</div>
+    </div>
+    <div>
+      <div class="lockup-breakout" style="gap: 12px;">
+        <!-- Medium breakout - 40% above -->
+        <svg width="44" height="60" viewBox="0 0 64 82" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -4px;">
+          <path d="M29 46 C27 40 29 36 32 32 C34 30 38 31 40 34 C42 37 39 39 36 38 C33 37 33 35 32 33 C31 37 30 43 31 46 Z" fill="#4dcf6a"/>
+          <path d="M29 46 C27 40 30 36 32 32 L34 33 C31 36 30 42 31 46 Z" fill="#2ba84a"/>
+          <rect x="10" y="50" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="61" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="72" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span style="font-size: 36px;">COMPOST</span>
+      </div>
+      <div class="variant-label">Medium (40% above)</div>
+    </div>
+    <div>
+      <div class="lockup-breakout" style="gap: 12px;">
+        <!-- Bold breakout - 60% above -->
+        <svg width="44" height="70" viewBox="0 0 64 92" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -4px;">
+          <path d="M29 56 C27 50 29 46 32 42 C34 40 38 41 40 44 C42 47 39 49 36 48 C33 47 33 45 32 43 C31 47 30 53 31 56 Z" fill="#4dcf6a"/>
+          <path d="M29 56 C27 50 30 46 32 42 L34 43 C31 46 30 52 31 56 Z" fill="#2ba84a"/>
+          <rect x="10" y="60" width="44" height="9" rx="4" fill="#8a7d6d"/>
+          <rect x="14" y="71" width="36" height="9" rx="4" fill="#5c5347"/>
+          <rect x="18" y="82" width="28" height="8" rx="4" fill="#3d3630"/>
+        </svg>
+        <span style="font-size: 36px;">COMPOST</span>
+      </div>
+      <div class="variant-label">Bold (60% above)</div>
+    </div>
+  </div>
+</div>
+
+<h2>In Context — Header</h2>
+<div class="card" style="background: #0a0a09; border: 1px solid #252422;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+    <div class="lockup-breakout" style="gap: 10px;">
+      <svg width="32" height="44" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: -3px;">
+        <path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/>
+        <path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/>
+        <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
+        <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
+        <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
+      </svg>
+      <span style="font-size: 18px; font-weight: 200; letter-spacing: 0.12em;">COMPOST</span>
+    </div>
+    <div style="display: flex; gap: 24px;">
+      <span style="font-size: 12px; color: #5c574f; letter-spacing: 0.08em;">DOCS</span>
+      <span style="font-size: 12px; color: #5c574f; letter-spacing: 0.08em;">TWITTER</span>
+    </div>
+  </div>
+</div>
+
+<h2>Summary</h2>
+<div class="grid" style="margin-top: 20px;">
+  <div style="background:#111110; padding:20px; border-radius:8px;">
+    <div style="font-size:11px; color:#4dcf6a; letter-spacing:0.1em; margin-bottom:12px;">BREAKOUT PROS</div>
+    <ul style="font-size:13px; color:#9a958d; line-height:1.8; padding-left:16px; margin:0;">
+      <li>Visual interest — breaks the grid</li>
+      <li>Growth metaphor — shoot rises up</li>
+      <li>Distinctive — memorable mark</li>
+      <li>Layers ground the text nicely</li>
+    </ul>
+  </div>
+  <div style="background:#111110; padding:20px; border-radius:8px;">
+    <div style="font-size:11px; color:#4dcf6a; letter-spacing:0.1em; margin-bottom:12px;">BREAKOUT CONS</div>
+    <ul style="font-size:13px; color:#9a958d; line-height:1.8; padding-left:16px; margin:0;">
+      <li>Needs more vertical space</li>
+      <li>Harder to contain in tight layouts</li>
+      <li>May feel unbalanced to some</li>
+      <li>Requires careful padding above</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

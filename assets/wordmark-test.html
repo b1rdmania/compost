@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Compost Wordmark Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Outfit', system-ui, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: #0a0a09;
+      color: #e8e4df;
+    }
+    h1 {
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5c574f;
+      margin: 0 0 40px 0;
+    }
+    h2 {
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4dcf6a;
+      margin: 50px 0 20px 0;
+      padding-top: 30px;
+      border-top: 1px solid #252422;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    .card {
+      background: #111110;
+      border-radius: 8px;
+      padding: 30px;
+    }
+    .card-light {
+      background: #f5f5f5;
+    }
+    .wordmark {
+      margin-bottom: 16px;
+    }
+    .meta {
+      font-size: 11px;
+      color: #5c574f;
+      line-height: 1.6;
+    }
+    .card-light .meta {
+      color: #888;
+    }
+    .fav {
+      border: 1px solid #4dcf6a;
+    }
+    .fav .meta::before {
+      content: "★ ";
+      color: #4dcf6a;
+    }
+
+    /* Wordmark styles */
+    .w-200 { font-weight: 200; }
+    .w-300 { font-weight: 300; }
+    .w-400 { font-weight: 400; }
+    .w-500 { font-weight: 500; }
+
+    .t-wide { letter-spacing: 0.12em; }
+    .t-med { letter-spacing: 0.10em; }
+    .t-normal { letter-spacing: 0.06em; }
+    .t-tight { letter-spacing: 0.04em; }
+    .t-dense { letter-spacing: 0.02em; }
+
+    .s-large { font-size: 48px; }
+    .s-medium { font-size: 36px; }
+
+    .dark { color: #e8e4df; }
+    .light { color: #1a1918; }
+
+    .with-dot {
+      color: #5c574f;
+    }
+    .with-dot span {
+      color: #e8e4df;
+    }
+    .card-light .with-dot {
+      color: #aaa;
+    }
+    .card-light .with-dot span {
+      color: #1a1918;
+    }
+
+    /* Side by side small */
+    .row {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    .row-item {
+      text-align: center;
+    }
+    .row-item .wordmark {
+      margin-bottom: 8px;
+    }
+    .row-item .meta {
+      font-size: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Wordmark Exploration</h1>
+
+<h2>1. Case Variations (Weight 200, Wide Tracking)</h2>
+<div class="grid">
+  <div class="card fav">
+    <div class="wordmark s-large w-200 t-wide">COMPOST</div>
+    <div class="meta">All caps — Bold, infrastructure, serious</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-large w-200 t-wide">Compost</div>
+    <div class="meta">Title case — Softer, approachable</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-large w-200 t-wide">compost</div>
+    <div class="meta">Lowercase — Minimal, modern, tech</div>
+  </div>
+</div>
+
+<h2>2. Weight Variations (All Caps, Wide Tracking)</h2>
+<div class="grid">
+  <div class="card fav">
+    <div class="wordmark s-large w-200 t-wide">COMPOST</div>
+    <div class="meta">Weight 200 — Elegant, premium, quiet</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-large w-300 t-wide">COMPOST</div>
+    <div class="meta">Weight 300 — Balanced, readable</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-large w-400 t-wide">COMPOST</div>
+    <div class="meta">Weight 400 — Solid, neutral</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-large w-500 t-wide">COMPOST</div>
+    <div class="meta">Weight 500 — Bold, loud</div>
+  </div>
+</div>
+
+<h2>3. Tracking Variations (All Caps, Weight 200)</h2>
+<div class="grid">
+  <div class="card fav">
+    <div class="wordmark s-large w-200 t-wide">COMPOST</div>
+    <div class="meta">0.12em — Premium, luxury, infra</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-large w-200 t-med">COMPOST</div>
+    <div class="meta">0.10em — Slightly tighter</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-large w-200 t-normal">COMPOST</div>
+    <div class="meta">0.06em — Balanced</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-large w-200 t-tight">COMPOST</div>
+    <div class="meta">0.04em — Techy, startup</div>
+  </div>
+</div>
+
+<h2>4. Domain Variations</h2>
+<div class="grid">
+  <div class="card">
+    <div class="wordmark s-medium w-300 t-tight with-dot"><span>compost</span>.fi</div>
+    <div class="meta">Web-native, startup, memorable</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-medium w-200 t-med with-dot"><span>COMPOST</span>.FI</div>
+    <div class="meta">Caps + domain — Strong but maybe cluttered</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-medium w-300 t-dense with-dot"><span>compost</span>.fi</div>
+    <div class="meta">Dense tracking — Very web-native</div>
+  </div>
+</div>
+
+<h2>5. Recommended Combos</h2>
+<div class="grid">
+  <div class="card fav">
+    <div class="wordmark s-large w-200 t-wide">COMPOST</div>
+    <div class="meta">Primary — Weight 200, tracking 0.12em (current)</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-large w-300 t-med">COMPOST</div>
+    <div class="meta">Alt — Weight 300, tracking 0.10em (bolder)</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-large w-300 t-tight">compost</div>
+    <div class="meta">Minimal — Weight 300, tracking 0.04em</div>
+  </div>
+  <div class="card">
+    <div class="wordmark s-medium w-300 t-dense with-dot"><span>compost</span>.fi</div>
+    <div class="meta">Footer/URL — Weight 300, tracking 0.02em</div>
+  </div>
+</div>
+
+<h2>6. On Light Background</h2>
+<div class="grid">
+  <div class="card card-light">
+    <div class="wordmark s-large w-200 t-wide light">COMPOST</div>
+    <div class="meta">Primary on light</div>
+  </div>
+  <div class="card card-light">
+    <div class="wordmark s-large w-300 t-med light">COMPOST</div>
+    <div class="meta">Weight 300 on light</div>
+  </div>
+  <div class="card card-light">
+    <div class="wordmark s-medium w-300 t-dense with-dot"><span class="light">compost</span>.fi</div>
+    <div class="meta">Domain on light</div>
+  </div>
+</div>
+
+<h2>7. Side-by-Side at UI Size (24px)</h2>
+<div class="row">
+  <div class="row-item">
+    <div class="wordmark w-200 t-wide" style="font-size:24px;">COMPOST</div>
+    <div class="meta">200 / wide</div>
+  </div>
+  <div class="row-item">
+    <div class="wordmark w-300 t-med" style="font-size:24px;">COMPOST</div>
+    <div class="meta">300 / med</div>
+  </div>
+  <div class="row-item">
+    <div class="wordmark w-300 t-tight" style="font-size:24px;">compost</div>
+    <div class="meta">300 / tight</div>
+  </div>
+  <div class="row-item">
+    <div class="wordmark w-300 t-dense with-dot" style="font-size:24px;"><span>compost</span>.fi</div>
+    <div class="meta">domain</div>
+  </div>
+</div>
+
+<h2>8. With Logo Mark</h2>
+<div class="grid">
+  <div class="card fav" style="display:flex; align-items:center; gap:20px;">
+    <img src="logo/logo-primary.svg" width="48" height="48">
+    <div class="wordmark w-200 t-wide" style="font-size:32px;">COMPOST</div>
+  </div>
+  <div class="card" style="display:flex; align-items:center; gap:16px;">
+    <img src="logo/logo-primary.svg" width="40" height="40">
+    <div class="wordmark w-300 t-med" style="font-size:28px;">COMPOST</div>
+  </div>
+  <div class="card" style="display:flex; align-items:center; gap:16px;">
+    <img src="logo/logo-primary.svg" width="36" height="36">
+    <div class="wordmark w-300 t-tight" style="font-size:24px;">compost</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Compost Logo: Recreating the Gemini pot-single-v2-earth style -->
+
+  <!-- Curved leaf - organic teardrop shape curving right -->
+  <path d="M32 6 C32 6 42 10 44 20 C44 24 40 26 36 22 C32 18 32 12 32 6 Z" fill="#5d9a6f"/>
+
+  <!-- Curved stem - slight bend to the right -->
+  <path d="M30 28 Q31 18 34 14 L38 16 Q34 20 33 28 Z" fill="#4a7c59"/>
+
+  <!-- Pot layers - earth tones, wide top narrow bottom -->
+  <rect x="8" y="30" width="48" height="9" rx="2" fill="#6b6256"/>
+  <rect x="12" y="41" width="40" height="9" rx="2" fill="#4a453e"/>
+  <rect x="16" y="52" width="32" height="9" rx="2" fill="#2d2a26"/>
+</svg>

@@ -97,5 +97,5 @@ Include:
 ---
 
 ::: info
-**Next:** [Early Stakers](early-stakers.md)
+**Next:** [Contracts & Addresses](../appendix/contracts.md)
 :::
