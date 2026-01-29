@@ -13,8 +13,8 @@ The integrations below are examples of what's possible with cHYPE. Specific part
 | Integration Type | Use Case |
 |------------------|----------|
 | **Yield tokenisation** (e.g. Pendle) | Split into PT (principal) + YT (yield) — trade future yield |
-| **Lending protocols** | Use as collateral, borrow against yield position |
-| **DEX liquidity** | Provide liquidity in cHYPE pairs |
+| **Lending protocols** (e.g. Morpho, Euler, Felix) | Use as collateral, borrow against yield position |
+| **DEX liquidity** (e.g. Beets) | Provide liquidity in cHYPE pairs |
 | **Yield aggregators** | Auto-compound strategies |
 | **Structured products** | Use as underlying for other protocols |
 
