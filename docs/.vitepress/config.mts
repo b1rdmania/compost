@@ -26,7 +26,7 @@ export default defineConfig({
       {
         text: 'Introduction',
         items: [
-          { text: 'What is Compost?', link: '/' }
+          { text: 'Overview', link: '/' }
         ]
       },
       {
