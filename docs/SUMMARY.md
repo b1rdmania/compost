@@ -30,6 +30,7 @@
 
 * [Integrations](ecosystem/integrations.md)
 * [Institutional Access](ecosystem/institutional.md)
+* [Roadmap](ecosystem/roadmap.md)
 
 ## Appendix
 

@@ -10,74 +10,28 @@ How yield moves from source to your cHYPE.
 
 ---
 
-## Step by Step
+## How Capital Moves
 
-### Step 1: User Deposits HYPE
+### Deposit
+1. You deposit HYPE
+2. Vault mints cHYPE at current rate
+3. You receive cHYPE
 
-```
-User sends HYPE to Vault
-  └── Vault receives HYPE
-  └── cHYPE minted at current exchange rate
-  └── User receives cHYPE
-```
+### Allocation
+Vault splits HYPE two ways:
 
-**Example:** User deposits 1,000 HYPE when exchange rate is 1.05. They receive 952.38 cHYPE (1000 / 1.05).
+- **Validators (20-30%)** — Staked with Hyperliquid validators, ~2.5% APY, 7-day unstake
+- **HIP-3 Markets (50-70%)** — Staked with deployers (Felix, Kinetiq, etc.), 20-40% of trading fees
 
----
+### Yield
+1. Fees and rewards flow to vault
+2. 15% taken as protocol fee (on yield, not principal)
+3. Net yield (85%) compounds
+4. cHYPE exchange rate rises
 
-### Step 2: Vault Allocates HYPE
-
-```
-Vault allocates capital:
-  ├── 20-30% → Validator staking (liquidity buffer)
-  └── 70-80% → HIP-3 markets (yield generation)
-```
-
-Allocation percentages may vary based on:
-- Redemption demand
-- Market opportunities
-- Risk management
-
----
-
-### Step 3: Yield Accrues
-
-```
-Yield flows in from:
-  ├── Staking rewards: claimed daily
-  ├── Builder fees: distributed per epoch (varies by market)
-  └── Token incentives: held in treasury
-```
-
-Different yield sources have different timing:
-- Validator rewards: continuous
-- HIP-3 fees: epoch-based (market dependent)
-
----
-
-### Step 4: Protocol Fee Deducted
-
-```
-Gross yield received
-  └── Protocol fee deducted (15% of yield)
-        ├── 90% → Compost operations
-        └── 10% → Infrastructure partner
-```
-
-The 15% fee is taken on yield only — not on principal.
-
----
-
-### Step 5: Net Yield Compounds
-
-```
-Net yield (85%) enters vault
-  └── Vault HYPE balance increases
-  └── cHYPE exchange rate increases
-  └── All cHYPE holders benefit proportionally
-```
-
-No action required. cHYPE automatically appreciates.
+### Withdrawal
+1. Burn cHYPE
+2. HYPE queued (7-14 days) or sell cHYPE on DEX
 
 ---
 

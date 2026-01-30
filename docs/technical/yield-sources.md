@@ -34,6 +34,19 @@ The majority of the vault is allocated to HIP-3 markets.
 The markets and partners listed are examples under consideration. Specific allocations will be confirmed prior to launch.
 :::
 
+### Growth Mode
+
+Most HIP-3 markets run at 90% reduced fees to bootstrap volume.
+
+| Mode | Taker Fee | Effect |
+|------|-----------|--------|
+| Growth | ~0.45 bps | Lower yield now |
+| Standard | ~4.5 bps | Higher yield later |
+
+$25B volume has generated ~$3M fees. When markets exit Growth Mode, yields increase.
+
+[Live stats →](https://dune.com/yandhii/hip3)
+
 ### Allocation Strategy
 
 Compost targets the highest risk-adjusted yield across methods:

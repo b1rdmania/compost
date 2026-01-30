@@ -68,7 +68,8 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Integrations', link: '/ecosystem/integrations' },
-          { text: 'Institutional', link: '/ecosystem/institutional' }
+          { text: 'Institutional', link: '/ecosystem/institutional' },
+          { text: 'Roadmap', link: '/ecosystem/roadmap' }
         ]
       },
       {
