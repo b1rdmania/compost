@@ -74,6 +74,7 @@ Files:
 - CSS variables in `:root`
 - Scroll reveal animations
 - Waitlist form → `/api/waitlist` → Neon Postgres
+- iOS Safari: uses `viewport-fit=cover` with `env(safe-area-inset-top)` for notch handling, `100dvh` for dynamic viewport height, solid nav background to prevent content bleed
 
 ### Docs (VitePress)
 
