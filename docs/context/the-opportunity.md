@@ -17,13 +17,15 @@ HIP-3 markets are live and generating real fees.
 
 ## Live Markets
 
-| Market | Category | Notes |
-|--------|----------|-------|
-| [trade.xyz](https://trade.xyz) | Equities | XYZ100 (Nasdaq proxy), NVDA, TSLA — $12.7B+ volume |
-| [Kinetiq Markets](https://kinetiq.xyz) | Global indices | $363M 30d volume |
-| [Felix](https://felix.xyz) | Equities | TSLA first, more coming |
-| [HyENA](https://hyena.trade) | USDe perps | Ethena-backed, BTC/ETH/SOL/HYPE |
-| [Ventuals](https://ventuals.com) | Pre-IPO | SpaceX, OpenAI, Anthropic |
+| Market | Category | Mechanism | Volume |
+|--------|----------|-----------|--------|
+| [trade.xyz](https://trade.xyz) | Equities | Direct deployer | $12.7B+ |
+| [Kinetiq](https://kinetiq.xyz) | Global indices | Pooled wrapper | $363M 30d |
+| [Felix](https://felix.xyz) | Equities | Stake provider | Live |
+| [HyENA](https://hyena.trade) | USDe perps | Collateral-native | Live |
+| [Ventuals](https://ventuals.com) | Pre-IPO | LP vault | Live |
+
+*Mechanisms explained in [Yield Sources](../technical/yield-sources.md#mechanisms).*
 
 ---
 
@@ -44,7 +46,14 @@ $25B volume × 4.5 bps = $11.25M in fees
 50% to deployers = $5.6M to builders
 ```
 
-This is real yield. Protocol-enforced. Already happening.
+In Growth Mode (90% fee reduction), the same volume implies:
+
+```
+$25B volume × 0.45 bps = $1.125M in fees
+50% to deployers = $0.56M to builders
+```
+
+This is real yield. Protocol-enforced. Already happening — but **fee modes matter** for near-term yield.
 
 ---
 

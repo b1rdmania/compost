@@ -54,7 +54,7 @@ Split cHYPE into:
 
 Trade future yield or lock in fixed rates.
 
-### Lending (e.g. Morpho, Euler, Felix)
+### Lending (e.g. Morpho, Euler)
 Use cHYPE as collateral on lending protocols. Borrow against your yield position without selling.
 
 ### Liquidity

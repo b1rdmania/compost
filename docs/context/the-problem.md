@@ -10,9 +10,9 @@ If you don't, your options are fragmented.
 
 | Option | Problem |
 |--------|---------|
-| Stake via Kinetiq Launch | Their pools, their terms, limited markets |
+| Use pooled/wrapper programs | Their pools, their terms, limited markets |
 | Buy deployer tokens | Single-market exposure, token risk |
-| Direct stake with deployer | Requires relationship, negotiation |
+| Direct arrangements with operators | Requires relationship, negotiation |
 | Watch from sidelines | Miss the opportunity entirely |
 
 ---

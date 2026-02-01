@@ -41,7 +41,7 @@ If Compost stakes directly and is slashed, the loss is absorbed by the vault (al
 | Careful market selection | Due diligence process |
 | Diversification | No single market >25% of vault |
 | Monitoring | Real-time alerts |
-| Conservative approach | Partner allocations for unproven markets |
+| Conservative approach | Structured exposure only for unproven markets (no large direct concentration) |
 
 ---
 

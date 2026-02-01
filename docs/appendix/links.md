@@ -37,6 +37,20 @@ Official Compost resources.
 
 ---
 
+## HIP-3 Mechanism References (Public)
+
+Links that describe how specific markets structure stake, fees, or yield. These are **external** resources and may change.
+
+| Topic | URL |
+|------|-----|
+| trade.xyz HIP-3 overview | [docs.trade.xyz HIP-3](https://docs.trade.xyz/about-trade-xyz/hyperliquid-xyz-and-hip-3) |
+| trade.xyz fee modes | [docs.trade.xyz fees](https://docs.trade.xyz/trading/fees) |
+| Kinetiq Launch (Markets by Kinetiq) | [kinetiq.xyz launch](https://kinetiq.xyz/launch/markets-by-kinetiq) |
+| Ventuals VLP | [docs.ventuals.com VLP](https://docs.ventuals.com/providing-liquidity/vlp) |
+| HyENA USDe rewards | [docs.hyena.trade USDe rewards](https://docs.hyena.trade/usde-rewards) |
+
+---
+
 ## Hyperliquid
 
 | Resource | URL |

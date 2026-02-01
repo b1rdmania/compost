@@ -18,10 +18,11 @@ How yield moves from source to your cHYPE.
 3. You receive cHYPE
 
 ### Allocation
-Vault splits HYPE two ways:
+Vault allocates HYPE across three buckets:
 
 - **Validators (20-30%)** — Staked with Hyperliquid validators, ~2.5% APY, 7-day unstake
-- **HIP-3 Markets (50-70%)** — Staked with deployers (Felix, Kinetiq, etc.), 20-40% of trading fees
+- **HIP-3 strategies (remainder, typically 50-70%)** — Allocated across HIP-3 yield mechanisms (builder fee exposure, pooled staking wrappers, LP/MM vaults, etc.)
+- **Liquidity + in-transit (residual)** — Unallocated HYPE used for redemptions, rebalancing, and allocation changes (may earn 0% while idle)
 
 ### Yield
 1. Fees and rewards flow to vault
@@ -31,7 +32,7 @@ Vault splits HYPE two ways:
 
 ### Withdrawal
 1. Burn cHYPE
-2. HYPE queued (7-14 days) or sell cHYPE on DEX
+2. HYPE paid from liquidity buffer (when available), queued (7-14 days), or sell cHYPE on DEX
 
 ---
 
