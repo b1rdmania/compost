@@ -66,20 +66,6 @@ These are examples of potential integrations. Specific partnerships will be anno
 
 ---
 
-## Not a Governance Token
-
-cHYPE is the product, not a governance token.
-
-| What cHYPE Is | What cHYPE Isn't |
-|---------------|------------------|
-| Receipt for vault share | Governance rights |
-| Yield-bearing asset | Another token to dump |
-| Composable primitive | Speculation vehicle |
-
-There is no separate Compost token.
-
----
-
 ::: info
 **Next:** [Architecture](../technical/architecture.md)
 :::

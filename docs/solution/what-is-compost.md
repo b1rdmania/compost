@@ -49,7 +49,7 @@ When you deposit, you receive **cHYPE**. That's it.
 - It appreciates as yield accrues
 - You can trade it, use it as collateral, or just hold it
 
-No governance token. No points. No complexity. Just yield.
+No points. No complexity. Just yield.
 
 ---
 
