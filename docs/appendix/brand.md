@@ -154,12 +154,94 @@ Maintain minimum clear space equal to the height of the leaf element around the 
 
 ---
 
+## Icon Library
+
+18 icons in the Compost visual style — earth tones + green accent, 64x64 viewBox.
+
+<div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin: 24px 0;">
+  <div style="text-align: center;">
+    <img src="/icons/deposit.svg" alt="deposit" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">deposit</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/withdraw.svg" alt="withdraw" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">withdraw</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/token.svg" alt="token" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">token</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/vault.svg" alt="vault" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">vault</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/wallet.svg" alt="wallet" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">wallet</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/yield.svg" alt="yield" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">yield</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/chart.svg" alt="chart" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">chart</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/fee.svg" alt="fee" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">fee</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/allocate.svg" alt="allocate" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">allocate</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/markets.svg" alt="markets" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">markets</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/link.svg" alt="link" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">link</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/verify.svg" alt="verify" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">verify</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/eye.svg" alt="eye" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">eye</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/shield.svg" alt="shield" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">shield</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/clock.svg" alt="clock" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">clock</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/check.svg" alt="check" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">check</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/info.svg" alt="info" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">info</div>
+  </div>
+  <div style="text-align: center;">
+    <img src="/icons/warning.svg" alt="warning" style="width: 40px; height: 40px;" />
+    <div style="font-size: 11px; color: #666; margin-top: 4px;">warning</div>
+  </div>
+</div>
+
+---
+
 ## Downloads
 
 | Asset | Format |
 |-------|--------|
 | Logo Mark | [SVG](/logo.svg) |
 | Horizontal Lockup | [SVG](/logo-horizontal.svg) |
+| Icon Library | [/icons/](/icons/) |
 
 ---
 

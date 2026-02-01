@@ -1,0 +1,17 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Candlestick chart style -->
+  <rect x="10" y="20" width="6" height="28" rx="1" fill="#5c5347"/>
+  <rect x="12" y="14" width="2" height="40" fill="#8a7d6d"/>
+
+  <rect x="22" y="28" width="6" height="20" rx="1" fill="#4dcf6a"/>
+  <rect x="24" y="22" width="2" height="32" fill="#2ba84a"/>
+
+  <rect x="34" y="16" width="6" height="24" rx="1" fill="#4dcf6a"/>
+  <rect x="36" y="10" width="2" height="36" fill="#2ba84a"/>
+
+  <rect x="46" y="24" width="6" height="22" rx="1" fill="#5c5347"/>
+  <rect x="48" y="18" width="2" height="34" fill="#8a7d6d"/>
+
+  <!-- Base line -->
+  <path d="M6 56 L58 56" stroke="#3d3630" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -4,7 +4,7 @@ Understanding and mitigating risks in Compost.
 
 ---
 
-## Smart Contract Risk
+## <img src="/icons/warning.svg" alt="" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;" />Smart Contract Risk
 
 Vault contracts may contain bugs or vulnerabilities.
 

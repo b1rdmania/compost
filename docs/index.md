@@ -10,6 +10,34 @@
 
 ---
 
+## Quick Overview
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 32px 0;">
+  <div style="display: flex; align-items: flex-start; gap: 12px;">
+    <img src="/icons/deposit.svg" alt="" style="width: 32px; height: 32px; flex-shrink: 0;" />
+    <div>
+      <div style="font-weight: 500; color: #e5e5e5;">Deposit HYPE</div>
+      <div style="font-size: 0.875rem; color: #666;">Any amount, no minimum</div>
+    </div>
+  </div>
+  <div style="display: flex; align-items: flex-start; gap: 12px;">
+    <img src="/icons/token.svg" alt="" style="width: 32px; height: 32px; flex-shrink: 0;" />
+    <div>
+      <div style="font-weight: 500; color: #e5e5e5;">Receive cHYPE</div>
+      <div style="font-size: 0.875rem; color: #666;">Your vault receipt token</div>
+    </div>
+  </div>
+  <div style="display: flex; align-items: flex-start; gap: 12px;">
+    <img src="/icons/yield.svg" alt="" style="width: 32px; height: 32px; flex-shrink: 0;" />
+    <div>
+      <div style="font-weight: 500; color: #e5e5e5;">Earn Yield</div>
+      <div style="font-size: 0.875rem; color: #666;">From diversified HIP-3 markets</div>
+    </div>
+  </div>
+</div>
+
+---
+
 ## Start Here
 
 | New to Hyperliquid? | Know Hyperliquid? |

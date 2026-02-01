@@ -1,0 +1,10 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Upward trending with coins/growth -->
+  <path d="M8 52 L24 36 L36 44 L56 16" stroke="#4dcf6a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M44 16 L56 16 L56 28" stroke="#4dcf6a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Accent dots along path -->
+  <circle cx="24" cy="36" r="3" fill="#2ba84a"/>
+  <circle cx="36" cy="44" r="3" fill="#2ba84a"/>
+  <!-- Base line -->
+  <path d="M8 56 L56 56" stroke="#5c5347" stroke-width="2" stroke-linecap="round"/>
+</svg>
