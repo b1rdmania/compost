@@ -1,0 +1,7 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Magnifying glass with checkmark -->
+  <circle cx="28" cy="28" r="16" fill="none" stroke="#8a7d6d" stroke-width="2.5"/>
+  <path d="M40 40 L54 54" stroke="#8a7d6d" stroke-width="3" stroke-linecap="round"/>
+  <!-- Checkmark inside -->
+  <path d="M20 28 L26 34 L38 22" stroke="#4dcf6a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

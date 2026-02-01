@@ -1,0 +1,15 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clock face -->
+  <circle cx="32" cy="32" r="24" fill="none" stroke="#8a7d6d" stroke-width="2.5"/>
+  <circle cx="32" cy="32" r="18" fill="none" stroke="#5c5347" stroke-width="1"/>
+  <!-- Clock hands -->
+  <path d="M32 32 L32 18" stroke="#4dcf6a" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M32 32 L44 32" stroke="#2ba84a" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Center dot -->
+  <circle cx="32" cy="32" r="3" fill="#4dcf6a"/>
+  <!-- Hour markers -->
+  <circle cx="32" cy="12" r="2" fill="#3d3630"/>
+  <circle cx="52" cy="32" r="2" fill="#3d3630"/>
+  <circle cx="32" cy="52" r="2" fill="#3d3630"/>
+  <circle cx="12" cy="32" r="2" fill="#3d3630"/>
+</svg>

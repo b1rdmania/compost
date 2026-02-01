@@ -1,0 +1,9 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Coin/token with sprout -->
+  <circle cx="32" cy="36" r="20" fill="none" stroke="#8a7d6d" stroke-width="2.5"/>
+  <circle cx="32" cy="36" r="14" fill="none" stroke="#5c5347" stroke-width="1.5"/>
+  <!-- Small sprout inside -->
+  <path d="M32 42 L32 32" stroke="#2ba84a" stroke-width="2" stroke-linecap="round"/>
+  <path d="M32 34 C32 34 36 32 38 28 C36 32 32 34 32 34 Z" fill="#4dcf6a"/>
+  <path d="M32 38 C32 38 28 36 26 32 C28 36 32 38 32 38 Z" fill="#2ba84a"/>
+</svg>

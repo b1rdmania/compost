@@ -1,0 +1,10 @@
+<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Vault door -->
+  <rect x="10" y="12" width="44" height="44" rx="4" fill="none" stroke="#8a7d6d" stroke-width="2.5"/>
+  <rect x="16" y="18" width="32" height="32" rx="2" fill="none" stroke="#5c5347" stroke-width="1.5"/>
+  <!-- Vault handle/dial -->
+  <circle cx="32" cy="34" r="10" fill="none" stroke="#4dcf6a" stroke-width="2"/>
+  <circle cx="32" cy="34" r="4" fill="#4dcf6a"/>
+  <!-- Handle bar -->
+  <rect x="46" y="30" width="6" height="8" rx="1" fill="#3d3630"/>
+</svg>
