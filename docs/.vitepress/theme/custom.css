@@ -119,9 +119,6 @@
 /* Table styling */
 .dark .vp-doc table {
   border-color: #1a1a1a;
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 .dark .vp-doc tr {
@@ -136,21 +133,13 @@
 .dark .vp-doc th {
   background-color: #111111;
   border-color: #1a1a1a;
-  white-space: nowrap;
 }
 
 .dark .vp-doc td {
   border-color: #1a1a1a;
 }
 
-/* Compact tables - use on dense data tables */
-.dark .vp-doc table.compact th,
-.dark .vp-doc table.compact td {
-  padding: 8px 12px;
-  font-size: 0.9em;
-}
-
-/* Wide tables scroll hint */
+/* Mobile tables - tighter spacing, let text wrap */
 @media (max-width: 768px) {
   .dark .vp-doc table {
     font-size: 0.85em;
@@ -159,6 +148,7 @@
   .dark .vp-doc th,
   .dark .vp-doc td {
     padding: 8px 10px;
+    word-break: break-word;
   }
 }
 
