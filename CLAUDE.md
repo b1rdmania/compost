@@ -10,9 +10,14 @@ Capital formation layer for Hyperliquid builder markets (HIP-3).
 ├── process.html      # Design process page
 ├── api/
 │   └── waitlist.js   # Serverless function for email collection
-├── assets/           # Logos, SVGs, design explorations
+├── assets/
+│   ├── logo.svg      # Primary mark
+│   ├── logo-horizontal.svg
+│   └── icons/        # Icon library (18 SVGs)
+├── planning/         # Internal planning docs (launch spec, tokenomics, playbook)
 └── docs/             # VitePress documentation site
     ├── .vitepress/   # VitePress config and theme
+    ├── public/icons/ # Icons copied for docs use
     └── [content]/    # Markdown docs
 ```
 
@@ -59,6 +64,28 @@ Files:
 - `/assets/logo-horizontal.svg` - Horizontal lockup
 - `/docs/public/logo.svg` - Docs logo
 
+### Icon Library
+
+18 icons in `/assets/icons/` (also in `/docs/public/icons/`):
+- **Actions**: deposit, withdraw
+- **Assets**: token, vault, wallet
+- **Finance**: yield, chart, fee
+- **Distribution**: allocate, markets, link
+- **Trust**: verify, eye, shield
+- **Status**: clock, check, info, warning
+
+All icons use 64x64 viewBox, same color palette as logo.
+
+### Homepage Growth Icons
+
+The "How it works" section uses 6 growth-stage icons showing plant progression:
+1. Empty pot with soil
+2. Seed sprouting
+3. Small shoot with leaves
+4. Growing plant (multiple leaves)
+5. Standard logo (clean)
+6. Full plant with mirrored second leaf
+
 ### Buttons
 
 - Uppercase, letter-spaced (`0.06em`)
@@ -88,11 +115,31 @@ Files:
 DATABASE_URL=postgresql://... (Neon connection string)
 ```
 
+## Partners
+
+- **Vault**: Infrasingularity
+- **Custody**: Fireblocks
+
 ## Content Guidelines
 
 - Markets and integrations mentioned (Felix, Ventuals, Pendle, etc.) are **examples/potential** - use "e.g." prefix
-- No confirmed partnerships - docs have warning blocks noting this
+- No confirmed partnerships for integrations - docs have warning blocks noting this
 - ELI18 style for explanations - lead with opportunity, then mechanics
+
+### Language (avoid guaranteed-yield vibes)
+
+| Don't say | Say instead |
+|-----------|-------------|
+| Infrastructure-grade yield | Fee-backed yield |
+| Earn yield from day one | Start earning via base staking rewards |
+| Protocol-enforced | Protocol-defined |
+| Generating real fees today | Accruing on-chain trading fees |
+| Guaranteed | (don't use) |
+
+### Token
+
+- Don't promise "no governance token" - may do one later
+- cHYPE is the vault receipt token, appreciates via exchange rate (not rebasing)
 
 ## Key URLs
 
