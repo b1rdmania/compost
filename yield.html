@@ -245,6 +245,12 @@
       border-color: var(--border-hover);
     }
 
+    .card-icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 0.75rem;
+    }
+
     .card-label {
       font-size: 0.6875rem;
       font-weight: 500;
@@ -395,13 +401,10 @@
       min-width: 100px;
     }
 
-    .flow-step-num {
-      font-size: 0.6875rem;
-      font-weight: 500;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.25rem;
+    .flow-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0.5rem;
     }
 
     .flow-step-name {
@@ -588,25 +591,25 @@
 
         <div class="flow reveal">
           <div class="flow-step">
-            <div class="flow-step-num">Step 1</div>
+            <img src="/assets/icons/deposit.svg" alt="" class="flow-icon">
             <div class="flow-step-name">Deposit</div>
             <div class="flow-step-desc">You send HYPE</div>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step">
-            <div class="flow-step-num">Step 2</div>
+            <img src="/assets/icons/allocate.svg" alt="" class="flow-icon">
             <div class="flow-step-name">Allocate</div>
             <div class="flow-step-desc">We deploy it</div>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step">
-            <div class="flow-step-num">Step 3</div>
+            <img src="/assets/icons/yield.svg" alt="" class="flow-icon">
             <div class="flow-step-name">Earn</div>
             <div class="flow-step-desc">Yield accrues</div>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step">
-            <div class="flow-step-num">Step 4</div>
+            <img src="/assets/icons/chart.svg" alt="" class="flow-icon">
             <div class="flow-step-name">Compound</div>
             <div class="flow-step-desc">Reinvested daily</div>
           </div>
@@ -685,26 +688,31 @@
 
         <div class="card-grid card-grid-2 reveal" style="margin-top: 2rem;">
           <div class="card">
+            <img src="/assets/icons/vault.svg" alt="" class="card-icon">
             <div class="card-label">Mechanism 1</div>
             <div class="card-title">Direct deployment</div>
             <div class="card-desc">We stake 500K HYPE ourselves. We operate the market. We keep 50% of trading fees. Highest yield, highest effort.</div>
           </div>
           <div class="card">
+            <img src="/assets/icons/link.svg" alt="" class="card-icon">
             <div class="card-label">Mechanism 2</div>
             <div class="card-title">Stake provider</div>
             <div class="card-desc">Someone else operates the market. We provide the stake. We split fees with them. Less work, less yield.</div>
           </div>
           <div class="card">
+            <img src="/assets/icons/allocate.svg" alt="" class="card-icon">
             <div class="card-label">Mechanism 3</div>
             <div class="card-title">Pooled wrapper</div>
             <div class="card-desc">A program pools capital from many stakers. The pool has rights to market revenue. We get our share.</div>
           </div>
           <div class="card">
+            <img src="/assets/icons/markets.svg" alt="" class="card-icon">
             <div class="card-label">Mechanism 4</div>
             <div class="card-title">LP vault</div>
             <div class="card-desc">A vault provides liquidity to a HIP-3 market. Yield comes from trading profits, not fee share. Can go negative.</div>
           </div>
           <div class="card">
+            <img src="/assets/icons/token.svg" alt="" class="card-icon">
             <div class="card-label">Mechanism 5</div>
             <div class="card-title">Collateral yield</div>
             <div class="card-desc">Some markets use reward-bearing collateral (like USDe). Yield comes from the collateral, not the trading fees.</div>
@@ -1010,14 +1018,17 @@ Your net yield: <span class="val">~2.67%</span>
 
         <div class="card-grid reveal">
           <div class="card">
+            <img src="/assets/icons/yield.svg" alt="" class="card-icon">
             <div class="card-title">Yield comes from two places</div>
             <div class="card-desc">Validator staking (~2.5%) and HIP-3 strategies (variable). The mix depends on market conditions.</div>
           </div>
           <div class="card">
+            <img src="/assets/icons/clock.svg" alt="" class="card-icon">
             <div class="card-title">Growth Mode limits yield now</div>
             <div class="card-desc">Most HIP-3 markets run at 90% reduced fees. When that changes, yield improves. We don't know when.</div>
           </div>
           <div class="card">
+            <img src="/assets/icons/verify.svg" alt="" class="card-icon">
             <div class="card-title">We only win when you win</div>
             <div class="card-desc">Performance fee only applies above the staking rate. If we underperform vanilla staking, we earn almost nothing.</div>
           </div>
