@@ -478,11 +478,17 @@
       opacity: 0.6;
     }
 
+    .barrier-lead {
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
     .barrier-subtext {
-      text-align: center;
-      font-size: 0.9375rem;
+      font-size: 1rem;
       color: var(--text-muted);
-      font-style: italic;
+      font-weight: 300;
     }
 
     /* Beat 3: The Problem */
@@ -1317,8 +1323,8 @@
 
         <div class="opportunity-setup reveal">
           <div class="opportunity-text">
-            <p>HIP-3 lets teams launch new perp markets on Hyperliquid.</p>
-            <p>Deployers earn 50% of trading fees — protocol-defined, on-chain.</p>
+            <p>Hyperliquid is building the future of finance — a fully on-chain exchange with more open interest than every competitor combined.</p>
+            <p>Now anyone can launch trading markets — stocks, crypto, pre-IPO, anything. Launch one, earn 50% of all trading fees. Real revenue. Enforced by the protocol.</p>
           </div>
           <div class="opportunity-stats">
             <div class="opportunity-stat">
@@ -1338,38 +1344,14 @@
 
         <!-- Beat 2: The Barrier -->
         <div class="opportunity-barrier reveal">
-          <h3 class="barrier-headline">The barrier is deployment capital.</h3>
-          <div class="barrier-flow">
-            <div class="barrier-box">
-              <div class="barrier-box-title">Stake 500K HYPE</div>
-              <div class="barrier-box-subtitle">(~$20M)</div>
-            </div>
-            <span class="barrier-arrow">→</span>
-            <div class="barrier-box">
-              <div class="barrier-box-title">Launch a market</div>
-            </div>
-            <span class="barrier-arrow">→</span>
-            <div class="barrier-box">
-              <div class="barrier-box-title">Earn 50% of fees</div>
-            </div>
-          </div>
-          <p class="barrier-subtext">Compost pools HYPE to back new deployments and passes builder fees through to depositors.</p>
+          <h3 class="barrier-headline">The barrier</h3>
+          <p class="barrier-lead">To launch a market, you need to stake <span class="highlight">$20M</span> worth of HYPE.</p>
+          <p class="barrier-subtext">Most people don't have $20M. And even if you did — which market do you pick? How do you vet who runs it?</p>
         </div>
 
-        <!-- Beat 3: The Problem -->
-        <div class="opportunity-problem reveal">
-          <div class="problem-content">
-            <h3 class="problem-headline">The problem?</h3>
-            <p class="problem-text">You don't have $20M. And even if you did — which market do you pick? How do you vet the operator?</p>
-          </div>
-          <div class="problem-icon">
-            <span class="problem-icon-x">✕</span>
-            <span class="problem-icon-label">$20M</span>
-          </div>
-        </div>
-
-        <!-- Beat 4: The Punchline -->
+        <!-- Beat 3: The Solution -->
         <div class="opportunity-punchline reveal">
+          <h3 class="barrier-headline">The solution</h3>
           <svg class="punchline-mark" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/>
             <path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/>
@@ -1377,7 +1359,7 @@
             <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
             <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
           </svg>
-          <p>Compost helps teams raise the <span class="highlight">500K HYPE</span> stake to deploy markets, then routes builder fees back to depositors in one token: <span class="highlight">cHYPE</span>.</p>
+          <p>Compost pools capital to help teams deploy markets. Depositors earn a share of the fees — in one token: <span class="highlight">cHYPE</span>.</p>
         </div>
       </div>
     </section>
