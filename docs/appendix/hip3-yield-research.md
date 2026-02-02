@@ -42,11 +42,11 @@ If a market runs in a reduced-fee “Growth Mode” regime, fee-driven yield is 
 **Illustrative math (not a forecast):**
 
 ```
-$25B volume × 4.5 bps ≈ $11.25M total fees
-Builder share (50%) ≈ $5.6M to builders
+$32B volume × 4.5 bps ≈ $14.4M total fees
+Builder share (50%) ≈ $7.2M to builders
 
-$25B volume × 0.45 bps ≈ $1.125M total fees
-Builder share (50%) ≈ $0.56M to builders
+$32B volume × 0.45 bps ≈ $1.44M total fees
+Builder share (50%) ≈ $0.72M to builders
 ```
 
 ---

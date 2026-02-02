@@ -64,9 +64,9 @@ HIP-3 markets are live and generating real fees.
 
 | Metric | Value |
 |--------|-------|
-| Cumulative volume | $25B+ |
-| Open interest | $793M+ (ATH) |
-| Fees generated | $3M+ |
+| Cumulative volume | $32B+ |
+| Open interest | $917M+ |
+| Fees generated | $5M+ |
 | Live markets | 7+ |
 
 **Live markets include:**

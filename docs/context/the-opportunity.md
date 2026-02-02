@@ -8,9 +8,9 @@ HIP-3 markets are live and generating real fees.
 
 | Metric | Value |
 |--------|-------|
-| Cumulative volume | $25B+ |
-| Open interest | $793M+ (ATH) |
-| Fees generated | $3M+ |
+| Cumulative volume | $32B+ |
+| Open interest | $917M+ |
+| Fees generated | $5M+ |
 | Live markets | 7+ |
 
 ---
@@ -42,15 +42,15 @@ HIP-3 markets are live and generating real fees.
 At standard fee rates with current volume:
 
 ```
-$25B volume × 4.5 bps = $11.25M in fees
-50% to deployers = $5.6M to builders
+$32B volume × 4.5 bps = $14.4M in fees
+50% to deployers = $7.2M to builders
 ```
 
 In Growth Mode (90% fee reduction), the same volume implies:
 
 ```
-$25B volume × 0.45 bps = $1.125M in fees
-50% to deployers = $0.56M to builders
+$32B volume × 0.45 bps = $1.44M in fees
+50% to deployers = $0.72M to builders
 ```
 
 This is real yield. Protocol-enforced. Already happening — but **fee modes matter** for near-term yield.
