@@ -241,7 +241,7 @@ Maintain minimum clear space equal to the height of the leaf element around the 
 |-------|--------|
 | Logo Mark | [SVG](/logo.svg) |
 | Horizontal Lockup | [SVG](/logo-horizontal.svg) |
-| Icon Library | [/icons/](/icons/) |
+| Icon Library | `/public/icons/` (see above) |
 
 ---
 

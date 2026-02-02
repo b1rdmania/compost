@@ -58,6 +58,7 @@ export default defineConfig({
           { text: 'Yield Sources', link: '/technical/yield-sources' },
           { text: 'Yield Flow', link: '/technical/yield-flow' },
           { text: 'Allocation', link: '/technical/allocation' },
+          { text: 'Deployment Strategies', link: '/technical/deployment-strategies' },
           { text: 'Fees', link: '/technical/fees' },
           { text: 'Redemptions', link: '/technical/redemptions' },
           { text: 'Risk', link: '/technical/risk' }
@@ -76,6 +77,7 @@ export default defineConfig({
         text: 'Appendix',
         collapsed: true,
         items: [
+          { text: 'HIP-3 Research', link: '/appendix/hip3-yield-research' },
           { text: 'Links', link: '/appendix/links' },
           { text: 'Brand Guidelines', link: '/appendix/brand' }
         ]
