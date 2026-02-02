@@ -666,39 +666,62 @@
         <div class="reveal">
           <div class="section-divider"></div>
           <div class="label">HIP-3 mechanisms</div>
-          <h2 class="section-header">Five ways to capture trading fees</h2>
+          <h2 class="section-header">How we access HIP-3 yield</h2>
         </div>
 
-        <div class="card-grid card-grid-2 reveal">
-          <div class="card">
-            <img src="/assets/icons/vault.svg" alt="" class="card-icon">
-            <div class="card-title">Direct deployment</div>
-            <div class="card-desc">Stake 500K HYPE, operate the market, keep 50% of fees. Highest yield, highest effort.</div>
-          </div>
-          <div class="card">
-            <img src="/assets/icons/link.svg" alt="" class="card-icon">
-            <div class="card-title">Stake provider</div>
-            <div class="card-desc">Provide stake to an operator. Split fees with them. Less work, less yield.</div>
-          </div>
-          <div class="card">
-            <img src="/assets/icons/allocate.svg" alt="" class="card-icon">
-            <div class="card-title">Pooled wrapper</div>
-            <div class="card-desc">Join a pool with rights to market revenue. Get pro-rata share.</div>
-          </div>
-          <div class="card">
-            <img src="/assets/icons/markets.svg" alt="" class="card-icon">
-            <div class="card-title">LP vault</div>
-            <div class="card-desc">Provide liquidity. Yield from trading profits, not fee share. Can go negative.</div>
-          </div>
-          <div class="card">
-            <img src="/assets/icons/token.svg" alt="" class="card-icon">
-            <div class="card-title">Collateral yield</div>
-            <div class="card-desc">Use reward-bearing collateral (USDe). Yield from collateral, not fees.</div>
-          </div>
+        <div class="prose reveal">
+          <p>HIP-3 markets require 500K HYPE to deploy. The builder earns ~50% of trading fees. But there are different ways to participate:</p>
         </div>
 
-        <div class="prose reveal" style="margin-top: 1.5rem;">
-          <p>We use a mix. Pooled wrappers and LP vaults now. Direct deployment later.</p>
+        <div class="table-wrap reveal">
+          <table>
+            <thead>
+              <tr>
+                <th>Mechanism</th>
+                <th>What it is</th>
+                <th>Growth Mode</th>
+                <th>Standard Mode</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Pooled wrapper</strong></td>
+                <td>Stake into a pool with rights to market revenue (e.g. Kinetiq kmHYPE)</td>
+                <td class="table-num">0.5-2%</td>
+                <td class="table-num">4-8%</td>
+              </tr>
+              <tr>
+                <td><strong>LP vault</strong></td>
+                <td>Deposit into a market-making vault (e.g. Ventuals VLP)</td>
+                <td class="table-num">-5% to +15%</td>
+                <td class="table-num">-5% to +20%</td>
+              </tr>
+              <tr>
+                <td><strong>Stake provider</strong></td>
+                <td>Provide stake to a deployer, split fees (e.g. Felix arrangements)</td>
+                <td class="table-num">0.5-2%</td>
+                <td class="table-num">5-10%</td>
+              </tr>
+              <tr>
+                <td><strong>Collateral yield</strong></td>
+                <td>Use reward-bearing collateral (e.g. USDe on HyENA)</td>
+                <td class="table-num">5-15%</td>
+                <td class="table-num">5-15%</td>
+              </tr>
+              <tr>
+                <td><strong>Direct deployment</strong></td>
+                <td>Stake 500K HYPE, operate market, keep 50% of fees</td>
+                <td class="table-num">1-3%</td>
+                <td class="table-num">8-15%+</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="prose reveal">
+          <p><strong>What we use now:</strong> Pooled wrappers (Kinetiq) and LP vaults (Ventuals VLP). Collateral yield where it makes sense. Stake provider deals if terms are transparent.</p>
+          <p><strong>Later:</strong> Direct deployment when we have scale (500K+ HYPE).</p>
+          <p><strong>LP vault warning:</strong> Market-making can lose money. VLP yield depends on trading profits, not fee share. We size this smaller.</p>
         </div>
       </div>
     </section>
@@ -794,7 +817,56 @@ Management fee: 0.5% × 50% = <span class="val">0.25%</span>
       </div>
     </section>
 
-    <!-- Section 7: Bottom line -->
+    <!-- Section 7: Protocol Revenue -->
+    <section class="section" id="protocol">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <div class="label">Protocol revenue</div>
+          <h2 class="section-header">What Compost earns</h2>
+        </div>
+
+        <div class="table-wrap reveal">
+          <table>
+            <thead>
+              <tr>
+                <th>AUM</th>
+                <th>Vault APR</th>
+                <th>Protocol Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>$50M</strong></td>
+                <td>4%</td>
+                <td class="table-num">~$180K/year</td>
+              </tr>
+              <tr>
+                <td><strong>$100M</strong></td>
+                <td>6%</td>
+                <td class="table-num">~$775K/year</td>
+              </tr>
+              <tr>
+                <td><strong>$100M</strong></td>
+                <td>8%</td>
+                <td class="table-num">~$1.1M/year</td>
+              </tr>
+              <tr>
+                <td><strong>$250M</strong></td>
+                <td>8%</td>
+                <td class="table-num">~$2.7M/year</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="prose reveal">
+          <p>At low AUM and low APR, we barely cover costs. At scale with decent yield, the protocol becomes self-sustaining.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 8: Bottom line -->
     <section class="section" id="summary">
       <div class="article">
         <div class="reveal">
