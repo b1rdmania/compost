@@ -10,7 +10,7 @@ Compost serves different users with different needs.
 
 **Use case:** Earn yield without picking markets
 
-You hold HYPE. You want it working for you. But you don't have $15M, and you don't want to research every deployer.
+You hold HYPE. You want it working for you. But you don't have $20M, and you don't want to research every deployer.
 
 Compost gives you diversified HIP-3 exposure in a single transaction.
 

@@ -8,7 +8,7 @@ The capital formation layer for Hyperliquid builder markets.
 
 Compost aggregates capital into a single vault, allocates across vetted HIP-3 markets, and passes through yield to depositors.
 
-**One token. Diversified exposure. No $15M minimum.**
+**One token. Diversified exposure. No $20M minimum.**
 
 ---
 

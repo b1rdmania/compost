@@ -4,7 +4,7 @@
   <img src="/logo.svg" alt="Compost" style="width: 72px; height: 72px;" />
   <div>
     <div style="font-size: 1.1rem; color: #e5e5e5;">The capital formation layer for Hyperliquid builder markets</div>
-    <div style="color: #666; margin-top: 4px;">One token. Diversified exposure. No $15M minimum.</div>
+    <div style="color: #666; margin-top: 4px;">One token. Diversified exposure. No $20M minimum.</div>
   </div>
 </div>
 

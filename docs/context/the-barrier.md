@@ -4,11 +4,11 @@ HIP-3 markets offer some of the best yield in crypto right now. But there's a ca
 
 ---
 
-## The $15M Problem
+## The $20M Problem
 
 To deploy a HIP-3 market, you must stake **500,000 HYPE**.
 
-At current prices, that's roughly **$15 million**.
+At current prices, that's roughly **$20 million**.
 
 This isn't a bug — it's by design. Hyperliquid requires deployers to have serious skin in the game. It filters out bad actors and ensures market quality.
 
@@ -22,7 +22,7 @@ But it also means **almost everyone is locked out** of this opportunity.
 |--------|---------|
 | Retail investors | Locked out |
 | Most funds | Locked out |
-| Whales with $15M+ | Can deploy solo |
+| Whales with $20M+ | Can deploy solo |
 | Well-funded teams | Can build their own markets |
 
 Even if you believe in HIP-3, even if you want exposure to builder market yield — the capital requirement is simply too high for almost everyone.

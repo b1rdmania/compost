@@ -86,7 +86,7 @@ HIP-3 markets are live and generating real fees.
 
 ### The Problem Compost Solves
 
-If you have $15M, you can deploy a market and earn 50% of fees.
+If you have $20M, you can deploy a market and earn 50% of fees.
 
 If you don't, your options are fragmented:
 - Stake via Kinetiq Launch (their pools, their terms)
@@ -118,7 +118,7 @@ We aggregate capital into a single vault, allocate across vetted HIP-3 markets, 
 5. cHYPE appreciates as yield compounds
 6. Withdraw anytime (14-day queue or sell on secondary market)
 
-**One token. Diversified exposure. No $15M minimum.**
+**One token. Diversified exposure. No $20M minimum.**
 
 ---
 

@@ -1,6 +1,6 @@
 # The Problem Compost Solves
 
-If you have $15M, you can deploy a market and earn 50% of fees.
+If you have $20M, you can deploy a market and earn 50% of fees.
 
 If you don't, your options are fragmented.
 
@@ -22,7 +22,7 @@ If you don't, your options are fragmented.
 There's no simple way to get **diversified exposure** to HIP-3 yield.
 
 You either:
-- Have $15M and deploy yourself
+- Have $20M and deploy yourself
 - Accept fragmented, single-market exposure
 - Don't participate
 
@@ -40,7 +40,7 @@ Compost provides:
 | Single token | One position, multiple yield sources |
 | Composability | Use cHYPE in DeFi |
 
-**One token. Diversified exposure. No $15M minimum.**
+**One token. Diversified exposure. No $20M minimum.**
 
 ---
 

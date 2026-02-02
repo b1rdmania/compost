@@ -8,7 +8,7 @@
 
 Hyperliquid's HIP-3 markets are generating real revenue right now. Deployers earn 50% of all trading fees — and volume is in the billions.
 
-But to deploy a market, you need to stake 500K HYPE (~$15M). That locks out almost everyone.
+But to deploy a market, you need to stake 500K HYPE (~$20M). That locks out almost everyone.
 
 **Compost solves this.** We pool capital together, deploy across multiple markets, and share the yield with depositors.
 
@@ -51,7 +51,7 @@ No minimum. No lock-up. No complexity.
 
 | Before Compost | With Compost |
 |----------------|--------------|
-| Need $15M to participate | Deposit any amount |
+| Need $20M to participate | Deposit any amount |
 | Pick markets yourself | Professional selection |
 | Single market risk | Diversified exposure |
 | Manage everything | Set and forget |
