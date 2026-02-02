@@ -36,6 +36,7 @@ export default defineConfig({
         items: [
           { text: 'What is Hyperliquid?', link: '/context/what-is-hyperliquid' },
           { text: 'What is HIP-3?', link: '/context/what-is-hip-3' },
+          { text: 'What is HIP-4?', link: '/context/what-is-hip-4' },
           { text: 'The Barrier', link: '/context/the-barrier' },
           { text: 'The Opportunity', link: '/context/the-opportunity' },
           { text: 'The Problem', link: '/context/the-problem' }

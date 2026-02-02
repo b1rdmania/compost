@@ -6,6 +6,7 @@
 
 * [What is Hyperliquid?](context/what-is-hyperliquid.md)
 * [What is HIP-3?](context/what-is-hip-3.md)
+* [What is HIP-4?](context/what-is-hip-4.md)
 * [The Barrier](context/the-barrier.md)
 * [The Opportunity](context/the-opportunity.md)
 * [The Problem Compost Solves](context/the-problem.md)

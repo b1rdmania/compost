@@ -44,5 +44,6 @@
 |---------------------|-------------------|
 | [What is Hyperliquid?](/context/what-is-hyperliquid) | [What is Compost?](/solution/what-is-compost) |
 | [What is HIP-3?](/context/what-is-hip-3) | [How cHYPE works](/solution/chype) |
-| [The Opportunity](/context/the-opportunity) | [Architecture](/technical/architecture) |
+| [What is HIP-4?](/context/what-is-hip-4) | [Architecture](/technical/architecture) |
+| [The Opportunity](/context/the-opportunity) | |
 
