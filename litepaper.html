@@ -276,6 +276,12 @@
       padding: 1.25rem;
     }
 
+    .card-icon {
+      width: 28px;
+      height: 28px;
+      margin-bottom: 0.5rem;
+    }
+
     .card-title {
       font-size: 0.9375rem;
       font-weight: 500;
@@ -301,6 +307,12 @@
       border: 1px solid var(--border);
       padding: 1.25rem;
       text-align: center;
+    }
+
+    .scenario-icon {
+      width: 28px;
+      height: 28px;
+      margin-bottom: 0.5rem;
     }
 
     .scenario-card-label {
@@ -352,18 +364,32 @@
     .flow {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      padding: 1.5rem;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 2rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
       margin: 1.5rem 0;
       font-size: 0.9375rem;
-      color: var(--text-secondary);
+      color: var(--text-primary);
+      font-weight: 500;
     }
 
-    .flow strong { color: var(--text-primary); }
-    .flow-arrow { color: var(--accent); }
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+    }
+
+    .flow-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 0.5rem;
+    }
+
+    .flow-arrow { color: var(--accent); flex-shrink: 0; }
 
     .roadmap-item {
       margin-bottom: 1.5rem;
@@ -532,7 +558,25 @@
         </div>
 
         <div class="flow reveal">
-          <strong>Deposit</strong> <span class="flow-arrow">→</span> <strong>We allocate</strong> <span class="flow-arrow">→</span> <strong>Yield accrues</strong> <span class="flow-arrow">→</span> <strong>cHYPE appreciates</strong>
+          <div class="flow-step">
+            <img src="/assets/icons/deposit.svg" alt="" class="flow-icon">
+            <div>Deposit</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <img src="/assets/icons/allocate.svg" alt="" class="flow-icon">
+            <div>Allocate</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <img src="/assets/icons/yield.svg" alt="" class="flow-icon">
+            <div>Earn</div>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step">
+            <img src="/assets/icons/chart.svg" alt="" class="flow-icon">
+            <div>Compound</div>
+          </div>
         </div>
 
         <div class="table-wrap reveal">
@@ -597,10 +641,12 @@
 
         <div class="card-grid reveal">
           <div class="card">
+            <img src="/assets/icons/clock.svg" alt="" class="card-icon">
             <div class="card-title">Growth Mode (now)</div>
             <div class="card-desc">$32B × 0.45 bps = $720K to stakers</div>
           </div>
           <div class="card">
+            <img src="/assets/icons/yield.svg" alt="" class="card-icon">
             <div class="card-title">Standard Mode</div>
             <div class="card-desc">$32B × 4.5 bps = $7.2M to stakers</div>
           </div>
@@ -649,16 +695,19 @@
 
         <div class="scenario-cards reveal">
           <div class="scenario-card">
+            <img src="/assets/icons/clock.svg" alt="" class="scenario-icon">
             <div class="scenario-card-label">Worst</div>
             <div class="scenario-card-apr">2-4%</div>
             <div class="scenario-card-conditions">Growth Mode persists</div>
           </div>
           <div class="scenario-card">
+            <img src="/assets/icons/yield.svg" alt="" class="scenario-icon">
             <div class="scenario-card-label">Base</div>
             <div class="scenario-card-apr">5-7%</div>
             <div class="scenario-card-conditions">Mixed modes</div>
           </div>
           <div class="scenario-card">
+            <img src="/assets/icons/chart.svg" alt="" class="scenario-icon">
             <div class="scenario-card-label">Good</div>
             <div class="scenario-card-apr">10-15%</div>
             <div class="scenario-card-conditions">Standard Mode</div>
