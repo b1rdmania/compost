@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Compost Litepaper</title>
   <meta name="description" content="The capital formation layer for Hyperliquid builder markets. Litepaper v2.">
 
@@ -27,6 +27,7 @@
       --accent: #4dcf6a;
       --accent-dim: #2ba84a;
       --accent-glow: rgba(77, 207, 106, 0.15);
+      --accent-glow-strong: rgba(77, 207, 106, 0.3);
       --warning: #f59e0b;
       --font: 'Outfit', -apple-system, sans-serif;
     }
@@ -63,8 +64,8 @@
       top: 0; left: 0; right: 0;
       z-index: 100;
       padding: 1.5rem 3rem;
-      background: rgba(10, 10, 10, 0.8);
-      backdrop-filter: blur(12px);
+      padding-top: calc(1.5rem + env(safe-area-inset-top));
+      background: var(--bg);
       border-bottom: 1px solid var(--border);
     }
 
@@ -127,7 +128,7 @@
       width: 60px;
       height: 2px;
       background: linear-gradient(90deg, var(--accent), transparent);
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .hero {
@@ -162,7 +163,7 @@
     }
 
     .section-header {
-      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-size: clamp(2rem, 4vw, 2.75rem);
       font-weight: 200;
       margin-bottom: 1rem;
     }
