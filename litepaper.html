@@ -16,11 +16,13 @@
       --bg: #0a0a0a;
       --bg-card: #0f0f0f;
       --border: #1a1a1a;
+      --border-hover: #2a2a2a;
       --text-primary: #e5e5e5;
       --text-secondary: #a3a3a3;
       --text-muted: #666666;
       --accent: #4dcf6a;
       --accent-dim: #2ba84a;
+      --accent-glow: rgba(77, 207, 106, 0.15);
       --font: 'Outfit', -apple-system, sans-serif;
     }
 
@@ -80,18 +82,13 @@
     .nav-link { font-size: 0.875rem; font-weight: 400; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
     .nav-link:hover { color: var(--accent); }
 
-    .article {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 3rem;
-    }
+    .article { max-width: 800px; margin: 0 auto; padding: 0 3rem; }
 
     .reveal {
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     .tld { color: var(--accent); }
@@ -100,6 +97,8 @@
       padding: 10rem 0 4rem;
       text-align: center;
     }
+
+    .hero-logo { width: 64px; height: 80px; margin-bottom: 1.5rem; }
 
     .hero h1 {
       font-size: clamp(2.5rem, 5vw, 3.5rem);
@@ -115,13 +114,10 @@
       margin-bottom: 0.5rem;
     }
 
-    .hero-version {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-    }
+    .hero-version { font-size: 0.875rem; color: var(--text-muted); }
 
     .section {
-      padding: 3.5rem 0;
+      padding: 4rem 0;
       border-top: 1px solid var(--border);
     }
 
@@ -129,14 +125,19 @@
       width: 60px;
       height: 2px;
       background: linear-gradient(90deg, var(--accent), transparent);
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .section-header {
       font-size: clamp(1.75rem, 3vw, 2.25rem);
       font-weight: 200;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
+
+    .section-icon { width: 28px; height: 28px; }
 
     .prose p {
       font-size: 1rem;
@@ -145,7 +146,6 @@
       line-height: 1.75;
       margin-bottom: 1rem;
     }
-
     .prose p:last-child { margin-bottom: 0; }
     .prose strong { color: var(--text-primary); font-weight: 500; }
     .prose a { color: var(--accent); }
@@ -176,6 +176,22 @@
 
     .table-num { font-family: monospace; color: var(--accent); }
 
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+    }
+
+    .card-title { font-size: 0.875rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.25rem; }
+    .card-value { font-size: 1.25rem; font-weight: 300; color: var(--accent); font-family: monospace; }
+
     .scenario-cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -190,36 +206,79 @@
       text-align: center;
     }
 
-    .scenario-card-label {
+    .scenario-icon { width: 24px; height: 24px; margin-bottom: 0.5rem; }
+    .scenario-card-label { font-size: 0.6875rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.25rem; }
+    .scenario-card-apr { font-size: 1.5rem; font-weight: 200; color: var(--accent); margin-bottom: 0.25rem; }
+    .scenario-card-note { font-size: 0.75rem; color: var(--text-muted); }
+
+    .math-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+
+    .math-block-label {
       font-size: 0.6875rem;
       font-weight: 500;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.75rem;
     }
 
-    .scenario-card-apr {
-      font-size: 1.5rem;
-      font-weight: 200;
-      color: var(--accent);
+    .math-block pre {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      white-space: pre;
+    }
+
+    .math-block .val { color: var(--accent); }
+    .math-block .muted { color: var(--text-muted); }
+
+    .callout {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .callout p {
+      font-size: 0.9375rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.6;
     }
 
     .footer {
       padding: 2.5rem 3rem;
       border-top: 1px solid var(--border);
-      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .footer-domain { font-size: 1rem; font-weight: 300; color: var(--text-primary); }
     .footer .tld { color: var(--accent); }
+    .footer-disclaimer { font-size: 0.75rem; color: var(--text-muted); font-style: italic; }
 
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .nav { padding: 1rem 1.5rem; }
       .article { padding: 0 1.5rem; }
       .hero { padding: 7rem 0 3rem; }
-      .section { padding: 2.5rem 0; }
+      .section { padding: 3rem 0; }
       .scenario-cards { grid-template-columns: 1fr; }
+      .card-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
     }
   </style>
 </head>
@@ -242,9 +301,16 @@
 
   <section class="hero">
     <div class="article">
+      <svg class="hero-logo" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/>
+        <path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/>
+        <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
+        <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
+        <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
+      </svg>
       <h1>Litepaper</h1>
       <p class="hero-subtitle">The capital formation layer for Hyperliquid builder markets.</p>
-      <p class="hero-version">v3 — February 2026</p>
+      <p class="hero-version">v4 — February 2026</p>
     </div>
   </section>
 
@@ -254,12 +320,25 @@
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="section-header">Opportunity</div>
+          <h2 class="section-header"><img src="/assets/icons/chart.svg" alt="" class="section-icon"> Opportunity</h2>
         </div>
         <div class="prose reveal">
-          <p><strong>$32B+ traded on HIP-3.</strong> Growth Mode suppresses fees 90%. When it ends, yield 10x's.</p>
-          <p>HYPE market cap: ~$9B. Stakeable: ~$4B.</p>
-          <p>If HYPE 5x's, our TVL 5x's. No new depositors needed. <strong>We scale with Hyperliquid.</strong></p>
+          <p><strong>$32B+ traded on HIP-3.</strong> Most markets run Growth Mode — 90% reduced fees.</p>
+        </div>
+        <div class="card-grid reveal">
+          <div class="card">
+            <div class="card-title">Growth Mode (now)</div>
+            <div class="card-value">$720K/yr</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Standard Mode</div>
+            <div class="card-value">$7.2M/yr</div>
+          </div>
+        </div>
+        <div class="prose reveal">
+          <p>Same volume. <strong>10x yield when fees normalise.</strong></p>
+          <p>HYPE market cap: ~$9B. Stakeable: ~$4B. If HYPE 5x's, our TVL 5x's. No new depositors needed.</p>
+          <p><strong>Compost scales with Hyperliquid.</strong></p>
         </div>
       </div>
     </section>
@@ -269,12 +348,23 @@
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="section-header">What Compost Does</div>
+          <h2 class="section-header"><img src="/assets/icons/vault.svg" alt="" class="section-icon"> What Compost Does</h2>
         </div>
         <div class="prose reveal">
           <p>One vault. Curated HIP-3 allocations. One token (cHYPE).</p>
-          <p>Full mechanics: <a href="/yield.html">compost.fi/yield</a><br>
-          Technical docs: <a href="https://docs.compost.fi">docs.compost.fi</a></p>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Source</th><th>Allocation</th><th>Yield</th></tr></thead>
+            <tbody>
+              <tr><td>Validator staking</td><td class="table-num">20-30%</td><td>~2.5% floor</td></tr>
+              <tr><td>HIP-3 markets</td><td class="table-num">50-80%</td><td>Variable upside</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="prose reveal">
+          <p>We pick markets. You get diversified exposure.</p>
+          <p>Full mechanics: <a href="/yield.html">compost.fi/yield</a> · Technical docs: <a href="https://docs.compost.fi">docs.compost.fi</a></p>
         </div>
       </div>
     </section>
@@ -284,46 +374,92 @@
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="section-header">Yield Expectations</div>
+          <h2 class="section-header"><img src="/assets/icons/yield.svg" alt="" class="section-icon"> Yield Expectations</h2>
         </div>
         <div class="scenario-cards reveal">
           <div class="scenario-card">
+            <img src="/assets/icons/clock.svg" alt="" class="scenario-icon">
             <div class="scenario-card-label">Worst</div>
             <div class="scenario-card-apr">2-4%</div>
+            <div class="scenario-card-note">Growth Mode persists</div>
           </div>
           <div class="scenario-card">
+            <img src="/assets/icons/yield.svg" alt="" class="scenario-icon">
             <div class="scenario-card-label">Base</div>
             <div class="scenario-card-apr">5-7%</div>
+            <div class="scenario-card-note">Mixed</div>
           </div>
           <div class="scenario-card">
+            <img src="/assets/icons/chart.svg" alt="" class="scenario-icon">
             <div class="scenario-card-label">Good</div>
             <div class="scenario-card-apr">10-15%</div>
+            <div class="scenario-card-note">Standard Mode</div>
           </div>
         </div>
         <div class="prose reveal">
-          <p>Honest numbers. No promises.</p>
+          <p>Honest numbers. No promises. If we can't beat 2.5% staking, just stake directly.</p>
         </div>
       </div>
     </section>
 
-    <!-- Fees -->
+    <!-- Fees & Alignment -->
     <section class="section">
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="section-header">Fees</div>
+          <h2 class="section-header"><img src="/assets/icons/fee.svg" alt="" class="section-icon"> Fees & Alignment</h2>
+        </div>
+        <div class="prose reveal">
+          <p><strong>We only make money when you make money.</strong></p>
         </div>
         <div class="table-wrap reveal">
           <table>
+            <thead><tr><th>Fee</th><th>Amount</th><th>When</th></tr></thead>
             <tbody>
-              <tr><td>Performance</td><td>15% on returns above 2.5%</td></tr>
-              <tr><td>Management</td><td>0.5%/year on HIP-3</td></tr>
-              <tr><td>Deposit/Withdraw</td><td class="table-num">0%</td></tr>
+              <tr><td>Performance</td><td class="table-num">15%</td><td>On returns above 2.5% only</td></tr>
+              <tr><td>Management</td><td class="table-num">0.5%/yr</td><td>On HIP-3 allocation only</td></tr>
+              <tr><td>Deposit</td><td class="table-num">0%</td><td>Never</td></tr>
+              <tr><td>Withdrawal</td><td class="table-num">0%</td><td>Never</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="math-block reveal">
+          <div class="math-block-label">Example: 8% vault yield</div>
+<pre>Vault yield:        <span class="val">8.0%</span>
+Staking baseline:   <span class="muted">2.5%</span>
+Excess return:      <span class="val">5.5%</span>
+
+Performance fee:    15% × 5.5% = <span class="val">0.83%</span>
+Management fee:     0.5% × 60% = <span class="val">0.30%</span>
+
+Your net yield:     <span class="val">~6.87%</span></pre>
+        </div>
+        <div class="prose reveal">
+          <p>If we don't beat staking, we earn almost nothing. That's the alignment.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Protocol Revenue -->
+    <section class="section">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <h2 class="section-header"><img src="/assets/icons/markets.svg" alt="" class="section-icon"> Protocol Revenue</h2>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>AUM</th><th>Vault APR</th><th>Protocol Revenue</th></tr></thead>
+            <tbody>
+              <tr><td>$10M</td><td>4%</td><td class="table-num">~$35K/yr</td></tr>
+              <tr><td>$50M</td><td>6%</td><td class="table-num">~$350K/yr</td></tr>
+              <tr><td>$100M</td><td>8%</td><td class="table-num">~$1.1M/yr</td></tr>
+              <tr><td>$250M</td><td>10%</td><td class="table-num">~$3.5M/yr</td></tr>
             </tbody>
           </table>
         </div>
         <div class="prose reveal">
-          <p>We earn when you earn.</p>
+          <p>Early stage = tight margins. At scale = real business.</p>
         </div>
       </div>
     </section>
@@ -333,25 +469,44 @@
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="section-header">Founding Syndicate</div>
+          <h2 class="section-header"><img src="/assets/icons/allocate.svg" alt="" class="section-icon"> Founding Syndicate</h2>
         </div>
         <div class="prose reveal">
           <p><strong>$10M beta vault.</strong> Whitelist only.</p>
-          <p>Founding stakers share <strong>25% of protocol revenue for 24 months</strong>.</p>
-          <p>No lock. Withdraw anytime. Forfeit future share, keep your yield.</p>
+          <p>Founding stakers share <strong>25% of protocol revenue for 24 months</strong>, split pro-rata by deposit.</p>
         </div>
         <div class="table-wrap reveal">
           <table>
-            <thead><tr><th>Protocol Revenue</th><th>Founding Pool</th></tr></thead>
+            <thead><tr><th>Protocol Revenue</th><th>Founding Pool (25%)</th></tr></thead>
             <tbody>
-              <tr><td>$500K/yr</td><td class="table-num">$125K/yr</td></tr>
-              <tr><td>$1.5M/yr</td><td class="table-num">$375K/yr</td></tr>
+              <tr><td>$350K/yr</td><td class="table-num">$87K/yr</td></tr>
+              <tr><td>$1.1M/yr</td><td class="table-num">$275K/yr</td></tr>
+              <tr><td>$3.5M/yr</td><td class="table-num">$875K/yr</td></tr>
             </tbody>
           </table>
         </div>
         <div class="prose reveal">
-          <p>Your share scales as we scale.</p>
+          <p><strong>No lock.</strong> Withdraw anytime. You keep your yield — you just forfeit future revenue share.</p>
+          <p>This isn't charity. Early stakers take risk when yield is uncertain. They deserve upside when it scales.</p>
           <p><strong>Applications:</strong> <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Now -->
+    <section class="section">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <h2 class="section-header"><img src="/assets/icons/clock.svg" alt="" class="section-icon"> Why Now</h2>
+        </div>
+        <div class="prose reveal">
+          <p>• HIP-3 is live, volume is real<br>
+          • Growth Mode = low yield now, but 10x upside baked in<br>
+          • HIP-4 (prediction markets, options) coming — more builder markets<br>
+          • First mover in curated HIP-3 aggregation<br>
+          • Window to build TVL before fees normalise</p>
+          <p><strong>Early stakers are positioned for the inflection.</strong></p>
         </div>
       </div>
     </section>
@@ -361,11 +516,13 @@
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="section-header">Team</div>
+          <h2 class="section-header"><img src="/assets/icons/verify.svg" alt="" class="section-icon"> Team</h2>
         </div>
         <div class="prose reveal">
-          <p>4 years ecosystem lead at Sonic (Fantom). 50+ events, 15 cities, 600-person conference.</p>
+          <p>4 years ecosystem lead at Sonic (Fantom). Scaled developer programs, managed 50+ events across 15 cities, grew Sonic World to 600-person conference.</p>
           <p>Prior: Nomos project, Bank of England regulatory sandbox.</p>
+          <p>Not anon by choice — building reputation on execution.</p>
+          <p><strong>Contact:</strong> <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
         </div>
       </div>
     </section>
@@ -375,11 +532,23 @@
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="section-header">Risks</div>
+          <h2 class="section-header"><img src="/assets/icons/warning.svg" alt="" class="section-icon"> Risks</h2>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Risk</th><th>Reality</th></tr></thead>
+            <tbody>
+              <tr><td>Smart contract</td><td>Audit planned, not complete</td></tr>
+              <tr><td>Slashing</td><td>HIP-3 stakes can be slashed for bad oracles</td></tr>
+              <tr><td>Liquidity</td><td>7-14 day unstake queue</td></tr>
+              <tr><td>Operator</td><td>We make allocation decisions — we could be wrong</td></tr>
+              <tr><td>Growth Mode</td><td>May persist longer than expected</td></tr>
+            </tbody>
+          </table>
         </div>
         <div class="prose reveal">
-          <p>Smart contract, slashing, liquidity, operator decisions, Growth Mode persistence.</p>
-          <p>Only deposit what you can afford to lose.</p>
+          <p>Diversification helps. Transparency helps. But risk remains.</p>
+          <p><strong>Only deposit what you can afford to lose.</strong></p>
         </div>
       </div>
     </section>
@@ -389,21 +558,24 @@
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="section-header">Links</div>
+          <h2 class="section-header"><img src="/assets/icons/link.svg" alt="" class="section-icon"> Links</h2>
         </div>
         <div class="prose reveal">
-          <p>
-            <a href="https://compost.fi">compost.fi</a><br>
-            <a href="https://docs.compost.fi">docs.compost.fi</a><br>
-            <a href="mailto:grow@compost.fi">grow@compost.fi</a>
-          </p>
+          <p><strong>Website:</strong> <a href="https://compost.fi">compost.fi</a><br>
+          <strong>Yield mechanics:</strong> <a href="/yield.html">compost.fi/yield</a><br>
+          <strong>Docs:</strong> <a href="https://docs.compost.fi">docs.compost.fi</a><br>
+          <strong>Twitter:</strong> <a href="https://twitter.com/compostfi">@compostfi</a><br>
+          <strong>Contact:</strong> <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="footer-domain">compost<span class="tld">.fi</span></div>
+    <div class="footer-inner">
+      <div class="footer-domain">compost<span class="tld">.fi</span></div>
+      <div class="footer-disclaimer">Not financial advice. Not an offer of securities. Do your own research.</div>
+    </div>
   </footer>
 
   <script>
