@@ -16,13 +16,11 @@
       --bg: #0a0a0a;
       --bg-card: #0f0f0f;
       --border: #1a1a1a;
-      --border-hover: #2a2a2a;
       --text-primary: #e5e5e5;
       --text-secondary: #a3a3a3;
       --text-muted: #666666;
       --accent: #4dcf6a;
       --accent-dim: #2ba84a;
-      --accent-glow: rgba(77, 207, 106, 0.15);
       --font: 'Outfit', -apple-system, sans-serif;
     }
 
@@ -192,67 +190,20 @@
     .card-title { font-size: 0.875rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.25rem; }
     .card-value { font-size: 1.25rem; font-weight: 300; color: var(--accent); font-family: monospace; }
 
-    .scenario-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin: 1.5rem 0;
+    .link-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
     }
 
-    .scenario-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      padding: 1.25rem;
-      text-align: center;
-    }
-
-    .scenario-icon { width: 24px; height: 24px; margin-bottom: 0.5rem; }
-    .scenario-card-label { font-size: 0.6875rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.25rem; }
-    .scenario-card-apr { font-size: 1.5rem; font-weight: 200; color: var(--accent); margin-bottom: 0.25rem; }
-    .scenario-card-note { font-size: 0.75rem; color: var(--text-muted); }
-
-    .math-block {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      padding: 1.25rem;
-      margin: 1.5rem 0;
-      overflow-x: auto;
-    }
-
-    .math-block-label {
-      font-size: 0.6875rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.75rem;
-    }
-
-    .math-block pre {
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      white-space: pre;
-    }
-
-    .math-block .val { color: var(--accent); }
-    .math-block .muted { color: var(--text-muted); }
-
-    .callout {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      padding: 1.25rem 1.5rem;
-      margin: 1.5rem 0;
-    }
-
-    .callout p {
+    .link-row a {
       font-size: 0.9375rem;
-      font-weight: 400;
-      color: var(--text-secondary);
-      line-height: 1.6;
+      color: var(--accent);
+      text-decoration: none;
     }
+
+    .link-row a:hover { text-decoration: underline; }
 
     .footer {
       padding: 2.5rem 3rem;
@@ -276,7 +227,6 @@
       .article { padding: 0 1.5rem; }
       .hero { padding: 7rem 0 3rem; }
       .section { padding: 3rem 0; }
-      .scenario-cards { grid-template-columns: 1fr; }
       .card-grid { grid-template-columns: 1fr; }
       .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
     }
@@ -310,7 +260,7 @@
       </svg>
       <h1>Litepaper</h1>
       <p class="hero-subtitle">The capital formation layer for Hyperliquid builder markets.</p>
-      <p class="hero-version">v4 — February 2026</p>
+      <p class="hero-version">v5 — February 2026</p>
     </div>
   </section>
 
@@ -351,115 +301,14 @@
           <h2 class="section-header"><img src="/assets/icons/vault.svg" alt="" class="section-icon"> What Compost Does</h2>
         </div>
         <div class="prose reveal">
-          <p>One vault. Curated HIP-3 allocations. One token (cHYPE).</p>
-        </div>
-        <div class="table-wrap reveal">
-          <table>
-            <thead><tr><th>Source</th><th>Allocation</th><th>Yield</th></tr></thead>
-            <tbody>
-              <tr><td>Validator staking</td><td class="table-num">20-30%</td><td>~2.5% floor</td></tr>
-              <tr><td>HIP-3 markets</td><td class="table-num">50-80%</td><td>Variable upside</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="prose reveal">
-          <p>We pick markets. You get diversified exposure.</p>
-          <p>Full mechanics: <a href="/yield.html">compost.fi/yield</a> · Technical docs: <a href="https://docs.compost.fi">docs.compost.fi</a></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Yield Expectations -->
-    <section class="section">
-      <div class="article">
-        <div class="reveal">
-          <div class="section-divider"></div>
-          <h2 class="section-header"><img src="/assets/icons/yield.svg" alt="" class="section-icon"> Yield Expectations</h2>
-        </div>
-        <div class="scenario-cards reveal">
-          <div class="scenario-card">
-            <img src="/assets/icons/clock.svg" alt="" class="scenario-icon">
-            <div class="scenario-card-label">Worst</div>
-            <div class="scenario-card-apr">2-4%</div>
-            <div class="scenario-card-note">Growth Mode persists</div>
+          <p>Pool HYPE. Deploy to curated HIP-3 markets. Earn fee-backed yield. One token: <strong>cHYPE</strong>.</p>
+          <p>Expected <strong>5-7% base case</strong>. 10-15% if Growth Mode ends. 2-4% floor if it persists.</p>
+          <p>We only make money when you make money. 15% performance fee on returns above staking rate. 0.5% management fee on HIP-3 allocation. No deposit or withdrawal fees.</p>
+          <div class="link-row">
+            <a href="/">compost.fi</a>
+            <a href="/yield.html">Yield mechanics</a>
+            <a href="https://docs.compost.fi">Full docs</a>
           </div>
-          <div class="scenario-card">
-            <img src="/assets/icons/yield.svg" alt="" class="scenario-icon">
-            <div class="scenario-card-label">Base</div>
-            <div class="scenario-card-apr">5-7%</div>
-            <div class="scenario-card-note">Mixed</div>
-          </div>
-          <div class="scenario-card">
-            <img src="/assets/icons/chart.svg" alt="" class="scenario-icon">
-            <div class="scenario-card-label">Good</div>
-            <div class="scenario-card-apr">10-15%</div>
-            <div class="scenario-card-note">Standard Mode</div>
-          </div>
-        </div>
-        <div class="prose reveal">
-          <p>Honest numbers. No promises. If we can't beat 2.5% staking, just stake directly.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Fees & Alignment -->
-    <section class="section">
-      <div class="article">
-        <div class="reveal">
-          <div class="section-divider"></div>
-          <h2 class="section-header"><img src="/assets/icons/fee.svg" alt="" class="section-icon"> Fees & Alignment</h2>
-        </div>
-        <div class="prose reveal">
-          <p><strong>We only make money when you make money.</strong></p>
-        </div>
-        <div class="table-wrap reveal">
-          <table>
-            <thead><tr><th>Fee</th><th>Amount</th><th>When</th></tr></thead>
-            <tbody>
-              <tr><td>Performance</td><td class="table-num">15%</td><td>On returns above 2.5% only</td></tr>
-              <tr><td>Management</td><td class="table-num">0.5%/yr</td><td>On HIP-3 allocation only</td></tr>
-              <tr><td>Deposit</td><td class="table-num">0%</td><td>Never</td></tr>
-              <tr><td>Withdrawal</td><td class="table-num">0%</td><td>Never</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="math-block reveal">
-          <div class="math-block-label">Example: 8% vault yield</div>
-<pre>Vault yield:        <span class="val">8.0%</span>
-Staking baseline:   <span class="muted">2.5%</span>
-Excess return:      <span class="val">5.5%</span>
-
-Performance fee:    15% × 5.5% = <span class="val">0.83%</span>
-Management fee:     0.5% × 60% = <span class="val">0.30%</span>
-
-Your net yield:     <span class="val">~6.87%</span></pre>
-        </div>
-        <div class="prose reveal">
-          <p>If we don't beat staking, we earn almost nothing. That's the alignment.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Protocol Revenue -->
-    <section class="section">
-      <div class="article">
-        <div class="reveal">
-          <div class="section-divider"></div>
-          <h2 class="section-header"><img src="/assets/icons/markets.svg" alt="" class="section-icon"> Protocol Revenue</h2>
-        </div>
-        <div class="table-wrap reveal">
-          <table>
-            <thead><tr><th>AUM</th><th>Vault APR</th><th>Protocol Revenue</th></tr></thead>
-            <tbody>
-              <tr><td>$10M</td><td>4%</td><td class="table-num">~$35K/yr</td></tr>
-              <tr><td>$50M</td><td>6%</td><td class="table-num">~$350K/yr</td></tr>
-              <tr><td>$100M</td><td>8%</td><td class="table-num">~$1.1M/yr</td></tr>
-              <tr><td>$250M</td><td>10%</td><td class="table-num">~$3.5M/yr</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="prose reveal">
-          <p>Early stage = tight margins. At scale = real business.</p>
         </div>
       </div>
     </section>
@@ -493,24 +342,6 @@ Your net yield:     <span class="val">~6.87%</span></pre>
       </div>
     </section>
 
-    <!-- Why Now -->
-    <section class="section">
-      <div class="article">
-        <div class="reveal">
-          <div class="section-divider"></div>
-          <h2 class="section-header"><img src="/assets/icons/clock.svg" alt="" class="section-icon"> Why Now</h2>
-        </div>
-        <div class="prose reveal">
-          <p>• HIP-3 is live, volume is real<br>
-          • Growth Mode = low yield now, but 10x upside baked in<br>
-          • HIP-4 (prediction markets, options) coming — more builder markets<br>
-          • First mover in curated HIP-3 aggregation<br>
-          • Window to build TVL before fees normalise</p>
-          <p><strong>Early stakers are positioned for the inflection.</strong></p>
-        </div>
-      </div>
-    </section>
-
     <!-- Team -->
     <section class="section">
       <div class="article">
@@ -529,6 +360,24 @@ Your net yield:     <span class="val">~6.87%</span></pre>
       </div>
     </section>
 
+    <!-- Why Now -->
+    <section class="section">
+      <div class="article">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <h2 class="section-header"><img src="/assets/icons/clock.svg" alt="" class="section-icon"> Why Now</h2>
+        </div>
+        <div class="prose reveal">
+          <p>• HIP-3 is live, volume is real<br>
+          • Growth Mode = low yield now, but 10x upside baked in<br>
+          • HIP-4 (prediction markets, options) coming<br>
+          • First mover in curated HIP-3 aggregation<br>
+          • Window to build TVL before fees normalise</p>
+          <p><strong>Early stakers are positioned for the inflection.</strong></p>
+        </div>
+      </div>
+    </section>
+
     <!-- Risks -->
     <section class="section">
       <div class="article">
@@ -536,20 +385,8 @@ Your net yield:     <span class="val">~6.87%</span></pre>
           <div class="section-divider"></div>
           <h2 class="section-header"><img src="/assets/icons/warning.svg" alt="" class="section-icon"> Risks</h2>
         </div>
-        <div class="table-wrap reveal">
-          <table>
-            <thead><tr><th>Risk</th><th>Reality</th></tr></thead>
-            <tbody>
-              <tr><td>Smart contract</td><td>Audit planned, not complete</td></tr>
-              <tr><td>Slashing</td><td>HIP-3 stakes can be slashed for bad oracles</td></tr>
-              <tr><td>Liquidity</td><td>7-14 day unstake queue</td></tr>
-              <tr><td>Operator</td><td>We make allocation decisions — we could be wrong</td></tr>
-              <tr><td>Growth Mode</td><td>May persist longer than expected</td></tr>
-            </tbody>
-          </table>
-        </div>
         <div class="prose reveal">
-          <p>Diversification helps. Transparency helps. But risk remains.</p>
+          <p>Smart contract risk (audit planned). Slashing risk. 7-14 day unstake queue. Operator decisions. Growth Mode may persist longer than expected.</p>
           <p><strong>Only deposit what you can afford to lose.</strong></p>
         </div>
       </div>
@@ -567,6 +404,7 @@ Your net yield:     <span class="val">~6.87%</span></pre>
           <strong>Yield mechanics:</strong> <a href="/yield.html">compost.fi/yield</a><br>
           <strong>Docs:</strong> <a href="https://docs.compost.fi">docs.compost.fi</a><br>
           <strong>Twitter:</strong> <a href="https://twitter.com/compostfi">@compostfi</a><br>
+          <strong>GitHub:</strong> <a href="https://github.com/b1rdmania">github.com/b1rdmania</a><br>
           <strong>Contact:</strong> <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
         </div>
       </div>
