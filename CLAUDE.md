@@ -29,7 +29,20 @@ Capital formation layer for Hyperliquid builder markets (HIP-3).
 
 ## Brand Guidelines
 
-**Source of Truth:** See `/DESIGN.md` for the complete, authoritative design system.
+> **⚠️ DESIGN.MD IS THE SOURCE OF TRUTH**
+>
+> **ALL design work must follow `/DESIGN.md` specifications.**
+>
+> Before implementing any visual changes:
+> 1. Read `/DESIGN.md` for authoritative guidelines
+> 2. Check colors, typography, logo usage, and iOS patterns
+> 3. Never modify DESIGN.md without explicit user approval
+>
+> DESIGN.md is locked and canonical. The guidelines below are a quick reference only.
+
+---
+
+### Quick Reference (see DESIGN.md for full specs)
 
 ### Colors (from DESIGN.md)
 
@@ -133,7 +146,7 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 - CSS variables in `:root`
 - Scroll reveal animations
 - Waitlist form → `/api/waitlist` → Neon Postgres
-- iOS Safari: uses `viewport-fit=cover` with `env(safe-area-inset-top)` for notch handling, `100dvh` for dynamic viewport height, solid nav background to prevent content bleed
+- iOS/Mobile: See `/DESIGN.md` → "iOS & Mobile Design" for viewport, safe areas, and dynamic height patterns
 
 ### Docs (VitePress)
 

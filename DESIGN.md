@@ -1,5 +1,10 @@
 # Compost Design System
 
+> ⚠️ **CANONICAL SOURCE OF TRUTH**
+> This document defines the authoritative Compost brand and design system.
+> All implementations (index.html, vault.html, process.html, docs) must follow these specifications.
+> **Do not modify without explicit approval.** This file is locked to prevent accidental changes.
+
 ## Logo
 
 The Compost logo represents growth emerging from layered infrastructure—a single shoot rising from stacked sedimentary layers (the "pot"). The mark reads at all sizes while maintaining the brand's earthy, institutional character.
@@ -235,6 +240,159 @@ Mark aligned with text + compost.fi
 
 ---
 
+---
+
+## iOS & Mobile Design
+
+### Philosophy
+
+Compost respects the device. We extend content to screen edges (full-bleed) while honoring iOS safe areas. This creates an immersive, app-like experience that feels native, not clipped or cramped.
+
+**Principles:**
+- Full-bleed design (edge-to-edge)
+- Respect safe areas (notch, Dynamic Island, home indicator)
+- Handle dynamic viewport (address bar collapse)
+- No content bleed behind device chrome
+- Solid backgrounds in safe areas (not transparent)
+
+### Viewport Strategy
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+```
+
+**`viewport-fit=cover`**: Extends content to physical screen edges, behind safe areas. This is the foundation for full-bleed iOS design.
+
+**Why:** Creates immersive, edge-to-edge layouts. Without this, iOS adds white bars on notched devices.
+
+### Safe Area Handling
+
+Use `env(safe-area-inset-*)` to add padding that pushes interactive content away from device chrome.
+
+#### Navigation Bar (Fixed)
+
+```css
+.nav {
+  position: fixed;
+  top: 0;
+  padding: 1.5rem 3rem;
+  padding-top: calc(1.5rem + env(safe-area-inset-top));
+  background: var(--bg-deep); /* Solid, not transparent */
+}
+```
+
+**Why:**
+- `safe-area-inset-top` accounts for notch/Dynamic Island
+- Solid background prevents content bleed
+- Maintains visual continuity across devices
+
+#### Hero Sections
+
+```css
+.hero {
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height */
+  padding: 8rem 0;
+}
+```
+
+**`100dvh`** (dynamic viewport height): Adjusts as mobile browser address bar shows/hides.
+
+**Why:**
+- `100vh` on iOS includes address bar, causing content to be cut off
+- `100dvh` dynamically adjusts to visible viewport
+- Prevents awkward scrolling on mobile
+
+#### Container Padding (Mobile)
+
+```css
+@media (max-width: 640px) {
+  .container {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  }
+}
+```
+
+**Why:**
+- Landscape mode on iPhone 14 Pro/15 Pro has safe areas on sides
+- Home indicator at bottom needs padding
+- `max()` ensures minimum 1.5rem padding even if no safe area
+
+#### Bottom Navigation / Fixed Elements
+
+```css
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  background: var(--bg-deep); /* Solid */
+}
+```
+
+**Why:**
+- Home indicator area needs padding
+- Prevents tap targets from being obscured
+- Solid background prevents content showing through
+
+### Scrollable Containers
+
+```css
+.scrollable-list {
+  max-height: calc(100dvh - 120px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth iOS scrolling */
+}
+```
+
+**Why:**
+- `100dvh` ensures list fits in visible viewport
+- Subtract fixed header height (120px)
+- `-webkit-overflow-scrolling: touch` enables momentum scrolling
+
+### Thematic Rules
+
+| Pattern | Use Case | Safe Area | Background |
+|---------|----------|-----------|------------|
+| **Fixed nav (top)** | Site header | `inset-top` | Solid |
+| **Fixed nav (bottom)** | Mobile tabs, CTAs | `inset-bottom` | Solid |
+| **Hero sections** | Full-screen landing | `100dvh` | — |
+| **Containers** | Content padding | `inset-left/right` | — |
+| **Modals/overlays** | Full-screen dialogs | All insets | Solid |
+| **Inputs (bottom)** | Keyboards push up | `inset-bottom` | — |
+
+### Testing Checklist
+
+When implementing iOS layouts:
+
+- [ ] **Notch devices**: iPhone 14 Pro, 15 Pro (Dynamic Island)
+- [ ] **Home indicator**: All modern iPhones
+- [ ] **Landscape**: Safe areas on sides
+- [ ] **Address bar collapse**: Test scroll behavior
+- [ ] **Solid backgrounds**: No transparent nav over safe areas
+- [ ] **Touch targets**: 44px minimum, not obscured by safe areas
+- [ ] **Dynamic content**: Scrollable areas use `100dvh` correctly
+
+### Don't
+
+- ❌ Use `100vh` without fallback `100dvh`
+- ❌ Use transparent backgrounds in safe areas (causes content bleed)
+- ❌ Ignore `safe-area-inset-bottom` for fixed bottom elements
+- ❌ Use `viewport-fit=contain` (adds white bars on notched devices)
+- ❌ Place touch targets within 44px of screen edges without safe area padding
+
+### Do
+
+- ✅ Use `viewport-fit=cover` for full-bleed design
+- ✅ Add `env(safe-area-inset-*)` to all fixed elements
+- ✅ Use `100dvh` for full-height sections
+- ✅ Use solid backgrounds (not transparent) in safe areas
+- ✅ Test on physical iPhone 14 Pro / 15 Pro (Dynamic Island)
+- ✅ Use `max()` to ensure minimum padding even without safe areas
+
+---
+
 ## Reference
 
 See `compost-philosophy.md` for the full brand philosophy.
@@ -246,3 +404,4 @@ See `compost-philosophy.md` for the full brand philosophy.
 - Earth tones with one living green accent
 - Typography that whispers, not shouts
 - The green .fi ties everything together
+- Respect the device (iOS full-bleed + safe areas)
