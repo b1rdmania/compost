@@ -29,40 +29,72 @@ Capital formation layer for Hyperliquid builder markets (HIP-3).
 
 ## Brand Guidelines
 
-### Colors
+**Source of Truth:** See `/DESIGN.md` for the complete, authoritative design system.
 
+### Colors (from DESIGN.md)
+
+**Backgrounds (warm tones):**
 | Name | Hex | Usage |
 |------|-----|-------|
-| Accent | `#4dcf6a` | Primary green, CTAs, links |
-| Accent Dim | `#2ba84a` | Hover states, secondary green |
-| Earth 1 | `#8a7d6d` | Tertiary, pot layer 1 |
-| Earth 2 | `#5c5347` | Pot layer 2 |
-| Earth 3 | `#3d3630` | Pot layer 3 |
-| Background | `#0a0a0a` | Main bg |
-| Surface | `#111111` | Cards, elevated surfaces |
-| Border | `#1a1a1a` | Dividers, borders |
-| Text Primary | `#e5e5e5` | Main text |
-| Text Secondary | `#a3a3a3` | Subtitles, descriptions |
-| Text Muted | `#666666` | Captions, hints |
+| Deep | `#0a0a09` | Main bg |
+| Layer 1 | `#111110` | Cards, elevated surfaces |
+| Layer 2 | `#1a1918` | Borders, dividers |
+| Layer 3 | `#252422` | Elevated borders |
+
+**Text (warm tones):**
+| Name | Hex | Usage |
+|------|-----|-------|
+| Primary | `#e8e4df` | Main text (warm white) |
+| Secondary | `#9a958d` | Subtitles, descriptions |
+| Muted | `#5c574f` | Captions, hints |
+
+**Accent (the living green):**
+| Name | Hex | Usage |
+|------|-----|-------|
+| Bright | `#4dcf6a` | Leaf, .fi, highlights, CTAs |
+| Standard | `#2ba84a` | Stem, UI elements, hover states |
+| Muted | `#1d7a35` | Subtle backgrounds |
+
+**Logo pot layers:**
+| Name | Hex |
+|------|-----|
+| Earth 1 | `#8a7d6d` |
+| Earth 2 | `#5c5347` |
+| Earth 3 | `#3d3630` |
+
+**System:**
+| Name | Hex | Usage |
+|------|-----|-------|
 | Error | `#ef4444` | Error states |
 
-### Typography
+### Typography (from DESIGN.md)
 
 - **Font**: Outfit (Google Fonts)
-- **Weights**: 200 (light), 300 (book), 400 (regular), 500 (medium), 600 (semibold)
+- **Weights**: 200 (formal wordmark), 300 (primary/body), 400 (emphasis), 500 (headings), 600 (semibold)
+- **Letter-spacing**:
+  - Wordmark (compost.fi): `0.02em`
+  - Formal (COMPOST): `0.12em`
+  - Buttons: `0.06em`
 - **Headlines**: 500 weight
 - **Body**: 300-400 weight
 
-### Logo
+### Logo (from DESIGN.md)
 
 The logo is a sprouting plant in a layered pot:
 - Green sprout: `#4dcf6a` / `#2ba84a`
 - Pot layers: Earth tones (`#8a7d6d`, `#5c5347`, `#3d3630`)
 
+**Primary lockup:** `lockup-domain-horizontal.svg` (breakout mark + compost.fi)
+- Use for nav headers, docs header, wide layouts
+- Breakout version has shoot extending above cap height
+
 Files:
-- `/assets/logo.svg` - Primary mark
-- `/assets/logo-horizontal.svg` - Horizontal lockup
-- `/docs/public/logo.svg` - Docs logo
+- `/assets/logo/lockup-domain-horizontal.svg` - **PRIMARY** (breakout + compost.fi)
+- `/assets/logo/lockup-domain-stacked.svg` - Stacked (mark above, domain below)
+- `/assets/logo/logo-primary.svg` - Mark only
+- `/assets/logo/logo-favicon.svg` - Favicon (small sizes)
+
+See `/DESIGN.md` for complete logo specs and usage guidelines.
 
 ### Icon Library
 

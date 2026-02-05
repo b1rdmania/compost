@@ -16,20 +16,28 @@
 
   <style>
     :root {
-      --bg: #0a0a0a;
-      --bg-subtle: #111111;
-      --bg-card: #0f0f0f;
-      --border: #1a1a1a;
-      --border-hover: #2a2a2a;
-      --text-primary: #e5e5e5;
-      --text-secondary: #a3a3a3;
-      --text-muted: #666666;
-      --accent: #4dcf6a;
-      --accent-dim: #2ba84a;
+      /* DESIGN.md warm tones */
+      --bg-deep: #0a0a09;
+      --bg-layer-1: #111110;
+      --bg-layer-2: #1a1918;
+      --bg-layer-3: #252422;
+      --border: #1a1918;
+      --border-hover: #252422;
+      --text-primary: #e8e4df;
+      --text-secondary: #9a958d;
+      --text-muted: #5c574f;
+      --accent-bright: #4dcf6a;
+      --accent: #2ba84a;
+      --accent-muted: #1d7a35;
       --accent-glow: rgba(77, 207, 106, 0.15);
       --accent-glow-strong: rgba(77, 207, 106, 0.3);
       --error: #ef4444;
       --font: 'Outfit', -apple-system, sans-serif;
+
+      /* Legacy aliases for compatibility */
+      --bg: var(--bg-deep);
+      --bg-subtle: var(--bg-layer-1);
+      --bg-card: var(--bg-layer-2);
     }
 
     * {
@@ -149,7 +157,7 @@
     .stat-label {
       font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.06em;
       color: var(--text-muted);
       margin-bottom: 0.5rem;
     }
@@ -629,6 +637,11 @@
       text-decoration: underline;
     }
 
+    /* Warning icon */
+    .disclaimer-warning {
+      color: var(--accent-bright);
+    }
+
     /* Responsive */
     @media (max-width: 968px) {
       .nav {
@@ -639,6 +652,16 @@
         padding: 0 1.5rem;
       }
 
+      .main {
+        padding: 2rem 0;
+      }
+
+      .section {
+        padding: 2rem 0;
+      }
+    }
+
+    @media (max-width: 640px) {
       .stats-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -646,14 +669,6 @@
 
       .stat-value {
         font-size: 2rem;
-      }
-
-      .main {
-        padding: 2rem 0;
-      }
-
-      .section {
-        padding: 2rem 0;
       }
     }
   </style>
@@ -664,14 +679,7 @@
     <div class="nav-inner">
       <div class="nav-left">
         <a href="/" class="nav-lockup">
-          <svg class="nav-mark" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/>
-            <path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/>
-            <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
-            <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
-            <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
-          </svg>
-          <div class="nav-wordmark">compost<span class="tld">.fi</span></div>
+          <img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" style="height: 32px;">
         </a>
         <a href="/vault.html" class="nav-link active">Vault</a>
       </div>
@@ -737,16 +745,24 @@
         <div class="tab-content active" id="stake-content">
           <div class="card action-panel">
             <div class="input-group">
-              <label class="input-label">You stake</label>
+              <label class="input-label" for="stake-input">You stake</label>
               <div class="input-wrapper">
-                <input type="text" class="input-field" id="stake-input" placeholder="0.00">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="stake-input"
+                  placeholder="0.00"
+                  aria-label="Amount of HYPE to stake"
+                  aria-describedby="stake-balance-hint"
+                  inputmode="decimal"
+                >
                 <span class="input-token">HYPE</span>
                 <div class="input-helpers">
-                  <button class="helper-btn" id="stake-half">Half</button>
-                  <button class="helper-btn" id="stake-max">Max</button>
+                  <button class="helper-btn" id="stake-half" aria-label="Stake half of balance">Half</button>
+                  <button class="helper-btn" id="stake-max" aria-label="Stake maximum balance">Max</button>
                 </div>
               </div>
-              <div class="balance-hint">Balance: 1,234.56 HYPE</div>
+              <div class="balance-hint" id="stake-balance-hint">Balance: 1,234.56 HYPE</div>
             </div>
 
             <div class="output-group">
@@ -764,7 +780,7 @@
               <span class="detail-value">~$0.01</span>
             </div>
 
-            <button class="btn" id="stake-btn" disabled>STAKE HYPE</button>
+            <button class="btn" id="stake-btn" disabled aria-label="Enter amount to stake" aria-disabled="true">STAKE HYPE</button>
 
             <div class="disclaimer">14-day unstake period applies</div>
           </div>
@@ -774,16 +790,24 @@
         <div class="tab-content" id="unstake-content">
           <div class="card action-panel">
             <div class="input-group">
-              <label class="input-label">You unstake</label>
+              <label class="input-label" for="unstake-input">You unstake</label>
               <div class="input-wrapper">
-                <input type="text" class="input-field" id="unstake-input" placeholder="0.00">
+                <input
+                  type="text"
+                  class="input-field"
+                  id="unstake-input"
+                  placeholder="0.00"
+                  aria-label="Amount of cHYPE to unstake"
+                  aria-describedby="unstake-balance-hint"
+                  inputmode="decimal"
+                >
                 <span class="input-token">cHYPE</span>
                 <div class="input-helpers">
-                  <button class="helper-btn" id="unstake-half">Half</button>
-                  <button class="helper-btn" id="unstake-max">Max</button>
+                  <button class="helper-btn" id="unstake-half" aria-label="Unstake half of balance">Half</button>
+                  <button class="helper-btn" id="unstake-max" aria-label="Unstake maximum balance">Max</button>
                 </div>
               </div>
-              <div class="balance-hint">Balance: 1,205.38 cHYPE</div>
+              <div class="balance-hint" id="unstake-balance-hint">Balance: 1,205.38 cHYPE</div>
             </div>
 
             <div class="output-group">
@@ -801,9 +825,9 @@
               <span class="detail-value">~$0.01</span>
             </div>
 
-            <button class="btn" id="unstake-btn" disabled>UNSTAKE</button>
+            <button class="btn" id="unstake-btn" disabled aria-label="Enter amount to unstake" aria-disabled="true">UNSTAKE</button>
 
-            <div class="disclaimer">⚠ 14-day waiting period after unstaking. Your HYPE will be claimable after the period.</div>
+            <div class="disclaimer"><span class="disclaimer-warning">⚠</span> 14-day waiting period after unstaking. Your HYPE will be claimable after the period.</div>
           </div>
         </div>
       </div>
@@ -961,16 +985,48 @@
       return hypoValue / EXCHANGE_RATE;
     }
 
+    function sanitizeNumberInput(value) {
+      // Remove non-numeric characters except decimal point
+      let sanitized = value.replace(/[^0-9.]/g, '');
+
+      // Prevent multiple decimal points
+      const parts = sanitized.split('.');
+      if (parts.length > 2) {
+        sanitized = parts[0] + '.' + parts.slice(1).join('');
+      }
+
+      // Limit to 6 decimal places
+      if (parts.length === 2 && parts[1].length > 6) {
+        sanitized = parts[0] + '.' + parts[1].substring(0, 6);
+      }
+
+      return sanitized;
+    }
+
     function updateStakeOutput() {
       const value = parseFloat(stakeInput.value) || 0;
       const output = calculateStakeOutput(value);
       stakeOutput.textContent = `${output.toFixed(2)} cHYPE`;
 
       // Enable/disable button
-      stakeBtn.disabled = value <= 0 || value > USER_HYPE_BALANCE;
+      const isDisabled = value <= 0 || value > USER_HYPE_BALANCE;
+      stakeBtn.disabled = isDisabled;
+      stakeBtn.setAttribute('aria-disabled', isDisabled.toString());
+
+      // Update ARIA
+      if (value > USER_HYPE_BALANCE) {
+        stakeBtn.setAttribute('aria-label', 'Insufficient balance');
+      } else if (value <= 0) {
+        stakeBtn.setAttribute('aria-label', 'Enter amount to stake');
+      } else {
+        stakeBtn.setAttribute('aria-label', `Stake ${value.toFixed(2)} HYPE`);
+      }
     }
 
-    stakeInput.addEventListener('input', updateStakeOutput);
+    stakeInput.addEventListener('input', (e) => {
+      e.target.value = sanitizeNumberInput(e.target.value);
+      updateStakeOutput();
+    });
 
     stakeHalfBtn.addEventListener('click', () => {
       stakeInput.value = (USER_HYPE_BALANCE / 2).toFixed(2);
@@ -999,10 +1055,24 @@
       unstakeOutput.textContent = `${output.toFixed(2)} HYPE`;
 
       // Enable/disable button
-      unstakeBtn.disabled = value <= 0 || value > USER_CHYPE_BALANCE;
+      const isDisabled = value <= 0 || value > USER_CHYPE_BALANCE;
+      unstakeBtn.disabled = isDisabled;
+      unstakeBtn.setAttribute('aria-disabled', isDisabled.toString());
+
+      // Update ARIA
+      if (value > USER_CHYPE_BALANCE) {
+        unstakeBtn.setAttribute('aria-label', 'Insufficient balance');
+      } else if (value <= 0) {
+        unstakeBtn.setAttribute('aria-label', 'Enter amount to unstake');
+      } else {
+        unstakeBtn.setAttribute('aria-label', `Unstake ${value.toFixed(2)} cHYPE`);
+      }
     }
 
-    unstakeInput.addEventListener('input', updateUnstakeOutput);
+    unstakeInput.addEventListener('input', (e) => {
+      e.target.value = sanitizeNumberInput(e.target.value);
+      updateUnstakeOutput();
+    });
 
     unstakeHalfBtn.addEventListener('click', () => {
       unstakeInput.value = (USER_CHYPE_BALANCE / 2).toFixed(2);
