@@ -16,28 +16,34 @@
 
   <style>
     :root {
-      /* DESIGN.md warm tones */
+      /* DESIGN.md colors - warm earth tones */
       --bg-deep: #0a0a09;
       --bg-layer-1: #111110;
       --bg-layer-2: #1a1918;
       --bg-layer-3: #252422;
-      --border: #1a1918;
-      --border-hover: #252422;
+      --stone: #3d3a36;
+      --sand: #8a8279;
+      --warm-gray: #6b665e;
+      
+      /* Text - warm tones */
       --text-primary: #e8e4df;
       --text-secondary: #9a958d;
       --text-muted: #5c574f;
+      
+      /* Accent - living green */
       --accent-bright: #4dcf6a;
       --accent: #2ba84a;
       --accent-muted: #1d7a35;
       --accent-glow: rgba(77, 207, 106, 0.15);
       --accent-glow-strong: rgba(77, 207, 106, 0.3);
+      
+      /* Logo pot colors */
+      --pot-1: #8a7d6d;
+      --pot-2: #5c5347;
+      --pot-3: #3d3630;
+      
       --error: #ef4444;
       --font: 'Outfit', -apple-system, sans-serif;
-
-      /* Legacy aliases for compatibility */
-      --bg: var(--bg-deep);
-      --bg-subtle: var(--bg-layer-1);
-      --bg-card: var(--bg-layer-2);
     }
 
     * {
@@ -53,13 +59,14 @@
 
     body {
       font-family: var(--font);
-      background: var(--bg);
+      background: var(--bg-deep);
       color: var(--text-primary);
       line-height: 1.6;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Noise texture overlay */
+    /* Noise texture */
     body::before {
       content: '';
       position: fixed;
@@ -76,11 +83,11 @@
     /* Nav */
     .nav {
       padding: 1.5rem 3rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--bg-layer-3);
     }
 
     .nav-inner {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -114,7 +121,7 @@
     }
 
     .nav-wordmark .tld {
-      color: var(--accent);
+      color: var(--accent-bright);
     }
 
     .nav-link {
@@ -126,32 +133,32 @@
     }
 
     .nav-link:hover {
-      color: var(--accent);
+      color: var(--accent-bright);
     }
 
     .nav-link.active {
       color: var(--text-primary);
     }
 
-    /* Container */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 3rem;
-    }
-
-    /* Stats Bar */
+    /* Stats Bar - horizontal single line */
     .stats-bar {
-      background: var(--bg-subtle);
-      border-bottom: 1px solid var(--border);
-      padding: 2.5rem 0;
+      background: var(--bg-layer-1);
+      border-bottom: 1px solid var(--bg-layer-3);
+      padding: 1.5rem 3rem;
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      text-align: center;
+    .stats-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
     }
 
     .stat-label {
@@ -159,102 +166,115 @@
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--text-muted);
-      margin-bottom: 0.5rem;
     }
 
     .stat-value {
-      font-size: 2.5rem;
+      font-size: 1.75rem;
       font-weight: 200;
       color: var(--text-primary);
-      line-height: 1.2;
     }
 
     .stat-value.accent {
-      color: var(--accent);
+      color: var(--accent-bright);
     }
 
-    /* Main Content */
-    .main {
-      padding: 4rem 0;
+    /* Main Dashboard */
+    .dashboard {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 2rem;
+      min-height: calc(100vh - 200px);
     }
 
-    /* Card */
+    /* Left Column - Action Panel */
+    .action-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
     .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+      background: var(--bg-layer-2);
+      border: 1px solid var(--bg-layer-3);
       padding: 2rem;
-      margin-bottom: 2rem;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-icon {
+      width: 24px;
+      height: 24px;
+      opacity: 0.6;
+    }
+
+    .card-title {
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
     }
 
     /* Position Card */
-    .position-card {
-      max-width: 600px;
-      margin: 0 auto 3rem;
-    }
-
-    .position-card h2 {
-      font-size: 1rem;
-      font-weight: 500;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-secondary);
+    .position-grid {
+      display: grid;
+      gap: 0.75rem;
     }
 
     .position-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 0.75rem;
+      padding: 0.5rem 0;
     }
 
     .position-label {
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       color: var(--text-secondary);
     }
 
     .position-value {
-      font-size: 1.125rem;
+      font-size: 1rem;
       font-weight: 400;
       color: var(--text-primary);
-      text-align: right;
     }
 
     .position-gain {
-      font-size: 0.875rem;
-      color: var(--accent);
-      text-align: right;
+      color: var(--accent-bright);
     }
 
     /* Tabs */
     .tabs {
-      max-width: 600px;
-      margin: 0 auto 3rem;
-    }
-
-    .tab-buttons {
       display: flex;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--bg-layer-3);
+      margin-bottom: 1.5rem;
     }
 
-    .tab-button {
+    .tab {
       flex: 1;
-      padding: 1rem;
+      padding: 0.75rem 1rem;
       background: none;
       border: none;
       border-bottom: 2px solid transparent;
       font-family: var(--font);
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s;
     }
 
-    .tab-button.active {
+    .tab.active {
       color: var(--text-primary);
       border-bottom-color: var(--accent);
     }
@@ -267,35 +287,30 @@
       display: block;
     }
 
-    /* Action Panel */
-    .action-panel {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
+    /* Input */
     .input-group {
       margin-bottom: 1.5rem;
     }
 
     .input-label {
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       color: var(--text-secondary);
       margin-bottom: 0.5rem;
       display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
     .input-wrapper {
-      position: relative;
       display: flex;
-      align-items: center;
       gap: 0.5rem;
     }
 
     .input-field {
       flex: 1;
-      padding: 1rem;
-      background: var(--bg-subtle);
-      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      background: var(--bg-layer-1);
+      border: 1px solid var(--bg-layer-3);
       font-family: var(--font);
       font-size: 1.125rem;
       color: var(--text-primary);
@@ -311,52 +326,41 @@
       color: var(--text-muted);
     }
 
-    .input-token {
-      position: absolute;
-      right: 5.5rem;
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      pointer-events: none;
-    }
-
-    .input-helpers {
-      display: flex;
-      gap: 0.5rem;
-    }
-
     .helper-btn {
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1rem;
       background: none;
-      border: 1px solid var(--border);
+      border: 1px solid var(--bg-layer-3);
       font-family: var(--font);
       font-size: 0.75rem;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.2s;
+      min-width: 60px;
     }
 
     .helper-btn:hover {
       border-color: var(--accent);
-      color: var(--accent);
+      color: var(--accent-bright);
     }
 
     .balance-hint {
-      font-size: 0.8125rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
-      margin-top: 0.5rem;
+      margin-top: 0.375rem;
     }
 
+    /* Output */
     .output-group {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .output-value {
       font-size: 1.5rem;
       font-weight: 400;
-      color: var(--accent);
+      color: var(--accent-bright);
     }
 
     .detail-row {
@@ -364,7 +368,7 @@
       justify-content: space-between;
       align-items: baseline;
       margin-bottom: 0.5rem;
-      font-size: 0.875rem;
+      font-size: 0.8125rem;
     }
 
     .detail-label {
@@ -386,11 +390,12 @@
       font-weight: 500;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: var(--bg);
+      color: var(--bg-deep);
       cursor: pointer;
       transition: all 0.2s;
       position: relative;
       overflow: hidden;
+      margin-top: 1rem;
     }
 
     .btn::before {
@@ -414,7 +419,7 @@
     }
 
     .btn:disabled {
-      background: var(--bg-subtle);
+      background: var(--bg-layer-1);
       color: var(--text-muted);
       cursor: not-allowed;
       box-shadow: none;
@@ -425,250 +430,96 @@
     }
 
     .disclaimer {
-      font-size: 0.8125rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
-      margin-top: 1rem;
+      margin-top: 0.75rem;
       text-align: center;
     }
 
-    /* Section */
-    .section {
-      padding: 4rem 0;
+    /* Right Column - Info Panel */
+    .info-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
-    .section-card {
-      max-width: 800px;
-      margin: 0 auto;
+    /* Info List */
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
     }
 
-    .section h2 {
-      font-size: 1.5rem;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      text-align: center;
-    }
-
-    /* Yield Breakdown */
-    .yield-breakdown {
-      margin-bottom: 2rem;
-    }
-
-    .yield-row {
+    .info-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--border);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--bg-layer-3);
     }
 
-    .yield-row:last-of-type {
-      border-bottom: 2px solid var(--accent-dim);
-      margin-bottom: 1rem;
+    .info-row:last-child {
+      border-bottom: none;
     }
 
-    .yield-label {
-      font-size: 0.9375rem;
+    .info-label {
+      font-size: 0.8125rem;
       color: var(--text-secondary);
     }
 
-    .yield-value {
-      font-size: 1rem;
+    .info-value {
+      font-size: 0.9375rem;
+      font-weight: 400;
       color: var(--text-primary);
+      text-align: right;
     }
 
-    .yield-total {
+    .info-value.accent {
+      color: var(--accent-bright);
+    }
+
+    .info-value small {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.125rem;
+    }
+
+    /* Market List */
+    .market-item {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      padding: 1rem 0;
-      font-size: 1.125rem;
-      font-weight: 500;
-    }
-
-    .yield-total .yield-value {
-      color: var(--accent);
-      font-size: 1.25rem;
-    }
-
-    .yield-explanation {
-      font-size: 0.9375rem;
-      font-weight: 300;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    /* Market Cards */
-    .market-grid {
-      display: grid;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .market-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      padding: 1.5rem;
-      transition: all 0.2s;
-    }
-
-    .market-card:hover {
-      border-color: var(--accent-dim);
-      transform: translateY(-2px);
-    }
-
-    .market-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.5rem;
+      align-items: center;
+      padding: 0.625rem 0;
     }
 
     .market-name {
-      font-size: 1.125rem;
-      font-weight: 500;
+      font-size: 0.875rem;
       color: var(--text-primary);
     }
 
     .market-allocation {
-      font-size: 1rem;
-      color: var(--accent);
-    }
-
-    .market-details {
-      font-size: 0.8125rem;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-    }
-
-    .market-fees {
       font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-
-    .market-link {
-      text-align: center;
-      margin-top: 1.5rem;
-    }
-
-    .market-link a {
-      font-size: 0.875rem;
-      color: var(--accent);
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
-
-    .market-link a:hover {
-      opacity: 0.8;
-    }
-
-    /* Trust Section */
-    .trust-grid {
-      margin-bottom: 1.5rem;
-    }
-
-    .trust-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .trust-row:last-child {
-      border-bottom: none;
-    }
-
-    .trust-label {
-      font-size: 0.9375rem;
-      color: var(--text-secondary);
-    }
-
-    .trust-value {
-      font-size: 1rem;
-      color: var(--text-primary);
-    }
-
-    .trust-footer {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .trust-links {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-    }
-
-    .trust-links a {
-      font-size: 0.875rem;
-      color: var(--accent);
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
-
-    .trust-links a:hover {
-      opacity: 0.8;
-    }
-
-    /* Footer */
-    .footer {
-      padding: 3rem 0;
-      text-align: center;
-      border-top: 1px solid var(--border);
-    }
-
-    .footer-text {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .footer-text a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    .footer-text a:hover {
-      text-decoration: underline;
-    }
-
-    /* Warning icon */
-    .disclaimer-warning {
       color: var(--accent-bright);
     }
 
     /* Responsive */
     @media (max-width: 968px) {
-      .nav {
-        padding: 1.5rem 1.5rem;
-      }
-
-      .container {
-        padding: 0 1.5rem;
-      }
-
-      .main {
-        padding: 2rem 0;
-      }
-
-      .section {
-        padding: 2rem 0;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .stats-grid {
+      .dashboard {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
       }
 
-      .stat-value {
-        font-size: 2rem;
+      .stats-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .nav,
+      .stats-bar,
+      .dashboard {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
       }
     }
   </style>
@@ -679,7 +530,14 @@
     <div class="nav-inner">
       <div class="nav-left">
         <a href="/" class="nav-lockup">
-          <img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" style="height: 32px;">
+          <svg class="nav-mark" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/>
+            <path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/>
+            <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
+            <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
+            <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
+          </svg>
+          <div class="nav-wordmark">compost<span class="tld">.fi</span></div>
         </a>
         <a href="/vault.html" class="nav-link active">Vault</a>
       </div>
@@ -692,265 +550,221 @@
 
   <!-- Stats Bar -->
   <section class="stats-bar">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat">
-          <div class="stat-label">TVL</div>
-          <div class="stat-value">$4.2M</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">APY</div>
-          <div class="stat-value accent">6.3%</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">cHYPE/HYPE</div>
-          <div class="stat-value">1.024</div>
-        </div>
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-label">TVL</div>
+        <div class="stat-value">$4.2M</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">APY</div>
+        <div class="stat-value accent">6.3%</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">cHYPE/HYPE</div>
+        <div class="stat-value">1.024</div>
       </div>
     </div>
   </section>
 
-  <!-- Main -->
-  <main class="main">
-    <div class="container">
+  <!-- Main Dashboard -->
+  <main class="dashboard">
+    <!-- Left Column: Action -->
+    <div class="action-column">
       <!-- Position Card -->
-      <div class="card position-card">
-        <h2>Your position</h2>
-        <div class="position-row">
-          <span class="position-label">HYPE staked</span>
-          <span class="position-value">1,234.56 HYPE</span>
+      <div class="card">
+        <div class="card-header">
+          <svg class="card-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M32 6 L52 14 L52 30 C52 44 42 54 32 58 C22 54 12 44 12 30 L12 14 L32 6 Z" fill="none" stroke="#8a7d6d" stroke-width="2.5"/>
+            <path d="M32 14 L44 20 L44 30 C44 40 38 47 32 50 C26 47 20 40 20 30 L20 20 L32 14 Z" fill="none" stroke="#5c5347" stroke-width="1.5"/>
+            <path d="M24 32 L30 38 L42 26" stroke="#4dcf6a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h2 class="card-title">Your Position</h2>
         </div>
-        <div class="position-row">
-          <span class="position-label">cHYPE balance</span>
-          <span class="position-value">1,205.38 cHYPE</span>
-        </div>
-        <div class="position-row">
-          <span class="position-label">Current value</span>
-          <span class="position-value">1,264.23 HYPE</span>
-        </div>
-        <div class="position-row">
-          <span></span>
-          <span class="position-gain">↑ +29.67 (+2.4%)</span>
+        <div class="position-grid">
+          <div class="position-row">
+            <span class="position-label">HYPE staked</span>
+            <span class="position-value">1,234.56</span>
+          </div>
+          <div class="position-row">
+            <span class="position-label">cHYPE balance</span>
+            <span class="position-value">1,205.38</span>
+          </div>
+          <div class="position-row">
+            <span class="position-label">Current value</span>
+            <span class="position-value">1,264.23 HYPE</span>
+          </div>
+          <div class="position-row">
+            <span class="position-label">Gain</span>
+            <span class="position-value position-gain">+29.67 (+2.4%)</span>
+          </div>
         </div>
       </div>
 
-      <!-- Tabs + Action Panel -->
-      <div class="tabs">
-        <div class="tab-buttons">
-          <button class="tab-button active" data-tab="stake">Stake</button>
-          <button class="tab-button" data-tab="unstake">Unstake</button>
+      <!-- Stake/Unstake Card -->
+      <div class="card">
+        <div class="tabs">
+          <button class="tab active" data-tab="stake">Stake</button>
+          <button class="tab" data-tab="unstake">Unstake</button>
         </div>
 
         <!-- Stake Tab -->
         <div class="tab-content active" id="stake-content">
-          <div class="card action-panel">
-            <div class="input-group">
-              <label class="input-label" for="stake-input">You stake</label>
-              <div class="input-wrapper">
-                <input
-                  type="text"
-                  class="input-field"
-                  id="stake-input"
-                  placeholder="0.00"
-                  aria-label="Amount of HYPE to stake"
-                  aria-describedby="stake-balance-hint"
-                  inputmode="decimal"
-                >
-                <span class="input-token">HYPE</span>
-                <div class="input-helpers">
-                  <button class="helper-btn" id="stake-half" aria-label="Stake half of balance">Half</button>
-                  <button class="helper-btn" id="stake-max" aria-label="Stake maximum balance">Max</button>
-                </div>
-              </div>
-              <div class="balance-hint" id="stake-balance-hint">Balance: 1,234.56 HYPE</div>
+          <div class="input-group">
+            <label class="input-label">You stake</label>
+            <div class="input-wrapper">
+              <input type="text" class="input-field" id="stake-input" placeholder="0.00">
+              <button class="helper-btn" id="stake-half">Half</button>
+              <button class="helper-btn" id="stake-max">Max</button>
             </div>
-
-            <div class="output-group">
-              <label class="input-label">You receive</label>
-              <div class="output-value" id="stake-output">0.00 cHYPE</div>
-            </div>
-
-            <div class="detail-row">
-              <span class="detail-label">Exchange rate</span>
-              <span class="detail-value">1 cHYPE = 1.024 HYPE</span>
-            </div>
-
-            <div class="detail-row">
-              <span class="detail-label">Network cost</span>
-              <span class="detail-value">~$0.01</span>
-            </div>
-
-            <button class="btn" id="stake-btn" disabled aria-label="Enter amount to stake" aria-disabled="true">STAKE HYPE</button>
-
-            <div class="disclaimer">14-day unstake period applies</div>
+            <div class="balance-hint">Balance: 1,234.56 HYPE</div>
           </div>
+
+          <div class="output-group">
+            <label class="input-label">You receive</label>
+            <div class="output-value" id="stake-output">0.00 cHYPE</div>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Exchange rate</span>
+            <span class="detail-value">1 cHYPE = 1.024 HYPE</span>
+          </div>
+
+          <div class="detail-row">
+            <span class="detail-label">Network cost</span>
+            <span class="detail-value">~$0.01</span>
+          </div>
+
+          <button class="btn" id="stake-btn" disabled>Stake HYPE</button>
+
+          <div class="disclaimer">14-day unstake period applies</div>
         </div>
 
         <!-- Unstake Tab -->
         <div class="tab-content" id="unstake-content">
-          <div class="card action-panel">
-            <div class="input-group">
-              <label class="input-label" for="unstake-input">You unstake</label>
-              <div class="input-wrapper">
-                <input
-                  type="text"
-                  class="input-field"
-                  id="unstake-input"
-                  placeholder="0.00"
-                  aria-label="Amount of cHYPE to unstake"
-                  aria-describedby="unstake-balance-hint"
-                  inputmode="decimal"
-                >
-                <span class="input-token">cHYPE</span>
-                <div class="input-helpers">
-                  <button class="helper-btn" id="unstake-half" aria-label="Unstake half of balance">Half</button>
-                  <button class="helper-btn" id="unstake-max" aria-label="Unstake maximum balance">Max</button>
-                </div>
-              </div>
-              <div class="balance-hint" id="unstake-balance-hint">Balance: 1,205.38 cHYPE</div>
+          <div class="input-group">
+            <label class="input-label">You unstake</label>
+            <div class="input-wrapper">
+              <input type="text" class="input-field" id="unstake-input" placeholder="0.00">
+              <button class="helper-btn" id="unstake-half">Half</button>
+              <button class="helper-btn" id="unstake-max">Max</button>
             </div>
+            <div class="balance-hint">Balance: 1,205.38 cHYPE</div>
+          </div>
 
-            <div class="output-group">
-              <label class="input-label">You receive</label>
-              <div class="output-value" id="unstake-output">0.00 HYPE</div>
-            </div>
+          <div class="output-group">
+            <label class="input-label">You receive</label>
+            <div class="output-value" id="unstake-output">0.00 HYPE</div>
+          </div>
 
-            <div class="detail-row">
-              <span class="detail-label">Exchange rate</span>
-              <span class="detail-value">1 cHYPE = 1.024 HYPE</span>
-            </div>
+          <div class="detail-row">
+            <span class="detail-label">Exchange rate</span>
+            <span class="detail-value">1 cHYPE = 1.024 HYPE</span>
+          </div>
 
-            <div class="detail-row">
-              <span class="detail-label">Network cost</span>
-              <span class="detail-value">~$0.01</span>
-            </div>
+          <div class="detail-row">
+            <span class="detail-label">Network cost</span>
+            <span class="detail-value">~$0.01</span>
+          </div>
 
-            <button class="btn" id="unstake-btn" disabled aria-label="Enter amount to unstake" aria-disabled="true">UNSTAKE</button>
+          <button class="btn" id="unstake-btn" disabled>Unstake</button>
 
-            <div class="disclaimer"><span class="disclaimer-warning">⚠</span> 14-day waiting period after unstaking. Your HYPE will be claimable after the period.</div>
+          <div class="disclaimer">⚠ 14-day waiting period after unstaking</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Info -->
+    <div class="info-column">
+      <!-- APY Breakdown -->
+      <div class="card">
+        <div class="card-header">
+          <svg class="card-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 48 L12 32 L20 24 L32 36 L44 20 L52 28 L52 48" fill="none" stroke="#4dcf6a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="12" y1="52" x2="52" y2="52" stroke="#8a7d6d" stroke-width="2"/>
+          </svg>
+          <h2 class="card-title">APY Breakdown</h2>
+        </div>
+        <div class="info-list">
+          <div class="info-row">
+            <span class="info-label">Base staking</span>
+            <span class="info-value">2.1%</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Builder fees</span>
+            <span class="info-value">4.2%</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Total APY</span>
+            <span class="info-value accent">6.3%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Allocations -->
+      <div class="card">
+        <div class="card-header">
+          <svg class="card-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="20" r="8" fill="none" stroke="#4dcf6a" stroke-width="2.5"/>
+            <circle cx="18" cy="44" r="6" fill="none" stroke="#8a7d6d" stroke-width="2"/>
+            <circle cx="32" cy="50" r="6" fill="none" stroke="#8a7d6d" stroke-width="2"/>
+            <circle cx="46" cy="44" r="6" fill="none" stroke="#8a7d6d" stroke-width="2"/>
+            <line x1="28" y1="26" x2="20" y2="38" stroke="#5c5347" stroke-width="2"/>
+            <line x1="32" y1="28" x2="32" y2="44" stroke="#5c5347" stroke-width="2"/>
+            <line x1="36" y1="26" x2="44" y2="38" stroke="#5c5347" stroke-width="2"/>
+          </svg>
+          <h2 class="card-title">Allocated to</h2>
+        </div>
+        <div class="info-list">
+          <div class="market-item">
+            <span class="market-name">trade.xyz</span>
+            <span class="market-allocation">40%</span>
+          </div>
+          <div class="market-item">
+            <span class="market-name">Kinetiq Markets</span>
+            <span class="market-allocation">30%</span>
+          </div>
+          <div class="market-item">
+            <span class="market-name">Ventuals</span>
+            <span class="market-allocation">20%</span>
+          </div>
+          <div class="market-item">
+            <span class="market-name">Felix</span>
+            <span class="market-allocation">10%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Infrastructure -->
+      <div class="card">
+        <div class="card-header">
+          <svg class="card-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="12" width="44" height="44" rx="4" fill="none" stroke="#8a7d6d" stroke-width="2.5"/>
+            <rect x="16" y="18" width="32" height="32" rx="2" fill="none" stroke="#5c5347" stroke-width="1.5"/>
+            <circle cx="32" cy="34" r="10" fill="none" stroke="#4dcf6a" stroke-width="2"/>
+            <circle cx="32" cy="34" r="4" fill="#4dcf6a"/>
+            <rect x="46" y="30" width="6" height="8" rx="1" fill="#3d3630"/>
+          </svg>
+          <h2 class="card-title">Infrastructure</h2>
+        </div>
+        <div class="info-list">
+          <div class="info-row">
+            <span class="info-label">Vault</span>
+            <span class="info-value">
+              Infrasingularity
+              <small>Secure vault infrastructure</small>
+            </span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Custody</span>
+            <span class="info-value">
+              Fireblocks
+              <small>Institutional custody</small>
+            </span>
           </div>
         </div>
       </div>
     </div>
   </main>
-
-  <!-- Yield Breakdown -->
-  <section class="section">
-    <div class="container">
-      <div class="card section-card">
-        <h2>Where yield comes from</h2>
-
-        <div class="yield-breakdown">
-          <div class="yield-row">
-            <span class="yield-label">Base staking rewards</span>
-            <span class="yield-value">2.1%</span>
-          </div>
-          <div class="yield-row">
-            <span class="yield-label">Builder market fee splits</span>
-            <span class="yield-value">4.2%</span>
-          </div>
-          <div class="yield-total">
-            <span class="yield-label">Total APY</span>
-            <span class="yield-value">6.3%</span>
-          </div>
-        </div>
-
-        <p class="yield-explanation">
-          Your HYPE is allocated across vetted HIP-3 builder markets. As markets generate trading volume, you earn a share of the fees. cHYPE appreciates over time—no rebasing, fully transferable.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Market Allocations -->
-  <section class="section">
-    <div class="container">
-      <div class="card section-card">
-        <h2>Where your HYPE is working</h2>
-
-        <div class="market-grid">
-          <div class="market-card">
-            <div class="market-header">
-              <span class="market-name">trade.xyz</span>
-              <span class="market-allocation">40%</span>
-            </div>
-            <div class="market-details">Equities • $12.7B volume • Live</div>
-            <div class="market-fees">Fees earned (30d): $124k</div>
-          </div>
-
-          <div class="market-card">
-            <div class="market-header">
-              <span class="market-name">Kinetiq Markets</span>
-              <span class="market-allocation">30%</span>
-            </div>
-            <div class="market-details">Global Indices • $363M 30d vol • Live</div>
-            <div class="market-fees">Fees earned (30d): $42k</div>
-          </div>
-
-          <div class="market-card">
-            <div class="market-header">
-              <span class="market-name">Ventuals</span>
-              <span class="market-allocation">20%</span>
-            </div>
-            <div class="market-details">Pre-IPO • SpaceX, OpenAI • Live</div>
-            <div class="market-fees">Fees earned (30d): $18k</div>
-          </div>
-
-          <div class="market-card">
-            <div class="market-header">
-              <span class="market-name">Felix</span>
-              <span class="market-allocation">10%</span>
-            </div>
-            <div class="market-details">Equities • TSLA + more • Live</div>
-            <div class="market-fees">Fees earned (30d): $8k</div>
-          </div>
-        </div>
-
-        <div class="market-link">
-          <a href="#">View all allocations on-chain →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Trust & Security -->
-  <section class="section">
-    <div class="container">
-      <div class="card section-card">
-        <h2>Built on trusted infrastructure</h2>
-
-        <div class="trust-grid">
-          <div class="trust-row">
-            <span class="trust-label">Vault infrastructure</span>
-            <span class="trust-value">Infrasingularity</span>
-          </div>
-          <div class="trust-row">
-            <span class="trust-label">Custody</span>
-            <span class="trust-value">Fireblocks</span>
-          </div>
-          <div class="trust-row">
-            <span class="trust-label">Security</span>
-            <span class="trust-value">Audited by [Name]</span>
-          </div>
-        </div>
-
-        <div class="trust-footer">All allocations verifiable on-chain.</div>
-
-        <div class="trust-links">
-          <a href="#">View audits</a>
-          <a href="#">View contracts</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p class="footer-text">Questions? <a href="https://docs.compost.fi">Read the docs →</a></p>
-      <p class="footer-text">Or get in touch: <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
-    </div>
-  </footer>
 
   <script>
     // Constants
@@ -959,22 +773,22 @@
     const USER_CHYPE_BALANCE = 1205.38;
 
     // Tab switching
-    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const targetTab = button.dataset.tab;
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTab = tab.dataset.tab;
 
-        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabs.forEach(t => t.classList.remove('active'));
         tabContents.forEach(content => content.classList.remove('active'));
 
-        button.classList.add('active');
+        tab.classList.add('active');
         document.getElementById(`${targetTab}-content`).classList.add('active');
       });
     });
 
-    // Stake tab functionality
+    // Stake functionality
     const stakeInput = document.getElementById('stake-input');
     const stakeOutput = document.getElementById('stake-output');
     const stakeBtn = document.getElementById('stake-btn');
@@ -985,60 +799,24 @@
       return hypoValue / EXCHANGE_RATE;
     }
 
-    function sanitizeNumberInput(value) {
-      // Remove non-numeric characters except decimal point
-      let sanitized = value.replace(/[^0-9.]/g, '');
-
-      // Prevent multiple decimal points
-      const parts = sanitized.split('.');
-      if (parts.length > 2) {
-        sanitized = parts[0] + '.' + parts.slice(1).join('');
-      }
-
-      // Limit to 6 decimal places
-      if (parts.length === 2 && parts[1].length > 6) {
-        sanitized = parts[0] + '.' + parts[1].substring(0, 6);
-      }
-
-      return sanitized;
-    }
-
     function updateStakeOutput() {
       const value = parseFloat(stakeInput.value) || 0;
       const output = calculateStakeOutput(value);
       stakeOutput.textContent = `${output.toFixed(2)} cHYPE`;
-
-      // Enable/disable button
-      const isDisabled = value <= 0 || value > USER_HYPE_BALANCE;
-      stakeBtn.disabled = isDisabled;
-      stakeBtn.setAttribute('aria-disabled', isDisabled.toString());
-
-      // Update ARIA
-      if (value > USER_HYPE_BALANCE) {
-        stakeBtn.setAttribute('aria-label', 'Insufficient balance');
-      } else if (value <= 0) {
-        stakeBtn.setAttribute('aria-label', 'Enter amount to stake');
-      } else {
-        stakeBtn.setAttribute('aria-label', `Stake ${value.toFixed(2)} HYPE`);
-      }
+      stakeBtn.disabled = value <= 0 || value > USER_HYPE_BALANCE;
     }
 
-    stakeInput.addEventListener('input', (e) => {
-      e.target.value = sanitizeNumberInput(e.target.value);
-      updateStakeOutput();
-    });
-
+    stakeInput.addEventListener('input', updateStakeOutput);
     stakeHalfBtn.addEventListener('click', () => {
       stakeInput.value = (USER_HYPE_BALANCE / 2).toFixed(2);
       updateStakeOutput();
     });
-
     stakeMaxBtn.addEventListener('click', () => {
       stakeInput.value = USER_HYPE_BALANCE.toFixed(2);
       updateStakeOutput();
     });
 
-    // Unstake tab functionality
+    // Unstake functionality
     const unstakeInput = document.getElementById('unstake-input');
     const unstakeOutput = document.getElementById('unstake-output');
     const unstakeBtn = document.getElementById('unstake-btn');
@@ -1053,42 +831,23 @@
       const value = parseFloat(unstakeInput.value) || 0;
       const output = calculateUnstakeOutput(value);
       unstakeOutput.textContent = `${output.toFixed(2)} HYPE`;
-
-      // Enable/disable button
-      const isDisabled = value <= 0 || value > USER_CHYPE_BALANCE;
-      unstakeBtn.disabled = isDisabled;
-      unstakeBtn.setAttribute('aria-disabled', isDisabled.toString());
-
-      // Update ARIA
-      if (value > USER_CHYPE_BALANCE) {
-        unstakeBtn.setAttribute('aria-label', 'Insufficient balance');
-      } else if (value <= 0) {
-        unstakeBtn.setAttribute('aria-label', 'Enter amount to unstake');
-      } else {
-        unstakeBtn.setAttribute('aria-label', `Unstake ${value.toFixed(2)} cHYPE`);
-      }
+      unstakeBtn.disabled = value <= 0 || value > USER_CHYPE_BALANCE;
     }
 
-    unstakeInput.addEventListener('input', (e) => {
-      e.target.value = sanitizeNumberInput(e.target.value);
-      updateUnstakeOutput();
-    });
-
+    unstakeInput.addEventListener('input', updateUnstakeOutput);
     unstakeHalfBtn.addEventListener('click', () => {
       unstakeInput.value = (USER_CHYPE_BALANCE / 2).toFixed(2);
       updateUnstakeOutput();
     });
-
     unstakeMaxBtn.addEventListener('click', () => {
       unstakeInput.value = USER_CHYPE_BALANCE.toFixed(2);
       updateUnstakeOutput();
     });
 
-    // Button click handlers (mock)
+    // Button handlers (mock)
     stakeBtn.addEventListener('click', () => {
       alert('Stake functionality will be connected to smart contract');
     });
-
     unstakeBtn.addEventListener('click', () => {
       alert('Unstake functionality will be connected to smart contract');
     });
