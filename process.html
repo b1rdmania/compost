@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>How We Built compost.fi</title>
   <meta name="description" content="The design process behind compost.fi — built entirely through AI conversation with Claude Code.">
 
@@ -95,8 +95,8 @@
       right: 0;
       z-index: 100;
       padding: 1.5rem 3rem;
-      background: rgba(10, 10, 10, 0.8);
-      backdrop-filter: blur(12px);
+      padding-top: calc(1.5rem + env(safe-area-inset-top));
+      background: var(--bg-deep); /* Solid per DESIGN.md iOS guidelines */
       border-bottom: 1px solid var(--border);
     }
 
@@ -967,10 +967,15 @@
     @media (max-width: 640px) {
       .nav {
         padding: 1rem 1.5rem;
+        padding-top: calc(1rem + env(safe-area-inset-top));
+        padding-left: max(1.5rem, env(safe-area-inset-left));
+        padding-right: max(1.5rem, env(safe-area-inset-right));
       }
 
       .article {
-        padding: 0 1.5rem;
+        padding-left: max(1.5rem, env(safe-area-inset-left));
+        padding-right: max(1.5rem, env(safe-area-inset-right));
+        padding-bottom: calc(2rem + env(safe-area-inset-bottom));
       }
 
       .process-hero {

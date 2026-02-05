@@ -1242,18 +1242,24 @@
     @media (max-width: 640px) {
       .nav {
         padding: 1rem 1.5rem;
+        padding-top: calc(1rem + env(safe-area-inset-top));
+        padding-left: max(1.5rem, env(safe-area-inset-left));
+        padding-right: max(1.5rem, env(safe-area-inset-right));
       }
 
       .container {
-        padding: 0 1.5rem;
+        padding-left: max(1.5rem, env(safe-area-inset-left));
+        padding-right: max(1.5rem, env(safe-area-inset-right));
       }
 
       section {
         padding: 5rem 0;
+        padding-bottom: calc(5rem + env(safe-area-inset-bottom));
       }
 
       .hero {
         padding: 6rem 0 4rem;
+        padding-bottom: calc(4rem + env(safe-area-inset-bottom));
         min-height: auto;
       }
 
