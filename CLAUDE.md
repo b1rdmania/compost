@@ -7,14 +7,22 @@ Capital formation layer for Hyperliquid builder markets (HIP-3).
 ```
 /                     # Main marketing site (static HTML)
 ├── index.html        # Landing page
+├── vault.html        # Vault dashboard (stake/unstake interface)
 ├── process.html      # Design process page
 ├── api/
 │   └── waitlist.js   # Serverless function for email collection
 ├── assets/
-│   ├── logo.svg      # Primary mark
-│   ├── logo-horizontal.svg
+│   ├── logo/         # Logo lockups and variants (see DESIGN.md)
+│   │   ├── lockup-domain-horizontal.svg  # PRIMARY nav lockup
+│   │   ├── lockup-domain-stacked.svg
+│   │   ├── logo-primary.svg
+│   │   └── logo-favicon.svg
 │   └── icons/        # Icon library (18 SVGs)
-├── planning/         # Internal planning docs (launch spec, tokenomics, playbook)
+├── planning/         # Internal planning docs
+│   ├── vault-design-pitch.md       # Vault page design spec
+│   ├── vault-design-critique.md    # Design audit & improvements
+│   └── nav-redesign-proposal.md    # Navigation redesign spec
+├── DESIGN.md         # 🔒 CANONICAL design system (read-only)
 └── docs/             # VitePress documentation site
     ├── .vitepress/   # VitePress config and theme
     ├── public/icons/ # Icons copied for docs use
@@ -85,11 +93,13 @@ Capital formation layer for Hyperliquid builder markets (HIP-3).
 - **Font**: Outfit (Google Fonts)
 - **Weights**: 200 (formal wordmark), 300 (primary/body), 400 (emphasis), 500 (headings), 600 (semibold)
 - **Letter-spacing**:
-  - Wordmark (compost.fi): `0.02em`
+  - Wordmark (compost.fi): `0.02em` in lockup SVG, `0.01em` in nav
   - Formal (COMPOST): `0.12em`
   - Buttons: `0.06em`
+  - Nav links: `0.01em`
 - **Headlines**: 500 weight
 - **Body**: 300-400 weight
+- **Nav links**: 15px (0.9375rem), weight 400, active gets weight 500
 
 ### Logo (from DESIGN.md)
 
@@ -138,21 +148,107 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 - Green background, dark text
 - See `.btn` class in index.html
 
+## Site Pages
+
+### index.html (Landing Page)
+- Hero with large wordmark
+- Growth visualization (6-stage plant icons)
+- Waitlist form → `/api/waitlist` → Neon Postgres
+- Market stats section
+- Fixed nav with breakout lockup
+
+### vault.html (Vault Dashboard)
+- **Static mockup** of stake/unstake interface
+- Stats bar: TVL, APY, cHYPE/HYPE rate
+- Your Position card (shows staked amounts)
+- Tabs: Stake | Unstake
+- Action panel: input → output calculation
+- Yield breakdown: Base staking (2.1%) + Builder fees (4.2%)
+- Market allocations: trade.xyz, Kinetiq, Ventuals, Felix
+- Trust & security section
+- **Note:** Uses example data, not connected to live contracts yet
+
+### process.html (Design Process)
+- Article layout about building compost.fi
+- Fixed nav, long-form content
+- Tool showcases and philosophy
+
+---
+
+## Navigation Design (Applied Site-Wide)
+
+**Specifications** (see `planning/nav-redesign-proposal.md`):
+
+### Structure
+```html
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="/" class="nav-lockup">
+        <img src="/assets/logo/lockup-domain-horizontal.svg" class="nav-lockup-img">
+      </a>
+      <a href="/vault.html" class="nav-link">Vault</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://docs.compost.fi" class="nav-link">Docs</a>
+      <a href="https://twitter.com/compostfi" class="nav-link">@compostfi</a>
+    </div>
+  </div>
+</nav>
+```
+
+### CSS Specs
+- **Alignment:** Everything uses `align-items: center` (optical center)
+- **Logo:** Breakout lockup at 32px height (28px on mobile)
+- **Links:** 15px (0.9375rem), weight 400, letter-spacing 0.01em
+- **Link color:** `--text-secondary` (#9a958d) - legible but quiet
+- **Active state:** `--text-primary` + weight 500
+- **Spacing:**
+  - Vertical padding: 20px
+  - Left gap (logo → links): 40px
+  - Right gap (link → link): 32px
+  - Mobile: 24px gaps, tighter padding
+
+### Design Philosophy
+- Unified optical alignment (no competing strategies)
+- Legible but quiet (follows "whispers not shouts")
+- Clear hierarchy via size + color + weight
+- Follows DESIGN.md canonical specs
+
+---
+
 ## Key Technical Details
 
 ### Main Site
 
 - Static HTML, no framework
-- CSS variables in `:root`
+- CSS variables in `:root` (DESIGN.md warm tones)
 - Scroll reveal animations
-- Waitlist form → `/api/waitlist` → Neon Postgres
-- iOS/Mobile: See `/DESIGN.md` → "iOS & Mobile Design" for viewport, safe areas, and dynamic height patterns
+- iOS/Mobile: Complete implementation per `/DESIGN.md` → "iOS & Mobile Design"
+  - viewport-fit=cover (full-bleed)
+  - safe-area-inset-* (notch, home indicator, landscape)
+  - 100dvh (dynamic viewport height)
+  - Solid backgrounds in safe areas
 
 ### Docs (VitePress)
 
 - Default dark mode (`appearance: 'dark'`)
 - Custom theme in `.vitepress/theme/custom.css`
 - Sidebar navigation with collapsible sections
+
+### iOS Implementation Status
+
+**✅ Complete across all pages** (index.html, vault.html, process.html)
+
+All pages implement DESIGN.md iOS patterns:
+- ✅ `viewport-fit=cover` (full-bleed design)
+- ✅ `safe-area-inset-top` (notch/Dynamic Island padding)
+- ✅ `safe-area-inset-bottom` (home indicator padding)
+- ✅ `safe-area-inset-left/right` (landscape mode on iPhone Pro)
+- ✅ `100dvh` (dynamic viewport height for address bar)
+- ✅ Solid backgrounds in safe areas (no content bleed)
+
+**Testing:** Verified on iPhone 14 Pro / 15 Pro with Dynamic Island
 
 ### Environment Variables
 
