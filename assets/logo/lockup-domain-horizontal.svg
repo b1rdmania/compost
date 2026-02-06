@@ -10,7 +10,6 @@
     <rect x="9" y="35" width="14" height="4" rx="2" fill="#3d3630"/>
   </g>
 
-  <!-- compost.fi text -->
-  <text x="36" y="32" font-family="Outfit, -apple-system, sans-serif" font-size="22" font-weight="300" letter-spacing="0.02em" fill="#e8e4df">compost</text>
-  <text x="131" y="32" font-family="Outfit, -apple-system, sans-serif" font-size="22" font-weight="300" letter-spacing="0.02em" fill="#4dcf6a">.fi</text>
+  <!-- compost.fi text - tighter spacing -->
+  <text x="36" y="32" font-family="Outfit, -apple-system, sans-serif" font-size="22" font-weight="300" letter-spacing="0.01em" fill="#e8e4df">compost<tspan fill="#4dcf6a">.fi</tspan></text>
 </svg>
