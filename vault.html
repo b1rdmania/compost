@@ -66,8 +66,8 @@
 
     /* Nav */
     .nav {
-      padding: 1rem 3rem;
-      padding-top: calc(1rem + env(safe-area-inset-top));
+      padding: 1.25rem 3rem;
+      padding-top: calc(1.25rem + env(safe-area-inset-top));
       border-bottom: 1px solid var(--bg-layer-3);
       background: var(--bg-deep);
     }
@@ -83,37 +83,30 @@
     .nav-left {
       display: flex;
       align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
       gap: 2rem;
     }
 
     .nav-lockup {
-      display: flex;
-      align-items: flex-end;
-      gap: 0.625rem;
-      text-decoration: none;
+      display: block;
+      line-height: 0;
     }
 
-    .nav-mark {
-      width: 22px;
-      height: 30px;
-      margin-bottom: -2px;
-    }
-
-    .nav-wordmark {
-      font-size: 1.125rem;
-      font-weight: 300;
-      letter-spacing: 0.02em;
-      color: var(--text-primary);
-    }
-
-    .nav-wordmark .tld {
-      color: var(--accent-bright);
+    .nav-lockup-img {
+      height: 32px;
+      display: block;
     }
 
     .nav-link {
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       font-weight: 400;
-      color: var(--text-muted);
+      letter-spacing: 0.01em;
+      color: var(--text-secondary);
       text-decoration: none;
       transition: color 0.2s;
     }
@@ -124,6 +117,7 @@
 
     .nav-link.active {
       color: var(--text-primary);
+      font-weight: 500;
     }
 
     /* Stats Bar */
@@ -515,6 +509,27 @@
     }
 
     @media (max-width: 640px) {
+      .nav {
+        padding: 1rem 1.5rem;
+        padding-top: calc(1rem + env(safe-area-inset-top));
+      }
+
+      .nav-lockup-img {
+        height: 28px;
+      }
+
+      .nav-link {
+        font-size: 0.875rem;
+      }
+
+      .nav-left {
+        gap: 1.5rem;
+      }
+
+      .nav-right {
+        gap: 1.5rem;
+      }
+
       .stats-inner {
         flex-direction: column;
         align-items: flex-start;
@@ -539,18 +554,11 @@
     <div class="nav-inner">
       <div class="nav-left">
         <a href="/" class="nav-lockup">
-          <svg class="nav-mark" viewBox="0 0 64 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/>
-            <path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/>
-            <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
-            <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
-            <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
-          </svg>
-          <div class="nav-wordmark">compost<span class="tld">.fi</span></div>
+          <img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img">
         </a>
         <a href="/vault.html" class="nav-link active">Vault</a>
       </div>
-      <div>
+      <div class="nav-right">
         <a href="https://docs.compost.fi" class="nav-link">Docs</a>
         <a href="https://twitter.com/compostfi" class="nav-link" target="_blank" rel="noopener">@compostfi</a>
       </div>

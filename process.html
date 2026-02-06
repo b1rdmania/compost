@@ -94,9 +94,9 @@
       left: 0;
       right: 0;
       z-index: 100;
-      padding: 1.5rem 3rem;
-      padding-top: calc(1.5rem + env(safe-area-inset-top));
-      background: var(--bg-deep); /* Solid per DESIGN.md iOS guidelines */
+      padding: 1.25rem 3rem;
+      padding-top: calc(1.25rem + env(safe-area-inset-top));
+      background: var(--bg-deep);
       border-bottom: 1px solid var(--border);
     }
 
@@ -111,47 +111,41 @@
     .nav-left {
       display: flex;
       align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
       gap: 2rem;
     }
 
     .nav-lockup {
-      display: flex;
-      align-items: flex-end;
-      gap: 0.625rem;
-      text-decoration: none;
+      display: block;
+      line-height: 0;
     }
 
-    .nav-mark {
-      width: 22px;
-      height: 30px;
-      margin-bottom: -2px;
-    }
-
-    .nav-wordmark {
-      font-size: 1.125rem;
-      font-weight: 300;
-      letter-spacing: 0.02em;
-      color: var(--text-primary);
-    }
-
-    .nav-wordmark .tld {
-      color: var(--accent);
+    .nav-lockup-img {
+      height: 32px;
+      display: block;
     }
 
     .nav-link {
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       font-weight: 400;
-      color: var(--text-muted);
+      letter-spacing: 0.01em;
+      color: var(--text-secondary);
       text-decoration: none;
       transition: color 0.2s;
     }
 
     .nav-link:hover {
-      color: var(--accent);
+      color: var(--accent-bright);
     }
 
     .nav-link.active {
       color: var(--text-primary);
+      font-weight: 500;
     }
 
     /* Article layout */
@@ -972,6 +966,22 @@
         padding-right: max(1.5rem, env(safe-area-inset-right));
       }
 
+      .nav-lockup-img {
+        height: 28px;
+      }
+
+      .nav-link {
+        font-size: 0.875rem;
+      }
+
+      .nav-left {
+        gap: 1.5rem;
+      }
+
+      .nav-right {
+        gap: 1.5rem;
+      }
+
       .article {
         padding-left: max(1.5rem, env(safe-area-inset-left));
         padding-right: max(1.5rem, env(safe-area-inset-right));
@@ -1040,11 +1050,11 @@
     <div class="nav-inner">
       <div class="nav-left">
         <a href="/" class="nav-lockup">
-          <img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" style="height: 32px;">
+          <img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img">
         </a>
         <a href="/vault.html" class="nav-link">Vault</a>
       </div>
-      <div>
+      <div class="nav-right">
         <a href="https://docs.compost.fi" class="nav-link">Docs</a>
         <a href="https://twitter.com/compostfi" class="nav-link" target="_blank" rel="noopener">@compostfi</a>
       </div>
