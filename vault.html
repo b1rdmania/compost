@@ -6,43 +6,28 @@
   <title>Vault - Compost Finance</title>
   <meta name="description" content="Stake HYPE and earn fee-backed yield from Hyperliquid builder markets.">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      /* DESIGN.md colors - warm earth tones */
+      /* DESIGN.md warm earth tones */
       --bg-deep: #0a0a09;
       --bg-layer-1: #111110;
       --bg-layer-2: #1a1918;
       --bg-layer-3: #252422;
-      --stone: #3d3a36;
-      --sand: #8a8279;
-      --warm-gray: #6b665e;
-      
-      /* Text - warm tones */
       --text-primary: #e8e4df;
       --text-secondary: #9a958d;
       --text-muted: #5c574f;
-      
-      /* Accent - living green */
       --accent-bright: #4dcf6a;
       --accent: #2ba84a;
-      --accent-muted: #1d7a35;
-      --accent-glow: rgba(77, 207, 106, 0.15);
       --accent-glow-strong: rgba(77, 207, 106, 0.3);
-      
-      /* Logo pot colors */
       --pot-1: #8a7d6d;
       --pot-2: #5c5347;
       --pot-3: #3d3630;
-      
-      --error: #ef4444;
       --font: 'Outfit', -apple-system, sans-serif;
     }
 
@@ -66,7 +51,6 @@
       overflow-x: hidden;
     }
 
-    /* Noise texture */
     body::before {
       content: '';
       position: fixed;
@@ -85,7 +69,7 @@
       padding: 1rem 3rem;
       padding-top: calc(1rem + env(safe-area-inset-top));
       border-bottom: 1px solid var(--bg-layer-3);
-      background: var(--bg-deep); /* Solid bg for iOS notch */
+      background: var(--bg-deep);
     }
 
     .nav-inner {
@@ -142,11 +126,11 @@
       color: var(--text-primary);
     }
 
-    /* Stats Bar - horizontal single line */
+    /* Stats Bar */
     .stats-bar {
       background: var(--bg-layer-1);
       border-bottom: 1px solid var(--bg-layer-3);
-      padding: 0.625rem 3rem;
+      padding: 0.75rem 3rem;
     }
 
     .stats-inner {
@@ -157,14 +141,8 @@
       align-items: center;
     }
 
-    .stats-label-group {
-      display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-    }
-
     .stats-label {
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       font-weight: 300;
       letter-spacing: 0.02em;
       color: var(--text-secondary);
@@ -183,18 +161,18 @@
     .stat-item {
       display: flex;
       align-items: baseline;
-      gap: 0.625rem;
+      gap: 0.75rem;
     }
 
     .stat-label {
-      font-size: 0.6875rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--text-muted);
     }
 
     .stat-value {
-      font-size: 1.375rem;
+      font-size: 1.75rem;
       font-weight: 200;
       color: var(--text-primary);
     }
@@ -203,50 +181,55 @@
       color: var(--accent-bright);
     }
 
-    /* Main Dashboard */
+    /* Dashboard */
     .dashboard {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 1rem 3rem;
-      padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+      padding: 1.5rem 3rem;
+      padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
       display: grid;
       grid-template-columns: 1fr 360px;
-      gap: 1rem;
+      gap: 1.5rem;
     }
 
-    /* Left Column - Action Panel */
     .action-column {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 1rem;
+    }
+
+    .info-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     .card {
       background: var(--bg-layer-2);
       border: 1px solid var(--bg-layer-3);
-      padding: 0.875rem;
+      padding: 1.25rem;
     }
 
-    /* Position Card */
+    /* Position */
     .position-grid {
       display: grid;
-      gap: 0.375rem;
+      gap: 0.5rem;
     }
 
     .position-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      padding: 0.25rem 0;
+      padding: 0.375rem 0;
     }
 
     .position-label {
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       color: var(--text-secondary);
     }
 
     .position-value {
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       font-weight: 400;
       color: var(--text-primary);
     }
@@ -259,17 +242,17 @@
     .tabs {
       display: flex;
       border-bottom: 1px solid var(--bg-layer-3);
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
     }
 
     .tab {
       flex: 1;
-      padding: 0.5rem 0.625rem;
+      padding: 0.625rem 0.75rem;
       background: none;
       border: none;
       border-bottom: 2px solid transparent;
       font-family: var(--font);
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -293,13 +276,13 @@
 
     /* Input */
     .input-group {
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
     }
 
     .input-label {
-      font-size: 0.6875rem;
+      font-size: 0.75rem;
       color: var(--text-secondary);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.375rem;
       display: block;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -307,16 +290,16 @@
 
     .input-wrapper {
       display: flex;
-      gap: 0.375rem;
+      gap: 0.5rem;
     }
 
     .input-field {
       flex: 1;
-      padding: 0.5rem 0.75rem;
+      padding: 0.75rem 1rem;
       background: var(--bg-layer-1);
       border: 1px solid var(--bg-layer-3);
       font-family: var(--font);
-      font-size: 0.9375rem;
+      font-size: 1.125rem;
       color: var(--text-primary);
       outline: none;
       transition: border-color 0.2s;
@@ -331,18 +314,18 @@
     }
 
     .helper-btn {
-      padding: 0.5rem 0.75rem;
+      padding: 0.75rem 1rem;
       background: none;
       border: 1px solid var(--bg-layer-3);
       font-family: var(--font);
-      font-size: 0.6875rem;
+      font-size: 0.75rem;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.2s;
-      min-width: 50px;
+      min-width: 55px;
     }
 
     .helper-btn:hover {
@@ -351,18 +334,18 @@
     }
 
     .balance-hint {
-      font-size: 0.6875rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
-      margin-top: 0.25rem;
+      margin-top: 0.375rem;
     }
 
     /* Output */
     .output-group {
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
     }
 
     .output-value {
-      font-size: 1.125rem;
+      font-size: 1.5rem;
       font-weight: 400;
       color: var(--accent-bright);
     }
@@ -371,8 +354,8 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 0.25rem;
-      font-size: 0.6875rem;
+      margin-bottom: 0.375rem;
+      font-size: 0.8125rem;
     }
 
     .detail-label {
@@ -386,11 +369,11 @@
     /* Button */
     .btn {
       width: 100%;
-      padding: 0.75rem;
+      padding: 0.875rem;
       background: var(--accent);
       border: none;
       font-family: var(--font);
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       font-weight: 500;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -399,7 +382,7 @@
       transition: all 0.2s;
       position: relative;
       overflow: hidden;
-      margin-top: 0.5rem;
+      margin-top: 0.75rem;
     }
 
     .btn::before {
@@ -434,31 +417,24 @@
     }
 
     .disclaimer {
-      font-size: 0.6875rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
-      margin-top: 0.375rem;
+      margin-top: 0.625rem;
       text-align: center;
     }
 
-    /* Right Column - Info Panel */
-    .info-column {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    /* Info List */
+    /* Info panels */
     .info-list {
       display: flex;
       flex-direction: column;
-      gap: 0.375rem;
+      gap: 0.5rem;
     }
 
     .info-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      padding: 0.25rem 0;
+      padding: 0.375rem 0;
       border-bottom: 1px solid var(--bg-layer-3);
     }
 
@@ -467,12 +443,12 @@
     }
 
     .info-label {
-      font-size: 0.6875rem;
+      font-size: 0.8125rem;
       color: var(--text-secondary);
     }
 
     .info-value {
-      font-size: 0.8125rem;
+      font-size: 0.9375rem;
       font-weight: 400;
       color: var(--text-primary);
       text-align: right;
@@ -482,29 +458,31 @@
       color: var(--accent-bright);
     }
 
-    .info-value small {
-      display: block;
-      font-size: 0.625rem;
-      color: var(--text-muted);
-      margin-top: 0.125rem;
-    }
-
-    /* Market List */
     .market-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.375rem 0;
+      padding: 0.5rem 0;
     }
 
     .market-name {
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       color: var(--text-primary);
     }
 
     .market-allocation {
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       color: var(--accent-bright);
+    }
+
+    /* Footer info */
+    .footer-info {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--bg-layer-3);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: center;
     }
 
     /* Responsive */
@@ -513,10 +491,8 @@
         grid-template-columns: 1fr;
       }
 
-      .stats-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.75rem;
+      .stats-metrics {
+        gap: 2rem;
       }
 
       .nav,
@@ -535,6 +511,24 @@
         padding-left: max(1.5rem, env(safe-area-inset-left));
         padding-right: max(1.5rem, env(safe-area-inset-right));
         padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .stats-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .stats-metrics {
+        width: 100%;
+        justify-content: space-between;
+        gap: 1.5rem;
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
       }
     }
   </style>
@@ -566,9 +560,7 @@
   <!-- Stats Bar -->
   <section class="stats-bar">
     <div class="stats-inner">
-      <div class="stats-label-group">
-        <span class="stats-label">compost<span class="highlight">.fi</span> by the numbers</span>
-      </div>
+      <div class="stats-label">compost<span class="highlight">.fi</span> by the numbers</div>
       <div class="stats-metrics">
         <div class="stat-item">
           <div class="stat-label">APY</div>
@@ -586,11 +578,11 @@
     </div>
   </section>
 
-  <!-- Main Dashboard -->
+  <!-- Dashboard -->
   <main class="dashboard">
-    <!-- Left Column: Action -->
+    <!-- Left: Action -->
     <div class="action-column">
-      <!-- Position Card -->
+      <!-- Position -->
       <div class="card">
         <div class="position-grid">
           <div class="position-row">
@@ -612,7 +604,7 @@
         </div>
       </div>
 
-      <!-- Stake/Unstake Card -->
+      <!-- Stake/Unstake -->
       <div class="card">
         <div class="tabs">
           <button class="tab active" data-tab="stake">Stake</button>
@@ -685,9 +677,9 @@
       </div>
     </div>
 
-    <!-- Right Column: Info -->
+    <!-- Right: Info -->
     <div class="info-column">
-      <!-- APY Breakdown -->
+      <!-- APY -->
       <div class="card">
         <div class="info-list">
           <div class="info-row">
@@ -725,115 +717,78 @@
             <span class="market-allocation">10%</span>
           </div>
         </div>
-      </div>
-
-      <!-- Infrastructure -->
-      <div class="card">
-        <div class="info-list">
-          <div class="info-row">
-            <span class="info-label">Vault</span>
-            <span class="info-value">
-              Infrasingularity
-              <small>Secure vault infrastructure</small>
-            </span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Custody</span>
-            <span class="info-value">
-              Fireblocks
-              <small>Institutional custody</small>
-            </span>
-          </div>
+        <div class="footer-info">
+          Vault: Infrasingularity  •  Custody: Fireblocks
         </div>
       </div>
     </div>
   </main>
 
   <script>
-    // Constants
     const EXCHANGE_RATE = 1.024;
     const USER_HYPE_BALANCE = 1234.56;
     const USER_CHYPE_BALANCE = 1205.38;
 
-    // Tab switching
+    // Tabs
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         const targetTab = tab.dataset.tab;
-
         tabs.forEach(t => t.classList.remove('active'));
         tabContents.forEach(content => content.classList.remove('active'));
-
         tab.classList.add('active');
         document.getElementById(`${targetTab}-content`).classList.add('active');
       });
     });
 
-    // Stake functionality
+    // Stake
     const stakeInput = document.getElementById('stake-input');
     const stakeOutput = document.getElementById('stake-output');
     const stakeBtn = document.getElementById('stake-btn');
-    const stakeHalfBtn = document.getElementById('stake-half');
-    const stakeMaxBtn = document.getElementById('stake-max');
-
-    function calculateStakeOutput(hypoValue) {
-      return hypoValue / EXCHANGE_RATE;
-    }
 
     function updateStakeOutput() {
       const value = parseFloat(stakeInput.value) || 0;
-      const output = calculateStakeOutput(value);
+      const output = value / EXCHANGE_RATE;
       stakeOutput.textContent = `${output.toFixed(2)} cHYPE`;
       stakeBtn.disabled = value <= 0 || value > USER_HYPE_BALANCE;
     }
 
     stakeInput.addEventListener('input', updateStakeOutput);
-    stakeHalfBtn.addEventListener('click', () => {
+    document.getElementById('stake-half').addEventListener('click', () => {
       stakeInput.value = (USER_HYPE_BALANCE / 2).toFixed(2);
       updateStakeOutput();
     });
-    stakeMaxBtn.addEventListener('click', () => {
+    document.getElementById('stake-max').addEventListener('click', () => {
       stakeInput.value = USER_HYPE_BALANCE.toFixed(2);
       updateStakeOutput();
     });
 
-    // Unstake functionality
+    // Unstake
     const unstakeInput = document.getElementById('unstake-input');
     const unstakeOutput = document.getElementById('unstake-output');
     const unstakeBtn = document.getElementById('unstake-btn');
-    const unstakeHalfBtn = document.getElementById('unstake-half');
-    const unstakeMaxBtn = document.getElementById('unstake-max');
-
-    function calculateUnstakeOutput(chypeValue) {
-      return chypeValue * EXCHANGE_RATE;
-    }
 
     function updateUnstakeOutput() {
       const value = parseFloat(unstakeInput.value) || 0;
-      const output = calculateUnstakeOutput(value);
+      const output = value * EXCHANGE_RATE;
       unstakeOutput.textContent = `${output.toFixed(2)} HYPE`;
       unstakeBtn.disabled = value <= 0 || value > USER_CHYPE_BALANCE;
     }
 
     unstakeInput.addEventListener('input', updateUnstakeOutput);
-    unstakeHalfBtn.addEventListener('click', () => {
+    document.getElementById('unstake-half').addEventListener('click', () => {
       unstakeInput.value = (USER_CHYPE_BALANCE / 2).toFixed(2);
       updateUnstakeOutput();
     });
-    unstakeMaxBtn.addEventListener('click', () => {
+    document.getElementById('unstake-max').addEventListener('click', () => {
       unstakeInput.value = USER_CHYPE_BALANCE.toFixed(2);
       updateUnstakeOutput();
     });
 
-    // Button handlers (mock)
-    stakeBtn.addEventListener('click', () => {
-      alert('Stake functionality will be connected to smart contract');
-    });
-    unstakeBtn.addEventListener('click', () => {
-      alert('Unstake functionality will be connected to smart contract');
-    });
+    stakeBtn.addEventListener('click', () => alert('Stake functionality will be connected to smart contract'));
+    unstakeBtn.addEventListener('click', () => alert('Unstake functionality will be connected to smart contract'));
   </script>
 </body>
 </html>
