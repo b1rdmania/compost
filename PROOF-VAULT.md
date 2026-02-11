@@ -45,8 +45,8 @@ Paste both into `/vault-test.html` (Connection section), click **Save addresses*
 
 Current deployed testnet instance:
 
-- `MockHype`: `0x5bC3AD8CC21dAff1E138A3e9491a2cd25E50FBe2`
-- `CompostProofVault`: `0x5b347498f50eAFC3970e83DF1F0c779E62a9415b`
+- `MockHype`: `0xAdBc75586E2F5338F460410B87F7AFde0374Fc31`
+- `CompostProofVault`: `0x89bBacDACA0D20CB48FA617b57CF6779979AEC4E`
 
 ## Run UI locally
 
