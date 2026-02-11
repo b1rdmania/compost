@@ -2,8 +2,8 @@
 pragma solidity ^0.8.24;
 
 contract MockHype {
-    string public constant name = "Mock HYPE";
-    string public constant symbol = "mHYPE";
+    string public constant name = "Vault HYPE";
+    string public constant symbol = "vHYPE";
     uint8 public constant decimals = 18;
 
     uint256 public totalSupply;

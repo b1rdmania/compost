@@ -2,8 +2,8 @@
 
 This is a scoped mechanism demo for Compost:
 
-- `MockHype.sol` (`mHYPE`) test asset with wallet drip
-- `CompostProofVault.sol` vault share model (`ctHYPE`)
+- `MockHype.sol` (`vHYPE`) test asset with wallet drip
+- `CompostProofVault.sol` vault share model (`cHYPE`)
 - synthetic APR accrual (default `10.00%`, `1000` bps)
 - simple UI in `/vault-test.html`
 
@@ -63,10 +63,10 @@ Open `http://localhost:3000/vault-test.html`.
 
 ## Contract model
 
-- Vault asset: `mHYPE`
-- Vault share: `ctHYPE`
+- Vault asset: `vHYPE`
+- Vault share: `cHYPE`
 - `totalAssets` grows linearly with APR and elapsed time
-- `accrue()` mints synthetic `mHYPE` interest into the vault
+- `accrue()` mints synthetic `vHYPE` interest into the vault
 - `deposit(assets, receiver)` mints shares
 - `withdraw(assets, receiver)` burns shares
 

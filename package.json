@@ -7,7 +7,8 @@
     "build": "echo 'Static site - no build required'",
     "preview": "npx serve .",
     "vault:compile": "hardhat compile",
-    "vault:deploy:testnet": "hardhat run scripts/deploy-proof-vault.js --network hyperevmTestnet"
+    "vault:deploy:testnet": "hardhat run scripts/deploy-proof-vault.js --network hyperevmTestnet",
+    "vault:test": "hardhat test"
   },
   "keywords": [
     "hyperliquid",

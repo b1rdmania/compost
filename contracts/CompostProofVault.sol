@@ -9,8 +9,8 @@ interface ICompostAsset {
 }
 
 contract CompostProofVault {
-    string public constant name = "Compost Test Vault Share";
-    string public constant symbol = "ctHYPE";
+    string public constant name = "Compost Vault Share";
+    string public constant symbol = "cHYPE";
     uint8 public constant decimals = 18;
 
     ICompostAsset public immutable asset;
@@ -20,6 +20,7 @@ contract CompostProofVault {
     uint256 public totalManagedAssets;
     uint256 public aprBps;
     uint256 public lastAccrual;
+    uint256 private unlocked = 1;
 
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
@@ -36,6 +37,13 @@ contract CompostProofVault {
         _;
     }
 
+    modifier nonReentrant() {
+        require(unlocked == 1, "REENTRANCY");
+        unlocked = 2;
+        _;
+        unlocked = 1;
+    }
+
     constructor(address asset_, uint256 aprBps_) {
         require(asset_ != address(0), "ZERO_ASSET");
         require(aprBps_ <= 3_000, "APR_TOO_HIGH");
@@ -48,7 +56,7 @@ contract CompostProofVault {
 
     function setAprBps(uint256 newAprBps) external onlyOwner {
         require(newAprBps <= 3_000, "APR_TOO_HIGH");
-        accrue();
+        _accrue();
 
         uint256 oldApr = aprBps;
         aprBps = newAprBps;
@@ -56,29 +64,37 @@ contract CompostProofVault {
         emit AprUpdated(oldApr, newAprBps);
     }
 
-    function accrue() public returns (uint256 interestMinted) {
+    function accrue() external nonReentrant returns (uint256 interestMinted) {
+        interestMinted = _accrue();
+    }
+
+    function _accrue() internal returns (uint256 interestMinted) {
         uint256 elapsed = block.timestamp - lastAccrual;
         if (elapsed == 0) return 0;
 
         lastAccrual = block.timestamp;
 
-        if (totalManagedAssets == 0 || aprBps == 0) return 0;
+        uint256 principal = asset.balanceOf(address(this));
+        totalManagedAssets = principal;
 
-        interestMinted = (totalManagedAssets * aprBps * elapsed) / (365 days * 10_000);
+        if (principal == 0 || aprBps == 0) return 0;
+
+        interestMinted = (principal * aprBps * elapsed) / (365 days * 10_000);
 
         if (interestMinted > 0) {
-            totalManagedAssets += interestMinted;
             asset.mint(address(this), interestMinted);
+            totalManagedAssets = principal + interestMinted;
             emit Accrued(interestMinted, totalManagedAssets);
         }
     }
 
     function totalAssets() public view returns (uint256) {
-        if (totalManagedAssets == 0 || aprBps == 0) return totalManagedAssets;
+        uint256 principal = asset.balanceOf(address(this));
+        if (principal == 0 || aprBps == 0) return principal;
 
         uint256 elapsed = block.timestamp - lastAccrual;
-        uint256 pending = (totalManagedAssets * aprBps * elapsed) / (365 days * 10_000);
-        return totalManagedAssets + pending;
+        uint256 pending = (principal * aprBps * elapsed) / (365 days * 10_000);
+        return principal + pending;
     }
 
     function pricePerShare() public view returns (uint256) {
@@ -98,60 +114,65 @@ contract CompostProofVault {
         return (shares * totalAssets()) / totalSupply;
     }
 
-    function deposit(uint256 assets, address receiver) external returns (uint256 shares) {
+    function deposit(uint256 assets, address receiver) external nonReentrant returns (uint256 shares) {
         require(assets > 0, "ZERO_ASSETS");
         require(receiver != address(0), "ZERO_RECEIVER");
 
-        accrue();
+        _accrue();
         shares = previewDepositWithAccrued(assets);
         require(shares > 0, "ZERO_SHARES");
 
-        totalManagedAssets += assets;
         require(asset.transferFrom(msg.sender, address(this), assets), "TRANSFER_FROM_FAILED");
+        totalManagedAssets = asset.balanceOf(address(this));
         _mint(receiver, shares);
 
         emit Deposit(msg.sender, receiver, assets, shares);
     }
 
-    function redeem(uint256 shares, address receiver) external returns (uint256 assets) {
+    function redeem(uint256 shares, address receiver) external nonReentrant returns (uint256 assets) {
         require(shares > 0, "ZERO_SHARES");
         require(receiver != address(0), "ZERO_RECEIVER");
         require(balanceOf[msg.sender] >= shares, "INSUFFICIENT_SHARES");
 
-        accrue();
-        assets = (shares * totalManagedAssets) / totalSupply;
+        _accrue();
+        uint256 assetsBefore = asset.balanceOf(address(this));
+        assets = (shares * assetsBefore) / totalSupply;
         require(assets > 0, "ZERO_ASSETS");
 
         _burn(msg.sender, shares);
-        totalManagedAssets -= assets;
         require(asset.transfer(receiver, assets), "TRANSFER_FAILED");
+        totalManagedAssets = asset.balanceOf(address(this));
 
         emit Withdraw(msg.sender, receiver, assets, shares);
     }
 
-    function withdraw(uint256 assets, address receiver) external returns (uint256 shares) {
+    function withdraw(uint256 assets, address receiver) external nonReentrant returns (uint256 shares) {
         require(assets > 0, "ZERO_ASSETS");
         require(receiver != address(0), "ZERO_RECEIVER");
 
-        accrue();
+        _accrue();
         shares = previewWithdrawWithAccrued(assets);
         require(balanceOf[msg.sender] >= shares, "INSUFFICIENT_SHARES");
 
         _burn(msg.sender, shares);
-        totalManagedAssets -= assets;
         require(asset.transfer(receiver, assets), "TRANSFER_FAILED");
+        totalManagedAssets = asset.balanceOf(address(this));
 
         emit Withdraw(msg.sender, receiver, assets, shares);
     }
 
     function previewDepositWithAccrued(uint256 assets) internal view returns (uint256 shares) {
         if (totalSupply == 0) return assets;
-        return (assets * totalSupply) / totalManagedAssets;
+        uint256 assetsBefore = asset.balanceOf(address(this));
+        if (assetsBefore == 0) return assets;
+        return (assets * totalSupply) / assetsBefore;
     }
 
     function previewWithdrawWithAccrued(uint256 assets) internal view returns (uint256 shares) {
-        shares = (assets * totalSupply) / totalManagedAssets;
-        if ((shares * totalManagedAssets) / totalSupply < assets) {
+        uint256 assetsBefore = asset.balanceOf(address(this));
+        require(assetsBefore > 0, "ZERO_ASSETS");
+        shares = (assets * totalSupply) / assetsBefore;
+        if ((shares * assetsBefore) / totalSupply < assets) {
             shares += 1;
         }
     }
