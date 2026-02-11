@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Compost Proof Vault - HyperEVM Testnet</title>
+  <meta name="description" content="Live HyperEVM testnet proof vault for Compost. Synthetic 10% APR demonstration.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #0a0a09;
+      --bg-layer-1: #111110;
+      --bg-layer-2: #1a1918;
+      --bg-layer-3: #252422;
+      --border: #1a1918;
+      --border-hover: #252422;
+      --text-primary: #e8e4df;
+      --text-secondary: #9a958d;
+      --text-muted: #5c574f;
+      --accent-bright: #4dcf6a;
+      --accent: #2ba84a;
+      --danger: #d66b6b;
+      --font: 'Outfit', -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      background: rgba(10, 10, 9, 0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .nav-lockup-img { height: 30px; display: block; }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover { color: var(--accent-bright); }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 250;
+      line-height: 1.05;
+    }
+
+    .hero h1 span { color: var(--accent-bright); }
+
+    .hero p {
+      max-width: 620px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-top: 0.7rem;
+    }
+
+    .badge {
+      border: 1px solid rgba(77, 207, 106, 0.3);
+      color: var(--accent-bright);
+      background: rgba(77, 207, 106, 0.08);
+      padding: 0.45rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1rem;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(37, 36, 34, 0.45), rgba(17, 17, 16, 0.85));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card h2 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.9rem;
+      color: var(--text-primary);
+    }
+
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+
+    .metric-label {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .metric-value {
+      font-size: 1.5rem;
+      font-weight: 350;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric-value.accent { color: var(--accent-bright); }
+
+    .stack { display: flex; flex-direction: column; gap: 0.9rem; }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+    }
+
+    .row strong {
+      color: var(--text-primary);
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .btn-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+    button, .link-btn {
+      border: 1px solid var(--border-hover);
+      background: var(--bg-layer-3);
+      color: var(--text-primary);
+      font: inherit;
+      font-size: 0.9rem;
+      padding: 0.65rem 0.95rem;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    button:hover, .link-btn:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: rgba(77, 207, 106, 0.14);
+      border-color: rgba(77, 207, 106, 0.45);
+      color: var(--accent-bright);
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid var(--border-hover);
+      background: var(--bg-layer-2);
+      color: var(--text-primary);
+      font: inherit;
+      padding: 0.68rem 0.75rem;
+      border-radius: 10px;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .field label {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .muted { color: var(--text-muted); font-size: 0.85rem; }
+    .ok { color: var(--accent-bright); }
+    .warn { color: #f3c374; }
+    .err { color: var(--danger); }
+
+    .status {
+      margin-top: 0.8rem;
+      border-top: 1px solid var(--border);
+      padding-top: 0.8rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      min-height: 2rem;
+    }
+
+    .links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 0.8rem;
+    }
+
+    @media (max-width: 960px) {
+      .span-4, .span-6, .span-8 { grid-column: span 12; }
+      .hero { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 1.1rem; }
+      .nav { padding: 1rem 1.1rem; }
+      .nav-inner { flex-wrap: wrap; }
+      .nav-left { width: 100%; justify-content: space-between; }
+      .nav-link { font-size: 0.84rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="/" class="nav-lockup"><img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img"></a>
+        <a href="/vault.html" class="nav-link">Vault</a>
+        <a href="/vault-test.html" class="nav-link" style="color: var(--accent-bright);">Proof Vault</a>
+      </div>
+      <a href="https://docs.compost.fi" class="nav-link" target="_blank" rel="noopener">Docs</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>HyperEVM <span>Proof Vault</span></h1>
+        <p>Live testnet demo of Compost vault mechanics. Deposit mHYPE, receive ctHYPE shares, and watch share price increase with a synthetic APR model.</p>
+      </div>
+      <div class="badge">Synthetic APR Demo</div>
+    </section>
+
+    <section class="grid">
+      <article class="card span-8">
+        <h2>Connection</h2>
+        <div class="stack">
+          <div class="row"><span>Wallet</span><strong id="walletAddress">Not connected</strong></div>
+          <div class="row"><span>Network</span><strong id="networkStatus">Unknown</strong></div>
+          <div class="btn-row">
+            <button class="btn-primary" id="connectBtn">Connect Wallet</button>
+            <button id="switchBtn">Switch to HyperEVM Testnet</button>
+          </div>
+          <div class="field">
+            <label for="assetAddress">Mock token contract</label>
+            <input id="assetAddress" type="text" placeholder="0x...">
+          </div>
+          <div class="field">
+            <label for="vaultAddress">Vault contract</label>
+            <input id="vaultAddress" type="text" placeholder="0x...">
+          </div>
+          <div class="btn-row">
+            <button id="saveAddressesBtn">Save addresses</button>
+            <button id="refreshBtn">Refresh data</button>
+          </div>
+          <div class="muted">After deploy: paste addresses here once, then they persist in local storage.</div>
+        </div>
+      </article>
+
+      <article class="card span-4">
+        <h2>Faucets</h2>
+        <div class="stack">
+          <div class="row"><span>Gas (testnet HYPE)</span></div>
+          <div class="links">
+            <a class="link-btn" target="_blank" rel="noopener" href="https://faucet.chainstack.com/hyperliquid-testnet-faucet">Chainstack Faucet</a>
+          </div>
+          <div class="row"><span>Demo asset (mHYPE)</span></div>
+          <div class="btn-row">
+            <button id="dripBtn">Mint 1,000 mHYPE</button>
+          </div>
+          <div class="muted">mHYPE drip cooldown: 12 hours per wallet.</div>
+        </div>
+      </article>
+
+      <article class="card span-4">
+        <div class="metric-label">APR</div>
+        <div class="metric-value accent" id="aprMetric">-</div>
+      </article>
+
+      <article class="card span-4">
+        <div class="metric-label">TVL</div>
+        <div class="metric-value" id="tvlMetric">-</div>
+      </article>
+
+      <article class="card span-4">
+        <div class="metric-label">Share Price</div>
+        <div class="metric-value" id="ppsMetric">-</div>
+      </article>
+
+      <article class="card span-6">
+        <h2>Your Position</h2>
+        <div class="stack">
+          <div class="row"><span>mHYPE Wallet</span><strong id="userAssetBal">-</strong></div>
+          <div class="row"><span>ctHYPE Shares</span><strong id="userShareBal">-</strong></div>
+          <div class="row"><span>Vault Value</span><strong id="userVaultValue">-</strong></div>
+          <div class="row"><span>30d Projection</span><strong id="userProjection">-</strong></div>
+        </div>
+      </article>
+
+      <article class="card span-6">
+        <h2>Deposit mHYPE</h2>
+        <div class="stack">
+          <div class="field">
+            <label for="depositAmount">Amount</label>
+            <input id="depositAmount" type="number" min="0" step="0.0001" placeholder="100">
+          </div>
+          <div class="btn-row">
+            <button id="approveBtn">Approve</button>
+            <button class="btn-primary" id="depositBtn">Deposit</button>
+          </div>
+          <div class="muted">Deposit mHYPE, receive ctHYPE shares.</div>
+        </div>
+      </article>
+
+      <article class="card span-6">
+        <h2>Withdraw mHYPE</h2>
+        <div class="stack">
+          <div class="field">
+            <label for="withdrawAmount">Amount</label>
+            <input id="withdrawAmount" type="number" min="0" step="0.0001" placeholder="50">
+          </div>
+          <div class="btn-row">
+            <button class="btn-primary" id="withdrawBtn">Withdraw</button>
+          </div>
+          <div class="muted">Burn ctHYPE shares for underlying mHYPE.</div>
+        </div>
+      </article>
+
+      <article class="card span-6">
+        <h2>Contract Addresses</h2>
+        <div class="stack">
+          <div class="row"><span>mHYPE</span><strong id="assetAddressOut">-</strong></div>
+          <div class="row"><span>Proof Vault</span><strong id="vaultAddressOut">-</strong></div>
+          <div class="muted">Addresses are set in the connection panel and persisted locally.</div>
+        </div>
+      </article>
+
+      <article class="card span-6">
+        <h2>Model Note</h2>
+        <div class="stack">
+          <div class="muted">This is a mechanism demo. Yield is synthetic and minted on-chain as test tokens when `accrue` is triggered by deposits/withdrawals/APR updates.</div>
+          <div class="muted">Production routing to HIP-3 fee sources is out of scope for this proof vault.</div>
+        </div>
+      </article>
+
+      <article class="card span-12">
+        <h2>Activity</h2>
+        <div class="status" id="statusLine">Ready.</div>
+      </article>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+  <script>
+    const CHAIN_ID = 998;
+    const CHAIN_HEX = "0x3e6";
+    const RPC_URL = "https://rpc.hyperliquid-testnet.xyz/evm";
+    const CHAIN_NAME = "HyperEVM Testnet";
+    const CHAIN_SITE = "https://app.hyperliquid-testnet.xyz";
+
+    const DEFAULT_CONFIG = {
+      assetAddress: "0x5bC3AD8CC21dAff1E138A3e9491a2cd25E50FBe2",
+      vaultAddress: "0x5b347498f50eAFC3970e83DF1F0c779E62a9415b"
+    };
+
+    const STORAGE_KEY = "compost-proof-vault-config";
+
+    const vaultAbi = [
+      "function aprBps() view returns (uint256)",
+      "function totalAssets() view returns (uint256)",
+      "function pricePerShare() view returns (uint256)",
+      "function deposit(uint256 assets, address receiver) returns (uint256)",
+      "function withdraw(uint256 assets, address receiver) returns (uint256)",
+      "function balanceOf(address account) view returns (uint256)",
+      "function previewRedeem(uint256 shares) view returns (uint256)"
+    ];
+
+    const tokenAbi = [
+      "function balanceOf(address account) view returns (uint256)",
+      "function allowance(address owner, address spender) view returns (uint256)",
+      "function approve(address spender, uint256 amount) returns (bool)",
+      "function drip()"
+    ];
+
+    const $ = (id) => document.getElementById(id);
+
+    let provider;
+    let signer;
+    let account;
+    let vault;
+    let token;
+
+    function loadConfig() {
+      try {
+        return { ...DEFAULT_CONFIG, ...(JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}) };
+      } catch {
+        return { ...DEFAULT_CONFIG };
+      }
+    }
+
+    function saveConfig(config) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+    }
+
+    function setStatus(msg, tone = "") {
+      const el = $("statusLine");
+      el.className = `status ${tone}`.trim();
+      el.textContent = msg;
+    }
+
+    function shortAddr(value) {
+      if (!value) return "-";
+      return `${value.slice(0, 6)}...${value.slice(-4)}`;
+    }
+
+    function parseUnits(input) {
+      return ethers.parseUnits((input || "0").toString(), 18);
+    }
+
+    function fmt(value, digits = 4) {
+      return Number(ethers.formatUnits(value || 0n, 18)).toLocaleString(undefined, {
+        maximumFractionDigits: digits
+      });
+    }
+
+    async function ensureWallet() {
+      if (!window.ethereum) throw new Error("No wallet found. Install MetaMask or Rabby.");
+      provider = new ethers.BrowserProvider(window.ethereum);
+      const network = await provider.getNetwork();
+      const currentChain = Number(network.chainId);
+      $("networkStatus").textContent = currentChain === CHAIN_ID ? `${CHAIN_NAME} (${CHAIN_ID})` : `Wrong network (${currentChain})`;
+      return currentChain;
+    }
+
+    async function switchNetwork() {
+      if (!window.ethereum) throw new Error("Wallet not detected.");
+
+      try {
+        await window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: CHAIN_HEX }] });
+      } catch (err) {
+        if (err.code === 4902) {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+              chainId: CHAIN_HEX,
+              chainName: CHAIN_NAME,
+              nativeCurrency: { name: "HYPE", symbol: "HYPE", decimals: 18 },
+              rpcUrls: [RPC_URL],
+              blockExplorerUrls: [CHAIN_SITE]
+            }]
+          });
+        } else {
+          throw err;
+        }
+      }
+
+      setStatus("Switched to HyperEVM testnet.", "ok");
+      await connectWallet();
+    }
+
+    function loadContracts() {
+      const assetAddress = $("assetAddress").value.trim();
+      const vaultAddress = $("vaultAddress").value.trim();
+
+      if (!ethers.isAddress(assetAddress) || !ethers.isAddress(vaultAddress)) {
+        vault = null;
+        token = null;
+        $("assetAddressOut").textContent = "-";
+        $("vaultAddressOut").textContent = "-";
+        return false;
+      }
+
+      token = new ethers.Contract(assetAddress, tokenAbi, signer || provider);
+      vault = new ethers.Contract(vaultAddress, vaultAbi, signer || provider);
+
+      $("assetAddressOut").textContent = shortAddr(assetAddress);
+      $("vaultAddressOut").textContent = shortAddr(vaultAddress);
+      return true;
+    }
+
+    async function connectWallet() {
+      await ensureWallet();
+      await provider.send("eth_requestAccounts", []);
+      signer = await provider.getSigner();
+      account = await signer.getAddress();
+      $("walletAddress").textContent = shortAddr(account);
+
+      loadContracts();
+      setStatus("Wallet connected.", "ok");
+      await refreshData();
+    }
+
+    async function refreshData() {
+      try {
+        await ensureWallet();
+
+        if (!loadContracts()) {
+          setStatus("Set valid contract addresses first.", "warn");
+          return;
+        }
+
+        const readToken = token.connect(provider);
+        const readVault = vault.connect(provider);
+
+        const [aprBps, tvl, pps] = await Promise.all([
+          readVault.aprBps(),
+          readVault.totalAssets(),
+          readVault.pricePerShare()
+        ]);
+
+        $("aprMetric").textContent = `${(Number(aprBps) / 100).toFixed(2)}%`;
+        $("tvlMetric").textContent = `${fmt(tvl, 2)} mHYPE`;
+        $("ppsMetric").textContent = `${fmt(pps, 6)} mHYPE`;
+
+        if (account) {
+          const [assetBal, shareBal, redeemValue] = await Promise.all([
+            readToken.balanceOf(account),
+            readVault.balanceOf(account),
+            readVault.previewRedeem(await readVault.balanceOf(account))
+          ]);
+
+          $("userAssetBal").textContent = `${fmt(assetBal, 4)} mHYPE`;
+          $("userShareBal").textContent = `${fmt(shareBal, 4)} ctHYPE`;
+          $("userVaultValue").textContent = `${fmt(redeemValue, 4)} mHYPE`;
+
+          const monthlyFactor = Number(aprBps) / 10000 / 12;
+          const projected = Number(ethers.formatUnits(redeemValue, 18)) * (1 + monthlyFactor);
+          $("userProjection").textContent = `${projected.toLocaleString(undefined, { maximumFractionDigits: 4 })} mHYPE`;
+        }
+
+        setStatus("Vault data refreshed.", "ok");
+      } catch (err) {
+        console.error(err);
+        setStatus(err.message || "Failed to refresh data.", "err");
+      }
+    }
+
+    async function dripTokens() {
+      try {
+        if (!token || !signer) throw new Error("Connect wallet and set contract addresses first.");
+        setStatus("Submitting mHYPE drip transaction...");
+        const tx = await token.connect(signer).drip();
+        await tx.wait();
+        setStatus("mHYPE drip successful.", "ok");
+        await refreshData();
+      } catch (err) {
+        console.error(err);
+        setStatus(err.shortMessage || err.message || "Drip failed.", "err");
+      }
+    }
+
+    async function approveVault() {
+      try {
+        if (!token || !vault || !signer) throw new Error("Connect wallet and set contract addresses first.");
+
+        const input = $("depositAmount").value;
+        const amount = parseUnits(input);
+        if (amount <= 0n) throw new Error("Enter an amount > 0");
+
+        setStatus("Submitting approval transaction...");
+        const tx = await token.connect(signer).approve(await vault.getAddress(), amount);
+        await tx.wait();
+        setStatus("Approval successful.", "ok");
+      } catch (err) {
+        console.error(err);
+        setStatus(err.shortMessage || err.message || "Approval failed.", "err");
+      }
+    }
+
+    async function deposit() {
+      try {
+        if (!vault || !signer || !account) throw new Error("Connect wallet and set contract addresses first.");
+
+        const amount = parseUnits($("depositAmount").value);
+        if (amount <= 0n) throw new Error("Enter an amount > 0");
+
+        setStatus("Submitting deposit transaction...");
+        const tx = await vault.connect(signer).deposit(amount, account);
+        await tx.wait();
+
+        setStatus("Deposit successful.", "ok");
+        await refreshData();
+      } catch (err) {
+        console.error(err);
+        setStatus(err.shortMessage || err.message || "Deposit failed.", "err");
+      }
+    }
+
+    async function withdraw() {
+      try {
+        if (!vault || !signer || !account) throw new Error("Connect wallet and set contract addresses first.");
+
+        const amount = parseUnits($("withdrawAmount").value);
+        if (amount <= 0n) throw new Error("Enter an amount > 0");
+
+        setStatus("Submitting withdrawal transaction...");
+        const tx = await vault.connect(signer).withdraw(amount, account);
+        await tx.wait();
+
+        setStatus("Withdrawal successful.", "ok");
+        await refreshData();
+      } catch (err) {
+        console.error(err);
+        setStatus(err.shortMessage || err.message || "Withdraw failed.", "err");
+      }
+    }
+
+    function init() {
+      const config = loadConfig();
+      $("assetAddress").value = config.assetAddress || "";
+      $("vaultAddress").value = config.vaultAddress || "";
+      loadContracts();
+
+      $("connectBtn").addEventListener("click", connectWallet);
+      $("switchBtn").addEventListener("click", async () => {
+        try {
+          await switchNetwork();
+        } catch (err) {
+          setStatus(err.message || "Network switch failed.", "err");
+        }
+      });
+      $("refreshBtn").addEventListener("click", refreshData);
+      $("dripBtn").addEventListener("click", dripTokens);
+      $("approveBtn").addEventListener("click", approveVault);
+      $("depositBtn").addEventListener("click", deposit);
+      $("withdrawBtn").addEventListener("click", withdraw);
+
+      $("saveAddressesBtn").addEventListener("click", () => {
+        const assetAddress = $("assetAddress").value.trim();
+        const vaultAddress = $("vaultAddress").value.trim();
+
+        if (!ethers.isAddress(assetAddress) || !ethers.isAddress(vaultAddress)) {
+          setStatus("Enter valid contract addresses before saving.", "warn");
+          return;
+        }
+
+        saveConfig({ assetAddress, vaultAddress });
+        loadContracts();
+        setStatus("Addresses saved.", "ok");
+        refreshData();
+      });
+
+      if (window.ethereum) {
+        window.ethereum.on("accountsChanged", () => connectWallet().catch(() => {}));
+        window.ethereum.on("chainChanged", () => window.location.reload());
+      }
+
+      refreshData().catch(() => {});
+    }
+
+    init();
+  </script>
+</body>
+</html>
