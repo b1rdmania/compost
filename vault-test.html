@@ -254,9 +254,38 @@
       margin-top: 0.8rem;
     }
 
+    .flow-strip {
+      margin-bottom: 1rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+    }
+
+    .flow-step {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.9rem;
+      background: rgba(17, 17, 16, 0.7);
+    }
+
+    .flow-step-num {
+      color: var(--accent-bright);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+
+    .flow-step-text {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
     @media (max-width: 960px) {
       .span-4, .span-6, .span-8 { grid-column: span 12; }
       .hero { flex-direction: column; align-items: flex-start; }
+      .flow-strip { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 640px) {
@@ -284,12 +313,30 @@
     <section class="hero">
       <div>
         <h1>HyperEVM <span>Proof Vault</span></h1>
-        <p>Live testnet demo of Compost vault mechanics. Deposit Testnet HYPE, receive Testnet cHYPE shares, and watch share price increase with a synthetic APR model.</p>
+        <p>Live testnet demo of Compost vault mechanics. Use HYPE for gas, mint vHYPE for deposits, and receive cHYPE shares from the vault.</p>
       </div>
       <div class="badge">Synthetic APR Demo</div>
     </section>
 
     <section class="grid">
+      <article class="card span-12">
+        <h2>Simple Flow</h2>
+        <div class="flow-strip">
+          <div class="flow-step">
+            <div class="flow-step-num">Step 1</div>
+            <div class="flow-step-text">Get <strong>HYPE (gas only)</strong> from testnet faucet for transaction fees.</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">Step 2</div>
+            <div class="flow-step-text">Mint <strong>vHYPE</strong> from Compost faucet. This is the demo deposit asset.</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step-num">Step 3</div>
+            <div class="flow-step-text">Deposit vHYPE and receive <strong>cHYPE</strong>. Withdraw anytime in the demo.</div>
+          </div>
+        </div>
+      </article>
+
       <article class="card span-8">
         <h2>Connection</h2>
         <div class="stack">
@@ -300,7 +347,7 @@
             <button id="switchBtn">Switch to HyperEVM Testnet</button>
           </div>
           <div class="field">
-            <label for="assetAddress">Testnet HYPE contract</label>
+            <label for="assetAddress">vHYPE contract</label>
             <input id="assetAddress" type="text" placeholder="0x...">
           </div>
           <div class="field">
@@ -318,15 +365,15 @@
       <article class="card span-4">
         <h2>Faucets</h2>
         <div class="stack">
-          <div class="row"><span>Gas (testnet HYPE)</span></div>
+          <div class="row"><span>HYPE (gas only)</span></div>
           <div class="links">
             <a class="link-btn" target="_blank" rel="noopener" href="https://faucet.chainstack.com/hyperliquid-testnet-faucet">Chainstack Faucet</a>
           </div>
-          <div class="row"><span>Demo asset (Testnet HYPE)</span></div>
+          <div class="row"><span>Demo asset (vHYPE)</span></div>
           <div class="btn-row">
-            <button id="dripBtn">Mint 1,000 Testnet HYPE</button>
+            <button id="dripBtn">Mint 1,000 vHYPE</button>
           </div>
-          <div class="muted">Testnet HYPE drip cooldown: 12 hours per wallet.</div>
+          <div class="muted">vHYPE drip cooldown: 12 hours per wallet.</div>
         </div>
       </article>
 
@@ -348,15 +395,15 @@
       <article class="card span-6">
         <h2>Your Position</h2>
         <div class="stack">
-          <div class="row"><span>Testnet HYPE Wallet</span><strong id="userAssetBal">-</strong></div>
-          <div class="row"><span>Testnet cHYPE Shares</span><strong id="userShareBal">-</strong></div>
+          <div class="row"><span>vHYPE Wallet</span><strong id="userAssetBal">-</strong></div>
+          <div class="row"><span>cHYPE Shares</span><strong id="userShareBal">-</strong></div>
           <div class="row"><span>Vault Value</span><strong id="userVaultValue">-</strong></div>
           <div class="row"><span>30d Projection</span><strong id="userProjection">-</strong></div>
         </div>
       </article>
 
       <article class="card span-6">
-        <h2>Deposit Testnet HYPE</h2>
+        <h2>Deposit vHYPE</h2>
         <div class="stack">
           <div class="field">
             <label for="depositAmount">Amount</label>
@@ -366,12 +413,12 @@
             <button id="approveBtn">Approve</button>
             <button class="btn-primary" id="depositBtn">Deposit</button>
           </div>
-          <div class="muted">Deposit Testnet HYPE, receive Testnet cHYPE shares.</div>
+          <div class="muted">Deposit vHYPE, receive cHYPE shares.</div>
         </div>
       </article>
 
       <article class="card span-6">
-        <h2>Withdraw Testnet HYPE</h2>
+        <h2>Withdraw vHYPE</h2>
         <div class="stack">
           <div class="field">
             <label for="withdrawAmount">Amount</label>
@@ -380,14 +427,14 @@
           <div class="btn-row">
             <button class="btn-primary" id="withdrawBtn">Withdraw</button>
           </div>
-          <div class="muted">Burn Testnet cHYPE shares for underlying Testnet HYPE.</div>
+          <div class="muted">Burn cHYPE shares for underlying vHYPE.</div>
         </div>
       </article>
 
       <article class="card span-6">
         <h2>Contract Addresses</h2>
         <div class="stack">
-          <div class="row"><span>Testnet HYPE</span><strong id="assetAddressOut">-</strong></div>
+          <div class="row"><span>vHYPE</span><strong id="assetAddressOut">-</strong></div>
           <div class="row"><span>Proof Vault</span><strong id="vaultAddressOut">-</strong></div>
           <div class="muted">Addresses are set in the connection panel and persisted locally.</div>
         </div>
@@ -398,6 +445,7 @@
         <div class="stack">
           <div class="muted">This is a mechanism demo. Yield is synthetic and minted on-chain as test tokens when `accrue` is triggered by deposits/withdrawals/APR updates.</div>
           <div class="muted">Production routing to HIP-3 fee sources is out of scope for this proof vault.</div>
+          <div class="muted">Token roles: HYPE = gas only, vHYPE = deposit asset, cHYPE = vault share token (18 decimals).</div>
         </div>
       </article>
 
@@ -567,8 +615,8 @@
         ]);
 
         $("aprMetric").textContent = `${(Number(aprBps) / 100).toFixed(2)}%`;
-        $("tvlMetric").textContent = `${fmt(tvl, 2)} Testnet HYPE`;
-        $("ppsMetric").textContent = `${fmt(pps, 6)} Testnet HYPE`;
+        $("tvlMetric").textContent = `${fmt(tvl, 2)} vHYPE`;
+        $("ppsMetric").textContent = `${fmt(pps, 6)} vHYPE`;
 
         if (account) {
           const [assetBal, shareBal, redeemValue] = await Promise.all([
@@ -577,13 +625,13 @@
             readVault.previewRedeem(await readVault.balanceOf(account))
           ]);
 
-          $("userAssetBal").textContent = `${fmt(assetBal, 4)} Testnet HYPE`;
-          $("userShareBal").textContent = `${fmt(shareBal, 4)} Testnet cHYPE`;
-          $("userVaultValue").textContent = `${fmt(redeemValue, 4)} Testnet HYPE`;
+          $("userAssetBal").textContent = `${fmt(assetBal, 4)} vHYPE`;
+          $("userShareBal").textContent = `${fmt(shareBal, 4)} cHYPE`;
+          $("userVaultValue").textContent = `${fmt(redeemValue, 4)} vHYPE`;
 
           const monthlyFactor = Number(aprBps) / 10000 / 12;
           const projected = Number(ethers.formatUnits(redeemValue, 18)) * (1 + monthlyFactor);
-          $("userProjection").textContent = `${projected.toLocaleString(undefined, { maximumFractionDigits: 4 })} Testnet HYPE`;
+          $("userProjection").textContent = `${projected.toLocaleString(undefined, { maximumFractionDigits: 4 })} vHYPE`;
         }
 
         setStatus("Vault data refreshed.", "ok");
@@ -596,10 +644,10 @@
     async function dripTokens() {
       try {
         if (!token || !signer) throw new Error("Connect wallet and set contract addresses first.");
-        setStatus("Submitting Testnet HYPE drip transaction...");
+        setStatus("Submitting vHYPE drip transaction...");
         const tx = await token.connect(signer).drip();
         await tx.wait();
-        setStatus("Testnet HYPE drip successful.", "ok");
+        setStatus("vHYPE drip successful.", "ok");
         await refreshData();
       } catch (err) {
         console.error(err);
