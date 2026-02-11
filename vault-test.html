@@ -282,6 +282,25 @@
       line-height: 1.45;
     }
 
+    .advanced-panel {
+      display: none;
+      padding-top: 0.25rem;
+      border-top: 1px solid var(--border);
+      margin-top: 0.25rem;
+    }
+
+    .advanced-panel.open {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .token-label {
+      text-transform: none !important;
+      letter-spacing: 0.01em !important;
+      font-size: 0.86rem !important;
+    }
+
     @media (max-width: 960px) {
       .span-4, .span-6, .span-8 { grid-column: span 12; }
       .hero { flex-direction: column; align-items: flex-start; }
@@ -313,7 +332,7 @@
     <section class="hero">
       <div>
         <h1>HyperEVM <span>Proof Vault</span></h1>
-        <p>Live testnet demo of Compost vault mechanics. Use HYPE for gas, mint vHYPE for deposits, and receive cHYPE shares from the vault.</p>
+        <p>Mechanism demo on HyperEVM testnet. HYPE for gas, vHYPE for deposits, cHYPE as shares.</p>
       </div>
       <div class="badge">Synthetic APR Demo</div>
     </section>
@@ -345,20 +364,23 @@
           <div class="btn-row">
             <button class="btn-primary" id="connectBtn">Connect Wallet</button>
             <button id="switchBtn">Switch to HyperEVM Testnet</button>
-          </div>
-          <div class="field">
-            <label for="assetAddress">vHYPE contract</label>
-            <input id="assetAddress" type="text" placeholder="0x...">
-          </div>
-          <div class="field">
-            <label for="vaultAddress">Vault contract</label>
-            <input id="vaultAddress" type="text" placeholder="0x...">
-          </div>
-          <div class="btn-row">
-            <button id="saveAddressesBtn">Save addresses</button>
             <button id="refreshBtn">Refresh data</button>
+            <button id="advancedToggleBtn">Advanced settings</button>
           </div>
-          <div class="muted">After deploy: paste addresses here once, then they persist in local storage.</div>
+          <div class="advanced-panel" id="advancedPanel">
+            <div class="field">
+              <label class="token-label" for="assetAddress">vHYPE contract</label>
+              <input id="assetAddress" type="text" placeholder="0x...">
+            </div>
+            <div class="field">
+              <label class="token-label" for="vaultAddress">Proof Vault contract</label>
+              <input id="vaultAddress" type="text" placeholder="0x...">
+            </div>
+            <div class="btn-row">
+              <button id="saveAddressesBtn">Save addresses</button>
+            </div>
+            <div class="muted">Advanced: override default deployed addresses and persist locally.</div>
+          </div>
         </div>
       </article>
 
@@ -432,20 +454,27 @@
       </article>
 
       <article class="card span-6">
-        <h2>Contract Addresses</h2>
+        <h2>Proof Checklist</h2>
         <div class="stack">
+          <div class="row"><span>Network</span><strong>HyperEVM Testnet (998)</strong></div>
+          <div class="row"><span>APR mode</span><strong>10.00% synthetic</strong></div>
+          <div class="row"><span>Deposit asset</span><strong>vHYPE (18d)</strong></div>
+          <div class="row"><span>Share token</span><strong>cHYPE (18d)</strong></div>
           <div class="row"><span>vHYPE</span><strong id="assetAddressOut">-</strong></div>
           <div class="row"><span>Proof Vault</span><strong id="vaultAddressOut">-</strong></div>
-          <div class="muted">Addresses are set in the connection panel and persisted locally.</div>
+          <div class="btn-row">
+            <button id="copyAssetBtn">Copy vHYPE</button>
+            <button id="copyVaultBtn">Copy Vault</button>
+          </div>
         </div>
       </article>
 
-      <article class="card span-6">
+      <article class="card span-12">
         <h2>Model Note</h2>
         <div class="stack">
-          <div class="muted">This is a mechanism demo. Yield is synthetic and minted on-chain as test tokens when `accrue` is triggered by deposits/withdrawals/APR updates.</div>
-          <div class="muted">Production routing to HIP-3 fee sources is out of scope for this proof vault.</div>
-          <div class="muted">Token roles: HYPE = gas only, vHYPE = deposit asset, cHYPE = vault share token (18 decimals).</div>
+          <div class="muted">This page proves vault mechanics, not production yield routing.</div>
+          <div class="muted">Interest is synthetic, minted on-chain when vault state updates (`accrue`).</div>
+          <div class="muted">Roles: HYPE = gas only, vHYPE = deposit asset, cHYPE = share token.</div>
         </div>
       </article>
 
@@ -495,6 +524,14 @@
     let account;
     let vault;
     let token;
+
+    function toggleAdvancedPanel(forceOpen) {
+      const panel = $("advancedPanel");
+      const button = $("advancedToggleBtn");
+      const nextOpen = typeof forceOpen === "boolean" ? forceOpen : !panel.classList.contains("open");
+      panel.classList.toggle("open", nextOpen);
+      button.textContent = nextOpen ? "Hide advanced" : "Advanced settings";
+    }
 
     function loadConfig() {
       try {
@@ -582,6 +619,17 @@
       $("assetAddressOut").textContent = shortAddr(assetAddress);
       $("vaultAddressOut").textContent = shortAddr(vaultAddress);
       return true;
+    }
+
+    async function copyAddress(kind) {
+      try {
+        const value = kind === "asset" ? $("assetAddress").value.trim() : $("vaultAddress").value.trim();
+        if (!ethers.isAddress(value)) throw new Error("No valid address to copy.");
+        await navigator.clipboard.writeText(value);
+        setStatus(`${kind === "asset" ? "vHYPE" : "Vault"} address copied.`, "ok");
+      } catch (err) {
+        setStatus(err.message || "Copy failed.", "err");
+      }
     }
 
     async function connectWallet() {
@@ -718,6 +766,7 @@
       loadContracts();
 
       $("connectBtn").addEventListener("click", connectWallet);
+      $("advancedToggleBtn").addEventListener("click", () => toggleAdvancedPanel());
       $("switchBtn").addEventListener("click", async () => {
         try {
           await switchNetwork();
@@ -730,6 +779,8 @@
       $("approveBtn").addEventListener("click", approveVault);
       $("depositBtn").addEventListener("click", deposit);
       $("withdrawBtn").addEventListener("click", withdraw);
+      $("copyAssetBtn").addEventListener("click", () => copyAddress("asset"));
+      $("copyVaultBtn").addEventListener("click", () => copyAddress("vault"));
 
       $("saveAddressesBtn").addEventListener("click", () => {
         const assetAddress = $("assetAddress").value.trim();
@@ -751,6 +802,7 @@
         window.ethereum.on("chainChanged", () => window.location.reload());
       }
 
+      toggleAdvancedPanel(false);
       refreshData().catch(() => {});
     }
 
