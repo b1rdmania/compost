@@ -284,7 +284,7 @@
     <section class="hero">
       <div>
         <h1>HyperEVM <span>Proof Vault</span></h1>
-        <p>Live testnet demo of Compost vault mechanics. Deposit mHYPE, receive ctHYPE shares, and watch share price increase with a synthetic APR model.</p>
+        <p>Live testnet demo of Compost vault mechanics. Deposit Testnet HYPE, receive Testnet cHYPE shares, and watch share price increase with a synthetic APR model.</p>
       </div>
       <div class="badge">Synthetic APR Demo</div>
     </section>
@@ -300,7 +300,7 @@
             <button id="switchBtn">Switch to HyperEVM Testnet</button>
           </div>
           <div class="field">
-            <label for="assetAddress">Mock token contract</label>
+            <label for="assetAddress">Testnet HYPE contract</label>
             <input id="assetAddress" type="text" placeholder="0x...">
           </div>
           <div class="field">
@@ -322,11 +322,11 @@
           <div class="links">
             <a class="link-btn" target="_blank" rel="noopener" href="https://faucet.chainstack.com/hyperliquid-testnet-faucet">Chainstack Faucet</a>
           </div>
-          <div class="row"><span>Demo asset (mHYPE)</span></div>
+          <div class="row"><span>Demo asset (Testnet HYPE)</span></div>
           <div class="btn-row">
-            <button id="dripBtn">Mint 1,000 mHYPE</button>
+            <button id="dripBtn">Mint 1,000 Testnet HYPE</button>
           </div>
-          <div class="muted">mHYPE drip cooldown: 12 hours per wallet.</div>
+          <div class="muted">Testnet HYPE drip cooldown: 12 hours per wallet.</div>
         </div>
       </article>
 
@@ -348,15 +348,15 @@
       <article class="card span-6">
         <h2>Your Position</h2>
         <div class="stack">
-          <div class="row"><span>mHYPE Wallet</span><strong id="userAssetBal">-</strong></div>
-          <div class="row"><span>ctHYPE Shares</span><strong id="userShareBal">-</strong></div>
+          <div class="row"><span>Testnet HYPE Wallet</span><strong id="userAssetBal">-</strong></div>
+          <div class="row"><span>Testnet cHYPE Shares</span><strong id="userShareBal">-</strong></div>
           <div class="row"><span>Vault Value</span><strong id="userVaultValue">-</strong></div>
           <div class="row"><span>30d Projection</span><strong id="userProjection">-</strong></div>
         </div>
       </article>
 
       <article class="card span-6">
-        <h2>Deposit mHYPE</h2>
+        <h2>Deposit Testnet HYPE</h2>
         <div class="stack">
           <div class="field">
             <label for="depositAmount">Amount</label>
@@ -366,12 +366,12 @@
             <button id="approveBtn">Approve</button>
             <button class="btn-primary" id="depositBtn">Deposit</button>
           </div>
-          <div class="muted">Deposit mHYPE, receive ctHYPE shares.</div>
+          <div class="muted">Deposit Testnet HYPE, receive Testnet cHYPE shares.</div>
         </div>
       </article>
 
       <article class="card span-6">
-        <h2>Withdraw mHYPE</h2>
+        <h2>Withdraw Testnet HYPE</h2>
         <div class="stack">
           <div class="field">
             <label for="withdrawAmount">Amount</label>
@@ -380,14 +380,14 @@
           <div class="btn-row">
             <button class="btn-primary" id="withdrawBtn">Withdraw</button>
           </div>
-          <div class="muted">Burn ctHYPE shares for underlying mHYPE.</div>
+          <div class="muted">Burn Testnet cHYPE shares for underlying Testnet HYPE.</div>
         </div>
       </article>
 
       <article class="card span-6">
         <h2>Contract Addresses</h2>
         <div class="stack">
-          <div class="row"><span>mHYPE</span><strong id="assetAddressOut">-</strong></div>
+          <div class="row"><span>Testnet HYPE</span><strong id="assetAddressOut">-</strong></div>
           <div class="row"><span>Proof Vault</span><strong id="vaultAddressOut">-</strong></div>
           <div class="muted">Addresses are set in the connection panel and persisted locally.</div>
         </div>
@@ -567,8 +567,8 @@
         ]);
 
         $("aprMetric").textContent = `${(Number(aprBps) / 100).toFixed(2)}%`;
-        $("tvlMetric").textContent = `${fmt(tvl, 2)} mHYPE`;
-        $("ppsMetric").textContent = `${fmt(pps, 6)} mHYPE`;
+        $("tvlMetric").textContent = `${fmt(tvl, 2)} Testnet HYPE`;
+        $("ppsMetric").textContent = `${fmt(pps, 6)} Testnet HYPE`;
 
         if (account) {
           const [assetBal, shareBal, redeemValue] = await Promise.all([
@@ -577,13 +577,13 @@
             readVault.previewRedeem(await readVault.balanceOf(account))
           ]);
 
-          $("userAssetBal").textContent = `${fmt(assetBal, 4)} mHYPE`;
-          $("userShareBal").textContent = `${fmt(shareBal, 4)} ctHYPE`;
-          $("userVaultValue").textContent = `${fmt(redeemValue, 4)} mHYPE`;
+          $("userAssetBal").textContent = `${fmt(assetBal, 4)} Testnet HYPE`;
+          $("userShareBal").textContent = `${fmt(shareBal, 4)} Testnet cHYPE`;
+          $("userVaultValue").textContent = `${fmt(redeemValue, 4)} Testnet HYPE`;
 
           const monthlyFactor = Number(aprBps) / 10000 / 12;
           const projected = Number(ethers.formatUnits(redeemValue, 18)) * (1 + monthlyFactor);
-          $("userProjection").textContent = `${projected.toLocaleString(undefined, { maximumFractionDigits: 4 })} mHYPE`;
+          $("userProjection").textContent = `${projected.toLocaleString(undefined, { maximumFractionDigits: 4 })} Testnet HYPE`;
         }
 
         setStatus("Vault data refreshed.", "ok");
@@ -596,10 +596,10 @@
     async function dripTokens() {
       try {
         if (!token || !signer) throw new Error("Connect wallet and set contract addresses first.");
-        setStatus("Submitting mHYPE drip transaction...");
+        setStatus("Submitting Testnet HYPE drip transaction...");
         const tx = await token.connect(signer).drip();
         await tx.wait();
-        setStatus("mHYPE drip successful.", "ok");
+        setStatus("Testnet HYPE drip successful.", "ok");
         await refreshData();
       } catch (err) {
         console.error(err);
