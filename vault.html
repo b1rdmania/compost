@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Vault - Compost Finance</title>
+  <title>Vault Preview - Compost Finance</title>
   <meta name="description" content="Stake HYPE and earn fee-backed yield from Hyperliquid builder markets.">
 
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -479,6 +479,43 @@
       text-align: center;
     }
 
+    .site-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+      padding: 1.5rem 3rem;
+    }
+
+    .site-footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .site-footer-domain {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .site-footer-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .site-footer-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .site-footer-link:hover {
+      color: var(--accent-bright);
+    }
+
     /* Responsive */
     @media (max-width: 968px) {
       .dashboard {
@@ -556,12 +593,12 @@
         <a href="/" class="nav-lockup">
           <img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img">
         </a>
-        <a href="/vault.html" class="nav-link active">Vault</a>
-        <a href="/vault-test.html" class="nav-link">Proof Vault</a>
+        <a href="/" class="nav-link">Product</a>
+        <a href="/demo.html" class="nav-link active">Demo</a>
+        <a href="/litepaper.html" class="nav-link">Litepaper</a>
       </div>
       <div class="nav-right">
         <a href="https://docs.compost.fi" class="nav-link">Docs</a>
-        <a href="https://twitter.com/compostfi" class="nav-link" target="_blank" rel="noopener">@compostfi</a>
       </div>
     </div>
   </nav>
@@ -732,6 +769,20 @@
       </div>
     </div>
   </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-domain">compost<span class="highlight">.fi</span></div>
+      <nav class="site-footer-links">
+        <a href="/litepaper.html" class="site-footer-link">Litepaper v1</a>
+        <a href="/demo.html" class="site-footer-link">Demo</a>
+        <a href="/process.html" class="site-footer-link">Build Process</a>
+        <a href="/process.html#design-system" class="site-footer-link">Design System</a>
+        <a href="https://docs.compost.fi" class="site-footer-link">Docs</a>
+        <a href="https://twitter.com/compostfi" class="site-footer-link" target="_blank" rel="noopener">Twitter</a>
+      </nav>
+    </div>
+  </footer>
 
   <script>
     const EXCHANGE_RATE = 1.024;

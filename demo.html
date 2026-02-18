@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Demo - Compost Finance</title>
+  <meta name="description" content="Choose between the Compost vault preview and live HyperEVM testnet demo.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #0a0a09;
+      --bg-layer-1: #111110;
+      --bg-layer-2: #1a1918;
+      --bg-layer-3: #252422;
+      --border: #1a1918;
+      --border-hover: #252422;
+      --text-primary: #e8e4df;
+      --text-secondary: #9a958d;
+      --text-muted: #5c574f;
+      --accent-bright: #4dcf6a;
+      --accent: #2ba84a;
+      --font: 'Outfit', -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      background: rgba(10, 10, 9, 0.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(6px);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-lockup {
+      display: block;
+      line-height: 0;
+    }
+
+    .nav-lockup-img {
+      height: 32px;
+      display: block;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent-bright);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .hero {
+      padding: 6rem 0 3rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 4.6rem);
+      font-weight: 200;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    h1 span { color: var(--accent); }
+
+    .hero p {
+      max-width: 760px;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(37, 36, 34, 0.45), rgba(17, 17, 16, 0.85));
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .label {
+      color: var(--accent-bright);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card h2 {
+      font-size: 1.9rem;
+      font-weight: 300;
+      line-height: 1.2;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      border: 1px solid var(--border-hover);
+      color: var(--text-muted);
+      border-radius: 999px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.8rem;
+    }
+
+    .btn {
+      margin-top: 0.35rem;
+      width: fit-content;
+      border: 1px solid rgba(77, 207, 106, 0.45);
+      background: rgba(77, 207, 106, 0.12);
+      color: var(--accent-bright);
+      text-decoration: none;
+      padding: 0.68rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      transition: transform 0.2s;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+      padding: 2rem 0;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-domain { color: var(--text-muted); }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .footer-link:hover { color: var(--accent-bright); }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .nav, .container, .footer-inner { padding-left: 1.1rem; padding-right: 1.1rem; }
+      .nav-inner { flex-wrap: wrap; gap: 0.75rem; }
+      .nav-left { gap: 1.1rem; }
+      .nav-right { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="/" class="nav-lockup"><img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img"></a>
+        <a href="/" class="nav-link">Product</a>
+        <a href="/demo.html" class="nav-link active">Demo</a>
+        <a href="/litepaper.html" class="nav-link">Litepaper</a>
+      </div>
+      <div class="nav-right">
+        <a href="https://docs.compost.fi" class="nav-link">Docs</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Compost <span>Demo</span></h1>
+      <p>Two views of the same concept. Start with the vault preview to understand product UX, then open the live HyperEVM testnet demo to verify working mechanics on-chain.</p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="label">Experience A</div>
+        <h2>Vault Preview</h2>
+        <p>Static product-facing UX mock. Best for storytelling, interaction flow, and interface direction.</p>
+        <div class="chip-row">
+          <span class="chip">Mock Data</span>
+          <span class="chip">No Wallet Required</span>
+          <span class="chip">Product UX</span>
+        </div>
+        <a class="btn" href="/vault.html">Open Vault Preview</a>
+      </article>
+
+      <article class="card">
+        <div class="label">Experience B</div>
+        <h2>Live Demo</h2>
+        <p>HyperEVM testnet mechanism demo with wallet flow, vHYPE deposit, cHYPE shares, and synthetic APR accounting.</p>
+        <div class="chip-row">
+          <span class="chip">Live Testnet</span>
+          <span class="chip">Wallet + Gas</span>
+          <span class="chip">On-chain Mechanics</span>
+        </div>
+        <a class="btn" href="/vault-test.html">Open Live Demo</a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-domain">compost<span style="color: var(--accent-bright);">.fi</span></div>
+      <nav class="footer-links">
+        <a href="/litepaper.html" class="footer-link">Litepaper v1</a>
+        <a href="/process.html" class="footer-link">Build Process</a>
+        <a href="/process.html#design-system" class="footer-link">Design System</a>
+        <a href="https://docs.compost.fi" class="footer-link">Docs</a>
+        <a href="https://twitter.com/compostfi" class="footer-link" target="_blank" rel="noopener">Twitter</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

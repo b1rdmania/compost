@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Compost Proof Vault - HyperEVM Testnet</title>
+  <title>Live Demo - Compost HyperEVM Testnet Vault</title>
   <meta name="description" content="Live HyperEVM testnet proof vault for Compost. Synthetic 10% APR demonstration.">
 
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -301,6 +301,44 @@
       font-size: 0.86rem !important;
     }
 
+    .site-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+      padding: 1.5rem 0;
+    }
+
+    .site-footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .site-footer-domain {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .site-footer-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .site-footer-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .site-footer-link:hover {
+      color: var(--accent-bright);
+    }
+
     @media (max-width: 960px) {
       .span-4, .span-6, .span-8 { grid-column: span 12; }
       .hero { flex-direction: column; align-items: flex-start; }
@@ -313,6 +351,7 @@
       .nav-inner { flex-wrap: wrap; }
       .nav-left { width: 100%; justify-content: space-between; }
       .nav-link { font-size: 0.84rem; }
+      .site-footer-inner { padding: 0 1.1rem; }
     }
   </style>
 </head>
@@ -321,8 +360,9 @@
     <div class="nav-inner">
       <div class="nav-left">
         <a href="/" class="nav-lockup"><img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img"></a>
-        <a href="/vault.html" class="nav-link">Vault</a>
-        <a href="/vault-test.html" class="nav-link" style="color: var(--accent-bright);">Proof Vault</a>
+        <a href="/" class="nav-link">Product</a>
+        <a href="/demo.html" class="nav-link" style="color: var(--accent-bright);">Demo</a>
+        <a href="/litepaper.html" class="nav-link">Litepaper</a>
       </div>
       <a href="https://docs.compost.fi" class="nav-link" target="_blank" rel="noopener">Docs</a>
     </div>
@@ -331,7 +371,7 @@
   <main class="container">
     <section class="hero">
       <div>
-        <h1>HyperEVM <span>Proof Vault</span></h1>
+        <h1>HyperEVM <span>Live Demo</span></h1>
         <p>Mechanism demo on HyperEVM testnet. HYPE for gas, vHYPE for deposits, cHYPE for shares.</p>
       </div>
       <div class="badge">Synthetic APR Demo</div>
@@ -484,6 +524,20 @@
       </article>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-domain">compost<span style="color: var(--accent-bright);">.fi</span></div>
+      <nav class="site-footer-links">
+        <a href="/litepaper.html" class="site-footer-link">Litepaper v1</a>
+        <a href="/demo.html" class="site-footer-link">Demo</a>
+        <a href="/process.html" class="site-footer-link">Build Process</a>
+        <a href="/process.html#design-system" class="site-footer-link">Design System</a>
+        <a href="https://docs.compost.fi" class="site-footer-link">Docs</a>
+        <a href="https://twitter.com/compostfi" class="site-footer-link" target="_blank" rel="noopener">Twitter</a>
+      </nav>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
   <script>
