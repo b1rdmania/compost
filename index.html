@@ -217,8 +217,43 @@
     .hero-punchline {
       font-size: clamp(1.25rem, 2.5vw, 1.5rem);
       font-weight: 300;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       line-height: 1.4;
+      margin-bottom: 1.75rem;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: 2rem;
+      transform: translateX(-50%);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      animation: cueFloat 2s ease-in-out infinite;
+      transition: opacity 0.25s ease;
+      z-index: 3;
+    }
+
+    .scroll-cue::after {
+      content: '↓';
+      display: block;
+      text-align: center;
+      font-size: 1rem;
+      margin-top: 0.2rem;
+    }
+
+    body.scrolled .scroll-cue {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    @keyframes cueFloat {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(5px); }
     }
 
     .btn {
@@ -1330,7 +1365,7 @@
         <a href="/" class="nav-lockup">
           <img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img">
         </a>
-        <a href="/" class="nav-link active">Product</a>
+        <a href="/" class="nav-link active">Overview</a>
         <a href="/demo.html" class="nav-link">Demo</a>
         <a href="/litepaper.html" class="nav-link">Litepaper</a>
       </div>
@@ -1346,12 +1381,11 @@
       <div class="hero-content">
         <h1 class="hero-headline">compost<span class="tld">.fi</span></h1>
         <p class="hero-tagline">The capital formation layer for Hyperliquid builder markets.</p>
+        <p class="hero-punchline">One token. Fee-backed yield.</p>
 
         <div class="hero-cta">
           <a href="#waitlist" class="btn">Join Waitlist</a>
         </div>
-
-        <p class="hero-punchline">One token. Fee-backed yield.</p>
       </div>
 
       <div class="hero-mark-container">
@@ -1370,6 +1404,7 @@
         </svg>
       </div>
     </div>
+    <a href="#opportunity" class="scroll-cue" aria-label="Scroll to opportunity section">Scroll</a>
   </section>
 
   <main>
@@ -1661,6 +1696,12 @@
 
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
+
+    const updateScrollCue = () => {
+      document.body.classList.toggle('scrolled', window.scrollY > 24);
+    };
+    window.addEventListener('scroll', updateScrollCue);
+    window.addEventListener('load', updateScrollCue);
   </script>
 
   <!-- Waitlist form -->

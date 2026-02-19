@@ -138,13 +138,6 @@
       gap: 0.85rem;
     }
 
-    .label {
-      color: var(--accent-bright);
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
     .card h2 {
       font-size: 1.9rem;
       font-weight: 300;
@@ -173,17 +166,20 @@
     .btn {
       margin-top: 0.35rem;
       width: fit-content;
-      border: 1px solid rgba(77, 207, 106, 0.45);
-      background: rgba(77, 207, 106, 0.12);
-      color: var(--accent-bright);
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: var(--bg-deep);
       text-decoration: none;
       padding: 0.68rem 1rem;
       border-radius: 10px;
       font-size: 0.9rem;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .btn:hover { transform: translateY(-1px); }
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(77, 207, 106, 0.24);
+    }
 
     .footer {
       border-top: 1px solid var(--border);
@@ -232,7 +228,7 @@
     <div class="nav-inner">
       <div class="nav-left">
         <a href="/" class="nav-lockup"><img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img"></a>
-        <a href="/" class="nav-link">Product</a>
+        <a href="/" class="nav-link">Overview</a>
         <a href="/demo.html" class="nav-link active">Demo</a>
         <a href="/litepaper.html" class="nav-link">Litepaper</a>
       </div>
@@ -250,7 +246,6 @@
 
     <section class="grid">
       <article class="card">
-        <div class="label">Experience A</div>
         <h2>Vault Preview</h2>
         <p>Static product-facing UX mock. Best for storytelling, interaction flow, and interface direction.</p>
         <div class="chip-row">
@@ -262,7 +257,6 @@
       </article>
 
       <article class="card">
-        <div class="label">Experience B</div>
         <h2>Live Demo</h2>
         <p>HyperEVM testnet mechanism demo with wallet flow, vHYPE deposit, cHYPE shares, and synthetic APR accounting.</p>
         <div class="chip-row">
