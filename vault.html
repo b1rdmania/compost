@@ -4,490 +4,273 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Vault Preview - Compost Finance</title>
-  <meta name="description" content="Stake HYPE and earn fee-backed yield from Hyperliquid builder markets.">
+  <meta name="description" content="Compost vault preview with mock data and product UX flow.">
 
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      /* DESIGN.md warm earth tones */
       --bg-deep: #0a0a09;
       --bg-layer-1: #111110;
       --bg-layer-2: #1a1918;
       --bg-layer-3: #252422;
+      --border: #1a1918;
+      --border-hover: #252422;
       --text-primary: #e8e4df;
       --text-secondary: #9a958d;
       --text-muted: #5c574f;
       --accent-bright: #4dcf6a;
       --accent: #2ba84a;
-      --accent-glow-strong: rgba(77, 207, 106, 0.3);
-      --pot-1: #8a7d6d;
-      --pot-2: #5c5347;
-      --pot-3: #3d3630;
+      --danger: #d66b6b;
       --font: 'Outfit', -apple-system, sans-serif;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      font-size: 16px;
-      -webkit-font-smoothing: antialiased;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: var(--font);
       background: var(--bg-deep);
       color: var(--text-primary);
       line-height: 1.6;
-      min-height: 100vh;
       overflow-x: hidden;
     }
 
     body::before {
       content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       pointer-events: none;
       opacity: 0.03;
       z-index: 1000;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     }
 
-    /* Nav */
     .nav {
-      padding: 1.25rem 3rem;
-      padding-top: calc(1.25rem + env(safe-area-inset-top));
-      border-bottom: 1px solid var(--bg-layer-3);
-      background: var(--bg-deep);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      background: rgba(10, 10, 9, 0.95);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-inner {
-      max-width: 1400px;
+      max-width: 1100px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
     }
 
     .nav-left {
       display: flex;
       align-items: center;
-      gap: 2.5rem;
+      gap: 1.25rem;
     }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .nav-lockup {
-      display: block;
-      line-height: 0;
-    }
-
-    .nav-lockup-img {
-      height: 32px;
-      display: block;
-    }
+    .nav-lockup-img { height: 30px; display: block; }
 
     .nav-link {
-      font-size: 0.9375rem;
-      font-weight: 400;
-      letter-spacing: 0.01em;
       color: var(--text-secondary);
       text-decoration: none;
+      font-size: 0.92rem;
       transition: color 0.2s;
     }
 
-    .nav-link:hover {
-      color: var(--accent-bright);
-    }
+    .nav-link:hover { color: var(--accent-bright); }
 
-    .nav-link.active {
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    /* Stats Bar */
-    .stats-bar {
-      background: var(--bg-layer-1);
-      border-bottom: 1px solid var(--bg-layer-3);
-      padding: 0.75rem 3rem;
-    }
-
-    .stats-inner {
-      max-width: 1400px;
+    .container {
+      max-width: 1100px;
       margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .hero {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-    }
-
-    .stats-label {
-      font-size: 0.875rem;
-      font-weight: 300;
-      letter-spacing: 0.02em;
-      color: var(--text-secondary);
-    }
-
-    .stats-label .highlight {
-      color: var(--accent-bright);
-    }
-
-    .stats-metrics {
-      display: flex;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    .stat-item {
-      display: flex;
-      align-items: baseline;
-      gap: 0.75rem;
-    }
-
-    .stat-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-    }
-
-    .stat-value {
-      font-size: 1.75rem;
-      font-weight: 200;
-      color: var(--text-primary);
-    }
-
-    .stat-value.accent {
-      color: var(--accent-bright);
-    }
-
-    /* Dashboard */
-    .dashboard {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 1.5rem 3rem;
-      padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
-      display: grid;
-      grid-template-columns: 1fr 360px;
-      gap: 1.5rem;
-    }
-
-    .action-column {
-      display: flex;
-      flex-direction: column;
+      align-items: flex-end;
       gap: 1rem;
+      margin-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
     }
 
-    .info-column {
-      display: flex;
-      flex-direction: column;
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 250;
+      line-height: 1.05;
+    }
+
+    .hero h1 span { color: var(--accent-bright); }
+
+    .hero p {
+      max-width: 620px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-top: 0.7rem;
+    }
+
+    .badge {
+      border: 1px solid rgba(77, 207, 106, 0.3);
+      color: var(--accent-bright);
+      background: rgba(77, 207, 106, 0.08);
+      padding: 0.45rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
       gap: 1rem;
     }
 
     .card {
-      background: var(--bg-layer-2);
-      border: 1px solid var(--bg-layer-3);
-      padding: 1.25rem;
-    }
-
-    /* Position */
-    .position-grid {
-      display: grid;
-      gap: 0.5rem;
-    }
-
-    .position-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.375rem 0;
-    }
-
-    .position-label {
-      font-size: 0.8125rem;
-      color: var(--text-secondary);
-    }
-
-    .position-value {
-      font-size: 0.9375rem;
-      font-weight: 400;
-      color: var(--text-primary);
-    }
-
-    .position-gain {
-      color: var(--accent-bright);
-    }
-
-    /* Tabs */
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid var(--bg-layer-3);
-      margin-bottom: 1rem;
-    }
-
-    .tab {
-      flex: 1;
-      padding: 0.625rem 0.75rem;
-      background: none;
-      border: none;
-      border-bottom: 2px solid transparent;
-      font-family: var(--font);
-      font-size: 0.8125rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .tab.active {
-      color: var(--text-primary);
-      border-bottom-color: var(--accent);
-    }
-
-    .tab-content {
-      display: none;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    /* Input */
-    .input-group {
-      margin-bottom: 1rem;
-    }
-
-    .input-label {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      margin-bottom: 0.375rem;
-      display: block;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .input-wrapper {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .input-field {
-      flex: 1;
-      padding: 0.75rem 1rem;
-      background: var(--bg-layer-1);
-      border: 1px solid var(--bg-layer-3);
-      font-family: var(--font);
-      font-size: 1.125rem;
-      color: var(--text-primary);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .input-field:focus {
-      border-color: var(--accent);
-    }
-
-    .input-field::placeholder {
-      color: var(--text-muted);
-    }
-
-    .helper-btn {
-      padding: 0.75rem 1rem;
-      background: none;
-      border: 1px solid var(--bg-layer-3);
-      font-family: var(--font);
-      font-size: 0.75rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
-      min-width: 55px;
-    }
-
-    .helper-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent-bright);
-    }
-
-    .balance-hint {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 0.375rem;
-    }
-
-    /* Output */
-    .output-group {
-      margin-bottom: 1rem;
-    }
-
-    .output-value {
-      font-size: 1.5rem;
-      font-weight: 400;
-      color: var(--accent-bright);
-    }
-
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.375rem;
-      font-size: 0.8125rem;
-    }
-
-    .detail-label {
-      color: var(--text-secondary);
-    }
-
-    .detail-value {
-      color: var(--text-muted);
-    }
-
-    /* Button */
-    .btn {
-      width: 100%;
-      padding: 0.875rem;
-      background: var(--accent);
-      border: none;
-      font-family: var(--font);
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--bg-deep);
-      cursor: pointer;
-      transition: all 0.2s;
+      background: linear-gradient(180deg, rgba(37, 36, 34, 0.45), rgba(17, 17, 16, 0.85));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.1rem;
       position: relative;
-      overflow: hidden;
-      margin-top: 0.75rem;
+      z-index: 1;
     }
 
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
-      transform: translateX(-100%);
-      transition: transform 0.5s ease;
-    }
-
-    .btn:hover::before {
-      transform: translateX(100%);
-    }
-
-    .btn:hover {
-      box-shadow: 0 0 40px var(--accent-glow-strong);
-    }
-
-    .btn:disabled {
-      background: var(--bg-layer-1);
-      color: var(--text-muted);
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    .btn:disabled::before {
-      display: none;
-    }
-
-    .disclaimer {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 0.625rem;
-      text-align: center;
-    }
-
-    /* Info panels */
-    .info-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.375rem 0;
-      border-bottom: 1px solid var(--bg-layer-3);
-    }
-
-    .info-row:last-child {
-      border-bottom: none;
-    }
-
-    .info-label {
-      font-size: 0.8125rem;
-      color: var(--text-secondary);
-    }
-
-    .info-value {
-      font-size: 0.9375rem;
-      font-weight: 400;
+    .card h2 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.9rem;
       color: var(--text-primary);
-      text-align: right;
     }
 
-    .info-value.accent {
-      color: var(--accent-bright);
+    .span-4 { grid-column: span 4; }
+    .span-6 { grid-column: span 6; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+
+    .metric-label {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
     }
 
-    .market-item {
+    .metric-value {
+      font-size: 1.5rem;
+      font-weight: 350;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric-value.accent { color: var(--accent-bright); }
+
+    .stack { display: flex; flex-direction: column; gap: 0.9rem; }
+
+    .row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.5rem 0;
+      gap: 0.8rem;
+      color: var(--text-secondary);
+      font-size: 0.92rem;
     }
 
-    .market-name {
-      font-size: 0.875rem;
+    .row strong {
       color: var(--text-primary);
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
     }
 
-    .market-allocation {
-      font-size: 0.875rem;
+    .btn-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+    button {
+      border: 1px solid var(--border-hover);
+      background: var(--bg-layer-3);
+      color: var(--text-primary);
+      font: inherit;
+      font-size: 0.9rem;
+      padding: 0.65rem 0.95rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    button:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: rgba(77, 207, 106, 0.14);
+      border-color: rgba(77, 207, 106, 0.45);
       color: var(--accent-bright);
     }
 
-    /* Footer info */
-    .footer-info {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid var(--bg-layer-3);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-align: center;
+    input {
+      width: 100%;
+      border: 1px solid var(--border-hover);
+      background: var(--bg-layer-2);
+      color: var(--text-primary);
+      font: inherit;
+      padding: 0.68rem 0.75rem;
+      border-radius: 10px;
     }
+
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .field label {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .muted { color: var(--text-muted); font-size: 0.85rem; }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 0.8rem;
+    }
+
+    .tab {
+      padding: 0.6rem;
+      text-align: center;
+      background: var(--bg-layer-2);
+      color: var(--text-muted);
+      border: none;
+      border-right: 1px solid var(--border);
+    }
+
+    .tab:last-child { border-right: none; }
+    .tab.active {
+      background: rgba(77, 207, 106, 0.1);
+      color: var(--accent-bright);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
 
     .site-footer {
       border-top: 1px solid var(--border);
       margin-top: 2rem;
-      padding: 1.5rem 3rem;
+      padding: 1.5rem 0;
     }
 
     .site-footer-inner {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
+      padding: 0 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -512,267 +295,134 @@
       font-size: 0.85rem;
     }
 
-    .site-footer-link:hover {
-      color: var(--accent-bright);
-    }
+    .site-footer-link:hover { color: var(--accent-bright); }
 
-    /* Responsive */
-    @media (max-width: 968px) {
-      .dashboard {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-metrics {
-        gap: 2rem;
-      }
-
-      .nav,
-      .stats-bar,
-      .dashboard {
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-      }
-
-      .nav {
-        padding-left: max(1.5rem, env(safe-area-inset-left));
-        padding-right: max(1.5rem, env(safe-area-inset-right));
-      }
-
-      .dashboard {
-        padding-left: max(1.5rem, env(safe-area-inset-left));
-        padding-right: max(1.5rem, env(safe-area-inset-right));
-        padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
-      }
+    @media (max-width: 960px) {
+      .span-4, .span-6, .span-8 { grid-column: span 12; }
+      .hero { flex-direction: column; align-items: flex-start; }
     }
 
     @media (max-width: 640px) {
-      .nav {
-        padding: 1rem 1.5rem;
-        padding-top: calc(1rem + env(safe-area-inset-top));
-      }
-
-      .nav-lockup-img {
-        height: 28px;
-      }
-
-      .nav-link {
-        font-size: 0.875rem;
-      }
-
-      .nav-left {
-        gap: 1.5rem;
-      }
-
-      .nav-right {
-        gap: 1.5rem;
-      }
-
-      .stats-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.75rem;
-      }
-
-      .stats-metrics {
-        width: 100%;
-        justify-content: space-between;
-        gap: 1.5rem;
-      }
-
-      .stat-value {
-        font-size: 1.5rem;
-      }
+      .container { padding: 1.1rem; }
+      .nav { padding: 1rem 1.1rem; }
+      .nav-inner { flex-wrap: wrap; }
+      .nav-left { width: 100%; justify-content: space-between; }
+      .nav-link { font-size: 0.84rem; }
+      .site-footer-inner { padding: 0 1.1rem; }
     }
   </style>
 </head>
 <body>
-  <!-- Nav -->
   <nav class="nav">
     <div class="nav-inner">
       <div class="nav-left">
-        <a href="/" class="nav-lockup">
-          <img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img">
-        </a>
+        <a href="/" class="nav-lockup"><img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img"></a>
         <a href="/" class="nav-link">Product</a>
-        <a href="/demo.html" class="nav-link active">Demo</a>
+        <a href="/demo.html" class="nav-link" style="color: var(--accent-bright);">Demo</a>
         <a href="/litepaper.html" class="nav-link">Litepaper</a>
       </div>
-      <div class="nav-right">
-        <a href="https://docs.compost.fi" class="nav-link">Docs</a>
-      </div>
+      <a href="https://docs.compost.fi" class="nav-link" target="_blank" rel="noopener">Docs</a>
     </div>
   </nav>
 
-  <!-- Stats Bar -->
-  <section class="stats-bar">
-    <div class="stats-inner">
-      <div class="stats-label">compost<span class="highlight">.fi</span> by the numbers</div>
-      <div class="stats-metrics">
-        <div class="stat-item">
-          <div class="stat-label">APY</div>
-          <div class="stat-value accent">6.3%</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">TVL</div>
-          <div class="stat-value">$4.2M</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">cHYPE/HYPE</div>
-          <div class="stat-value">1.024</div>
-        </div>
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Vault <span>Preview</span></h1>
+        <p>Product-facing UX preview with mock data. Same layout language as the live demo, no wallet or on-chain transactions required.</p>
       </div>
-    </div>
-  </section>
+      <div class="badge">Preview Mode · Mock Data</div>
+    </section>
 
-  <!-- Dashboard -->
-  <main class="dashboard">
-    <!-- Left: Action -->
-    <div class="action-column">
-      <!-- Position -->
-      <div class="card">
-        <div class="position-grid">
-          <div class="position-row">
-            <span class="position-label">HYPE staked</span>
-            <span class="position-value">1,234.56</span>
-          </div>
-          <div class="position-row">
-            <span class="position-label">cHYPE balance</span>
-            <span class="position-value">1,205.38</span>
-          </div>
-          <div class="position-row">
-            <span class="position-label">Current value</span>
-            <span class="position-value">1,264.23 HYPE</span>
-          </div>
-          <div class="position-row">
-            <span class="position-label">Gain</span>
-            <span class="position-value position-gain">+29.67 (+2.4%)</span>
-          </div>
+    <section class="grid">
+      <article class="card span-4">
+        <div class="metric-label">APY</div>
+        <div class="metric-value accent">6.30%</div>
+      </article>
+
+      <article class="card span-4">
+        <div class="metric-label">TVL</div>
+        <div class="metric-value">$4.2M</div>
+      </article>
+
+      <article class="card span-4">
+        <div class="metric-label">cHYPE/HYPE</div>
+        <div class="metric-value">1.024</div>
+      </article>
+
+      <article class="card span-6">
+        <h2>Your Position</h2>
+        <div class="stack">
+          <div class="row"><span>HYPE Staked</span><strong>1,234.56</strong></div>
+          <div class="row"><span>cHYPE Balance</span><strong>1,205.38</strong></div>
+          <div class="row"><span>Current Value</span><strong>1,264.23 HYPE</strong></div>
+          <div class="row"><span>Gain</span><strong style="color:var(--accent-bright);">+29.67 (+2.4%)</strong></div>
         </div>
-      </div>
+      </article>
 
-      <!-- Stake/Unstake -->
-      <div class="card">
+      <article class="card span-6">
+        <h2>Allocation Mix</h2>
+        <div class="stack">
+          <div class="row"><span>trade.xyz</span><strong style="color:var(--accent-bright);">40%</strong></div>
+          <div class="row"><span>Kinetiq Markets</span><strong style="color:var(--accent-bright);">30%</strong></div>
+          <div class="row"><span>Ventuals</span><strong style="color:var(--accent-bright);">20%</strong></div>
+          <div class="row"><span>Felix</span><strong style="color:var(--accent-bright);">10%</strong></div>
+          <div class="muted">Vault: Infrasingularity · Custody: Fireblocks</div>
+        </div>
+      </article>
+
+      <article class="card span-6">
+        <h2>Stake / Unstake</h2>
         <div class="tabs">
           <button class="tab active" data-tab="stake">Stake</button>
           <button class="tab" data-tab="unstake">Unstake</button>
         </div>
 
-        <!-- Stake Tab -->
-        <div class="tab-content active" id="stake-content">
-          <div class="input-group">
-            <label class="input-label">You stake</label>
-            <div class="input-wrapper">
-              <input type="text" class="input-field" id="stake-input" placeholder="0.00">
-              <button class="helper-btn" id="stake-half">Half</button>
-              <button class="helper-btn" id="stake-max">Max</button>
+        <div class="tab-content active" id="stakeContent">
+          <div class="stack">
+            <div class="field">
+              <label for="stakeAmount">You stake</label>
+              <input id="stakeAmount" type="number" min="0" step="0.01" placeholder="0.00">
             </div>
-            <div class="balance-hint">Balance: 1,234.56 HYPE</div>
+            <div class="row"><span>You receive</span><strong id="stakeReceive">0.00 cHYPE</strong></div>
+            <div class="row"><span>Exchange rate</span><strong>1 cHYPE = 1.024 HYPE</strong></div>
+            <button class="btn-primary" id="stakeBtn">Preview Stake</button>
+            <div class="muted">Preview only. On-chain action lives in Live Demo.</div>
           </div>
-
-          <div class="output-group">
-            <label class="input-label">You receive</label>
-            <div class="output-value" id="stake-output">0.00 cHYPE</div>
-          </div>
-
-          <div class="detail-row">
-            <span class="detail-label">Exchange rate</span>
-            <span class="detail-value">1 cHYPE = 1.024 HYPE</span>
-          </div>
-
-          <div class="detail-row">
-            <span class="detail-label">Network cost</span>
-            <span class="detail-value">~$0.01</span>
-          </div>
-
-          <button class="btn" id="stake-btn" disabled>Stake HYPE</button>
-
-          <div class="disclaimer">14-day unstake period applies</div>
         </div>
 
-        <!-- Unstake Tab -->
-        <div class="tab-content" id="unstake-content">
-          <div class="input-group">
-            <label class="input-label">You unstake</label>
-            <div class="input-wrapper">
-              <input type="text" class="input-field" id="unstake-input" placeholder="0.00">
-              <button class="helper-btn" id="unstake-half">Half</button>
-              <button class="helper-btn" id="unstake-max">Max</button>
+        <div class="tab-content" id="unstakeContent">
+          <div class="stack">
+            <div class="field">
+              <label for="unstakeAmount">You unstake</label>
+              <input id="unstakeAmount" type="number" min="0" step="0.01" placeholder="0.00">
             </div>
-            <div class="balance-hint">Balance: 1,205.38 cHYPE</div>
-          </div>
-
-          <div class="output-group">
-            <label class="input-label">You receive</label>
-            <div class="output-value" id="unstake-output">0.00 HYPE</div>
-          </div>
-
-          <div class="detail-row">
-            <span class="detail-label">Exchange rate</span>
-            <span class="detail-value">1 cHYPE = 1.024 HYPE</span>
-          </div>
-
-          <div class="detail-row">
-            <span class="detail-label">Network cost</span>
-            <span class="detail-value">~$0.01</span>
-          </div>
-
-          <button class="btn" id="unstake-btn" disabled>Unstake</button>
-
-          <div class="disclaimer">⚠ 14-day waiting period after unstaking</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right: Info -->
-    <div class="info-column">
-      <!-- APY -->
-      <div class="card">
-        <div class="info-list">
-          <div class="info-row">
-            <span class="info-label">Base staking</span>
-            <span class="info-value">2.1%</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Builder fees</span>
-            <span class="info-value">4.2%</span>
-          </div>
-          <div class="info-row">
-            <span class="info-label">Total APY</span>
-            <span class="info-value accent">6.3%</span>
+            <div class="row"><span>You receive</span><strong id="unstakeReceive">0.00 HYPE</strong></div>
+            <div class="row"><span>Exchange rate</span><strong>1 cHYPE = 1.024 HYPE</strong></div>
+            <button class="btn-primary" id="unstakeBtn">Preview Unstake</button>
+            <div class="muted">Preview only. On-chain action lives in Live Demo.</div>
           </div>
         </div>
-      </div>
+      </article>
 
-      <!-- Allocations -->
-      <div class="card">
-        <div class="info-list">
-          <div class="market-item">
-            <span class="market-name">trade.xyz</span>
-            <span class="market-allocation">40%</span>
-          </div>
-          <div class="market-item">
-            <span class="market-name">Kinetiq Markets</span>
-            <span class="market-allocation">30%</span>
-          </div>
-          <div class="market-item">
-            <span class="market-name">Ventuals</span>
-            <span class="market-allocation">20%</span>
-          </div>
-          <div class="market-item">
-            <span class="market-name">Felix</span>
-            <span class="market-allocation">10%</span>
+      <article class="card span-6">
+        <h2>Preview Snapshot</h2>
+        <div class="stack">
+          <div class="row"><span>Mode</span><strong>Mock data</strong></div>
+          <div class="row"><span>Wallet Required</span><strong>No</strong></div>
+          <div class="row"><span>Best use</span><strong>Product UX narrative</strong></div>
+          <div class="btn-row">
+            <button onclick="window.location.href='/vault-test.html'">Open Live Demo</button>
+            <button onclick="window.location.href='/demo.html'">Back to Demo Hub</button>
           </div>
         </div>
-        <div class="footer-info">
-          Vault: Infrasingularity  •  Custody: Fireblocks
-        </div>
-      </div>
-    </div>
+      </article>
+    </section>
   </main>
 
   <footer class="site-footer">
     <div class="site-footer-inner">
-      <div class="site-footer-domain">compost<span class="highlight">.fi</span></div>
+      <div class="site-footer-domain">compost<span style="color: var(--accent-bright);">.fi</span></div>
       <nav class="site-footer-links">
         <a href="/litepaper.html" class="site-footer-link">Litepaper v1</a>
         <a href="/demo.html" class="site-footer-link">Demo</a>
@@ -786,69 +436,49 @@
 
   <script>
     const EXCHANGE_RATE = 1.024;
-    const USER_HYPE_BALANCE = 1234.56;
-    const USER_CHYPE_BALANCE = 1205.38;
 
-    // Tabs
     const tabs = document.querySelectorAll('.tab');
-    const tabContents = document.querySelectorAll('.tab-content');
+    const contents = {
+      stake: document.getElementById('stakeContent'),
+      unstake: document.getElementById('unstakeContent')
+    };
 
-    tabs.forEach(tab => {
+    tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
-        const targetTab = tab.dataset.tab;
-        tabs.forEach(t => t.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
+        tabs.forEach((t) => t.classList.remove('active'));
+        Object.values(contents).forEach((el) => el.classList.remove('active'));
         tab.classList.add('active');
-        document.getElementById(`${targetTab}-content`).classList.add('active');
+        contents[tab.dataset.tab].classList.add('active');
       });
     });
 
-    // Stake
-    const stakeInput = document.getElementById('stake-input');
-    const stakeOutput = document.getElementById('stake-output');
-    const stakeBtn = document.getElementById('stake-btn');
+    const stakeAmount = document.getElementById('stakeAmount');
+    const unstakeAmount = document.getElementById('unstakeAmount');
+    const stakeReceive = document.getElementById('stakeReceive');
+    const unstakeReceive = document.getElementById('unstakeReceive');
 
-    function updateStakeOutput() {
-      const value = parseFloat(stakeInput.value) || 0;
-      const output = value / EXCHANGE_RATE;
-      stakeOutput.textContent = `${output.toFixed(2)} cHYPE`;
-      stakeBtn.disabled = value <= 0 || value > USER_HYPE_BALANCE;
+    function updateStakePreview() {
+      const value = Number(stakeAmount.value || 0);
+      const receive = value / EXCHANGE_RATE;
+      stakeReceive.textContent = `${receive.toFixed(2)} cHYPE`;
     }
 
-    stakeInput.addEventListener('input', updateStakeOutput);
-    document.getElementById('stake-half').addEventListener('click', () => {
-      stakeInput.value = (USER_HYPE_BALANCE / 2).toFixed(2);
-      updateStakeOutput();
-    });
-    document.getElementById('stake-max').addEventListener('click', () => {
-      stakeInput.value = USER_HYPE_BALANCE.toFixed(2);
-      updateStakeOutput();
-    });
-
-    // Unstake
-    const unstakeInput = document.getElementById('unstake-input');
-    const unstakeOutput = document.getElementById('unstake-output');
-    const unstakeBtn = document.getElementById('unstake-btn');
-
-    function updateUnstakeOutput() {
-      const value = parseFloat(unstakeInput.value) || 0;
-      const output = value * EXCHANGE_RATE;
-      unstakeOutput.textContent = `${output.toFixed(2)} HYPE`;
-      unstakeBtn.disabled = value <= 0 || value > USER_CHYPE_BALANCE;
+    function updateUnstakePreview() {
+      const value = Number(unstakeAmount.value || 0);
+      const receive = value * EXCHANGE_RATE;
+      unstakeReceive.textContent = `${receive.toFixed(2)} HYPE`;
     }
 
-    unstakeInput.addEventListener('input', updateUnstakeOutput);
-    document.getElementById('unstake-half').addEventListener('click', () => {
-      unstakeInput.value = (USER_CHYPE_BALANCE / 2).toFixed(2);
-      updateUnstakeOutput();
-    });
-    document.getElementById('unstake-max').addEventListener('click', () => {
-      unstakeInput.value = USER_CHYPE_BALANCE.toFixed(2);
-      updateUnstakeOutput();
+    stakeAmount.addEventListener('input', updateStakePreview);
+    unstakeAmount.addEventListener('input', updateUnstakePreview);
+
+    document.getElementById('stakeBtn').addEventListener('click', () => {
+      alert('Preview mode only. Use Live Demo for testnet transactions.');
     });
 
-    stakeBtn.addEventListener('click', () => alert('Stake functionality will be connected to smart contract'));
-    unstakeBtn.addEventListener('click', () => alert('Unstake functionality will be connected to smart contract'));
+    document.getElementById('unstakeBtn').addEventListener('click', () => {
+      alert('Preview mode only. Use Live Demo for testnet transactions.');
+    });
   </script>
 </body>
 </html>
