@@ -282,6 +282,21 @@
       line-height: 1.45;
     }
 
+    .context-banner {
+      border: 1px solid rgba(77, 207, 106, 0.35);
+      background: rgba(77, 207, 106, 0.08);
+      color: var(--text-secondary);
+      border-radius: 12px;
+      padding: 0.75rem 0.95rem;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .context-banner strong {
+      color: var(--accent-bright);
+      font-weight: 500;
+    }
+
     .advanced-panel {
       display: none;
       padding-top: 0.25rem;
@@ -376,6 +391,10 @@
       </div>
       <div class="badge">Synthetic APR Demo</div>
     </section>
+
+    <div class="context-banner">
+      <strong>Testnet only:</strong> this page demonstrates mechanics on HyperEVM testnet and is not the production mainnet vault.
+    </div>
 
     <section class="grid">
       <article class="card span-12">
