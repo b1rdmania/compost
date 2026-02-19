@@ -78,11 +78,16 @@
     .nav-link {
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 0.92rem;
+      font-size: 0.9375rem;
       transition: color 0.2s;
     }
 
     .nav-link:hover { color: var(--accent-bright); }
+
+    .nav-link.active {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
 
     .container {
       max-width: 1200px;
@@ -318,7 +323,7 @@
       <div class="nav-left">
         <a href="/" class="nav-lockup"><img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img"></a>
         <a href="/" class="nav-link">Overview</a>
-        <a href="/demo.html" class="nav-link" style="color: var(--accent-bright);">Demo</a>
+        <a href="/demo.html" class="nav-link active">Demo</a>
         <a href="/litepaper.html" class="nav-link">Litepaper</a>
       </div>
       <a href="https://docs.compost.fi" class="nav-link" target="_blank" rel="noopener">Docs</a>
