@@ -6,9 +6,14 @@ Capital formation layer for Hyperliquid builder markets (HIP-3).
 
 ```
 /                     # Main marketing site (static HTML)
-├── index.html        # Landing page
-├── vault.html        # Vault dashboard (stake/unstake interface)
+├── index.html        # Landing page ("Product" in nav)
+├── demo.html         # Demo hub (routes to vault.html or vault-test.html)
+├── vault.html        # Vault dashboard (static mockup, "Vault Preview")
+├── vault-test.html   # Live HyperEVM testnet demo UI
+├── litepaper.html    # Litepaper page
+├── yield.html        # Yield page
 ├── process.html      # Design process page
+├── PROOF-VAULT.md    # Developer doc for testnet vault setup
 ├── api/
 │   └── waitlist.js   # Serverless function for email collection
 ├── assets/
@@ -18,10 +23,19 @@ Capital formation layer for Hyperliquid builder markets (HIP-3).
 │   │   ├── logo-primary.svg
 │   │   └── logo-favicon.svg
 │   └── icons/        # Icon library (18 SVGs)
+├── contracts/
+│   ├── CompostProofVault.sol   # ERC4626-style vault with synthetic APR accrual
+│   └── MockHype.sol            # vHYPE test asset with wallet drip faucet
+├── scripts/
+│   └── deploy-proof-vault.js   # Hardhat deploy script
+├── test/
+│   └── CompostProofVault.test.js
+├── hardhat.config.js           # Hardhat config (HyperEVM testnet)
+├── package.json                # Node deps (hardhat, ethers, vite)
 ├── planning/         # Internal planning docs
-│   ├── vault-design-pitch.md       # Vault page design spec
-│   ├── vault-design-critique.md    # Design audit & improvements
-│   └── nav-redesign-proposal.md    # Navigation redesign spec
+│   ├── vault-design-pitch.md
+│   ├── vault-design-critique.md
+│   └── nav-redesign-proposal.md
 ├── DESIGN.md         # 🔒 CANONICAL design system (read-only)
 └── docs/             # VitePress documentation site
     ├── .vitepress/   # VitePress config and theme
@@ -151,33 +165,49 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 ## Site Pages
 
 ### index.html (Landing Page)
+- Nav active: "Overview"
 - Hero with large wordmark
 - Growth visualization (6-stage plant icons)
 - Waitlist form → `/api/waitlist` → Neon Postgres
 - Market stats section
-- Fixed nav with breakout lockup
 
-### vault.html (Vault Dashboard)
+### demo.html (Demo Hub)
+- Nav active: "Demo"
+- Routes between two experiences:
+  - **Experience A – Vault Preview** → `/vault.html` (static mockup, no wallet needed)
+  - **Experience B – Live Demo** → `/vault-test.html` (HyperEVM testnet, wallet required)
+
+### vault.html (Vault Dashboard — Vault Preview)
 - **Static mockup** of stake/unstake interface
 - Stats bar: TVL, APY, cHYPE/HYPE rate
 - Your Position card (shows staked amounts)
 - Tabs: Stake | Unstake
-- Action panel: input → output calculation
 - Yield breakdown: Base staking (2.1%) + Builder fees (4.2%)
 - Market allocations: trade.xyz, Kinetiq, Ventuals, Felix
-- Trust & security section
-- **Note:** Uses example data, not connected to live contracts yet
+- **Note:** Uses example data, not connected to live contracts
+
+### vault-test.html (Live HyperEVM Testnet Demo)
+- Wallet connect (MetaMask / injected provider)
+- Drip `vHYPE` test tokens from MockHype faucet
+- Approve → Deposit vHYPE → receive cHYPE shares
+- Withdraw cHYPE → receive vHYPE
+- Displays live `pricePerShare` (grows with synthetic APR)
+- Configurable contract addresses (saved to localStorage)
+
+### litepaper.html (Litepaper)
+- Long-form document page
+- Nav active: "Litepaper"
+
+### yield.html (Yield Page)
+- Yield mechanics explainer
 
 ### process.html (Design Process)
 - Article layout about building compost.fi
-- Fixed nav, long-form content
 - Tool showcases and philosophy
 
 ---
 
 ## Navigation Design (Applied Site-Wide)
-
-**Specifications** (see `planning/nav-redesign-proposal.md`):
 
 ### Structure
 ```html
@@ -187,22 +217,26 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
       <a href="/" class="nav-lockup">
         <img src="/assets/logo/lockup-domain-horizontal.svg" class="nav-lockup-img">
       </a>
-      <a href="/vault.html" class="nav-link">Vault</a>
+      <a href="/" class="nav-link active">Overview</a>       <!-- active on index -->
+      <a href="/demo.html" class="nav-link active">Demo</a>  <!-- active on demo + vault.html + vault-test.html -->
+      <a href="/litepaper.html" class="nav-link active">Litepaper</a> <!-- active on litepaper -->
     </div>
     <div class="nav-right">
       <a href="https://docs.compost.fi" class="nav-link">Docs</a>
-      <a href="https://twitter.com/compostfi" class="nav-link">@compostfi</a>
     </div>
   </div>
 </nav>
 ```
+
+Only one link gets `active` per page — shown above for illustration.
 
 ### CSS Specs
 - **Alignment:** Everything uses `align-items: center` (optical center)
 - **Logo:** Breakout lockup at 32px height (28px on mobile)
 - **Links:** 15px (0.9375rem), weight 400, letter-spacing 0.01em
 - **Link color:** `--text-secondary` (#9a958d) - legible but quiet
-- **Active state:** `--text-primary` + weight 500
+- **Active state:** `class="nav-link active"` → `--text-primary` + weight 500 (never use inline styles)
+- **Hover:** `--accent-bright` (#4dcf6a) — inactive links only
 - **Spacing:**
   - Vertical padding: 20px
   - Left gap (logo → links): 40px
@@ -214,6 +248,35 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 - Legible but quiet (follows "whispers not shouts")
 - Clear hierarchy via size + color + weight
 - Follows DESIGN.md canonical specs
+
+---
+
+## Proof Vault (HyperEVM Testnet)
+
+Scoped mechanism demo proving vault accounting on-chain. Does **not** route production HIP-3 yield yet.
+
+### Contracts
+- **`MockHype.sol`** (`vHYPE`) — test asset with wallet drip faucet
+- **`CompostProofVault.sol`** (`cHYPE`) — ERC4626-style vault
+  - `totalAssets` grows linearly from synthetic APR (default 10% / 1000 bps, max 30%)
+  - `accrue()` mints synthetic vHYPE interest into vault
+  - `pricePerShare` increases over time (exchange-rate model, not rebasing)
+  - `deposit(assets, receiver)` → mints shares
+  - `withdraw(assets, receiver)` → burns shares
+  - `setAprBps(uint256)` — owner only
+
+### Deployed Testnet Addresses
+- `MockHype`: `0xAdBc75586E2F5338F460410B87F7AFde0374Fc31`
+- `CompostProofVault`: `0x89bBacDACA0D20CB48FA617b57CF6779979AEC4E`
+
+### Dev Commands
+```bash
+npm run vault:compile
+npm run vault:deploy:testnet
+npm run dev          # local dev server → localhost:3000
+```
+
+See `PROOF-VAULT.md` for full setup instructions.
 
 ---
 
@@ -238,7 +301,7 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 
 ### iOS Implementation Status
 
-**✅ Complete across all pages** (index.html, vault.html, process.html)
+**✅ Complete across all pages** (index.html, vault.html, vault-test.html, demo.html, litepaper.html, yield.html, process.html)
 
 All pages implement DESIGN.md iOS patterns:
 - ✅ `viewport-fit=cover` (full-bleed design)
@@ -253,7 +316,8 @@ All pages implement DESIGN.md iOS patterns:
 ### Environment Variables
 
 ```
-DATABASE_URL=postgresql://... (Neon connection string)
+DATABASE_URL=postgresql://...       # Neon connection string (waitlist)
+DEPLOYER_PRIVATE_KEY=0x...          # Wallet key for Hardhat deploy (never commit)
 ```
 
 ## Partners

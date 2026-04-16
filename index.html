@@ -479,6 +479,13 @@
       font-style: italic;
     }
 
+    .opportunity-stats-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0;
+    }
+
     .opportunity-stats {
       display: flex;
       flex-direction: column;
@@ -501,6 +508,14 @@
       font-size: 0.875rem;
       font-weight: 400;
       color: var(--text-muted);
+    }
+
+    .opportunity-stats-asof {
+      margin-top: 1.25rem;
+      text-align: right;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
     }
 
     /* Beat 2: The Barrier */
@@ -925,12 +940,22 @@
 
     /* Dune CTA - matches .btn style */
     .market-stats-cta {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
       margin-bottom: 3rem;
     }
 
+    .market-stats-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+
     .market-stats-updated {
-      margin-top: 0.9rem;
+      margin-top: 0.2rem;
       font-size: 0.8rem;
       color: var(--text-muted);
       letter-spacing: 0.03em;
@@ -952,6 +977,18 @@
 
     .dune-cta:hover {
       background: #3db85a;
+    }
+
+    .dune-cta.dune-cta-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid rgba(232, 228, 223, 0.16);
+    }
+
+    .dune-cta.dune-cta-secondary:hover {
+      background: rgba(77, 207, 106, 0.06);
+      border-color: rgba(77, 207, 106, 0.35);
+      color: var(--accent-bright);
     }
 
     /* ==================== TRUST STATEMENTS ==================== */
@@ -1216,6 +1253,11 @@
         gap: 2.5rem;
       }
 
+      .opportunity-stats-wrap {
+        align-items: flex-start;
+        width: 100%;
+      }
+
       .opportunity-stats {
         flex-direction: row;
         gap: 2rem;
@@ -1223,6 +1265,10 @@
       }
 
       .opportunity-stat {
+        text-align: left;
+      }
+
+      .opportunity-stats-asof {
         text-align: left;
       }
 
@@ -1374,6 +1420,7 @@
         </a>
         <a href="/" class="nav-link active">Overview</a>
         <a href="/demo.html" class="nav-link">Demo</a>
+        <a href="/hip3.html" class="nav-link">HIP-3</a>
         <a href="/litepaper.html" class="nav-link">Litepaper</a>
       </div>
       <div class="nav-right">
@@ -1432,19 +1479,22 @@
             <p>Anyone can launch trading markets — stocks, crypto, pre-IPO, anything. Launch one, earn 50% of fees. Protocol-enforced. Unstoppable. <a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-3-builder-deployed-perpetuals" target="_blank" rel="noopener" class="inline-link">Learn about HIP-3 →</a></p>
             <p class="opportunity-coming">Coming soon: <span class="highlight">HIP-4</span> — prediction markets, options-like instruments, and more. Currently on testnet.</p>
           </div>
-          <div class="opportunity-stats">
-            <div class="opportunity-stat">
-              <div class="opportunity-stat-value">$55.75B</div>
-              <div class="opportunity-stat-label">volume traded</div>
+          <div class="opportunity-stats-wrap">
+            <div class="opportunity-stats">
+              <div class="opportunity-stat">
+                <div class="opportunity-stat-value">$87.32B</div>
+                <div class="opportunity-stat-label">volume traded</div>
+              </div>
+              <div class="opportunity-stat">
+                <div class="opportunity-stat-value">$13.63M</div>
+                <div class="opportunity-stat-label">fees generated</div>
+              </div>
+              <div class="opportunity-stat">
+                <div class="opportunity-stat-value">$2.07B</div>
+                <div class="opportunity-stat-label">open interest</div>
+              </div>
             </div>
-            <div class="opportunity-stat">
-              <div class="opportunity-stat-value">$6.13M</div>
-              <div class="opportunity-stat-label">fees generated</div>
-            </div>
-            <div class="opportunity-stat">
-              <div class="opportunity-stat-value">$737.32M</div>
-              <div class="opportunity-stat-label">open interest</div>
-            </div>
+            <p class="opportunity-stats-asof">HIP-3 aggregates (Dune). As of April 14, 2026.</p>
           </div>
         </div>
 
@@ -1589,35 +1639,38 @@
 
         <div class="market-stats-row reveal">
           <div class="market-stat">
-            <div class="market-stat-value">$55.75B</div>
+            <div class="market-stat-value">$87.32B</div>
             <div class="market-stat-label">Cumulative volume</div>
           </div>
           <div class="market-stat">
-            <div class="market-stat-value">$6.13M</div>
+            <div class="market-stat-value">$13.63M</div>
             <div class="market-stat-label">Total fees</div>
           </div>
           <div class="market-stat">
-            <div class="market-stat-value">$737.32M</div>
+            <div class="market-stat-value">$2.07B</div>
             <div class="market-stat-label">Open interest</div>
           </div>
         </div>
 
         <div class="market-stats-cta reveal">
-          <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="dune-cta">View Live HIP-3 Stats</a>
-          <div class="market-stats-updated">Last updated: February 19, 2026</div>
+          <div class="market-stats-ctas">
+            <a href="/hip3.html" class="dune-cta">Open HIP-3 Live Board</a>
+            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="dune-cta dune-cta-secondary">Also On Dune</a>
+          </div>
+          <div class="market-stats-updated">Last updated: April 14, 2026 · Live board refreshes every 60s</div>
         </div>
 
         <div class="market-cards reveal">
           <a href="https://trade.xyz" target="_blank" rel="noopener" class="market-card">
             <div class="market-card-name">trade.xyz</div>
             <div class="market-card-category">Equities</div>
-            <div class="market-card-status"><span class="highlight">$12.7B+</span> volume</div>
+            <div class="market-card-status"><span class="highlight">$75.5B+</span> volume</div>
             <div class="market-card-link">trade.xyz</div>
           </a>
           <a href="https://kinetiq.xyz" target="_blank" rel="noopener" class="market-card">
             <div class="market-card-name">Kinetiq Markets</div>
             <div class="market-card-category">Global Indices</div>
-            <div class="market-card-status"><span class="highlight">$363M</span> 30d volume</div>
+            <div class="market-card-status"><span class="highlight">$1.4B+</span> volume</div>
             <div class="market-card-link">kinetiq.xyz</div>
           </a>
           <a href="https://felix.xyz" target="_blank" rel="noopener" class="market-card">
