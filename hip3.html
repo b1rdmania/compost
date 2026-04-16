@@ -497,6 +497,12 @@
       gap: 1rem;
     }
 
+    .double-table-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
     .market-detail-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -736,7 +742,8 @@
 
       .builder-strip,
       .metric-grid,
-      .market-detail-grid {
+      .market-detail-grid,
+      .double-table-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
@@ -781,7 +788,8 @@
       .sources-list,
       .builder-strip,
       .metric-grid,
-      .market-detail-grid {
+      .market-detail-grid,
+      .double-table-grid {
         grid-template-columns: 1fr;
       }
 
@@ -1020,6 +1028,136 @@
       <div class="container">
         <div class="section-header reveal">
           <div>
+            <div class="section-kicker">Registry Footprint</div>
+            <h2 class="section-title">Configured builder capacity on Hyperliquid.</h2>
+          </div>
+          <div class="section-copy">
+            Activity tells you what is trading now. Registry config tells you what builders have actually provisioned:
+            OI caps, funding settings, and permission surface.
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric-card reveal">
+            <div class="metric-card-label">Configured OI cap</div>
+            <div class="metric-card-value" id="metric-configured-cap">-</div>
+            <p class="metric-card-copy">Total streaming OI cap configured across public HIP-3 builder DEXs.</p>
+          </article>
+          <article class="metric-card reveal">
+            <div class="metric-card-label">Largest builder footprint</div>
+            <div class="metric-card-value" id="metric-largest-builder-cap">-</div>
+            <p class="metric-card-copy" id="metric-largest-builder-copy">Loading builder config…</p>
+          </article>
+          <article class="metric-card reveal">
+            <div class="metric-card-label">Largest single-market cap</div>
+            <div class="metric-card-value" id="metric-largest-market-cap">-</div>
+            <p class="metric-card-copy" id="metric-largest-market-copy">Loading market cap config…</p>
+          </article>
+          <article class="metric-card reveal">
+            <div class="metric-card-label">Sub-deployer permissions</div>
+            <div class="metric-card-value" id="metric-subdeployers">-</div>
+            <p class="metric-card-copy">Count of delegated permissions exposed through the public registry right now.</p>
+          </article>
+        </div>
+
+        <div class="table-shell reveal" style="margin-top: 2rem;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Builder</th>
+                <th>Configured OI cap</th>
+                <th>Largest cap market</th>
+                <th>Avg funding multiplier</th>
+                <th>Deployer fee scale</th>
+                <th>Sub-deployer permissions</th>
+              </tr>
+            </thead>
+            <tbody id="config-table-body">
+              <tr>
+                <td><strong>Loading…</strong></td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">Loading builder config from Hyperliquid.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Open Interest + Funding</div>
+            <h2 class="section-title">Where positions are sitting and where carry is spiking.</h2>
+          </div>
+          <div class="section-copy">
+            Volume is only one lens. These tables show where builder-market positioning is concentrated and which
+            markets currently have the largest positive or negative funding pressure.
+          </div>
+        </div>
+
+        <div class="double-table-grid">
+          <div class="table-shell reveal">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Top OI market</th>
+                  <th>Builder</th>
+                  <th>Live OI</th>
+                  <th>24h volume</th>
+                  <th>OI cap</th>
+                  <th>Max lev</th>
+                </tr>
+              </thead>
+              <tbody id="oi-table-body">
+                <tr>
+                  <td><strong>Loading…</strong></td>
+                  <td class="table-muted">-</td>
+                  <td class="table-muted">-</td>
+                  <td class="table-muted">-</td>
+                  <td class="table-muted">-</td>
+                  <td class="table-muted">Loading top OI markets.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-shell reveal">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Funding extreme</th>
+                  <th>Builder</th>
+                  <th>Funding</th>
+                  <th>24h volume</th>
+                  <th>Live OI</th>
+                  <th>Mark</th>
+                </tr>
+              </thead>
+              <tbody id="funding-table-body">
+                <tr>
+                  <td><strong>Loading…</strong></td>
+                  <td class="table-muted">-</td>
+                  <td class="table-muted">-</td>
+                  <td class="table-muted">-</td>
+                  <td class="table-muted">-</td>
+                  <td class="table-muted">Loading funding extremes.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
             <div class="section-kicker">Methodology</div>
             <h2 class="section-title">Open sources. Clear caveats.</h2>
           </div>
@@ -1246,6 +1384,54 @@
       `).join("");
     }
 
+    function renderConfigTable(builders) {
+      const tbody = document.getElementById("config-table-body");
+      if (!tbody) return;
+
+      tbody.innerHTML = builders.map((builder) => `
+        <tr>
+          <td><strong>${builder.display}</strong><br><span class="table-muted">${builder.fullName || builder.display}</span></td>
+          <td>${formatUsdCompact(builder.configuredOiCap)}</td>
+          <td>${builder.maxCapMarketName || "N/A"}<br><span class="table-muted">${formatUsdCompact(builder.maxCapMarketValue || 0)}</span></td>
+          <td>${builder.avgFundingMultiplier.toFixed(2)}x</td>
+          <td>${builder.deployerFeeScale.toFixed(4)}</td>
+          <td>${formatInteger(builder.subDeployerPermissions)}</td>
+        </tr>
+      `).join("");
+    }
+
+    function renderOiTable(markets, builderMap) {
+      const tbody = document.getElementById("oi-table-body");
+      if (!tbody) return;
+
+      tbody.innerHTML = markets.map((market) => `
+        <tr>
+          <td><strong>${cleanCoinName(market.coin)}</strong><br><span class="table-muted">${market.coin}</span></td>
+          <td>${builderMap.get(market.dex)?.display || market.dex}</td>
+          <td>${formatUsdCompact(market.openInterestUsd)}</td>
+          <td>${formatUsdCompact(market.dayVolume)}</td>
+          <td>${formatUsdCompact(market.oiCap)}</td>
+          <td>${formatInteger(market.maxLeverage)}x</td>
+        </tr>
+      `).join("");
+    }
+
+    function renderFundingTable(markets, builderMap) {
+      const tbody = document.getElementById("funding-table-body");
+      if (!tbody) return;
+
+      tbody.innerHTML = markets.map((market) => `
+        <tr>
+          <td><strong>${cleanCoinName(market.coin)}</strong><br><span class="table-muted">${market.coin}</span></td>
+          <td>${builderMap.get(market.dex)?.display || market.dex}</td>
+          <td>${formatFunding(market.funding)}</td>
+          <td>${formatUsdCompact(market.dayVolume)}</td>
+          <td>${formatUsdCompact(market.openInterestUsd)}</td>
+          <td>${formatPrice(market.markPx)}</td>
+        </tr>
+      `).join("");
+    }
+
     function renderMarketDetailCards(markets, builderMap, totalVolume) {
       const grid = document.getElementById("market-detail-grid");
       if (!grid) return;
@@ -1299,6 +1485,15 @@
             const markPx = Number(ctx.markPx || ctx.oraclePx || 0);
             return sum + openInterest * markPx;
           }, 0);
+          const caps = new Map((dex.assetToStreamingOiCap || []).map(([assetName, value]) => [assetName, Number(value || 0)]));
+          const fundingMultipliers = (dex.assetToFundingMultiplier || []).map(([, value]) => Number(value || 0));
+          const configuredOiCap = Array.from(caps.values()).reduce((sum, value) => sum + value, 0);
+          const largestCapEntry = Array.from(caps.entries()).sort((a, b) => b[1] - a[1])[0] || null;
+          const subDeployerPermissions = (dex.subDeployers || []).reduce((sum, [, users]) => sum + users.length, 0);
+          const deployerFeeScale = Number(dex.deployerFeeScale || 0);
+          const avgFundingMultiplier = fundingMultipliers.length
+            ? fundingMultipliers.reduce((sum, value) => sum + value, 0) / fundingMultipliers.length
+            : 0;
           const markets = meta.universe.map((asset, index) => {
             const ctx = ctxs[index] || {};
             const openInterest = Number(ctx.openInterest || 0);
@@ -1310,6 +1505,8 @@
               growthMode: asset.growthMode || null,
               dayVolume: Number(ctx.dayNtlVlm || 0),
               openInterestUsd: openInterest * markPx,
+              oiCap: caps.get(asset.name) || 0,
+              maxLeverage: Number(asset.maxLeverage || 0),
               markPx,
               funding: Number(ctx.funding || 0)
             };
@@ -1326,6 +1523,12 @@
             marketCount,
             dayVolume,
             openInterestUsd,
+            configuredOiCap,
+            maxCapMarketName: largestCapEntry ? cleanCoinName(largestCapEntry[0]) : null,
+            maxCapMarketValue: largestCapEntry ? largestCapEntry[1] : 0,
+            avgFundingMultiplier,
+            deployerFeeScale,
+            subDeployerPermissions,
             growthModeCount,
             topMarketName: topMarket ? cleanCoinName(topMarket.coin) : null,
             markets,
@@ -1347,6 +1550,18 @@
           ? builderData.slice(0, 3).reduce((sum, builder) => sum + builder.dayVolume, 0) / totalVolume
           : 0;
         const topMarkets = [...allMarkets].sort((a, b) => b.dayVolume - a.dayVolume).slice(0, 12);
+        const topOiMarkets = [...allMarkets].sort((a, b) => b.openInterestUsd - a.openInterestUsd).slice(0, 10);
+        const topFundingMarkets = [...allMarkets].sort((a, b) => Math.abs(b.funding) - Math.abs(a.funding)).slice(0, 10);
+        const totalConfiguredOiCap = builderData.reduce((sum, builder) => sum + builder.configuredOiCap, 0);
+        const largestBuilderByCap = [...builderData].sort((a, b) => b.configuredOiCap - a.configuredOiCap)[0];
+        const largestMarketCap = builderData
+          .map((builder) => ({
+            builder: builder.display,
+            market: builder.maxCapMarketName,
+            value: builder.maxCapMarketValue
+          }))
+          .sort((a, b) => b.value - a.value)[0];
+        const totalSubDeployerPermissions = builderData.reduce((sum, builder) => sum + builder.subDeployerPermissions, 0);
         const builderMap = new Map(builderData.map((builder) => [builder.name, builder]));
 
         updateText("stat-volume", formatUsdCompact(totalVolume));
@@ -1357,11 +1572,24 @@
         updateText("metric-top3-share", formatPercent(top3Share));
         updateText("metric-growth-markets", formatInteger(growthModeMarkets));
         updateText("metric-active-markets", formatInteger(activeMarkets));
+        updateText("metric-configured-cap", formatUsdCompact(totalConfiguredOiCap));
+        updateText("metric-largest-builder-cap", formatUsdCompact(largestBuilderByCap?.configuredOiCap || 0));
+        updateText("metric-largest-market-cap", formatUsdCompact(largestMarketCap?.value || 0));
+        updateText("metric-subdeployers", formatInteger(totalSubDeployerPermissions));
+        updateText("metric-largest-builder-copy", largestBuilderByCap
+          ? `${largestBuilderByCap.display} has the largest configured builder footprint in the live registry.`
+          : "No builder config available.");
+        updateText("metric-largest-market-copy", largestMarketCap?.market
+          ? `${largestMarketCap.market} is the largest single-market configured OI cap on the board.`
+          : "No market cap config available.");
 
         renderBuilderStrip(builderData);
         renderBuilderTable(builderData);
+        renderConfigTable(builderData);
         renderMarketTable(topMarkets, builderMap);
         renderMarketDetailCards(topMarkets, builderMap, totalVolume);
+        renderOiTable(topOiMarkets, builderMap);
+        renderFundingTable(topFundingMarkets, builderMap);
 
         const source = document.getElementById("panel-source");
         if (source) {
