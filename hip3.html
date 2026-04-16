@@ -737,31 +737,30 @@
           <div class="panel-label">Public Snapshot</div>
           <div class="scoreboard">
             <div class="score-card">
-              <div class="score-label">Cumulative volume</div>
-              <div class="score-value">$87.32B</div>
-              <div class="score-context">HIP-3 aggregate volume across tracked builder markets.</div>
+              <div class="score-label">24h volume</div>
+              <div class="score-value" id="stat-volume">$-.--</div>
+              <div class="score-context">Rolling notional volume across public HIP-3 perpetual DEXs.</div>
             </div>
             <div class="score-card">
-              <div class="score-label">Total fees</div>
-              <div class="score-value">$13.63M</div>
-              <div class="score-context">Publicly tracked fee generation across the HIP-3 surface.</div>
+              <div class="score-label">Live open interest</div>
+              <div class="score-value" id="stat-oi">$-.--</div>
+              <div class="score-context">Summed from live mark prices and open interest across builder markets.</div>
             </div>
             <div class="score-card">
-              <div class="score-label">Open interest</div>
-              <div class="score-value">$2.07B</div>
-              <div class="score-context">Builder-market open interest, not total Hyperliquid OI.</div>
+              <div class="score-label">Tracked builders</div>
+              <div class="score-value" id="stat-builders">-</div>
+              <div class="score-context">Public perp DEXs returned by the Hyperliquid `perpDexs` registry.</div>
             </div>
             <div class="score-card">
-              <div class="score-label">Builder stake</div>
-              <div class="score-value">500K HYPE</div>
-              <div class="score-context">The threshold that forces deployers to behave like real operators.</div>
+              <div class="score-label">Tracked markets</div>
+              <div class="score-value" id="stat-markets">-</div>
+              <div class="score-context">Live market count across the currently registered HIP-3 builder surface.</div>
             </div>
           </div>
-          <div class="panel-source">
-            Tracked builders: <strong>7</strong> on the current public scoreboard.
-            Snapshot values reference the public dashboard at
-            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>
-            and Hyperliquid's public HIP-3 docs. Snapshot date: <strong>April 14, 2026</strong>.
+          <div class="panel-source" id="panel-source">
+            Live values hydrate from Hyperliquid's public `perpDexs` and `metaAndAssetCtxs` endpoints.
+            Historical board context still lives on
+            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>.
           </div>
         </aside>
       </div>
@@ -853,14 +852,8 @@
           </div>
         </div>
 
-        <div class="builder-strip reveal">
-          <div class="builder-chip"><strong>trade.xyz</strong>Leading proof point</div>
-          <div class="builder-chip"><strong>Felix</strong>DeFi-native builder</div>
-          <div class="builder-chip"><strong>Ventuals</strong>Narrative / private markets</div>
-          <div class="builder-chip"><strong>hyENA</strong>Emerging public flow</div>
-          <div class="builder-chip"><strong>Markets</strong>Tracked on board</div>
-          <div class="builder-chip"><strong>Dreamcash</strong>Tracked on board</div>
-          <div class="builder-chip"><strong>Paragon</strong>Tracked on board</div>
+        <div class="builder-strip reveal" id="builder-strip">
+          <div class="builder-chip"><strong>Loading</strong>Pulling live builder registry…</div>
         </div>
 
         <div class="table-shell reveal" style="margin-top: 2rem;">
@@ -868,30 +861,19 @@
             <thead>
               <tr>
                 <th>Builder</th>
-                <th>Public read</th>
+                <th>Markets</th>
+                <th>24h volume</th>
+                <th>Live OI</th>
                 <th>Why it matters</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="builder-table-body">
               <tr>
-                <td><strong>trade.xyz</strong></td>
-                <td>Still the clearest commercial proof that HIP-3 can package non-crypto exposure into a product people return to.</td>
-                <td>Shows that behavior-first wrappers beat abstract infra narratives when a new primitive is still unfamiliar.</td>
-              </tr>
-              <tr>
-                <td><strong>Felix</strong></td>
-                <td>A DeFi-native builder that extends an existing product footprint into builder markets rather than starting from zero.</td>
-                <td>Useful signal for how established Hyperliquid-native teams may expand horizontally into trading surfaces.</td>
-              </tr>
-              <tr>
-                <td><strong>Ventuals</strong></td>
-                <td>Important because it widens HIP-3 beyond plain vanilla majors and into more narrative-driven market design.</td>
-                <td>Helps test whether builder success can come from differentiated category selection, not just scale.</td>
-              </tr>
-              <tr>
-                <td><strong>hyENA / Markets / Dreamcash / Paragon</strong></td>
-                <td>Smaller names matter even when public attention is concentrated. They are part of the long tail the market tends to ignore.</td>
-                <td>The next useful signal is not just who is biggest. It is whether the long tail is finding durable niches, or simply flashing into the board and out again.</td>
+                <td><strong>Loading…</strong></td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">Fetching builder market rollups from the public Hyperliquid API.</td>
               </tr>
             </tbody>
           </table>
@@ -1001,11 +983,11 @@
 
         <div class="sources-list">
           <article class="source-card reveal">
-            <div class="source-label">Primary stats</div>
-            <h3><a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune HIP-3 dashboard</a></h3>
+            <div class="source-label">Primary live data</div>
+            <h3><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint/perpetuals" target="_blank" rel="noopener">Hyperliquid Info API</a></h3>
             <p>
-              Current public scoreboard for HIP-3 aggregates and tracked builders. Snapshot values on this page use the
-              April 14, 2026 board state.
+              Live figures on this page are loaded from the public `perpDexs` registry and `metaAndAssetCtxs` responses
+              for each builder DEX.
             </p>
           </article>
 
@@ -1024,6 +1006,15 @@
             <p>
               Useful narrative framing and public ecosystem context around builder markets, growth mode, and early
               commercialization patterns.
+            </p>
+          </article>
+
+          <article class="source-card reveal">
+            <div class="source-label">Historical board</div>
+            <h3><a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune HIP-3 dashboard</a></h3>
+            <p>
+              Still the best public historical scoreboard for broader HIP-3 tracking, even though this page now
+              hydrates live top-line metrics directly from Hyperliquid.
             </p>
           </article>
         </div>
@@ -1060,6 +1051,182 @@
     }, { threshold: 0.14 });
 
     document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+
+    const BUILDER_NOTES = {
+      xyz: {
+        display: "trade.xyz",
+        note: "Still the clearest commercial proof that HIP-3 can package non-crypto exposure into a product people return to.",
+        why: "Shows that behavior-first wrappers beat abstract infra narratives when a new primitive is still unfamiliar."
+      },
+      flx: {
+        display: "Felix",
+        note: "A DeFi-native builder that extends an existing product footprint into builder markets rather than starting from zero.",
+        why: "Useful signal for how established Hyperliquid-native teams may expand horizontally into trading surfaces."
+      },
+      vntl: {
+        display: "Ventuals",
+        note: "Important because it widens HIP-3 beyond plain vanilla majors and into more narrative-driven market design.",
+        why: "Helps test whether builder success can come from differentiated category selection, not just scale."
+      },
+      hyna: {
+        display: "hyENA",
+        note: "Part of the long tail that matters even when public attention is concentrated around the biggest builder.",
+        why: "The next useful signal is not just who is biggest. It is whether smaller builders can sustain niches with real demand."
+      },
+      km: {
+        display: "Markets by Kinetiq",
+        note: "Shows how an existing Hyperliquid-native protocol can extend into a builder DEX instead of staying in a single product lane.",
+        why: "Useful benchmark for integrated ecosystem distribution rather than greenfield market creation."
+      },
+      abcd: {
+        display: "ABCDEx",
+        note: "Tiny surfaces still matter because public boards often understate how experimental the builder long tail really is.",
+        why: "A reminder that the registry is broader than the handful of names most people remember."
+      },
+      cash: {
+        display: "dreamcash",
+        note: "An active smaller builder that helps show whether share outside the top names is compounding or merely flickering.",
+        why: "Good read-through for whether HIP-3 can support multiple credible businesses instead of one dominant winner."
+      },
+      para: {
+        display: "Paragon",
+        note: "Another useful edge-case builder in the public surface area whose persistence tells you something about category breadth.",
+        why: "If the long tail can survive, HIP-3 becomes more interesting as an ecosystem and less of a single-builder story."
+      }
+    };
+
+    const API_URL = "https://api.hyperliquid.xyz/info";
+
+    function formatUsdCompact(value) {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        notation: "compact",
+        maximumFractionDigits: value >= 1e9 ? 2 : 1
+      }).format(value);
+    }
+
+    function formatInteger(value) {
+      return new Intl.NumberFormat("en-US").format(value);
+    }
+
+    async function postInfo(payload) {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Hyperliquid API error: ${response.status}`);
+      }
+
+      return response.json();
+    }
+
+    function updateText(id, text) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.textContent = text;
+      }
+    }
+
+    function renderBuilderStrip(builders) {
+      const strip = document.getElementById("builder-strip");
+      if (!strip) return;
+
+      strip.innerHTML = builders.map((builder) => {
+        const volume = formatUsdCompact(builder.dayVolume);
+        return `<div class="builder-chip"><strong>${builder.display}</strong>${builder.marketCount} markets · ${volume}</div>`;
+      }).join("");
+    }
+
+    function renderBuilderTable(builders) {
+      const tbody = document.getElementById("builder-table-body");
+      if (!tbody) return;
+
+      tbody.innerHTML = builders.map((builder) => `
+        <tr>
+          <td>
+            <strong>${builder.display}</strong><br>
+            <span class="table-muted">${builder.fullName || builder.display}</span>
+          </td>
+          <td>${formatInteger(builder.marketCount)}</td>
+          <td>${formatUsdCompact(builder.dayVolume)}</td>
+          <td>${formatUsdCompact(builder.openInterestUsd)}</td>
+          <td>
+            ${builder.note}<br>
+            <span class="table-muted">${builder.why}</span>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    async function loadHip3LiveStats() {
+      try {
+        const registry = await postInfo({ type: "perpDexs" });
+        const dexs = registry.filter(Boolean);
+
+        const builderData = await Promise.all(dexs.map(async (dex) => {
+          const [meta, ctxs] = await postInfo({ type: "metaAndAssetCtxs", dex: dex.name });
+          const marketCount = meta.universe.length;
+          const dayVolume = ctxs.reduce((sum, ctx) => sum + Number(ctx.dayNtlVlm || 0), 0);
+          const openInterestUsd = ctxs.reduce((sum, ctx) => {
+            const openInterest = Number(ctx.openInterest || 0);
+            const markPx = Number(ctx.markPx || ctx.oraclePx || 0);
+            return sum + openInterest * markPx;
+          }, 0);
+
+          const notes = BUILDER_NOTES[dex.name] || {};
+
+          return {
+            name: dex.name,
+            display: notes.display || dex.fullName || dex.name,
+            fullName: dex.fullName,
+            marketCount,
+            dayVolume,
+            openInterestUsd,
+            note: notes.note || "Public builder DEX visible in Hyperliquid's open registry.",
+            why: notes.why || "Useful because the registry itself tells us how broad the builder surface has become."
+          };
+        }));
+
+        builderData.sort((a, b) => b.dayVolume - a.dayVolume);
+
+        const totalVolume = builderData.reduce((sum, builder) => sum + builder.dayVolume, 0);
+        const totalOi = builderData.reduce((sum, builder) => sum + builder.openInterestUsd, 0);
+        const totalMarkets = builderData.reduce((sum, builder) => sum + builder.marketCount, 0);
+
+        updateText("stat-volume", formatUsdCompact(totalVolume));
+        updateText("stat-oi", formatUsdCompact(totalOi));
+        updateText("stat-builders", formatInteger(builderData.length));
+        updateText("stat-markets", formatInteger(totalMarkets));
+
+        renderBuilderStrip(builderData);
+        renderBuilderTable(builderData);
+
+        const source = document.getElementById("panel-source");
+        if (source) {
+          source.innerHTML = `
+            Live values hydrate from Hyperliquid's public <strong>perpDexs</strong> and <strong>metaAndAssetCtxs</strong> endpoints.
+            Updated ${new Intl.DateTimeFormat("en-US", {
+              dateStyle: "medium",
+              timeStyle: "short"
+            }).format(new Date())}.
+            Historical board context still lives on
+            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>.
+          `;
+        }
+      } catch (error) {
+        const source = document.getElementById("panel-source");
+        if (source) {
+          source.innerHTML = `Live fetch failed. This page still links out to <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a> and the Hyperliquid docs while the API is unavailable.`;
+        }
+        console.error(error);
+      }
+    }
+
+    loadHip3LiveStats();
   </script>
 </body>
 </html>
