@@ -497,6 +497,43 @@
       gap: 1rem;
     }
 
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .metric-card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    }
+
+    .metric-card-label {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.65rem;
+    }
+
+    .metric-card-value {
+      color: var(--text-primary);
+      font-size: clamp(1.45rem, 3vw, 2.05rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 0.55rem;
+    }
+
+    .metric-card-copy {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
     .feature-card .card-title {
       display: flex;
       align-items: center;
@@ -635,7 +672,8 @@
         grid-template-columns: 1fr 1fr;
       }
 
-      .builder-strip {
+      .builder-strip,
+      .metric-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
@@ -678,7 +716,8 @@
       .feature-grid,
       .insight-grid,
       .sources-list,
-      .builder-strip {
+      .builder-strip,
+      .metric-grid {
         grid-template-columns: 1fr;
       }
 
@@ -763,6 +802,89 @@
             <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>.
           </div>
         </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Live Structure</div>
+            <h2 class="section-title">What the public registry says right now.</h2>
+          </div>
+          <div class="section-copy">
+            These are not editorial claims. They are direct rollups from Hyperliquid's builder DEX registry and live
+            asset contexts: concentration, breadth, growth mode coverage, and how much of the board is actually trading.
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric-card reveal">
+            <div class="metric-card-label">Top builder share</div>
+            <div class="metric-card-value" id="metric-top-share">-</div>
+            <p class="metric-card-copy">Share of total 24h HIP-3 builder volume captured by the single largest public builder DEX.</p>
+          </article>
+
+          <article class="metric-card reveal">
+            <div class="metric-card-label">Top 3 concentration</div>
+            <div class="metric-card-value" id="metric-top3-share">-</div>
+            <p class="metric-card-copy">Combined 24h volume share of the three largest public builder DEXs.</p>
+          </article>
+
+          <article class="metric-card reveal">
+            <div class="metric-card-label">Growth mode markets</div>
+            <div class="metric-card-value" id="metric-growth-markets">-</div>
+            <p class="metric-card-copy">Count of builder markets currently marked `growthMode: enabled` in the live registry.</p>
+          </article>
+
+          <article class="metric-card reveal">
+            <div class="metric-card-label">Markets with volume</div>
+            <div class="metric-card-value" id="metric-active-markets">-</div>
+            <p class="metric-card-copy">Builder markets showing non-zero 24h notional volume in the latest API read.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Top Markets</div>
+            <h2 class="section-title">The live board underneath the builder rollup.</h2>
+          </div>
+          <div class="section-copy">
+            The clearest public way to avoid fake storytelling is to show the markets themselves. This board is sorted by
+            live 24h volume across all public HIP-3 builder DEXs.
+          </div>
+        </div>
+
+        <div class="table-shell reveal">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Market</th>
+                <th>Builder</th>
+                <th>24h volume</th>
+                <th>Live OI</th>
+                <th>Mark</th>
+                <th>Funding</th>
+                <th>Growth mode</th>
+              </tr>
+            </thead>
+            <tbody id="market-table-body">
+              <tr>
+                <td><strong>Loading…</strong></td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">-</td>
+                <td class="table-muted">Loading top markets from Hyperliquid.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -1110,6 +1232,24 @@
       return new Intl.NumberFormat("en-US").format(value);
     }
 
+    function formatPercent(value) {
+      return `${(value * 100).toFixed(1)}%`;
+    }
+
+    function formatFunding(value) {
+      return `${(value * 100).toFixed(4)}%`;
+    }
+
+    function formatPrice(value) {
+      return new Intl.NumberFormat("en-US", {
+        maximumFractionDigits: value >= 1000 ? 1 : value >= 100 ? 2 : 4
+      }).format(value);
+    }
+
+    function cleanCoinName(coin) {
+      return coin.includes(":") ? coin.split(":")[1] : coin;
+    }
+
     async function postInfo(payload) {
       const response = await fetch(API_URL, {
         method: "POST",
@@ -1156,8 +1296,26 @@
           <td>${formatUsdCompact(builder.openInterestUsd)}</td>
           <td>
             ${builder.note}<br>
+            <span class="table-muted">Top market: ${builder.topMarketName || "N/A"} · Growth mode markets: ${formatInteger(builder.growthModeCount)}</span><br>
             <span class="table-muted">${builder.why}</span>
           </td>
+        </tr>
+      `).join("");
+    }
+
+    function renderMarketTable(markets, builderMap) {
+      const tbody = document.getElementById("market-table-body");
+      if (!tbody) return;
+
+      tbody.innerHTML = markets.map((market) => `
+        <tr>
+          <td><strong>${cleanCoinName(market.coin)}</strong><br><span class="table-muted">${market.coin}</span></td>
+          <td>${builderMap.get(market.dex)?.display || market.dex}</td>
+          <td>${formatUsdCompact(market.dayVolume)}</td>
+          <td>${formatUsdCompact(market.openInterestUsd)}</td>
+          <td>${formatPrice(market.markPx)}</td>
+          <td>${formatFunding(market.funding)}</td>
+          <td>${market.growthMode === "enabled" ? "Enabled" : "Off"}</td>
         </tr>
       `).join("");
     }
@@ -1176,8 +1334,25 @@
             const markPx = Number(ctx.markPx || ctx.oraclePx || 0);
             return sum + openInterest * markPx;
           }, 0);
+          const markets = meta.universe.map((asset, index) => {
+            const ctx = ctxs[index] || {};
+            const openInterest = Number(ctx.openInterest || 0);
+            const markPx = Number(ctx.markPx || ctx.oraclePx || 0);
+
+            return {
+              coin: asset.name,
+              dex: dex.name,
+              growthMode: asset.growthMode || null,
+              dayVolume: Number(ctx.dayNtlVlm || 0),
+              openInterestUsd: openInterest * markPx,
+              markPx,
+              funding: Number(ctx.funding || 0)
+            };
+          });
 
           const notes = BUILDER_NOTES[dex.name] || {};
+          const topMarket = [...markets].sort((a, b) => b.dayVolume - a.dayVolume)[0];
+          const growthModeCount = markets.filter((market) => market.growthMode === "enabled").length;
 
           return {
             name: dex.name,
@@ -1186,6 +1361,9 @@
             marketCount,
             dayVolume,
             openInterestUsd,
+            growthModeCount,
+            topMarketName: topMarket ? cleanCoinName(topMarket.coin) : null,
+            markets,
             note: notes.note || "Public builder DEX visible in Hyperliquid's open registry.",
             why: notes.why || "Useful because the registry itself tells us how broad the builder surface has become."
           };
@@ -1196,14 +1374,28 @@
         const totalVolume = builderData.reduce((sum, builder) => sum + builder.dayVolume, 0);
         const totalOi = builderData.reduce((sum, builder) => sum + builder.openInterestUsd, 0);
         const totalMarkets = builderData.reduce((sum, builder) => sum + builder.marketCount, 0);
+        const allMarkets = builderData.flatMap((builder) => builder.markets);
+        const growthModeMarkets = allMarkets.filter((market) => market.growthMode === "enabled").length;
+        const activeMarkets = allMarkets.filter((market) => market.dayVolume > 0).length;
+        const topBuilderShare = totalVolume > 0 ? builderData[0].dayVolume / totalVolume : 0;
+        const top3Share = totalVolume > 0
+          ? builderData.slice(0, 3).reduce((sum, builder) => sum + builder.dayVolume, 0) / totalVolume
+          : 0;
+        const topMarkets = [...allMarkets].sort((a, b) => b.dayVolume - a.dayVolume).slice(0, 12);
+        const builderMap = new Map(builderData.map((builder) => [builder.name, builder]));
 
         updateText("stat-volume", formatUsdCompact(totalVolume));
         updateText("stat-oi", formatUsdCompact(totalOi));
         updateText("stat-builders", formatInteger(builderData.length));
         updateText("stat-markets", formatInteger(totalMarkets));
+        updateText("metric-top-share", formatPercent(topBuilderShare));
+        updateText("metric-top3-share", formatPercent(top3Share));
+        updateText("metric-growth-markets", formatInteger(growthModeMarkets));
+        updateText("metric-active-markets", formatInteger(activeMarkets));
 
         renderBuilderStrip(builderData);
         renderBuilderTable(builderData);
+        renderMarketTable(topMarkets, builderMap);
 
         const source = document.getElementById("panel-source");
         if (source) {
