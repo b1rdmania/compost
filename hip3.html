@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>HIP-3 Intelligence | Compost</title>
+  <meta name="description" content="A public record of Hyperliquid builder markets: volume, fees, open interest, concentration, and the product lessons behind HIP-3.">
+
+  <meta property="og:title" content="HIP-3 Intelligence | Compost">
+  <meta property="og:description" content="A public record of Hyperliquid builder markets: launches, fees, volume, open interest, and what it means.">
+  <meta property="og:image" content="https://compost.fi/assets/og-image.png">
+  <meta property="og:url" content="https://compost.fi/hip3.html">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@compostfi">
+  <meta name="twitter:title" content="HIP-3 Intelligence | Compost">
+  <meta name="twitter:description" content="A public record of Hyperliquid builder markets: launches, fees, volume, open interest, and what it means.">
+  <meta name="twitter:image" content="https://compost.fi/assets/og-image.png">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #0a0a09;
+      --bg-layer-1: #111110;
+      --bg-layer-2: #1a1918;
+      --bg-layer-3: #252422;
+      --stone: #3d3a36;
+      --sand: #8a8279;
+      --warm-gray: #6b665e;
+      --text-primary: #e8e4df;
+      --text-secondary: #9a958d;
+      --text-muted: #5c574f;
+      --accent-bright: #4dcf6a;
+      --accent: #2ba84a;
+      --accent-muted: #1d7a35;
+      --accent-glow: rgba(77, 207, 106, 0.12);
+      --accent-glow-strong: rgba(77, 207, 106, 0.24);
+      --font: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --border: rgba(232, 228, 223, 0.09);
+      --border-strong: rgba(232, 228, 223, 0.16);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(circle at top left, rgba(77, 207, 106, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(138, 130, 121, 0.08), transparent 32%),
+        linear-gradient(180deg, #0d0d0c 0%, var(--bg-deep) 32%, #090909 100%);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      padding-top: calc(1.25rem + env(safe-area-inset-top));
+      background: rgba(10, 10, 9, 0.88);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-left,
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-left {
+      gap: 2.5rem;
+    }
+
+    .nav-right {
+      gap: 2rem;
+    }
+
+    .nav-lockup {
+      display: block;
+      line-height: 0;
+    }
+
+    .nav-lockup-img {
+      height: 32px;
+      display: block;
+    }
+
+    .nav-link {
+      font-size: 0.9375rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--accent-bright);
+    }
+
+    .container {
+      width: min(1200px, calc(100vw - 3rem));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      padding: calc(8rem + env(safe-area-inset-top)) 0 3rem;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 0.75rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid rgba(77, 207, 106, 0.22);
+      background: rgba(77, 207, 106, 0.07);
+      color: var(--accent-bright);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-bright);
+      box-shadow: 0 0 18px rgba(77, 207, 106, 0.8);
+    }
+
+    .hero-title {
+      font-size: clamp(3.1rem, 8vw, 6.2rem);
+      font-weight: 200;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      max-width: 9.5ch;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-subtitle {
+      max-width: 41rem;
+      color: var(--text-secondary);
+      font-size: clamp(1.08rem, 2vw, 1.34rem);
+      font-weight: 300;
+      line-height: 1.72;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      min-height: 50px;
+      padding: 0 1.5rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--accent-bright);
+      color: #081008;
+    }
+
+    .btn-secondary {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(77, 207, 106, 0.24);
+      background: rgba(77, 207, 106, 0.06);
+    }
+
+    .hero-note {
+      margin-top: 1rem;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      max-width: 36rem;
+    }
+
+    .hero-panel {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+        linear-gradient(135deg, rgba(77, 207, 106, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      min-height: 100%;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .panel-label {
+      color: var(--text-muted);
+      font-size: 0.76rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .score-card {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .score-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.55rem;
+    }
+
+    .score-value {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .score-context {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .panel-source {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .panel-source a,
+    .prose a,
+    .table a,
+    .sources-list a,
+    .footer-note a {
+      color: var(--accent-bright);
+      text-decoration: none;
+    }
+
+    .panel-source a:hover,
+    .prose a:hover,
+    .table a:hover,
+    .sources-list a:hover,
+    .footer-note a:hover {
+      text-decoration: underline;
+    }
+
+    .section {
+      padding: 4.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      align-items: end;
+    }
+
+    .section-kicker {
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-bright);
+      margin-bottom: 0.85rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 200;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      max-width: 14ch;
+    }
+
+    .section-copy {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    .prose p {
+      color: var(--text-secondary);
+      font-size: 1.02rem;
+      font-weight: 300;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+      max-width: 70ch;
+    }
+
+    .prose strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .insight-card,
+    .feature-card,
+    .source-card,
+    .builder-summary {
+      position: relative;
+      padding: 1.35rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+      border: 1px solid var(--border);
+    }
+
+    .card-icon {
+      width: 34px;
+      height: 34px;
+      margin-bottom: 0.9rem;
+      opacity: 0.95;
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.7rem;
+    }
+
+    .card-body {
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .builder-strip {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    .builder-chip {
+      padding: 0.85rem 0.75rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .builder-chip strong {
+      display: block;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      font-weight: 400;
+      margin-bottom: 0.2rem;
+    }
+
+    .table-shell {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    .table th,
+    .table td {
+      text-align: left;
+      padding: 1rem 1rem;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .table th {
+      color: var(--text-primary);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .table td {
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    .table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table strong {
+      color: var(--text-primary);
+      font-weight: 400;
+    }
+
+    .table-muted {
+      color: var(--text-muted);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .feature-card .card-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .feature-status {
+      color: var(--accent-bright);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .callout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .callout-main,
+    .callout-side {
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(77, 207, 106, 0.05), rgba(255, 255, 255, 0.015));
+    }
+
+    .callout-main h3,
+    .callout-side h3 {
+      font-size: 1.3rem;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.85rem;
+    }
+
+    .callout-main p,
+    .callout-side p {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    .sources-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .source-card {
+      min-height: 100%;
+    }
+
+    .source-label {
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.55rem;
+    }
+
+    .source-card h3 {
+      font-size: 1.08rem;
+      font-weight: 400;
+      margin-bottom: 0.65rem;
+    }
+
+    .source-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .footer {
+      padding: 4rem 0 calc(4rem + env(safe-area-inset-bottom));
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 2rem;
+      align-items: end;
+    }
+
+    .footer-title {
+      font-size: clamp(1.8rem, 3.6vw, 2.75rem);
+      font-weight: 200;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 0.9rem;
+      max-width: 12ch;
+    }
+
+    .footer-note {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      max-width: 58ch;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.9rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .section-header,
+      .callout,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .insight-grid,
+      .sources-list {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .builder-strip {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 820px) {
+      .nav {
+        padding: 1rem 1.25rem;
+        padding-top: calc(1rem + env(safe-area-inset-top));
+      }
+
+      .nav-inner {
+        gap: 1rem;
+      }
+
+      .nav-left {
+        gap: 1.3rem;
+      }
+
+      .nav-right {
+        gap: 1rem;
+      }
+
+      .nav-lockup-img {
+        height: 28px;
+      }
+
+      .nav-link {
+        font-size: 0.88rem;
+      }
+
+      .container {
+        width: min(100vw - 1.5rem, 1200px);
+      }
+
+      .hero {
+        padding-top: calc(7rem + env(safe-area-inset-top));
+      }
+
+      .scoreboard,
+      .feature-grid,
+      .insight-grid,
+      .sources-list,
+      .builder-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions,
+      .footer-links {
+        justify-content: flex-start;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="/" class="nav-lockup" aria-label="Compost home">
+          <img src="/assets/logo/lockup-domain-horizontal.svg" alt="Compost" class="nav-lockup-img">
+        </a>
+        <a href="/" class="nav-link">Overview</a>
+        <a href="/demo.html" class="nav-link">Demo</a>
+        <a href="/litepaper.html" class="nav-link">Litepaper</a>
+      </div>
+      <div class="nav-right">
+        <a href="https://docs.compost.fi" class="nav-link" target="_blank" rel="noopener">Docs</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Public Research
+          </div>
+          <h1 class="hero-title">HIP-3. Measured in public.</h1>
+          <p class="hero-subtitle">
+            Compost is turning its Hyperliquid obsession into a public intelligence layer for builder markets:
+            launches, fees, open interest, concentration, product lessons, and the signals that actually matter.
+          </p>
+          <div class="hero-actions">
+            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="btn btn-primary">Open Live Dune</a>
+            <a href="#what-we-track" class="btn btn-secondary">See What We Track</a>
+          </div>
+          <p class="hero-note">
+            This page is deliberately public-data-only. No private order flow, no insider feeds, no fake precision.
+            Just the clearest public record we can assemble from the open surface area around HIP-3.
+          </p>
+        </div>
+
+        <aside class="hero-panel reveal">
+          <div class="panel-label">Public Snapshot</div>
+          <div class="scoreboard">
+            <div class="score-card">
+              <div class="score-label">Cumulative volume</div>
+              <div class="score-value">$87.32B</div>
+              <div class="score-context">HIP-3 aggregate volume across tracked builder markets.</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Total fees</div>
+              <div class="score-value">$13.63M</div>
+              <div class="score-context">Publicly tracked fee generation across the HIP-3 surface.</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Open interest</div>
+              <div class="score-value">$2.07B</div>
+              <div class="score-context">Builder-market open interest, not total Hyperliquid OI.</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Builder stake</div>
+              <div class="score-value">500K HYPE</div>
+              <div class="score-context">The threshold that forces deployers to behave like real operators.</div>
+            </div>
+          </div>
+          <div class="panel-source">
+            Tracked builders: <strong>7</strong> on the current public scoreboard.
+            Snapshot values reference the public dashboard at
+            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>
+            and Hyperliquid's public HIP-3 docs. Snapshot date: <strong>April 14, 2026</strong>.
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Why This Exists</div>
+            <h2 class="section-title">The market has stats. It still needs memory.</h2>
+          </div>
+          <div class="section-copy">
+            A lot of HIP-3 data already exists in fragments. What does not exist cleanly is a public record that
+            explains what changed, why it mattered, and which product lessons builders should actually take seriously.
+          </div>
+        </div>
+
+        <div class="prose reveal">
+          <p>
+            Compost originally looked at HIP-3 through the lens of capital formation. The more useful insight now is
+            simpler: <strong>builder markets are becoming businesses</strong>, and public analysis around them is still
+            immature. Volume alone is not the story. Fees, launch timing, concentration, category selection,
+            distribution, and market quality all shape what builders can sustainably own.
+          </p>
+          <p>
+            This page is the first step in a public intelligence layer for HIP-3. No closed data room. No private
+            dashboards. Just a sharper public read on what builder markets are doing, what the leaders are teaching the
+            rest of the ecosystem, and where the next wave might come from.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Three Durable Lessons</div>
+            <h2 class="section-title">What HIP-3 has already made clear.</h2>
+          </div>
+          <div class="section-copy">
+            The most useful public analysis is not a leaderboard by itself. It is a model for understanding why some
+            builders break out while others never really convert curiosity into durable flow.
+          </div>
+        </div>
+
+        <div class="insight-grid">
+          <article class="insight-card reveal">
+            <img src="/assets/icons/markets.svg" alt="" class="card-icon">
+            <h3 class="card-title">The rails are real</h3>
+            <p class="card-body">
+              HIP-3 is no longer a thought experiment. The category has real volume, real fees, real open interest,
+              and enough surviving builders to justify dedicated public coverage.
+            </p>
+          </article>
+
+          <article class="insight-card reveal">
+            <img src="/assets/icons/chart.svg" alt="" class="card-icon">
+            <h3 class="card-title">Distribution beats theory</h3>
+            <p class="card-body">
+              The winning builder story so far is not "best architecture." It is "best packaging of a behavior people
+              immediately understand." Equities, commodities, and indices made HIP-3 legible.
+            </p>
+          </article>
+
+          <article class="insight-card reveal">
+            <img src="/assets/icons/fee.svg" alt="" class="card-icon">
+            <h3 class="card-title">Fee share creates real incentives</h3>
+            <p class="card-body">
+              A fixed 50% builder fee share means market selection and execution matter. If builders are earning on the
+              flow they create, then public business analysis becomes a core part of the ecosystem.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Tracked Builders</div>
+            <h2 class="section-title">The public board today.</h2>
+          </div>
+          <div class="section-copy">
+            This is not a comprehensive taxonomy of every builder ever discussed. It is the current public surface area
+            reflected in the live Dune board and the broader ecosystem conversation around HIP-3.
+          </div>
+        </div>
+
+        <div class="builder-strip reveal">
+          <div class="builder-chip"><strong>trade.xyz</strong>Leading proof point</div>
+          <div class="builder-chip"><strong>Felix</strong>DeFi-native builder</div>
+          <div class="builder-chip"><strong>Ventuals</strong>Narrative / private markets</div>
+          <div class="builder-chip"><strong>hyENA</strong>Emerging public flow</div>
+          <div class="builder-chip"><strong>Markets</strong>Tracked on board</div>
+          <div class="builder-chip"><strong>Dreamcash</strong>Tracked on board</div>
+          <div class="builder-chip"><strong>Paragon</strong>Tracked on board</div>
+        </div>
+
+        <div class="table-shell reveal" style="margin-top: 2rem;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Builder</th>
+                <th>Public read</th>
+                <th>Why it matters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>trade.xyz</strong></td>
+                <td>Still the clearest commercial proof that HIP-3 can package non-crypto exposure into a product people return to.</td>
+                <td>Shows that behavior-first wrappers beat abstract infra narratives when a new primitive is still unfamiliar.</td>
+              </tr>
+              <tr>
+                <td><strong>Felix</strong></td>
+                <td>A DeFi-native builder that extends an existing product footprint into builder markets rather than starting from zero.</td>
+                <td>Useful signal for how established Hyperliquid-native teams may expand horizontally into trading surfaces.</td>
+              </tr>
+              <tr>
+                <td><strong>Ventuals</strong></td>
+                <td>Important because it widens HIP-3 beyond plain vanilla majors and into more narrative-driven market design.</td>
+                <td>Helps test whether builder success can come from differentiated category selection, not just scale.</td>
+              </tr>
+              <tr>
+                <td><strong>hyENA / Markets / Dreamcash / Paragon</strong></td>
+                <td>Smaller names matter even when public attention is concentrated. They are part of the long tail the market tends to ignore.</td>
+                <td>The next useful signal is not just who is biggest. It is whether the long tail is finding durable niches, or simply flashing into the board and out again.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Public Analysis Surface</div>
+            <h2 class="section-title" id="what-we-track">What Compost will track in public.</h2>
+          </div>
+          <div class="section-copy">
+            The point is not to mirror a raw dashboard. It is to make the public data more coherent, more comparable,
+            and more useful for anyone trying to understand the builder economy on Hyperliquid.
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <h3 class="card-title">Builder leaderboard <span class="feature-status">Public</span></h3>
+            <p class="card-body">
+              Share of volume, fees, and open interest by builder, with historical snapshots instead of isolated
+              numbers with no memory.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <h3 class="card-title">Launch tracker <span class="feature-status">Public</span></h3>
+            <p class="card-body">
+              When new markets go live, how quickly they find attention, and whether that attention compounds or fades.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <h3 class="card-title">Concentration monitor <span class="feature-status">Public</span></h3>
+            <p class="card-body">
+              A running view into how much of HIP-3 is owned by the leaders versus the long tail of smaller builders.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <h3 class="card-title">Category map <span class="feature-status">Public</span></h3>
+            <p class="card-body">
+              Equities, commodities, indices, pre-IPO narratives, and any emerging cluster the public market starts to
+              reveal.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <h3 class="card-title">Market notes <span class="feature-status">Public</span></h3>
+            <p class="card-body">
+              Short operator-grade writeups on what the raw metrics do and do not say, including the limits of public
+              data.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <h3 class="card-title">Weekly brief <span class="feature-status">Public</span></h3>
+            <p class="card-body">
+              A simple public rhythm: what changed this week, what launched, who gained share, and what the ecosystem
+              should pay attention to next.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="callout">
+          <div class="callout-main reveal">
+            <h3>The key product lesson</h3>
+            <p>
+              Public data is enough to show that HIP-3 is no longer a novelty. What it still needs is better framing.
+              The opportunity is not only to count volume. It is to explain which market categories are converting into
+              real businesses, how concentrated the ecosystem is becoming, and what the builders who are actually
+              winning are doing differently.
+            </p>
+          </div>
+          <div class="callout-side reveal">
+            <h3>What this page is not</h3>
+            <p>
+              This is not a trading frontend, not a private data terminal, and not a pretend proprietary dashboard. It
+              is a public research layer for people who care about HIP-3 and want something more useful than scattered
+              screenshots and isolated charts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Methodology</div>
+            <h2 class="section-title">Open sources. Clear caveats.</h2>
+          </div>
+          <div class="section-copy">
+            Compost is intentionally not claiming secret data. The goal is disciplined public synthesis with explicit
+            provenance so the page can be trusted, challenged, and improved.
+          </div>
+        </div>
+
+        <div class="sources-list">
+          <article class="source-card reveal">
+            <div class="source-label">Primary stats</div>
+            <h3><a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune HIP-3 dashboard</a></h3>
+            <p>
+              Current public scoreboard for HIP-3 aggregates and tracked builders. Snapshot values on this page use the
+              April 14, 2026 board state.
+            </p>
+          </article>
+
+          <article class="source-card reveal">
+            <div class="source-label">Protocol reference</div>
+            <h3><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-3-builder-deployed-perpetuals" target="_blank" rel="noopener">Hyperliquid HIP-3 docs</a></h3>
+            <p>
+              Canonical protocol mechanics such as the 500K HYPE builder requirement, builder responsibilities, and fee
+              share structure.
+            </p>
+          </article>
+
+          <article class="source-card reveal">
+            <div class="source-label">Market context</div>
+            <h3><a href="https://hyperliquidguide.com/ecosystem/hip-3-builder-codes" target="_blank" rel="noopener">Hyperliquid Guide</a></h3>
+            <p>
+              Useful narrative framing and public ecosystem context around builder markets, growth mode, and early
+              commercialization patterns.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="reveal">
+        <h2 class="footer-title">One page now. A public record next.</h2>
+        <p class="footer-note">
+          Compost is evolving from a capital formation thesis into a public intelligence layer for Hyperliquid builder
+          markets. If you want the live board, start with
+          <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>.
+          If you want the sharper read on what the numbers mean, that is what this page is here to become.
+        </p>
+      </div>
+
+      <div class="footer-links reveal">
+        <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="btn btn-primary">Live HIP-3 Stats</a>
+        <a href="https://twitter.com/compostfi" target="_blank" rel="noopener" class="btn btn-secondary">Follow Compost</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+  </script>
+</body>
+</html>
