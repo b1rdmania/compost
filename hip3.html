@@ -154,7 +154,7 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      grid-template-columns: minmax(340px, 0.95fr) minmax(0, 1.05fr);
       gap: 2rem;
       align-items: start;
     }
@@ -497,6 +497,68 @@
       gap: 1rem;
     }
 
+    .market-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .market-detail-card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    }
+
+    .market-detail-rank {
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.55rem;
+    }
+
+    .market-detail-name {
+      font-size: 1.28rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+
+    .market-detail-builder {
+      color: var(--accent-bright);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .market-detail-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .market-detail-stat {
+      padding: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .market-detail-stat-label {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      margin-bottom: 0.35rem;
+    }
+
+    .market-detail-stat-value {
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
     .metric-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -673,7 +735,8 @@
       }
 
       .builder-strip,
-      .metric-grid {
+      .metric-grid,
+      .market-detail-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
     }
@@ -717,7 +780,8 @@
       .insight-grid,
       .sources-list,
       .builder-strip,
-      .metric-grid {
+      .metric-grid,
+      .market-detail-grid {
         grid-template-columns: 1fr;
       }
 
@@ -752,26 +816,6 @@
   <main>
     <section class="hero">
       <div class="container hero-grid">
-        <div class="reveal">
-          <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            Public Research
-          </div>
-          <h1 class="hero-title">HIP-3. Measured in public.</h1>
-          <p class="hero-subtitle">
-            Compost is turning its Hyperliquid obsession into a public intelligence layer for builder markets:
-            launches, fees, open interest, concentration, product lessons, and the signals that actually matter.
-          </p>
-          <div class="hero-actions">
-            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="btn btn-primary">Open Live Dune</a>
-            <a href="#what-we-track" class="btn btn-secondary">See What We Track</a>
-          </div>
-          <p class="hero-note">
-            This page is deliberately public-data-only. No private order flow, no insider feeds, no fake precision.
-            Just the clearest public record we can assemble from the open surface area around HIP-3.
-          </p>
-        </div>
-
         <aside class="hero-panel reveal">
           <div class="panel-label">Public Snapshot</div>
           <div class="scoreboard">
@@ -802,6 +846,25 @@
             <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>.
           </div>
         </aside>
+
+        <div class="reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Public Research
+          </div>
+          <h1 class="hero-title">HIP-3 live board.</h1>
+          <p class="hero-subtitle">
+            Public HIP-3 stats from Hyperliquid's own API: builders, markets, concentration, growth mode coverage, and
+            market-level detail.
+          </p>
+          <div class="hero-actions">
+            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="btn btn-primary">Open Live Dune</a>
+            <a href="#top-markets" class="btn btn-secondary">Jump To Markets</a>
+          </div>
+          <p class="hero-note">
+            Public data only. No estimates, no hidden feeds, no fake metrics.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -859,7 +922,7 @@
           </div>
         </div>
 
-        <div class="table-shell reveal">
+        <div class="table-shell reveal" id="top-markets">
           <table class="table">
             <thead>
               <tr>
@@ -892,70 +955,20 @@
       <div class="container">
         <div class="section-header reveal">
           <div>
-            <div class="section-kicker">Why This Exists</div>
-            <h2 class="section-title">The market has stats. It still needs memory.</h2>
+            <div class="section-kicker">Market Detail</div>
+            <h2 class="section-title">A closer read on the busiest live markets.</h2>
           </div>
           <div class="section-copy">
-            A lot of HIP-3 data already exists in fragments. What does not exist cleanly is a public record that
-            explains what changed, why it mattered, and which product lessons builders should actually take seriously.
+            Same public source, less aggregation. These cards surface the top live builder markets with the actual fields
+            Hyperliquid returns: price, funding, OI, 24h volume, and growth mode state.
           </div>
         </div>
 
-        <div class="prose reveal">
-          <p>
-            Compost originally looked at HIP-3 through the lens of capital formation. The more useful insight now is
-            simpler: <strong>builder markets are becoming businesses</strong>, and public analysis around them is still
-            immature. Volume alone is not the story. Fees, launch timing, concentration, category selection,
-            distribution, and market quality all shape what builders can sustainably own.
-          </p>
-          <p>
-            This page is the first step in a public intelligence layer for HIP-3. No closed data room. No private
-            dashboards. Just a sharper public read on what builder markets are doing, what the leaders are teaching the
-            rest of the ecosystem, and where the next wave might come from.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-header reveal">
-          <div>
-            <div class="section-kicker">Three Durable Lessons</div>
-            <h2 class="section-title">What HIP-3 has already made clear.</h2>
-          </div>
-          <div class="section-copy">
-            The most useful public analysis is not a leaderboard by itself. It is a model for understanding why some
-            builders break out while others never really convert curiosity into durable flow.
-          </div>
-        </div>
-
-        <div class="insight-grid">
-          <article class="insight-card reveal">
-            <img src="/assets/icons/markets.svg" alt="" class="card-icon">
-            <h3 class="card-title">The rails are real</h3>
-            <p class="card-body">
-              HIP-3 is no longer a thought experiment. The category has real volume, real fees, real open interest,
-              and enough surviving builders to justify dedicated public coverage.
-            </p>
-          </article>
-
-          <article class="insight-card reveal">
-            <img src="/assets/icons/chart.svg" alt="" class="card-icon">
-            <h3 class="card-title">Distribution beats theory</h3>
-            <p class="card-body">
-              The winning builder story so far is not "best architecture." It is "best packaging of a behavior people
-              immediately understand." Equities, commodities, and indices made HIP-3 legible.
-            </p>
-          </article>
-
-          <article class="insight-card reveal">
-            <img src="/assets/icons/fee.svg" alt="" class="card-icon">
-            <h3 class="card-title">Fee share creates real incentives</h3>
-            <p class="card-body">
-              A fixed 50% builder fee share means market selection and execution matter. If builders are earning on the
-              flow they create, then public business analysis becomes a core part of the ecosystem.
-            </p>
+        <div class="market-detail-grid" id="market-detail-grid">
+          <article class="market-detail-card reveal">
+            <div class="market-detail-rank">Loading</div>
+            <h3 class="market-detail-name">Top markets</h3>
+            <div class="market-detail-builder">Fetching from Hyperliquid…</div>
           </article>
         </div>
       </div>
@@ -966,11 +979,11 @@
         <div class="section-header reveal">
           <div>
             <div class="section-kicker">Tracked Builders</div>
-            <h2 class="section-title">The public board today.</h2>
+            <h2 class="section-title">Builder rollup.</h2>
           </div>
           <div class="section-copy">
-            This is not a comprehensive taxonomy of every builder ever discussed. It is the current public surface area
-            reflected in the live Dune board and the broader ecosystem conversation around HIP-3.
+            Public builder DEXs returned by Hyperliquid right now, ranked by live 24h volume with per-builder market
+            counts and open interest.
           </div>
         </div>
 
@@ -999,93 +1012,6 @@
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-header reveal">
-          <div>
-            <div class="section-kicker">Public Analysis Surface</div>
-            <h2 class="section-title" id="what-we-track">What Compost will track in public.</h2>
-          </div>
-          <div class="section-copy">
-            The point is not to mirror a raw dashboard. It is to make the public data more coherent, more comparable,
-            and more useful for anyone trying to understand the builder economy on Hyperliquid.
-          </div>
-        </div>
-
-        <div class="feature-grid">
-          <article class="feature-card reveal">
-            <h3 class="card-title">Builder leaderboard <span class="feature-status">Public</span></h3>
-            <p class="card-body">
-              Share of volume, fees, and open interest by builder, with historical snapshots instead of isolated
-              numbers with no memory.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <h3 class="card-title">Launch tracker <span class="feature-status">Public</span></h3>
-            <p class="card-body">
-              When new markets go live, how quickly they find attention, and whether that attention compounds or fades.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <h3 class="card-title">Concentration monitor <span class="feature-status">Public</span></h3>
-            <p class="card-body">
-              A running view into how much of HIP-3 is owned by the leaders versus the long tail of smaller builders.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <h3 class="card-title">Category map <span class="feature-status">Public</span></h3>
-            <p class="card-body">
-              Equities, commodities, indices, pre-IPO narratives, and any emerging cluster the public market starts to
-              reveal.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <h3 class="card-title">Market notes <span class="feature-status">Public</span></h3>
-            <p class="card-body">
-              Short operator-grade writeups on what the raw metrics do and do not say, including the limits of public
-              data.
-            </p>
-          </article>
-
-          <article class="feature-card reveal">
-            <h3 class="card-title">Weekly brief <span class="feature-status">Public</span></h3>
-            <p class="card-body">
-              A simple public rhythm: what changed this week, what launched, who gained share, and what the ecosystem
-              should pay attention to next.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="callout">
-          <div class="callout-main reveal">
-            <h3>The key product lesson</h3>
-            <p>
-              Public data is enough to show that HIP-3 is no longer a novelty. What it still needs is better framing.
-              The opportunity is not only to count volume. It is to explain which market categories are converting into
-              real businesses, how concentrated the ecosystem is becoming, and what the builders who are actually
-              winning are doing differently.
-            </p>
-          </div>
-          <div class="callout-side reveal">
-            <h3>What this page is not</h3>
-            <p>
-              This is not a trading frontend, not a private data terminal, and not a pretend proprietary dashboard. It
-              is a public research layer for people who care about HIP-3 and want something more useful than scattered
-              screenshots and isolated charts.
-            </p>
-          </div>
         </div>
       </div>
     </section>
@@ -1320,6 +1246,45 @@
       `).join("");
     }
 
+    function renderMarketDetailCards(markets, builderMap, totalVolume) {
+      const grid = document.getElementById("market-detail-grid");
+      if (!grid) return;
+
+      grid.innerHTML = markets.slice(0, 6).map((market, index) => `
+        <article class="market-detail-card reveal visible">
+          <div class="market-detail-rank">Rank #${index + 1}</div>
+          <h3 class="market-detail-name">${cleanCoinName(market.coin)}</h3>
+          <div class="market-detail-builder">${builderMap.get(market.dex)?.display || market.dex}</div>
+          <div class="market-detail-stats">
+            <div class="market-detail-stat">
+              <div class="market-detail-stat-label">24h volume</div>
+              <div class="market-detail-stat-value">${formatUsdCompact(market.dayVolume)}</div>
+            </div>
+            <div class="market-detail-stat">
+              <div class="market-detail-stat-label">Volume share</div>
+              <div class="market-detail-stat-value">${formatPercent(totalVolume > 0 ? market.dayVolume / totalVolume : 0)}</div>
+            </div>
+            <div class="market-detail-stat">
+              <div class="market-detail-stat-label">Live OI</div>
+              <div class="market-detail-stat-value">${formatUsdCompact(market.openInterestUsd)}</div>
+            </div>
+            <div class="market-detail-stat">
+              <div class="market-detail-stat-label">Mark</div>
+              <div class="market-detail-stat-value">${formatPrice(market.markPx)}</div>
+            </div>
+            <div class="market-detail-stat">
+              <div class="market-detail-stat-label">Funding</div>
+              <div class="market-detail-stat-value">${formatFunding(market.funding)}</div>
+            </div>
+            <div class="market-detail-stat">
+              <div class="market-detail-stat-label">Growth mode</div>
+              <div class="market-detail-stat-value">${market.growthMode === "enabled" ? "Enabled" : "Off"}</div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
     async function loadHip3LiveStats() {
       try {
         const registry = await postInfo({ type: "perpDexs" });
@@ -1396,6 +1361,7 @@
         renderBuilderStrip(builderData);
         renderBuilderTable(builderData);
         renderMarketTable(topMarkets, builderMap);
+        renderMarketDetailCards(topMarkets, builderMap, totalVolume);
 
         const source = document.getElementById("panel-source");
         if (source) {
