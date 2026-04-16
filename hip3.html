@@ -89,7 +89,7 @@
       left: 0;
       right: 0;
       z-index: 100;
-      padding: 1.25rem 3rem;
+      padding: 1.25rem calc(3rem + env(safe-area-inset-right)) 1.25rem calc(3rem + env(safe-area-inset-left));
       padding-top: calc(1.25rem + env(safe-area-inset-top));
       background: rgba(10, 10, 9, 0.88);
       border-bottom: 1px solid var(--border);
@@ -139,6 +139,11 @@
 
     .nav-link:hover {
       color: var(--accent-bright);
+    }
+
+    .nav-link.active {
+      color: var(--text-primary);
+      font-weight: 500;
     }
 
     .container {
@@ -261,13 +266,71 @@
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
     }
 
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
     .panel-label {
       color: var(--text-muted);
       font-size: 0.76rem;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      margin-bottom: 1rem;
+    }
+
+    .live-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-secondary);
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--text-muted);
+      box-shadow: 0 0 0 rgba(77, 207, 106, 0);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .live-dot.is-live {
+      background: var(--accent-bright);
+      animation: live-pulse 2.2s ease-in-out infinite;
+    }
+
+    .live-dot.is-error {
+      background: #ef4444;
+    }
+
+    @keyframes live-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(77, 207, 106, 0.45); }
+      50% { box-shadow: 0 0 0 6px rgba(77, 207, 106, 0); }
+    }
+
+    .panel-retry {
+      margin-top: 0.9rem;
+      padding: 0.55rem 0.9rem;
+      background: rgba(77, 207, 106, 0.08);
+      color: var(--accent-bright);
+      border: 1px solid rgba(77, 207, 106, 0.25);
+      font: 500 0.72rem/1 var(--font);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .panel-retry:hover {
+      background: rgba(77, 207, 106, 0.16);
+      border-color: rgba(77, 207, 106, 0.45);
     }
 
     .scoreboard {
@@ -420,18 +483,31 @@
 
     .builder-strip {
       display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 0.8rem;
       margin-top: 2rem;
     }
 
     .builder-chip {
+      display: block;
       padding: 0.85rem 0.75rem;
       border: 1px solid var(--border);
       background: rgba(255, 255, 255, 0.02);
       color: var(--text-secondary);
       font-size: 0.9rem;
       text-align: center;
+      text-decoration: none;
+      transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    a.builder-chip:hover {
+      border-color: rgba(77, 207, 106, 0.35);
+      background: rgba(77, 207, 106, 0.05);
+      color: var(--accent-bright);
+    }
+
+    a.builder-chip:hover strong {
+      color: var(--accent-bright);
     }
 
     .builder-chip strong {
@@ -489,6 +565,209 @@
 
     .table-muted {
       color: var(--text-muted);
+    }
+
+    .table a.cell-link,
+    .table a.cell-link:link,
+    .table a.cell-link:visited {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .table a.cell-link:hover {
+      color: var(--accent-bright);
+      border-bottom-color: rgba(77, 207, 106, 0.5);
+    }
+
+    .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.84em;
+      letter-spacing: 0;
+    }
+
+    .cell-link-out {
+      display: inline-block;
+      margin-left: 0.35em;
+      color: var(--text-muted);
+      font-size: 0.78em;
+      line-height: 1;
+    }
+
+    .table th.is-sortable {
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+
+    .table th.is-sortable:hover {
+      color: var(--accent-bright);
+      background: rgba(77, 207, 106, 0.06);
+    }
+
+    .table th.is-sortable::after {
+      content: "";
+      display: inline-block;
+      margin-left: 0.45rem;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--text-muted);
+      opacity: 0.35;
+      vertical-align: 2px;
+      transition: opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .table th.is-sortable.sort-desc::after {
+      opacity: 1;
+      border-top-color: var(--accent-bright);
+    }
+
+    .table th.is-sortable.sort-asc::after {
+      opacity: 1;
+      border-top-color: var(--accent-bright);
+      transform: rotate(180deg);
+    }
+
+    .table-error {
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .table-error strong {
+      color: #ef4444;
+      display: block;
+      margin-bottom: 0.35rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    .util-bar {
+      position: relative;
+      width: 100%;
+      height: 4px;
+      margin-top: 0.35rem;
+      background: rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+    }
+
+    .util-bar-fill {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(90deg, var(--accent-muted), var(--accent-bright));
+    }
+
+    .trend-panel {
+      padding: 2rem 2rem 1.5rem;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.005));
+    }
+
+    .trend-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .trend-title {
+      font-size: 1.05rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .trend-meta {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+    }
+
+    .trend-meta strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .trend-chart-wrap {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .trend-chart {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .trend-chart .grid {
+      stroke: rgba(232, 228, 223, 0.06);
+      stroke-width: 1;
+    }
+
+    .trend-chart .axis-label {
+      fill: var(--text-muted);
+      font-size: 10px;
+      font-family: var(--font);
+      letter-spacing: 0.04em;
+    }
+
+    .trend-chart .bar {
+      fill: url(#trend-bar-gradient);
+    }
+
+    .trend-chart .bar-hover {
+      fill: transparent;
+      cursor: crosshair;
+    }
+
+    .trend-legend {
+      margin-top: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .sparkline {
+      display: block;
+      width: 100%;
+      height: 36px;
+      margin-top: 0.6rem;
+    }
+
+    .sparkline path {
+      fill: none;
+      stroke: var(--accent-bright);
+      stroke-width: 1.4;
+    }
+
+    .sparkline .spark-area {
+      fill: url(#spark-fill);
+      stroke: none;
+      opacity: 0.35;
+    }
+
+    .sparkline-empty {
+      margin-top: 0.6rem;
+      color: var(--text-muted);
+      font-size: 0.76rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .market-detail-stat.detail-wide {
+      grid-column: 1 / -1;
     }
 
     .feature-grid {
@@ -736,21 +1015,20 @@
       }
 
       .insight-grid,
-      .sources-list {
-        grid-template-columns: 1fr 1fr;
+      .sources-list,
+      .metric-grid,
+      .market-detail-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .builder-strip,
-      .metric-grid,
-      .market-detail-grid,
       .double-table-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 820px) {
       .nav {
-        padding: 1rem 1.25rem;
+        padding: 1rem calc(1.25rem + env(safe-area-inset-right)) 1rem calc(1.25rem + env(safe-area-inset-left));
         padding-top: calc(1rem + env(safe-area-inset-top));
       }
 
@@ -759,7 +1037,8 @@
       }
 
       .nav-left {
-        gap: 1.3rem;
+        gap: 1.1rem;
+        flex-wrap: wrap;
       }
 
       .nav-right {
@@ -782,14 +1061,16 @@
         padding-top: calc(7rem + env(safe-area-inset-top));
       }
 
+      .panel-header {
+        flex-wrap: wrap;
+      }
+
       .scoreboard,
       .feature-grid,
       .insight-grid,
       .sources-list,
-      .builder-strip,
       .metric-grid,
-      .market-detail-grid,
-      .double-table-grid {
+      .market-detail-grid {
         grid-template-columns: 1fr;
       }
 
@@ -813,6 +1094,7 @@
         </a>
         <a href="/" class="nav-link">Overview</a>
         <a href="/demo.html" class="nav-link">Demo</a>
+        <a href="/hip3.html" class="nav-link active">HIP-3</a>
         <a href="/litepaper.html" class="nav-link">Litepaper</a>
       </div>
       <div class="nav-right">
@@ -825,7 +1107,13 @@
     <section class="hero">
       <div class="container hero-grid">
         <aside class="hero-panel reveal">
-          <div class="panel-label">Public Snapshot</div>
+          <div class="panel-header">
+            <div class="panel-label">Live Snapshot</div>
+            <div class="live-status" id="live-status">
+              <span class="live-dot" id="live-dot"></span>
+              <span class="live-status-text" id="live-status-text">Connecting…</span>
+            </div>
+          </div>
           <div class="scoreboard">
             <div class="score-card">
               <div class="score-label">24h volume</div>
@@ -849,25 +1137,26 @@
             </div>
           </div>
           <div class="panel-source" id="panel-source">
-            Live values hydrate from Hyperliquid's public `perpDexs` and `metaAndAssetCtxs` endpoints.
-            Historical board context still lives on
-            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>.
+            Hydrated directly from Hyperliquid's public <strong>perpDexs</strong> and <strong>metaAndAssetCtxs</strong>
+            endpoints. Auto-refreshes every 60 seconds.
           </div>
+          <button type="button" class="panel-retry" id="panel-retry" hidden>Retry now</button>
         </aside>
 
         <div class="reveal">
           <div class="eyebrow">
             <span class="eyebrow-dot"></span>
-            Public Research
+            Live Board
           </div>
           <h1 class="hero-title">HIP-3 live board.</h1>
           <p class="hero-subtitle">
-            Public HIP-3 stats from Hyperliquid's own API: builders, markets, concentration, growth mode coverage, and
-            market-level detail.
+            Every builder market on Hyperliquid, pulled straight from the public API. Volume, open interest,
+            concentration, growth mode coverage, and where the funding is spiking — without anyone's narrative in front
+            of it.
           </p>
           <div class="hero-actions">
-            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="btn btn-primary">Open Live Dune</a>
-            <a href="#top-markets" class="btn btn-secondary">Jump To Markets</a>
+            <a href="#top-markets" class="btn btn-primary">Jump To Markets</a>
+            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="btn btn-secondary">Also On Dune</a>
           </div>
           <p class="hero-note">
             Public data only. No estimates, no hidden feeds, no fake metrics.
@@ -921,31 +1210,79 @@
       <div class="container">
         <div class="section-header reveal">
           <div>
+            <div class="section-kicker">14-Day Trend</div>
+            <h2 class="section-title">How the HIP-3 surface has traded this fortnight.</h2>
+          </div>
+          <div class="section-copy">
+            Daily notional volume summed across every active builder market, pulled from Hyperliquid's public
+            <strong>candleSnapshot</strong> endpoint. Each bar is one UTC day.
+          </div>
+        </div>
+
+        <div class="trend-panel reveal">
+          <div class="trend-head">
+            <div class="trend-title">Daily HIP-3 volume · last 14 days</div>
+            <div class="trend-meta">
+              <span>Total: <strong id="trend-total">—</strong></span>
+              <span style="margin-left:1.25rem;">Peak day: <strong id="trend-peak">—</strong></span>
+            </div>
+          </div>
+          <div class="trend-chart-wrap">
+            <svg class="trend-chart" id="trend-chart" viewBox="0 0 800 220" preserveAspectRatio="none" role="img" aria-label="HIP-3 daily volume, last 14 days">
+              <defs>
+                <linearGradient id="trend-bar-gradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#4dcf6a" stop-opacity="0.95"></stop>
+                  <stop offset="100%" stop-color="#1d7a35" stop-opacity="0.7"></stop>
+                </linearGradient>
+                <linearGradient id="spark-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#4dcf6a" stop-opacity="0.45"></stop>
+                  <stop offset="100%" stop-color="#4dcf6a" stop-opacity="0"></stop>
+                </linearGradient>
+              </defs>
+              <g id="trend-chart-body">
+                <text x="400" y="110" text-anchor="middle" class="axis-label">Loading historical candles…</text>
+              </g>
+            </svg>
+          </div>
+          <div class="trend-legend">
+            <span id="trend-range-start">—</span>
+            <span id="trend-range-end">—</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
             <div class="section-kicker">Top Markets</div>
             <h2 class="section-title">The live board underneath the builder rollup.</h2>
           </div>
           <div class="section-copy">
-            The clearest public way to avoid fake storytelling is to show the markets themselves. This board is sorted by
-            live 24h volume across all public HIP-3 builder DEXs.
+            The clearest public way to avoid fake storytelling is to show the markets themselves. Click any market to
+            trade it on Hyperliquid. Click any column header to sort.
           </div>
         </div>
 
         <div class="table-shell reveal" id="top-markets">
-          <table class="table">
+          <table class="table" id="market-table">
             <thead>
               <tr>
-                <th>Market</th>
-                <th>Builder</th>
-                <th>24h volume</th>
-                <th>Live OI</th>
-                <th>Mark</th>
-                <th>Funding</th>
-                <th>Growth mode</th>
+                <th class="is-sortable" data-sort="coin">Market</th>
+                <th class="is-sortable" data-sort="builder">Builder</th>
+                <th class="is-sortable sort-desc" data-sort="dayVolume">24h volume</th>
+                <th class="is-sortable" data-sort="weekVolume">7d volume</th>
+                <th class="is-sortable" data-sort="openInterestUsd">Live OI</th>
+                <th class="is-sortable" data-sort="markPx">Mark</th>
+                <th class="is-sortable" data-sort="funding">Funding</th>
+                <th class="is-sortable" data-sort="growthMode">Growth mode</th>
               </tr>
             </thead>
             <tbody id="market-table-body">
               <tr>
                 <td><strong>Loading…</strong></td>
+                <td class="table-muted">-</td>
                 <td class="table-muted">-</td>
                 <td class="table-muted">-</td>
                 <td class="table-muted">-</td>
@@ -1007,12 +1344,14 @@
                 <th>Markets</th>
                 <th>24h volume</th>
                 <th>Live OI</th>
+                <th>Cap used</th>
                 <th>Why it matters</th>
               </tr>
             </thead>
             <tbody id="builder-table-body">
               <tr>
                 <td><strong>Loading…</strong></td>
+                <td class="table-muted">-</td>
                 <td class="table-muted">-</td>
                 <td class="table-muted">-</td>
                 <td class="table-muted">-</td>
@@ -1065,16 +1404,18 @@
             <thead>
               <tr>
                 <th>Builder</th>
+                <th>Deployer</th>
                 <th>Configured OI cap</th>
                 <th>Largest cap market</th>
-                <th>Avg funding multiplier</th>
-                <th>Deployer fee scale</th>
-                <th>Sub-deployer permissions</th>
+                <th>Avg funding mult</th>
+                <th>Fee scale</th>
+                <th>Sub-deployers</th>
               </tr>
             </thead>
             <tbody id="config-table-body">
               <tr>
                 <td><strong>Loading…</strong></td>
+                <td class="table-muted">-</td>
                 <td class="table-muted">-</td>
                 <td class="table-muted">-</td>
                 <td class="table-muted">-</td>
@@ -1108,8 +1449,8 @@
                   <th>Top OI market</th>
                   <th>Builder</th>
                   <th>Live OI</th>
-                  <th>24h volume</th>
                   <th>OI cap</th>
+                  <th>Cap used</th>
                   <th>Max lev</th>
                 </tr>
               </thead>
@@ -1211,18 +1552,18 @@
   <footer class="footer">
     <div class="container footer-grid">
       <div class="reveal">
-        <h2 class="footer-title">One page now. A public record next.</h2>
+        <h2 class="footer-title">The numbers, kept honest.</h2>
         <p class="footer-note">
-          Compost is evolving from a capital formation thesis into a public intelligence layer for Hyperliquid builder
-          markets. If you want the live board, start with
-          <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>.
-          If you want the sharper read on what the numbers mean, that is what this page is here to become.
+          Compost builds the capital formation layer for HIP-3. This page is a small public read on where the builder
+          surface actually stands — straight from Hyperliquid, without anyone's narrative in front of it. For a broader
+          historical board, <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a> is still the
+          best public reference.
         </p>
       </div>
 
       <div class="footer-links reveal">
-        <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="btn btn-primary">Live HIP-3 Stats</a>
-        <a href="https://twitter.com/compostfi" target="_blank" rel="noopener" class="btn btn-secondary">Follow Compost</a>
+        <a href="/" class="btn btn-primary">Back To Compost</a>
+        <a href="https://twitter.com/compostfi" target="_blank" rel="noopener" class="btn btn-secondary">Follow</a>
       </div>
     </div>
   </footer>
@@ -1282,6 +1623,44 @@
     };
 
     const API_URL = "https://api.hyperliquid.xyz/info";
+    const HL_TRADE_BASE = "https://app.hyperliquid.xyz/trade/";
+    const HL_EXPLORER_ADDRESS_BASE = "https://app.hyperliquid.xyz/explorer/address/";
+
+    const BUILDER_URLS = {
+      xyz: "https://trade.xyz",
+      flx: "https://felix.fi",
+      vntl: "https://ventuals.com",
+      km: "https://kinetiq.xyz",
+      hyna: "https://hyena.finance",
+      cash: "https://dreamcash.xyz",
+      para: "https://paragon.trade"
+    };
+
+    function marketTradeUrl(coin) {
+      return `${HL_TRADE_BASE}${encodeURIComponent(coin)}`;
+    }
+
+    function builderHomeUrl(builder) {
+      if (BUILDER_URLS[builder.name]) return BUILDER_URLS[builder.name];
+      if (builder.topMarketCoin) return marketTradeUrl(builder.topMarketCoin);
+      return `${HL_TRADE_BASE}${encodeURIComponent(builder.name)}`;
+    }
+
+    function shortAddress(address) {
+      if (!address || typeof address !== "string") return "—";
+      if (address.length <= 10) return address;
+      return `${address.slice(0, 6)}…${address.slice(-4)}`;
+    }
+
+    function marketLinkCell(coin) {
+      const clean = cleanCoinName(coin);
+      return `<a class="cell-link" href="${marketTradeUrl(coin)}" target="_blank" rel="noopener"><strong>${clean}</strong><span class="cell-link-out">↗</span><br><span class="table-muted">${coin}</span></a>`;
+    }
+
+    function builderLinkCell(builder) {
+      if (!builder) return '<span class="table-muted">Unknown</span>';
+      return `<a class="cell-link" href="${builderHomeUrl(builder)}" target="_blank" rel="noopener">${builder.display}<span class="cell-link-out">↗</span></a>`;
+    }
 
     function formatUsdCompact(value) {
       return new Intl.NumberFormat("en-US", {
@@ -1341,79 +1720,160 @@
 
       strip.innerHTML = builders.map((builder) => {
         const volume = formatUsdCompact(builder.dayVolume);
-        return `<div class="builder-chip"><strong>${builder.display}</strong>${builder.marketCount} markets · ${volume}</div>`;
+        return `<a class="builder-chip" href="${builderHomeUrl(builder)}" target="_blank" rel="noopener"><strong>${builder.display}</strong>${builder.marketCount} markets · ${volume}</a>`;
       }).join("");
+    }
+
+    function utilizationBar(ratio) {
+      const bounded = Math.max(0, Math.min(1, Number.isFinite(ratio) ? ratio : 0));
+      const width = (bounded * 100).toFixed(1);
+      return `<div class="util-bar"><span class="util-bar-fill" style="width:${width}%"></span></div>`;
+    }
+
+    function formatUtilization(ratio) {
+      if (!Number.isFinite(ratio) || ratio <= 0) return "—";
+      return `${(ratio * 100).toFixed(1)}%`;
     }
 
     function renderBuilderTable(builders) {
       const tbody = document.getElementById("builder-table-body");
       if (!tbody) return;
 
-      tbody.innerHTML = builders.map((builder) => `
-        <tr>
-          <td>
-            <strong>${builder.display}</strong><br>
-            <span class="table-muted">${builder.fullName || builder.display}</span>
-          </td>
-          <td>${formatInteger(builder.marketCount)}</td>
-          <td>${formatUsdCompact(builder.dayVolume)}</td>
-          <td>${formatUsdCompact(builder.openInterestUsd)}</td>
-          <td>
-            ${builder.note}<br>
-            <span class="table-muted">Top market: ${builder.topMarketName || "N/A"} · Growth mode markets: ${formatInteger(builder.growthModeCount)}</span><br>
-            <span class="table-muted">${builder.why}</span>
-          </td>
-        </tr>
-      `).join("");
+      tbody.innerHTML = builders.map((builder) => {
+        const capRatio = builder.configuredOiCap > 0 ? builder.openInterestUsd / builder.configuredOiCap : 0;
+        const capCell = builder.configuredOiCap > 0
+          ? `<strong>${formatUtilization(capRatio)}</strong><br><span class="table-muted">of ${formatUsdCompact(builder.configuredOiCap)} cap</span>${utilizationBar(capRatio)}`
+          : `<span class="table-muted">No cap configured</span>`;
+
+        const topMarketHtml = builder.topMarketCoin
+          ? `<a class="cell-link" href="${marketTradeUrl(builder.topMarketCoin)}" target="_blank" rel="noopener">${builder.topMarketName}<span class="cell-link-out">↗</span></a>`
+          : "N/A";
+
+        return `
+          <tr>
+            <td>
+              <a class="cell-link" href="${builderHomeUrl(builder)}" target="_blank" rel="noopener"><strong>${builder.display}</strong><span class="cell-link-out">↗</span></a><br>
+              <span class="table-muted">${builder.fullName || builder.display}</span>
+            </td>
+            <td>${formatInteger(builder.marketCount)}</td>
+            <td>${formatUsdCompact(builder.dayVolume)}</td>
+            <td>${formatUsdCompact(builder.openInterestUsd)}</td>
+            <td>${capCell}</td>
+            <td>
+              ${builder.note}<br>
+              <span class="table-muted">Top market: ${topMarketHtml} · Growth mode: ${formatInteger(builder.growthModeCount)}</span><br>
+              <span class="table-muted">${builder.why}</span>
+            </td>
+          </tr>
+        `;
+      }).join("");
     }
 
-    function renderMarketTable(markets, builderMap) {
-      const tbody = document.getElementById("market-table-body");
-      if (!tbody) return;
+    const MARKET_SORT_ACCESSORS = {
+      coin: (market) => cleanCoinName(market.coin).toLowerCase(),
+      builder: (market, builderMap) => (builderMap.get(market.dex)?.display || market.dex).toLowerCase(),
+      dayVolume: (market) => market.dayVolume,
+      weekVolume: (market) => Number.isFinite(market.weekVolume) ? market.weekVolume : -1,
+      openInterestUsd: (market) => market.openInterestUsd,
+      markPx: (market) => market.markPx,
+      funding: (market) => market.funding,
+      growthMode: (market) => market.growthMode === "enabled" ? 1 : 0
+    };
 
-      tbody.innerHTML = markets.map((market) => `
-        <tr>
-          <td><strong>${cleanCoinName(market.coin)}</strong><br><span class="table-muted">${market.coin}</span></td>
-          <td>${builderMap.get(market.dex)?.display || market.dex}</td>
-          <td>${formatUsdCompact(market.dayVolume)}</td>
-          <td>${formatUsdCompact(market.openInterestUsd)}</td>
-          <td>${formatPrice(market.markPx)}</td>
-          <td>${formatFunding(market.funding)}</td>
-          <td>${market.growthMode === "enabled" ? "Enabled" : "Off"}</td>
-        </tr>
-      `).join("");
+    function sortMarkets(markets, builderMap, sort) {
+      const accessor = MARKET_SORT_ACCESSORS[sort.key] || MARKET_SORT_ACCESSORS.dayVolume;
+      const direction = sort.dir === "asc" ? 1 : -1;
+      return [...markets].sort((a, b) => {
+        const av = accessor(a, builderMap);
+        const bv = accessor(b, builderMap);
+        if (typeof av === "string" && typeof bv === "string") {
+          return av.localeCompare(bv) * direction;
+        }
+        return ((av ?? 0) - (bv ?? 0)) * direction;
+      });
+    }
+
+    function renderMarketTable(markets, builderMap, sort) {
+      const tbody = document.getElementById("market-table-body");
+      const table = document.getElementById("market-table");
+      if (!tbody || !table) return;
+
+      table.querySelectorAll("th.is-sortable").forEach((th) => {
+        th.classList.remove("sort-asc", "sort-desc");
+        if (th.dataset.sort === sort.key) {
+          th.classList.add(sort.dir === "asc" ? "sort-asc" : "sort-desc");
+        }
+      });
+
+      const sorted = sortMarkets(markets, builderMap, sort).slice(0, 15);
+
+      tbody.innerHTML = sorted.map((market) => {
+        const weekCell = Number.isFinite(market.weekVolume)
+          ? formatUsdCompact(market.weekVolume)
+          : '<span class="table-muted">Loading…</span>';
+
+        return `
+          <tr>
+            <td>${marketLinkCell(market.coin)}</td>
+            <td>${builderLinkCell(builderMap.get(market.dex))}</td>
+            <td>${formatUsdCompact(market.dayVolume)}</td>
+            <td>${weekCell}</td>
+            <td>${formatUsdCompact(market.openInterestUsd)}</td>
+            <td>${formatPrice(market.markPx)}</td>
+            <td>${formatFunding(market.funding)}</td>
+            <td>${market.growthMode === "enabled" ? "Enabled" : "Off"}</td>
+          </tr>
+        `;
+      }).join("");
     }
 
     function renderConfigTable(builders) {
       const tbody = document.getElementById("config-table-body");
       if (!tbody) return;
 
-      tbody.innerHTML = builders.map((builder) => `
-        <tr>
-          <td><strong>${builder.display}</strong><br><span class="table-muted">${builder.fullName || builder.display}</span></td>
-          <td>${formatUsdCompact(builder.configuredOiCap)}</td>
-          <td>${builder.maxCapMarketName || "N/A"}<br><span class="table-muted">${formatUsdCompact(builder.maxCapMarketValue || 0)}</span></td>
-          <td>${builder.avgFundingMultiplier.toFixed(2)}x</td>
-          <td>${builder.deployerFeeScale.toFixed(4)}</td>
-          <td>${formatInteger(builder.subDeployerPermissions)}</td>
-        </tr>
-      `).join("");
+      tbody.innerHTML = builders.map((builder) => {
+        const deployerHtml = builder.deployer
+          ? `<a class="cell-link mono" href="${HL_EXPLORER_ADDRESS_BASE}${builder.deployer}" target="_blank" rel="noopener">${shortAddress(builder.deployer)}<span class="cell-link-out">↗</span></a>`
+          : '<span class="table-muted">—</span>';
+
+        return `
+          <tr>
+            <td>
+              <a class="cell-link" href="${builderHomeUrl(builder)}" target="_blank" rel="noopener"><strong>${builder.display}</strong><span class="cell-link-out">↗</span></a><br>
+              <span class="table-muted">${builder.fullName || builder.display}</span>
+            </td>
+            <td>${deployerHtml}</td>
+            <td>${formatUsdCompact(builder.configuredOiCap)}</td>
+            <td>${builder.maxCapMarketName || "N/A"}<br><span class="table-muted">${formatUsdCompact(builder.maxCapMarketValue || 0)}</span></td>
+            <td>${builder.avgFundingMultiplier.toFixed(2)}x</td>
+            <td>${builder.deployerFeeScale.toFixed(4)}</td>
+            <td>${formatInteger(builder.subDeployerPermissions)}</td>
+          </tr>
+        `;
+      }).join("");
     }
 
     function renderOiTable(markets, builderMap) {
       const tbody = document.getElementById("oi-table-body");
       if (!tbody) return;
 
-      tbody.innerHTML = markets.map((market) => `
-        <tr>
-          <td><strong>${cleanCoinName(market.coin)}</strong><br><span class="table-muted">${market.coin}</span></td>
-          <td>${builderMap.get(market.dex)?.display || market.dex}</td>
-          <td>${formatUsdCompact(market.openInterestUsd)}</td>
-          <td>${formatUsdCompact(market.dayVolume)}</td>
-          <td>${formatUsdCompact(market.oiCap)}</td>
-          <td>${formatInteger(market.maxLeverage)}x</td>
-        </tr>
-      `).join("");
+      tbody.innerHTML = markets.map((market) => {
+        const ratio = market.oiCap > 0 ? market.openInterestUsd / market.oiCap : 0;
+        const capCell = market.oiCap > 0
+          ? `<strong>${formatUtilization(ratio)}</strong>${utilizationBar(ratio)}`
+          : `<span class="table-muted">—</span>`;
+
+        return `
+          <tr>
+            <td>${marketLinkCell(market.coin)}</td>
+            <td>${builderLinkCell(builderMap.get(market.dex))}</td>
+            <td>${formatUsdCompact(market.openInterestUsd)}</td>
+            <td>${formatUsdCompact(market.oiCap)}</td>
+            <td>${capCell}</td>
+            <td>${formatInteger(market.maxLeverage)}x</td>
+          </tr>
+        `;
+      }).join("");
     }
 
     function renderFundingTable(markets, builderMap) {
@@ -1422,8 +1882,8 @@
 
       tbody.innerHTML = markets.map((market) => `
         <tr>
-          <td><strong>${cleanCoinName(market.coin)}</strong><br><span class="table-muted">${market.coin}</span></td>
-          <td>${builderMap.get(market.dex)?.display || market.dex}</td>
+          <td>${marketLinkCell(market.coin)}</td>
+          <td>${builderLinkCell(builderMap.get(market.dex))}</td>
           <td>${formatFunding(market.funding)}</td>
           <td>${formatUsdCompact(market.dayVolume)}</td>
           <td>${formatUsdCompact(market.openInterestUsd)}</td>
@@ -1432,46 +1892,366 @@
       `).join("");
     }
 
+    function buildSparklinePath(points) {
+      if (!points || points.length < 2) return null;
+      const width = 240;
+      const height = 36;
+      const min = Math.min(...points);
+      const max = Math.max(...points);
+      const range = max - min || 1;
+      const step = width / (points.length - 1);
+      const toY = (v) => height - ((v - min) / range) * (height - 4) - 2;
+
+      const d = points.map((value, index) => `${index === 0 ? "M" : "L"}${(index * step).toFixed(1)},${toY(value).toFixed(1)}`).join(" ");
+      const area = `${d} L${width.toFixed(1)},${height} L0,${height} Z`;
+      return { d, area, width, height };
+    }
+
+    function sparklineSvg(prices) {
+      const paths = buildSparklinePath(prices);
+      if (!paths) return '<div class="sparkline-empty">No 14d price history yet</div>';
+      return `
+        <svg class="sparkline" viewBox="0 0 ${paths.width} ${paths.height}" preserveAspectRatio="none">
+          <path class="spark-area" d="${paths.area}"></path>
+          <path d="${paths.d}"></path>
+        </svg>
+      `;
+    }
+
     function renderMarketDetailCards(markets, builderMap, totalVolume) {
       const grid = document.getElementById("market-detail-grid");
       if (!grid) return;
 
-      grid.innerHTML = markets.slice(0, 6).map((market, index) => `
-        <article class="market-detail-card reveal visible">
-          <div class="market-detail-rank">Rank #${index + 1}</div>
-          <h3 class="market-detail-name">${cleanCoinName(market.coin)}</h3>
-          <div class="market-detail-builder">${builderMap.get(market.dex)?.display || market.dex}</div>
-          <div class="market-detail-stats">
-            <div class="market-detail-stat">
-              <div class="market-detail-stat-label">24h volume</div>
-              <div class="market-detail-stat-value">${formatUsdCompact(market.dayVolume)}</div>
+      grid.innerHTML = markets.slice(0, 6).map((market, index) => {
+        const builder = builderMap.get(market.dex);
+        const weekValue = Number.isFinite(market.weekVolume)
+          ? formatUsdCompact(market.weekVolume)
+          : "—";
+        const spark = market.priceHistory && market.priceHistory.length > 1
+          ? sparklineSvg(market.priceHistory)
+          : '<div class="sparkline-empty">Loading 14d price…</div>';
+
+        return `
+          <article class="market-detail-card reveal visible">
+            <div class="market-detail-rank">Rank #${index + 1}</div>
+            <h3 class="market-detail-name">
+              <a class="cell-link" href="${marketTradeUrl(market.coin)}" target="_blank" rel="noopener">${cleanCoinName(market.coin)}<span class="cell-link-out">↗</span></a>
+            </h3>
+            <div class="market-detail-builder">
+              <a class="cell-link" href="${builder ? builderHomeUrl(builder) : marketTradeUrl(market.coin)}" target="_blank" rel="noopener" style="color:inherit;">${builder?.display || market.dex}</a>
             </div>
-            <div class="market-detail-stat">
-              <div class="market-detail-stat-label">Volume share</div>
-              <div class="market-detail-stat-value">${formatPercent(totalVolume > 0 ? market.dayVolume / totalVolume : 0)}</div>
+            ${spark}
+            <div class="market-detail-stats" style="margin-top:0.6rem;">
+              <div class="market-detail-stat">
+                <div class="market-detail-stat-label">24h volume</div>
+                <div class="market-detail-stat-value">${formatUsdCompact(market.dayVolume)}</div>
+              </div>
+              <div class="market-detail-stat">
+                <div class="market-detail-stat-label">7d volume</div>
+                <div class="market-detail-stat-value">${weekValue}</div>
+              </div>
+              <div class="market-detail-stat">
+                <div class="market-detail-stat-label">Live OI</div>
+                <div class="market-detail-stat-value">${formatUsdCompact(market.openInterestUsd)}</div>
+              </div>
+              <div class="market-detail-stat">
+                <div class="market-detail-stat-label">Mark</div>
+                <div class="market-detail-stat-value">${formatPrice(market.markPx)}</div>
+              </div>
+              <div class="market-detail-stat">
+                <div class="market-detail-stat-label">Funding</div>
+                <div class="market-detail-stat-value">${formatFunding(market.funding)}</div>
+              </div>
+              <div class="market-detail-stat">
+                <div class="market-detail-stat-label">Growth mode</div>
+                <div class="market-detail-stat-value">${market.growthMode === "enabled" ? "Enabled" : "Off"}</div>
+              </div>
             </div>
-            <div class="market-detail-stat">
-              <div class="market-detail-stat-label">Live OI</div>
-              <div class="market-detail-stat-value">${formatUsdCompact(market.openInterestUsd)}</div>
-            </div>
-            <div class="market-detail-stat">
-              <div class="market-detail-stat-label">Mark</div>
-              <div class="market-detail-stat-value">${formatPrice(market.markPx)}</div>
-            </div>
-            <div class="market-detail-stat">
-              <div class="market-detail-stat-label">Funding</div>
-              <div class="market-detail-stat-value">${formatFunding(market.funding)}</div>
-            </div>
-            <div class="market-detail-stat">
-              <div class="market-detail-stat-label">Growth mode</div>
-              <div class="market-detail-stat-value">${market.growthMode === "enabled" ? "Enabled" : "Off"}</div>
-            </div>
-          </div>
-        </article>
-      `).join("");
+          </article>
+        `;
+      }).join("");
+    }
+
+    const REFRESH_INTERVAL_MS = 60_000;
+    const RELATIVE_TICK_MS = 1_000;
+    const HISTORICAL_DAYS = 14;
+    const DAY_MS = 24 * 60 * 60 * 1000;
+    const MAX_HISTORICAL_MARKETS = 24;
+
+    const state = {
+      builders: [],
+      markets: [],
+      builderMap: new Map(),
+      totalVolume: 0,
+      lastUpdated: null,
+      sort: { key: "dayVolume", dir: "desc" },
+      inflight: false,
+      historicalInflight: false,
+      historicalLoaded: false,
+      refreshTimer: null,
+      relativeTimer: null,
+      dailyTotals: []
+    };
+
+    function setLiveStatus(mode, message) {
+      const dot = document.getElementById("live-dot");
+      const label = document.getElementById("live-status-text");
+      if (!dot || !label) return;
+
+      dot.classList.remove("is-live", "is-error");
+      if (mode === "live") dot.classList.add("is-live");
+      else if (mode === "error") dot.classList.add("is-error");
+      label.textContent = message;
+    }
+
+    function renderRelativeTime() {
+      const source = document.getElementById("panel-source");
+      if (!source || !state.lastUpdated) return;
+
+      const deltaSeconds = Math.max(0, Math.floor((Date.now() - state.lastUpdated.getTime()) / 1000));
+      const relative = deltaSeconds < 5
+        ? "just now"
+        : deltaSeconds < 60
+          ? `${deltaSeconds}s ago`
+          : `${Math.floor(deltaSeconds / 60)}m ${deltaSeconds % 60}s ago`;
+
+      source.innerHTML = `
+        Hydrated directly from Hyperliquid's public <strong>perpDexs</strong> and <strong>metaAndAssetCtxs</strong>
+        endpoints. Updated ${relative}. Auto-refreshes every 60 seconds.
+      `;
+
+      if (deltaSeconds < 90) {
+        setLiveStatus("live", deltaSeconds < 5 ? "Live · just now" : `Live · ${relative}`);
+      }
+    }
+
+    function renderErrorRows() {
+      const errorCell = (cols) => `<tr><td colspan="${cols}" class="table-error"><strong>Live fetch failed</strong>Could not reach Hyperliquid. The page will retry automatically.</td></tr>`;
+      const targets = [
+        ["market-table-body", 7],
+        ["builder-table-body", 6],
+        ["config-table-body", 6],
+        ["oi-table-body", 6],
+        ["funding-table-body", 6]
+      ];
+      targets.forEach(([id, cols]) => {
+        const tbody = document.getElementById(id);
+        if (tbody) tbody.innerHTML = errorCell(cols);
+      });
+
+      const grid = document.getElementById("market-detail-grid");
+      if (grid) {
+        grid.innerHTML = `
+          <article class="market-detail-card reveal visible">
+            <div class="market-detail-rank">Offline</div>
+            <h3 class="market-detail-name">Live fetch failed</h3>
+            <div class="market-detail-builder">Retrying…</div>
+          </article>
+        `;
+      }
+    }
+
+    function renderTrendChart(dailyTotals) {
+      const body = document.getElementById("trend-chart-body");
+      if (!body || !dailyTotals || dailyTotals.length === 0) return;
+
+      const width = 800;
+      const height = 220;
+      const padX = 12;
+      const padTop = 18;
+      const padBottom = 28;
+      const plotWidth = width - padX * 2;
+      const plotHeight = height - padTop - padBottom;
+      const max = Math.max(...dailyTotals.map((d) => d.volume), 1);
+      const barGap = 4;
+      const barWidth = (plotWidth - barGap * (dailyTotals.length - 1)) / dailyTotals.length;
+
+      const bars = dailyTotals.map((d, i) => {
+        const x = padX + i * (barWidth + barGap);
+        const scaled = d.volume > 0 ? (d.volume / max) * plotHeight : 0;
+        const barH = Math.max(d.volume > 0 ? 2 : 0, scaled);
+        const y = padTop + (plotHeight - barH);
+        const tooltip = `${formatDate(d.date)}: ${formatUsdCompact(d.volume)}`;
+
+        return `
+          <g>
+            <rect class="bar" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barWidth.toFixed(1)}" height="${barH.toFixed(1)}"></rect>
+            <rect class="bar-hover" x="${x.toFixed(1)}" y="${padTop}" width="${barWidth.toFixed(1)}" height="${plotHeight}">
+              <title>${tooltip}</title>
+            </rect>
+          </g>
+        `;
+      }).join("");
+
+      const baselineY = padTop + plotHeight + 0.5;
+      const maxLabelY = padTop - 6;
+      const midY = padTop + plotHeight / 2;
+
+      body.innerHTML = `
+        <line class="grid" x1="${padX}" y1="${padTop}" x2="${width - padX}" y2="${padTop}"></line>
+        <line class="grid" x1="${padX}" y1="${midY}" x2="${width - padX}" y2="${midY}"></line>
+        <line class="grid" x1="${padX}" y1="${baselineY}" x2="${width - padX}" y2="${baselineY}"></line>
+        <text class="axis-label" x="${padX}" y="${maxLabelY}">Peak · ${formatUsdCompact(max)}</text>
+        ${bars}
+      `;
+
+      const total = dailyTotals.reduce((sum, d) => sum + d.volume, 0);
+      const peakDay = dailyTotals.reduce((best, d) => (d.volume > (best?.volume || 0) ? d : best), null);
+
+      updateText("trend-total", formatUsdCompact(total));
+      updateText("trend-peak", peakDay ? `${formatUsdCompact(peakDay.volume)} · ${formatShortDate(peakDay.date)}` : "—");
+      updateText("trend-range-start", formatShortDate(dailyTotals[0].date));
+      updateText("trend-range-end", formatShortDate(dailyTotals[dailyTotals.length - 1].date));
+    }
+
+    function formatDate(date) {
+      return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" }).format(date);
+    }
+
+    function formatShortDate(date) {
+      return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(date);
+    }
+
+    function buildUtcDayBuckets(days) {
+      const now = new Date();
+      const startOfToday = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+      const buckets = [];
+      for (let i = days - 1; i >= 0; i--) {
+        const dayStart = startOfToday - i * DAY_MS;
+        buckets.push({ start: dayStart, end: dayStart + DAY_MS, date: new Date(dayStart), volume: 0 });
+      }
+      return buckets;
+    }
+
+    async function loadHistoricalCandles() {
+      if (state.historicalInflight || state.markets.length === 0) return;
+      state.historicalInflight = true;
+
+      try {
+        const activeMarkets = state.markets
+          .filter((m) => m.dayVolume > 0 || m.openInterestUsd > 0)
+          .sort((a, b) => b.dayVolume - a.dayVolume)
+          .slice(0, MAX_HISTORICAL_MARKETS);
+
+        if (activeMarkets.length === 0) {
+          state.historicalInflight = false;
+          return;
+        }
+
+        const endTime = Date.now();
+        const startTime = endTime - HISTORICAL_DAYS * DAY_MS;
+        const dayBuckets = buildUtcDayBuckets(HISTORICAL_DAYS);
+        const marketIndex = new Map(state.markets.map((m) => [m.coin, m]));
+
+        const results = await Promise.allSettled(activeMarkets.map((market) =>
+          postInfo({
+            type: "candleSnapshot",
+            req: { coin: market.coin, interval: "1d", startTime, endTime }
+          }).then((candles) => ({ market, candles }))
+        ));
+
+        for (const result of results) {
+          if (result.status !== "fulfilled") continue;
+          const { market, candles } = result.value;
+          const target = marketIndex.get(market.coin);
+          if (!target || !Array.isArray(candles)) continue;
+
+          let weekVolume = 0;
+          const priceHistory = [];
+
+          for (const candle of candles) {
+            const openTime = Number(candle.t || 0);
+            const close = Number(candle.c || 0);
+            const baseVolume = Number(candle.v || 0);
+            const notional = baseVolume * close;
+
+            if (close > 0) priceHistory.push(close);
+
+            if (!Number.isFinite(notional) || notional <= 0) continue;
+
+            const bucket = dayBuckets.find((b) => openTime >= b.start && openTime < b.end);
+            if (bucket) bucket.volume += notional;
+
+            if (openTime >= endTime - 7 * DAY_MS) {
+              weekVolume += notional;
+            }
+          }
+
+          target.weekVolume = weekVolume;
+          target.priceHistory = priceHistory;
+        }
+
+        state.dailyTotals = dayBuckets;
+        state.historicalLoaded = true;
+
+        renderTrendChart(dayBuckets);
+        renderMarketTable(state.markets, state.builderMap, state.sort);
+        renderMarketDetailCards(state.topMarketsByVolume, state.builderMap, state.totalVolume);
+      } catch (error) {
+        console.error("Historical candle fetch failed", error);
+      } finally {
+        state.historicalInflight = false;
+      }
+    }
+
+    function renderEverything() {
+      updateText("stat-volume", formatUsdCompact(state.totalVolume));
+      updateText("stat-oi", formatUsdCompact(state.totalOi));
+      updateText("stat-builders", formatInteger(state.builders.length));
+      updateText("stat-markets", formatInteger(state.totalMarkets));
+      updateText("metric-top-share", formatPercent(state.topBuilderShare));
+      updateText("metric-top3-share", formatPercent(state.top3Share));
+      updateText("metric-growth-markets", formatInteger(state.growthModeMarkets));
+      updateText("metric-active-markets", formatInteger(state.activeMarkets));
+      updateText("metric-configured-cap", formatUsdCompact(state.totalConfiguredOiCap));
+      updateText("metric-largest-builder-cap", formatUsdCompact(state.largestBuilderByCap?.configuredOiCap || 0));
+      updateText("metric-largest-market-cap", formatUsdCompact(state.largestMarketCap?.value || 0));
+      updateText("metric-subdeployers", formatInteger(state.totalSubDeployerPermissions));
+      updateText(
+        "metric-largest-builder-copy",
+        state.largestBuilderByCap
+          ? `${state.largestBuilderByCap.display} has the largest configured builder footprint in the live registry.`
+          : "No builder config available."
+      );
+      updateText(
+        "metric-largest-market-copy",
+        state.largestMarketCap?.market
+          ? `${state.largestMarketCap.market} is the largest single-market configured OI cap on the board.`
+          : "No market cap config available."
+      );
+
+      renderBuilderStrip(state.builders);
+      renderBuilderTable(state.builders);
+      renderConfigTable(state.builders);
+      renderMarketTable(state.markets, state.builderMap, state.sort);
+      renderMarketDetailCards(state.topMarketsByVolume, state.builderMap, state.totalVolume);
+      renderOiTable(state.topOiMarkets, state.builderMap);
+      renderFundingTable(state.topFundingMarkets, state.builderMap);
+    }
+
+    function attachSortHandlers() {
+      const table = document.getElementById("market-table");
+      if (!table || table.dataset.sortBound === "true") return;
+      table.dataset.sortBound = "true";
+
+      table.querySelectorAll("th.is-sortable").forEach((th) => {
+        th.addEventListener("click", () => {
+          const key = th.dataset.sort;
+          if (!key) return;
+          state.sort = {
+            key,
+            dir: state.sort.key === key && state.sort.dir === "desc" ? "asc" : "desc"
+          };
+          renderMarketTable(state.markets, state.builderMap, state.sort);
+        });
+      });
     }
 
     async function loadHip3LiveStats() {
+      if (state.inflight) return;
+      state.inflight = true;
+      setLiveStatus("connecting", state.lastUpdated ? "Refreshing…" : "Connecting…");
+
       try {
         const registry = await postInfo({ type: "perpDexs" });
         const dexs = registry.filter(Boolean);
@@ -1520,6 +2300,9 @@
             name: dex.name,
             display: notes.display || dex.fullName || dex.name,
             fullName: dex.fullName,
+            deployer: dex.deployer || null,
+            feeRecipient: dex.feeRecipient || null,
+            oracleUpdater: dex.oracleUpdater || null,
             marketCount,
             dayVolume,
             openInterestUsd,
@@ -1531,6 +2314,7 @@
             subDeployerPermissions,
             growthModeCount,
             topMarketName: topMarket ? cleanCoinName(topMarket.coin) : null,
+            topMarketCoin: topMarket ? topMarket.coin : null,
             markets,
             note: notes.note || "Public builder DEX visible in Hyperliquid's open registry.",
             why: notes.why || "Useful because the registry itself tells us how broad the builder surface has become."
@@ -1549,7 +2333,7 @@
         const top3Share = totalVolume > 0
           ? builderData.slice(0, 3).reduce((sum, builder) => sum + builder.dayVolume, 0) / totalVolume
           : 0;
-        const topMarkets = [...allMarkets].sort((a, b) => b.dayVolume - a.dayVolume).slice(0, 12);
+        const topMarketsByVolume = [...allMarkets].sort((a, b) => b.dayVolume - a.dayVolume).slice(0, 12);
         const topOiMarkets = [...allMarkets].sort((a, b) => b.openInterestUsd - a.openInterestUsd).slice(0, 10);
         const topFundingMarkets = [...allMarkets].sort((a, b) => Math.abs(b.funding) - Math.abs(a.funding)).slice(0, 10);
         const totalConfiguredOiCap = builderData.reduce((sum, builder) => sum + builder.configuredOiCap, 0);
@@ -1564,55 +2348,83 @@
         const totalSubDeployerPermissions = builderData.reduce((sum, builder) => sum + builder.subDeployerPermissions, 0);
         const builderMap = new Map(builderData.map((builder) => [builder.name, builder]));
 
-        updateText("stat-volume", formatUsdCompact(totalVolume));
-        updateText("stat-oi", formatUsdCompact(totalOi));
-        updateText("stat-builders", formatInteger(builderData.length));
-        updateText("stat-markets", formatInteger(totalMarkets));
-        updateText("metric-top-share", formatPercent(topBuilderShare));
-        updateText("metric-top3-share", formatPercent(top3Share));
-        updateText("metric-growth-markets", formatInteger(growthModeMarkets));
-        updateText("metric-active-markets", formatInteger(activeMarkets));
-        updateText("metric-configured-cap", formatUsdCompact(totalConfiguredOiCap));
-        updateText("metric-largest-builder-cap", formatUsdCompact(largestBuilderByCap?.configuredOiCap || 0));
-        updateText("metric-largest-market-cap", formatUsdCompact(largestMarketCap?.value || 0));
-        updateText("metric-subdeployers", formatInteger(totalSubDeployerPermissions));
-        updateText("metric-largest-builder-copy", largestBuilderByCap
-          ? `${largestBuilderByCap.display} has the largest configured builder footprint in the live registry.`
-          : "No builder config available.");
-        updateText("metric-largest-market-copy", largestMarketCap?.market
-          ? `${largestMarketCap.market} is the largest single-market configured OI cap on the board.`
-          : "No market cap config available.");
+        state.builders = builderData;
+        state.markets = allMarkets;
+        state.builderMap = builderMap;
+        state.totalVolume = totalVolume;
+        state.totalOi = totalOi;
+        state.totalMarkets = totalMarkets;
+        state.growthModeMarkets = growthModeMarkets;
+        state.activeMarkets = activeMarkets;
+        state.topBuilderShare = topBuilderShare;
+        state.top3Share = top3Share;
+        state.topMarketsByVolume = topMarketsByVolume;
+        state.topOiMarkets = topOiMarkets;
+        state.topFundingMarkets = topFundingMarkets;
+        state.totalConfiguredOiCap = totalConfiguredOiCap;
+        state.largestBuilderByCap = largestBuilderByCap;
+        state.largestMarketCap = largestMarketCap;
+        state.totalSubDeployerPermissions = totalSubDeployerPermissions;
+        state.lastUpdated = new Date();
 
-        renderBuilderStrip(builderData);
-        renderBuilderTable(builderData);
-        renderConfigTable(builderData);
-        renderMarketTable(topMarkets, builderMap);
-        renderMarketDetailCards(topMarkets, builderMap, totalVolume);
-        renderOiTable(topOiMarkets, builderMap);
-        renderFundingTable(topFundingMarkets, builderMap);
+        renderEverything();
+        attachSortHandlers();
+
+        const retry = document.getElementById("panel-retry");
+        if (retry) retry.hidden = true;
+
+        setLiveStatus("live", "Live · just now");
+        renderRelativeTime();
+
+        if (state.historicalLoaded) {
+          renderTrendChart(state.dailyTotals);
+        }
+        loadHistoricalCandles();
+      } catch (error) {
+        console.error(error);
+        setLiveStatus("error", "Live fetch failed");
 
         const source = document.getElementById("panel-source");
         if (source) {
           source.innerHTML = `
-            Live values hydrate from Hyperliquid's public <strong>perpDexs</strong> and <strong>metaAndAssetCtxs</strong> endpoints.
-            Updated ${new Intl.DateTimeFormat("en-US", {
-              dateStyle: "medium",
-              timeStyle: "short"
-            }).format(new Date())}.
-            Historical board context still lives on
+            Couldn't reach Hyperliquid's public API. The board will retry automatically.
+            Historical context stays available on
             <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>.
           `;
         }
-      } catch (error) {
-        const source = document.getElementById("panel-source");
-        if (source) {
-          source.innerHTML = `Live fetch failed. This page still links out to <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a> and the Hyperliquid docs while the API is unavailable.`;
-        }
-        console.error(error);
+
+        const retry = document.getElementById("panel-retry");
+        if (retry) retry.hidden = false;
+
+        if (!state.lastUpdated) renderErrorRows();
+      } finally {
+        state.inflight = false;
       }
     }
 
-    loadHip3LiveStats();
+    function initHip3Page() {
+      const retry = document.getElementById("panel-retry");
+      if (retry) {
+        retry.addEventListener("click", () => loadHip3LiveStats());
+      }
+
+      loadHip3LiveStats();
+
+      if (state.refreshTimer) clearInterval(state.refreshTimer);
+      if (state.relativeTimer) clearInterval(state.relativeTimer);
+
+      state.refreshTimer = setInterval(() => loadHip3LiveStats(), REFRESH_INTERVAL_MS);
+      state.relativeTimer = setInterval(renderRelativeTime, RELATIVE_TICK_MS);
+
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && state.lastUpdated) {
+          const stale = Date.now() - state.lastUpdated.getTime() > REFRESH_INTERVAL_MS;
+          if (stale) loadHip3LiveStats();
+        }
+      });
+    }
+
+    initHip3Page();
   </script>
 </body>
 </html>
