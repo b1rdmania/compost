@@ -10,6 +10,8 @@ Capital formation layer for Hyperliquid builder markets (HIP-3).
 ├── demo.html         # Demo hub (routes to vault.html or vault-test.html)
 ├── vault.html        # Vault dashboard (static mockup, "Vault Preview")
 ├── vault-test.html   # Live HyperEVM testnet demo UI
+├── hip3.html         # HIP-3 live intelligence board (perp builder markets)
+├── hip4.html         # HIP-4 outcome trading explainer + live testnet board
 ├── litepaper.html    # Litepaper page
 ├── yield.html        # Yield page
 ├── process.html      # Design process page

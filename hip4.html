@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>HIP-4 Intelligence | Compost</title>
+  <meta name="description" content="A public read on Hyperliquid's HIP-4 outcome trading primitive: live testnet markets, lifecycle mechanics, and how the capital formation thesis extends to prediction markets.">
+
+  <meta property="og:title" content="HIP-4 Intelligence | Compost">
+  <meta property="og:description" content="Hyperliquid's prediction-market primitive in plain view: testnet outcomes, native settlement, and what it means for capital formation.">
+  <meta property="og:image" content="https://compost.fi/assets/og-image.png">
+  <meta property="og:url" content="https://compost.fi/hip4.html">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@compostfi">
+  <meta name="twitter:title" content="HIP-4 Intelligence | Compost">
+  <meta name="twitter:description" content="Hyperliquid's prediction-market primitive in plain view: testnet outcomes, native settlement, and what it means for capital formation.">
+  <meta name="twitter:image" content="https://compost.fi/assets/og-image.png">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #0a0a09;
+      --bg-layer-1: #111110;
+      --bg-layer-2: #1a1918;
+      --bg-layer-3: #252422;
+      --stone: #3d3a36;
+      --sand: #8a8279;
+      --warm-gray: #6b665e;
+      --text-primary: #e8e4df;
+      --text-secondary: #9a958d;
+      --text-muted: #5c574f;
+      --accent-bright: #4dcf6a;
+      --accent: #2ba84a;
+      --accent-muted: #1d7a35;
+      --accent-glow: rgba(77, 207, 106, 0.12);
+      --accent-glow-strong: rgba(77, 207, 106, 0.24);
+      --testnet: #f5b94c;
+      --testnet-soft: rgba(245, 185, 76, 0.12);
+      --font: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --border: rgba(232, 228, 223, 0.09);
+      --border-strong: rgba(232, 228, 223, 0.16);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(circle at top left, rgba(77, 207, 106, 0.08), transparent 28%),
+        radial-gradient(circle at top right, rgba(138, 130, 121, 0.08), transparent 32%),
+        linear-gradient(180deg, #0d0d0c 0%, var(--bg-deep) 32%, #090909 100%);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    a { color: inherit; }
+
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem calc(3rem + env(safe-area-inset-right)) 1.25rem calc(3rem + env(safe-area-inset-left));
+      padding-top: calc(1.25rem + env(safe-area-inset-top));
+      background: rgba(10, 10, 9, 0.88);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-left, .nav-right { display: flex; align-items: center; }
+    .nav-left { gap: 2.5rem; }
+    .nav-right { gap: 2rem; }
+    .nav-lockup { display: block; line-height: 0; }
+    .nav-lockup-img { height: 32px; display: block; }
+
+    .nav-link {
+      font-size: 0.9375rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover { color: var(--accent-bright); }
+    .nav-link.active { color: var(--text-primary); font-weight: 500; }
+
+    .container {
+      width: min(1200px, calc(100vw - 3rem));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      padding: calc(8rem + env(safe-area-inset-top)) 0 3rem;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(340px, 0.95fr) minmax(0, 1.05fr);
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 0.75rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid rgba(77, 207, 106, 0.22);
+      background: rgba(77, 207, 106, 0.07);
+      color: var(--accent-bright);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-bright);
+      box-shadow: 0 0 18px rgba(77, 207, 106, 0.8);
+    }
+
+    .testnet-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-left: 0.5rem;
+      padding: 0.32rem 0.65rem;
+      border: 1px solid rgba(245, 185, 76, 0.4);
+      background: var(--testnet-soft);
+      color: var(--testnet);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .testnet-strip {
+      margin: 0.6rem 0 0;
+      padding: 0.7rem 0.95rem;
+      border: 1px solid rgba(245, 185, 76, 0.28);
+      background: rgba(245, 185, 76, 0.06);
+      color: var(--testnet);
+      font-size: 0.85rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .testnet-strip strong {
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-title {
+      font-size: clamp(3.1rem, 8vw, 6.2rem);
+      font-weight: 200;
+      letter-spacing: -0.04em;
+      line-height: 0.92;
+      max-width: 11ch;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-subtitle {
+      max-width: 41rem;
+      color: var(--text-secondary);
+      font-size: clamp(1.08rem, 2vw, 1.34rem);
+      font-weight: 300;
+      line-height: 1.72;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      min-height: 50px;
+      padding: 0 1.5rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.82rem;
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary { background: var(--accent-bright); color: #081008; }
+    .btn-secondary {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .btn-secondary:hover {
+      border-color: rgba(77, 207, 106, 0.24);
+      background: rgba(77, 207, 106, 0.06);
+    }
+
+    .hero-panel {
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+        linear-gradient(135deg, rgba(77, 207, 106, 0.08), rgba(255, 255, 255, 0.02));
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      min-height: 100%;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .panel-label {
+      color: var(--text-muted);
+      font-size: 0.76rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .live-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--text-secondary);
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .live-dot {
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      background: var(--text-muted);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .live-dot.is-live {
+      background: var(--accent-bright);
+      animation: live-pulse 2.2s ease-in-out infinite;
+    }
+    .live-dot.is-error { background: #ef4444; }
+
+    @keyframes live-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(77, 207, 106, 0.45); }
+      50% { box-shadow: 0 0 0 6px rgba(77, 207, 106, 0); }
+    }
+
+    .panel-retry {
+      margin-top: 0.9rem;
+      padding: 0.55rem 0.9rem;
+      background: rgba(77, 207, 106, 0.08);
+      color: var(--accent-bright);
+      border: 1px solid rgba(77, 207, 106, 0.25);
+      font: 500 0.72rem/1 var(--font);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .panel-retry:hover {
+      background: rgba(77, 207, 106, 0.16);
+      border-color: rgba(77, 207, 106, 0.45);
+    }
+
+    .scoreboard {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .score-card {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .score-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.55rem;
+    }
+
+    .score-value {
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 300;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .score-context {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .panel-source {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      font-size: 0.84rem;
+      line-height: 1.6;
+    }
+
+    .panel-source a, .table a, .footer-note a, .lifecycle-note a {
+      color: var(--accent-bright);
+      text-decoration: none;
+    }
+
+    .panel-source a:hover, .table a:hover, .footer-note a:hover, .lifecycle-note a:hover {
+      text-decoration: underline;
+    }
+
+    .section {
+      padding: 4.5rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      align-items: end;
+    }
+
+    .section-kicker {
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-bright);
+      margin-bottom: 0.85rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 200;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      max-width: 18ch;
+    }
+
+    .section-copy {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* Lifecycle */
+    .lifecycle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .lifecycle-card {
+      position: relative;
+      padding: 1.6rem 1.4rem 1.4rem;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    }
+
+    .lifecycle-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: var(--accent-bright);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .lifecycle-step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgba(77, 207, 106, 0.4);
+      color: var(--accent-bright);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .lifecycle-title {
+      font-size: 1.2rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.55rem;
+      color: var(--text-primary);
+    }
+
+    .lifecycle-body {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .lifecycle-tag {
+      display: inline-block;
+      padding: 0.3rem 0.55rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.025);
+      color: var(--text-muted);
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0;
+    }
+
+    .lifecycle-note {
+      margin-top: 2rem;
+      padding: 1.5rem 1.6rem;
+      border: 1px solid var(--border);
+      background: rgba(77, 207, 106, 0.04);
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    .lifecycle-note strong { color: var(--text-primary); font-weight: 500; }
+    .lifecycle-note .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      color: var(--accent-bright);
+      font-size: 0.9em;
+    }
+
+    /* Tables */
+    .table-shell {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .table-shell.is-scrollable {
+      max-height: 720px;
+      overflow-y: auto;
+    }
+
+    .table-shell.is-scrollable thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: #15140f;
+      box-shadow: inset 0 -1px 0 var(--border);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    .table th, .table td {
+      text-align: left;
+      padding: 1rem 1rem;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .table th {
+      color: var(--text-primary);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .table td {
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+      font-weight: 300;
+      line-height: 1.65;
+    }
+
+    .table tr:last-child td { border-bottom: none; }
+    .table strong { color: var(--text-primary); font-weight: 400; }
+    .table-muted { color: var(--text-muted); }
+
+    .table th.is-sortable {
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .table th.is-sortable:hover {
+      color: var(--accent-bright);
+      background: rgba(77, 207, 106, 0.06);
+    }
+    .table th.is-sortable::after {
+      content: "";
+      display: inline-block;
+      margin-left: 0.45rem;
+      width: 0; height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--text-muted);
+      opacity: 0.35;
+      vertical-align: 2px;
+      transition: opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+    .table th.is-sortable.sort-desc::after {
+      opacity: 1;
+      border-top-color: var(--accent-bright);
+    }
+    .table th.is-sortable.sort-asc::after {
+      opacity: 1;
+      border-top-color: var(--accent-bright);
+      transform: rotate(180deg);
+    }
+
+    .table-error {
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+    .table-error strong {
+      color: #ef4444;
+      display: block;
+      margin-bottom: 0.35rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+    }
+
+    /* Filter bar */
+    .market-filter-bar {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) auto auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .market-filter-bar input.filter-input {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 300;
+      padding: 0.65rem 0.85rem;
+      letter-spacing: 0.01em;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .market-filter-bar input.filter-input::placeholder { color: var(--text-muted); }
+
+    .market-filter-bar input.filter-input:focus {
+      outline: none;
+      border-color: var(--accent-bright);
+      background: rgba(77, 207, 106, 0.04);
+    }
+
+    .filter-toggles { display: inline-flex; gap: 0.4rem; }
+
+    .filter-chip {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.55rem 0.9rem;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .filter-chip:hover { color: var(--text-primary); border-color: var(--text-muted); }
+    .filter-chip.is-active {
+      color: var(--bg-deep);
+      background: var(--accent-bright);
+      border-color: var(--accent-bright);
+    }
+
+    .filter-count {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      text-align: right;
+      min-width: 11rem;
+    }
+
+    .filter-count strong { color: var(--text-primary); font-weight: 500; }
+
+    /* Probability bar */
+    .prob-cell {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0.65rem;
+      align-items: center;
+    }
+
+    .prob-value {
+      color: var(--text-primary);
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.01em;
+    }
+
+    .prob-bar {
+      position: relative;
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.05);
+      overflow: hidden;
+    }
+
+    .prob-bar-fill {
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      background: linear-gradient(90deg, var(--accent-muted), var(--accent-bright));
+    }
+
+    .type-pill {
+      display: inline-block;
+      padding: 0.25rem 0.55rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.025);
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .type-pill.type-binary { color: var(--accent-bright); border-color: rgba(77, 207, 106, 0.3); background: rgba(77, 207, 106, 0.05); }
+    .type-pill.type-recurring { color: var(--testnet); border-color: rgba(245, 185, 76, 0.3); background: rgba(245, 185, 76, 0.05); }
+    .type-pill.type-custom { color: var(--sand); border-color: rgba(138, 130, 121, 0.3); background: rgba(138, 130, 121, 0.05); }
+
+    .market-cell-name {
+      color: var(--text-primary);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .market-cell-meta {
+      color: var(--text-muted);
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .market-cell-sides {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .side-chip {
+      padding: 0.2rem 0.45rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-secondary);
+      font-size: 0.74rem;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      letter-spacing: 0;
+    }
+
+    .side-chip strong { color: var(--text-primary); font-weight: 500; }
+
+    /* Compare table — distinct from regular tables */
+    .compare-shell {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    .compare-table th, .compare-table td {
+      text-align: left;
+      padding: 1rem 1.15rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      font-size: 0.93rem;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .compare-table th {
+      color: var(--text-primary);
+      font-weight: 500;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+
+    .compare-table th:first-child {
+      width: 22%;
+      color: var(--text-muted);
+    }
+
+    .compare-table td:first-child,
+    .compare-table th[scope="row"] {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.018);
+    }
+
+    .compare-table td.compare-hl {
+      color: var(--text-primary);
+      background: rgba(77, 207, 106, 0.04);
+      border-left: 1px solid rgba(77, 207, 106, 0.18);
+      border-right: 1px solid rgba(77, 207, 106, 0.18);
+    }
+
+    .compare-table tr:first-child td.compare-hl { border-top: 1px solid rgba(77, 207, 106, 0.18); }
+    .compare-table tr:last-child td.compare-hl { border-bottom: 1px solid rgba(77, 207, 106, 0.18); }
+
+    .compare-table td { color: var(--text-secondary); }
+
+    /* Compost angle cards */
+    .angle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .angle-card {
+      position: relative;
+      padding: 1.5rem 1.4rem;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(77, 207, 106, 0.04), rgba(255, 255, 255, 0.01));
+    }
+
+    .angle-tag {
+      display: inline-block;
+      margin-bottom: 0.85rem;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid rgba(77, 207, 106, 0.3);
+      background: rgba(77, 207, 106, 0.06);
+      color: var(--accent-bright);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .angle-title {
+      font-size: 1.18rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.65rem;
+      color: var(--text-primary);
+    }
+
+    .angle-body {
+      color: var(--text-secondary);
+      font-size: 0.96rem;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    .angle-foot {
+      margin-top: 0.85rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* Sources */
+    .sources-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .source-card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    }
+
+    .source-label {
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.55rem;
+    }
+
+    .source-card h3 { font-size: 1.08rem; font-weight: 400; margin-bottom: 0.5rem; }
+    .source-card p {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    .source-card a {
+      color: var(--accent-bright);
+      text-decoration: none;
+    }
+    .source-card a:hover { text-decoration: underline; }
+
+    /* Footer */
+    .footer {
+      padding: 4rem 0 calc(4rem + env(safe-area-inset-bottom));
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 2rem;
+      align-items: end;
+    }
+
+    .footer-title {
+      font-size: clamp(1.8rem, 3.6vw, 2.75rem);
+      font-weight: 200;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 0.9rem;
+      max-width: 14ch;
+    }
+
+    .footer-note {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      max-width: 60ch;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 0.9rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .section-header,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lifecycle-grid,
+      .angle-grid,
+      .sources-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 820px) {
+      .nav {
+        padding: 1rem calc(1.25rem + env(safe-area-inset-right)) 1rem calc(1.25rem + env(safe-area-inset-left));
+        padding-top: calc(1rem + env(safe-area-inset-top));
+      }
+
+      .nav-inner { gap: 1rem; }
+      .nav-left { gap: 1.1rem; flex-wrap: wrap; }
+      .nav-right { gap: 1rem; }
+      .nav-lockup-img { height: 28px; }
+      .nav-link { font-size: 0.88rem; }
+
+      .container { width: min(100vw - 1.5rem, 1200px); }
+      .hero { padding-top: calc(7rem + env(safe-area-inset-top)); }
+
+      .panel-header { flex-wrap: wrap; }
+
+      .scoreboard,
+      .lifecycle-grid,
+      .angle-grid,
+      .sources-list {
+        grid-template-columns: 1fr;
+      }
+
+      .market-filter-bar {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+      }
+
+      .filter-count { text-align: left; }
+      .table-shell.is-scrollable { max-height: 560px; }
+
+      .hero-actions, .footer-links { justify-content: flex-start; }
+
+      .btn { width: 100%; }
+
+      .testnet-badge { margin-left: 0; margin-top: 0.5rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="/" class="nav-lockup" aria-label="Compost home">
+          <img src="/assets/logo/lockup-domain-horizontal.svg" alt="Compost" class="nav-lockup-img">
+        </a>
+        <a href="/" class="nav-link">Overview</a>
+        <a href="/demo.html" class="nav-link">Demo</a>
+        <a href="/hip3.html" class="nav-link">HIP-3</a>
+        <a href="/hip4.html" class="nav-link active">HIP-4</a>
+        <a href="/litepaper.html" class="nav-link">Litepaper</a>
+      </div>
+      <div class="nav-right">
+        <a href="https://docs.compost.fi" class="nav-link" target="_blank" rel="noopener">Docs</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span>HIP-4 · Outcome Trading</span>
+          </div>
+          <h1 class="hero-title">
+            Hyperliquid's prediction primitive,<br>
+            in plain view.<span class="testnet-badge">Testnet</span>
+          </h1>
+          <p class="hero-subtitle">
+            HIP-4 introduces fully collateralized outcome contracts to HyperCore: native L1 markets
+            that settle to <strong>0 or 1 in USDH</strong> based on real-world events. No leverage,
+            no liquidations, instant settlement when the outcome is known.
+          </p>
+          <div class="hero-actions">
+            <a href="#testnet-board" class="btn btn-primary">Jump To Markets</a>
+            <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener" class="btn btn-secondary">Full Research ↗</a>
+          </div>
+          <div class="testnet-strip">
+            <strong>Testnet only.</strong> HIP-4 is live on Hyperliquid testnet, instrumented from
+            <span class="mono" style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.85em;">api.hyperliquid-testnet.xyz</span>.
+            No official mainnet spec has been published yet; what's below is read directly from public testnet endpoints.
+          </div>
+        </div>
+
+        <aside class="hero-panel reveal">
+          <div class="panel-header">
+            <div class="panel-label">Testnet Snapshot</div>
+            <div class="live-status" id="live-status">
+              <span class="live-dot" id="live-dot"></span>
+              <span class="live-status-text" id="live-status-text">Connecting…</span>
+            </div>
+          </div>
+          <div class="scoreboard">
+            <div class="score-card">
+              <div class="score-label">Outcomes</div>
+              <div class="score-value" id="stat-outcomes">—</div>
+              <div class="score-context">Tradeable outcome contracts in the testnet registry.</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Questions</div>
+              <div class="score-value" id="stat-questions">—</div>
+              <div class="score-context">Multi-outcome question groups (each spans several outcomes).</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">With Live Volume</div>
+              <div class="score-value" id="stat-with-volume">—</div>
+              <div class="score-context">Outcomes with non-zero 24h notional on the # spot books.</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">24h Testnet Vol</div>
+              <div class="score-value" id="stat-volume">—</div>
+              <div class="score-context">Sum of YES + NO leg volume across every outcome (USDH).</div>
+            </div>
+          </div>
+          <div class="panel-source" id="panel-source">
+            Hydrated from Hyperliquid's public testnet <strong>outcomeMeta</strong> and
+            <strong>spotMetaAndAssetCtxs</strong> endpoints. Auto-refreshes every 60 seconds.
+          </div>
+          <button type="button" class="panel-retry" id="panel-retry" hidden>Retry now</button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">How HIP-4 Works</div>
+            <h2 class="section-title">Three phases, all on L1, no off-chain matching.</h2>
+          </div>
+          <div class="section-copy">
+            HIP-4 markets share HyperCore's CLOB, matching engine, and account system with spot and perps. Pair
+            minting keeps YES + NO priced to exactly 1.00 — so the YES mark is the implied probability.
+          </div>
+        </div>
+
+        <div class="lifecycle-grid">
+          <article class="lifecycle-card reveal">
+            <div class="lifecycle-step"><span class="lifecycle-step-num">1</span> Create</div>
+            <h3 class="lifecycle-title">A YES/NO pair is minted on L1.</h3>
+            <p class="lifecycle-body">
+              The HIP-4 operator calls <span class="lifecycle-tag">registerTokensAndStandaloneOutcome</span>
+              on HyperCore. Two #-prefixed spot tokens spawn — one for each side — and the opening price
+              defaults near 50/50 unless seeded otherwise.
+            </p>
+            <span class="lifecycle-tag">YES = #(id × 10) · NO = #(id × 10 + 1)</span>
+          </article>
+
+          <article class="lifecycle-card reveal">
+            <div class="lifecycle-step"><span class="lifecycle-step-num">2</span> Trade</div>
+            <h3 class="lifecycle-title">CLOB trading in USDH, fully collateralized.</h3>
+            <p class="lifecycle-body">
+              Anyone can trade either leg on the standard order book. Pair minting keeps the books mirrored —
+              a buy on YES at 0.40 reflects an ask on NO at 0.60. Collateral locks until settlement; there's
+              no leverage and no liquidation path.
+            </p>
+            <span class="lifecycle-tag">YES + NO = 1.00 USDH</span>
+          </article>
+
+          <article class="lifecycle-card reveal">
+            <div class="lifecycle-step"><span class="lifecycle-step-num">3</span> Settle</div>
+            <h3 class="lifecycle-title">One block, instant payout.</h3>
+            <p class="lifecycle-body">
+              At expiry the operator submits <span class="lifecycle-tag">VoteGlobalAction</span> with a
+              settle fraction (0 or 1). All positions resolve in a single L1 block — winner credited 1.00
+              per token, loser zero, no Merkle claim, no dispute window.
+            </p>
+            <span class="lifecycle-tag">Native L1 settlement</span>
+          </article>
+        </div>
+
+        <div class="lifecycle-note reveal">
+          <strong>Implied probability lives in the YES mark.</strong> Because pair minting forces YES + NO to
+          1.00, the mark price of the YES leg reads directly as the market's view on the outcome — no oracle
+          inference needed. A YES at <span class="mono">0.65</span> means the book is pricing a 65% chance.
+          <br><br>
+          Three outcome shapes show up on testnet today: <strong>Custom</strong> (multi-named questions like
+          "who wins the race"), <strong>priceBinary</strong> (above/below a strike at expiry), and
+          <strong>Recurring</strong> (auto-recreated priceBinaries on a schedule — 15m, 1h, 1d). All three
+          trade as ordinary # spot pairs once minted.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="testnet-board">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Testnet Outcomes</div>
+            <h2 class="section-title">Every outcome currently registered on testnet.</h2>
+          </div>
+          <div class="section-copy">
+            Pulled live from the <strong>outcomeMeta</strong> endpoint and joined to <strong>spotMetaAndAssetCtxs</strong>
+            for implied probability and 24h volume. Filter by ticker, question, or outcome shape.
+          </div>
+        </div>
+
+        <div class="market-filter-bar reveal" id="outcome-filter-bar">
+          <input
+            type="search"
+            id="outcome-filter-input"
+            class="filter-input"
+            placeholder="Filter by question, asset, or outcome ID…"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <div class="filter-toggles" role="tablist" aria-label="Outcome filters">
+            <button type="button" class="filter-chip is-active" data-filter-mode="all">All</button>
+            <button type="button" class="filter-chip" data-filter-mode="volume">With volume</button>
+            <button type="button" class="filter-chip" data-filter-mode="binary">Price binary</button>
+            <button type="button" class="filter-chip" data-filter-mode="recurring">Recurring</button>
+            <button type="button" class="filter-chip" data-filter-mode="custom">Custom</button>
+          </div>
+          <div class="filter-count" id="outcome-filter-count"><strong>—</strong> outcomes</div>
+        </div>
+
+        <div class="table-shell is-scrollable reveal">
+          <table class="table" id="outcome-table">
+            <thead>
+              <tr>
+                <th class="is-sortable" data-sort="name">Outcome</th>
+                <th class="is-sortable" data-sort="type">Type</th>
+                <th class="is-sortable sort-desc" data-sort="prob">Implied Prob (YES)</th>
+                <th class="is-sortable" data-sort="dayVolume">24h Volume</th>
+                <th class="is-sortable" data-sort="outcomeId">ID</th>
+              </tr>
+            </thead>
+            <tbody id="outcome-table-body">
+              <tr>
+                <td><strong>Loading…</strong></td>
+                <td class="table-muted">—</td>
+                <td class="table-muted">—</td>
+                <td class="table-muted">—</td>
+                <td class="table-muted">Loading outcomes from Hyperliquid testnet.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">How It Stacks Up</div>
+            <h2 class="section-title">HIP-4 vs Polymarket vs Kalshi.</h2>
+          </div>
+          <div class="section-copy">
+            Three different bets on what a prediction-market venue should look like. HIP-4 is the
+            only one that puts matching, settlement, and collateral on the same L1 as a major perp book.
+          </div>
+        </div>
+
+        <div class="compare-shell reveal">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th scope="col">Feature</th>
+                <th scope="col" class="compare-hl">HIP-4 (Hyperliquid)</th>
+                <th scope="col">Polymarket</th>
+                <th scope="col">Kalshi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Type</th>
+                <td class="compare-hl">Native L1 CLOB</td>
+                <td>Hybrid (off-chain match, on-chain settle)</td>
+                <td>Centralized</td>
+              </tr>
+              <tr>
+                <th scope="row">Settlement</th>
+                <td class="compare-hl">Auto via <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">VoteGlobalAction</span>, instant</td>
+                <td>UMA optimistic oracle, dispute window</td>
+                <td>Platform confirms</td>
+              </tr>
+              <tr>
+                <th scope="row">Chain</th>
+                <td class="compare-hl">HyperCore L1 (~0.07s blocks)</td>
+                <td>Polygon (ERC1155 CTF)</td>
+                <td>Off-chain</td>
+              </tr>
+              <tr>
+                <th scope="row">Pair minting</th>
+                <td class="compare-hl">Native in matching engine</td>
+                <td>Conditional Token Framework (smart contract)</td>
+                <td>Internal ledger</td>
+              </tr>
+              <tr>
+                <th scope="row">Oracle</th>
+                <td class="compare-hl">On-chain price feed (system wallets)</td>
+                <td>UMA Optimistic Oracle</td>
+                <td>Internal</td>
+              </tr>
+              <tr>
+                <th scope="row">Dispute</th>
+                <td class="compare-hl">None for price-linked; trust-based for subjective</td>
+                <td>UMA bond + vote</td>
+                <td>Platform decision</td>
+              </tr>
+              <tr>
+                <th scope="row">Composability</th>
+                <td class="compare-hl">Same engine as perps + spot, unified margin</td>
+                <td>Isolated on Polygon</td>
+                <td>None</td>
+              </tr>
+              <tr>
+                <th scope="row">Cost</th>
+                <td class="compare-hl">Near-zero gas</td>
+                <td>Polygon gas + venue fee</td>
+                <td>Platform fees</td>
+              </tr>
+              <tr>
+                <th scope="row">Regulation</th>
+                <td class="compare-hl">Unregulated</td>
+                <td>Unregulated (non-US)</td>
+                <td>CFTC-regulated</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">What This Means For Compost</div>
+            <h2 class="section-title">The capital formation thesis extends to outcome books.</h2>
+          </div>
+          <div class="section-copy">
+            Compost is a capital formation layer for HIP-3 builder markets today. HIP-4 introduces a second
+            HyperCore primitive that needs the same thing: deep books, opening-auction liquidity, and
+            disciplined LP rotation. The shape of the opportunity is different, but the playbook rhymes.
+          </div>
+        </div>
+
+        <div class="angle-grid">
+          <article class="angle-card reveal">
+            <span class="angle-tag">Bounded Risk</span>
+            <h3 class="angle-title">Fully collateralized by construction.</h3>
+            <p class="angle-body">
+              Every YES + NO pair sums to 1.00 USDH. Maximum loss on either leg is the premium paid — there's
+              no leverage to unwind, no liquidation cascade to absorb. That makes outcome books a cleaner
+              container for vault capital than levered perps.
+            </p>
+            <div class="angle-foot">e.g. delta-neutral spread capture across YES/NO</div>
+          </article>
+
+          <article class="angle-card reveal">
+            <span class="angle-tag">Recurring Premium</span>
+            <h3 class="angle-title">Recurring binaries look like systematic options.</h3>
+            <p class="angle-body">
+              The <strong>Recurring priceBinary</strong> shape — auto-recreated 15m / 1h / 1d markets on
+              BTC, ETH, etc. — produces a steady stream of short-dated binaries. That's structurally similar
+              to selling options spreads, except settlement is deterministic and on-chain.
+            </p>
+            <div class="angle-foot">e.g. systematic premium harvest, fully collateralized</div>
+          </article>
+
+          <article class="angle-card reveal">
+            <span class="angle-tag">Liquidity Routing</span>
+            <h3 class="angle-title">Opening auctions need disciplined LP.</h3>
+            <p class="angle-body">
+              New HIP-4 markets are reported to launch with a 15-minute opening call auction. Cold-start
+              books are exactly the moment a capital formation layer matters most — programmatic LP across
+              outcome openings is a natural extension of what Compost does for HIP-3 builder launches.
+            </p>
+            <div class="angle-foot">e.g. opening-auction quoting, decay-aware withdrawal</div>
+          </article>
+        </div>
+
+        <div class="lifecycle-note reveal" style="margin-top: 2rem;">
+          <strong>This is forward-looking, not a shipped product.</strong> HIP-4 is testnet-only at the time
+          of writing and Hyperliquid hasn't published a formal spec. None of the strategies above are live
+          on the Compost vault, and the surface itself may change before mainnet. We're tracking it because
+          the same primitive that makes HIP-3 worth a capital formation layer makes HIP-4 worth one too.
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Sources</div>
+            <h2 class="section-title">Where the numbers and mechanics come from.</h2>
+          </div>
+          <div class="section-copy">
+            HIP-4 has no official spec yet. The mechanics on this page are reverse-engineered from on-chain
+            transactions and the HyperCore API. Credit to the public researchers who did the legwork.
+          </div>
+        </div>
+
+        <div class="sources-list">
+          <article class="source-card reveal">
+            <div class="source-label">Primary research</div>
+            <h3>Liquid Terminal · HIP-4 docs</h3>
+            <p>
+              The most thorough public reverse-engineering of HIP-4 — lifecycle, info endpoint, pair minting,
+              system-wallet trace, and a clean industry comparison. <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener">liquidterminal.xyz/hip4/home ↗</a>
+            </p>
+          </article>
+
+          <article class="source-card reveal">
+            <div class="source-label">Live data</div>
+            <h3>Hyperliquid testnet API</h3>
+            <p>
+              <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">POST api.hyperliquid-testnet.xyz/info</span>
+              with <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">outcomeMeta</span>
+              and <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">spotMetaAndAssetCtxs</span>.
+              <a href="https://hyperliquid.gitbook.io/hyperliquid-docs" target="_blank" rel="noopener">Official docs ↗</a>
+            </p>
+          </article>
+
+          <article class="source-card reveal">
+            <div class="source-label">Context</div>
+            <h3>HIP-3 live board</h3>
+            <p>
+              For the perp side of the same engine — every builder market, real volume, no narrative.
+              <a href="/hip3.html">/hip3.html →</a>
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="reveal">
+        <h2 class="footer-title">Same engine, new shape.</h2>
+        <p class="footer-note">
+          Compost builds the capital formation layer for HIP-3 builder markets. HIP-4 is on the same
+          HyperCore, with the same pair-minting and CLOB infrastructure — just settling to 0 or 1 instead
+          of running indefinitely. We're tracking it openly. Full reverse-engineering credit to
+          <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener">Liquid Terminal</a>.
+        </p>
+      </div>
+
+      <div class="footer-links reveal">
+        <a href="/" class="btn btn-primary">Back To Compost</a>
+        <a href="https://twitter.com/compostfi" target="_blank" rel="noopener" class="btn btn-secondary">Follow</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+
+    const API_URL = 'https://api.hyperliquid-testnet.xyz/info';
+    const REFRESH_INTERVAL_MS = 60_000;
+    const RELATIVE_TICK_MS = 1_000;
+
+    const state = {
+      outcomes: [],
+      questions: [],
+      ctxByCoin: new Map(),
+      questionByOutcomeId: new Map(),
+      lastUpdated: null,
+      sort: { key: "prob", dir: "desc" },
+      filter: { search: "", mode: "all" },
+      inflight: false,
+      refreshTimer: null,
+      relativeTimer: null
+    };
+
+    async function postInfo(body) {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    }
+
+    function fmtInt(value) {
+      const n = Number(value || 0);
+      return new Intl.NumberFormat("en-US").format(Math.round(n));
+    }
+
+    function fmtUsdCompact(value) {
+      const n = Number(value || 0);
+      if (!Number.isFinite(n) || n === 0) return "$0";
+      const abs = Math.abs(n);
+      if (abs >= 1e9) return `$${(n / 1e9).toFixed(2)}B`;
+      if (abs >= 1e6) return `$${(n / 1e6).toFixed(2)}M`;
+      if (abs >= 1e3) return `$${(n / 1e3).toFixed(1)}K`;
+      return `$${n.toFixed(2)}`;
+    }
+
+    function fmtUsdShort(value) {
+      const n = Number(value || 0);
+      if (!Number.isFinite(n) || n === 0) return "—";
+      return fmtUsdCompact(n);
+    }
+
+    function fmtPercent(value) {
+      const n = Number(value);
+      if (!Number.isFinite(n)) return "—";
+      return `${(n * 100).toFixed(1)}%`;
+    }
+
+    function fmtRelative(date) {
+      if (!date) return "—";
+      const deltaSec = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+      if (deltaSec < 5) return "just now";
+      if (deltaSec < 60) return `${deltaSec}s ago`;
+      const m = Math.floor(deltaSec / 60);
+      const s = deltaSec % 60;
+      return `${m}m ${s}s ago`;
+    }
+
+    function setLiveStatus(mode, message) {
+      const dot = document.getElementById("live-dot");
+      const label = document.getElementById("live-status-text");
+      if (!dot || !label) return;
+      dot.classList.remove("is-live", "is-error");
+      if (mode === "live") dot.classList.add("is-live");
+      else if (mode === "error") dot.classList.add("is-error");
+      label.textContent = message;
+    }
+
+    function parseDescription(description) {
+      if (!description || typeof description !== "string") return null;
+      if (!description.includes("|") || !description.includes(":")) return null;
+      const result = {};
+      for (const segment of description.split("|")) {
+        const [key, ...rest] = segment.split(":");
+        if (!key) continue;
+        result[key.trim()] = rest.join(":").trim();
+      }
+      return result;
+    }
+
+    function classifyOutcome(outcome) {
+      const parsed = parseDescription(outcome.description);
+      const cls = parsed?.class;
+      if (cls === "priceBinary" && parsed?.period) return { type: "recurring", parsed };
+      if (cls === "priceBinary") return { type: "binary", parsed };
+      const sides = (outcome.sideSpecs || []).map((s) => (s?.name || "").toLowerCase());
+      if (sides.length === 2 && sides.includes("yes") && sides.includes("no")) {
+        return { type: "binary", parsed: parsed || null };
+      }
+      return { type: "custom", parsed: parsed || null };
+    }
+
+    function formatExpiry(raw) {
+      if (!raw || typeof raw !== "string") return null;
+      const m = raw.match(/^(\d{4})(\d{2})(\d{2})(?:-(\d{2})(\d{2}))?$/);
+      if (!m) return raw;
+      const [, y, mo, d, hh, mm] = m;
+      return `${y}-${mo}-${d}${hh ? ` ${hh}:${mm} UTC` : ""}`;
+    }
+
+    function buildOutcomeRows() {
+      return state.outcomes.map((outcome) => {
+        const classification = classifyOutcome(outcome);
+        const sideSpecs = outcome.sideSpecs || [];
+        const sides = sideSpecs.map((spec, index) => {
+          const coin = `#${outcome.outcome * 10 + index}`;
+          const ctx = state.ctxByCoin.get(coin) || null;
+          const markPx = ctx ? Number(ctx.markPx) : null;
+          const midPx = ctx ? Number(ctx.midPx) : null;
+          const dayNtlVlm = ctx ? Number(ctx.dayNtlVlm) : 0;
+          return {
+            name: spec?.name || `Side ${index + 1}`,
+            coin,
+            markPx: Number.isFinite(markPx) ? markPx : null,
+            midPx: Number.isFinite(midPx) ? midPx : null,
+            dayVolume: Number.isFinite(dayNtlVlm) ? dayNtlVlm : 0
+          };
+        });
+
+        const dayVolume = sides.reduce((sum, side) => sum + (side.dayVolume || 0), 0);
+        const yesSide = sides.find((side) => side.name.toLowerCase() === "yes") || sides[0];
+        const yesProb = yesSide && Number.isFinite(yesSide.markPx)
+          ? yesSide.markPx
+          : (yesSide && Number.isFinite(yesSide.midPx) ? yesSide.midPx : null);
+
+        const question = state.questionByOutcomeId.get(outcome.outcome) || null;
+
+        return {
+          outcomeId: outcome.outcome,
+          name: outcome.name || "(unnamed outcome)",
+          description: outcome.description || "",
+          type: classification.type,
+          parsed: classification.parsed,
+          sides,
+          dayVolume,
+          prob: yesProb,
+          question
+        };
+      });
+    }
+
+    function applyFilter(rows, filter) {
+      const search = (filter.search || "").trim().toLowerCase();
+      return rows.filter((row) => {
+        if (filter.mode === "volume" && !(row.dayVolume > 0)) return false;
+        if (filter.mode === "binary" && row.type !== "binary") return false;
+        if (filter.mode === "recurring" && row.type !== "recurring") return false;
+        if (filter.mode === "custom" && row.type !== "custom") return false;
+        if (!search) return true;
+        const haystack = [
+          row.name,
+          row.description,
+          row.question?.name || "",
+          String(row.outcomeId),
+          row.parsed?.underlying || "",
+          ...row.sides.map((s) => `${s.name} ${s.coin}`)
+        ].join(" ").toLowerCase();
+        return haystack.includes(search);
+      });
+    }
+
+    const SORT_ACCESSORS = {
+      name: (row) => (row.name || "").toLowerCase(),
+      type: (row) => row.type,
+      prob: (row) => Number.isFinite(row.prob) ? row.prob : -1,
+      dayVolume: (row) => row.dayVolume,
+      outcomeId: (row) => row.outcomeId
+    };
+
+    function sortRows(rows, sort) {
+      const accessor = SORT_ACCESSORS[sort.key] || SORT_ACCESSORS.prob;
+      const direction = sort.dir === "asc" ? 1 : -1;
+      return [...rows].sort((a, b) => {
+        const av = accessor(a);
+        const bv = accessor(b);
+        if (typeof av === "string" && typeof bv === "string") {
+          return av.localeCompare(bv) * direction;
+        }
+        return ((av ?? 0) - (bv ?? 0)) * direction;
+      });
+    }
+
+    function escapeHtml(value) {
+      if (value === null || value === undefined) return "";
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function probCell(row) {
+      if (!Number.isFinite(row.prob)) {
+        return '<span class="table-muted">—</span>';
+      }
+      const pct = Math.max(0, Math.min(1, row.prob));
+      return `
+        <div class="prob-cell">
+          <div class="prob-value">${(pct * 100).toFixed(1)}%</div>
+          <div class="prob-bar"><div class="prob-bar-fill" style="width:${(pct * 100).toFixed(2)}%"></div></div>
+        </div>
+      `;
+    }
+
+    function typePill(type) {
+      const labels = { binary: "Price binary", recurring: "Recurring", custom: "Custom" };
+      const cls = `type-pill type-${type}`;
+      return `<span class="${cls}">${labels[type] || "Outcome"}</span>`;
+    }
+
+    function nameCell(row) {
+      const name = escapeHtml(row.name);
+      const parsed = row.parsed;
+      let metaBits = [];
+
+      if (row.type === "binary" || row.type === "recurring") {
+        if (parsed?.underlying) {
+          metaBits.push(`<strong>${escapeHtml(parsed.underlying)}</strong> binary`);
+        }
+        if (parsed?.targetPrice) {
+          const target = Number(parsed.targetPrice);
+          if (Number.isFinite(target)) {
+            metaBits.push(`strike $${fmtInt(target)}`);
+          }
+        }
+        if (parsed?.expiry) {
+          const formatted = formatExpiry(parsed.expiry);
+          if (formatted) metaBits.push(`expires ${escapeHtml(formatted)}`);
+        }
+        if (parsed?.period) {
+          metaBits.push(`every ${escapeHtml(parsed.period)}`);
+        }
+      } else if (row.question) {
+        metaBits.push(`Part of: <strong>${escapeHtml(row.question.name)}</strong>`);
+      }
+
+      const sidesHtml = row.sides.length
+        ? `<div class="market-cell-sides">${
+            row.sides.map((side) => {
+              const probStr = Number.isFinite(side.markPx)
+                ? ` <strong>${(side.markPx * 100).toFixed(1)}%</strong>`
+                : "";
+              return `<span class="side-chip">${escapeHtml(side.name)} <span class="table-muted">${escapeHtml(side.coin)}</span>${probStr}</span>`;
+            }).join("")
+          }</div>`
+        : "";
+
+      const metaHtml = metaBits.length
+        ? `<div class="market-cell-meta">${metaBits.join(" · ")}</div>`
+        : "";
+
+      return `
+        <div>
+          <span class="market-cell-name">${name}</span>
+          ${metaHtml}
+          ${sidesHtml}
+        </div>
+      `;
+    }
+
+    function renderOutcomeTable() {
+      const tbody = document.getElementById("outcome-table-body");
+      const table = document.getElementById("outcome-table");
+      if (!tbody || !table) return;
+
+      table.querySelectorAll("th.is-sortable").forEach((th) => {
+        th.classList.remove("sort-asc", "sort-desc");
+        if (th.dataset.sort === state.sort.key) {
+          th.classList.add(state.sort.dir === "asc" ? "sort-asc" : "sort-desc");
+        }
+      });
+
+      const rows = buildOutcomeRows();
+      const filtered = applyFilter(rows, state.filter);
+      const sorted = sortRows(filtered, state.sort);
+
+      const countEl = document.getElementById("outcome-filter-count");
+      if (countEl) {
+        const total = rows.length;
+        const shown = sorted.length;
+        countEl.innerHTML = shown === total
+          ? `<strong>${fmtInt(total)}</strong> outcomes`
+          : `<strong>${fmtInt(shown)}</strong> of ${fmtInt(total)} outcomes`;
+      }
+
+      if (sorted.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="table-error" style="padding:2rem 1rem;">No outcomes match this filter.<br><span class="table-muted">Try clearing the search box or switching the toggle to "All".</span></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = sorted.map((row) => `
+        <tr>
+          <td>${nameCell(row)}</td>
+          <td>${typePill(row.type)}</td>
+          <td>${probCell(row)}</td>
+          <td>${row.dayVolume > 0 ? `<strong>${fmtUsdShort(row.dayVolume)}</strong>` : '<span class="table-muted">—</span>'}</td>
+          <td><span class="mono">#${fmtInt(row.outcomeId)}</span></td>
+        </tr>
+      `).join("");
+    }
+
+    function renderScoreboard() {
+      const rows = buildOutcomeRows();
+      const totalVolume = rows.reduce((sum, row) => sum + (row.dayVolume || 0), 0);
+      const withVolume = rows.filter((row) => row.dayVolume > 0).length;
+
+      document.getElementById("stat-outcomes").textContent = fmtInt(state.outcomes.length);
+      document.getElementById("stat-questions").textContent = fmtInt(state.questions.length);
+      document.getElementById("stat-with-volume").textContent = fmtInt(withVolume);
+      document.getElementById("stat-volume").textContent = totalVolume > 0
+        ? fmtUsdCompact(totalVolume)
+        : "—";
+    }
+
+    function renderRelativeTime() {
+      const source = document.getElementById("panel-source");
+      if (!source || !state.lastUpdated) return;
+      const relative = fmtRelative(state.lastUpdated);
+      source.innerHTML = `
+        Hydrated from Hyperliquid's public testnet <strong>outcomeMeta</strong> and
+        <strong>spotMetaAndAssetCtxs</strong> endpoints. Updated ${relative}. Auto-refreshes every 60 seconds.
+      `;
+      const deltaSeconds = Math.max(0, Math.floor((Date.now() - state.lastUpdated.getTime()) / 1000));
+      if (deltaSeconds < 90) {
+        setLiveStatus("live", deltaSeconds < 5 ? "Live · just now" : `Live · ${relative}`);
+      }
+    }
+
+    function attachSortHandlers() {
+      const table = document.getElementById("outcome-table");
+      if (!table || table.dataset.sortBound === "true") return;
+      table.dataset.sortBound = "true";
+      table.querySelectorAll("th.is-sortable").forEach((th) => {
+        th.addEventListener("click", () => {
+          const key = th.dataset.sort;
+          if (!key) return;
+          state.sort = {
+            key,
+            dir: state.sort.key === key && state.sort.dir === "desc" ? "asc" : "desc"
+          };
+          renderOutcomeTable();
+        });
+      });
+    }
+
+    function attachFilterHandlers() {
+      const bar = document.getElementById("outcome-filter-bar");
+      if (!bar || bar.dataset.filterBound === "true") return;
+      bar.dataset.filterBound = "true";
+
+      const input = document.getElementById("outcome-filter-input");
+      if (input) {
+        input.addEventListener("input", (event) => {
+          state.filter = { ...state.filter, search: event.target.value };
+          renderOutcomeTable();
+        });
+      }
+
+      bar.querySelectorAll(".filter-chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          const mode = chip.dataset.filterMode || "all";
+          state.filter = { ...state.filter, mode };
+          bar.querySelectorAll(".filter-chip").forEach((other) => {
+            other.classList.toggle("is-active", other === chip);
+          });
+          renderOutcomeTable();
+        });
+      });
+    }
+
+    function renderError() {
+      const tbody = document.getElementById("outcome-table-body");
+      if (tbody) {
+        tbody.innerHTML = `<tr><td colspan="5" class="table-error"><strong>Testnet fetch failed</strong>Couldn't reach Hyperliquid's public testnet API. The board will retry automatically.</td></tr>`;
+      }
+      ["stat-outcomes", "stat-questions", "stat-with-volume", "stat-volume"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && (!state.lastUpdated || el.textContent === "—")) el.textContent = "—";
+      });
+      const source = document.getElementById("panel-source");
+      if (source) {
+        source.innerHTML = `
+          Couldn't reach Hyperliquid's public testnet API. The board will retry automatically. For background,
+          see <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener">Liquid Terminal's HIP-4 research</a>.
+        `;
+      }
+      const retry = document.getElementById("panel-retry");
+      if (retry) retry.hidden = false;
+    }
+
+    async function loadHip4Data() {
+      if (state.inflight) return;
+      state.inflight = true;
+      setLiveStatus("connecting", state.lastUpdated ? "Refreshing…" : "Connecting…");
+
+      try {
+        const [meta, spot] = await Promise.all([
+          postInfo({ type: "outcomeMeta" }),
+          postInfo({ type: "spotMetaAndAssetCtxs" }).catch(() => null)
+        ]);
+
+        state.outcomes = Array.isArray(meta?.outcomes) ? meta.outcomes : [];
+        state.questions = Array.isArray(meta?.questions) ? meta.questions : [];
+
+        state.questionByOutcomeId = new Map();
+        for (const question of state.questions) {
+          const ids = [...(question.namedOutcomes || []), question.fallbackOutcome].filter((id) => id != null);
+          for (const id of ids) state.questionByOutcomeId.set(id, question);
+        }
+
+        state.ctxByCoin = new Map();
+        if (Array.isArray(spot) && spot.length >= 2) {
+          const universe = Array.isArray(spot[0]?.universe) ? spot[0].universe : [];
+          const ctxs = Array.isArray(spot[1]) ? spot[1] : [];
+          for (let i = 0; i < universe.length; i += 1) {
+            const asset = universe[i];
+            const ctx = ctxs[i];
+            const coin = asset?.name;
+            if (coin && ctx) state.ctxByCoin.set(coin, ctx);
+          }
+        }
+
+        state.lastUpdated = new Date();
+
+        renderScoreboard();
+        renderOutcomeTable();
+        attachSortHandlers();
+        attachFilterHandlers();
+
+        const retry = document.getElementById("panel-retry");
+        if (retry) retry.hidden = true;
+
+        setLiveStatus("live", "Live · just now");
+        renderRelativeTime();
+      } catch (error) {
+        console.error("HIP-4 testnet fetch failed", error);
+        setLiveStatus("error", "Testnet fetch failed");
+        renderError();
+      } finally {
+        state.inflight = false;
+      }
+    }
+
+    function init() {
+      const retry = document.getElementById("panel-retry");
+      if (retry) retry.addEventListener("click", () => loadHip4Data());
+
+      loadHip4Data();
+
+      if (state.refreshTimer) clearInterval(state.refreshTimer);
+      if (state.relativeTimer) clearInterval(state.relativeTimer);
+
+      state.refreshTimer = setInterval(() => loadHip4Data(), REFRESH_INTERVAL_MS);
+      state.relativeTimer = setInterval(renderRelativeTime, RELATIVE_TICK_MS);
+
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && state.lastUpdated) {
+          const stale = Date.now() - state.lastUpdated.getTime() > REFRESH_INTERVAL_MS;
+          if (stale) loadHip4Data();
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
