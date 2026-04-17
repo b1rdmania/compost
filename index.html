@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Compost Finance</title>
-  <meta name="description" content="Hyperliquid-native experiments: HIP-3 and HIP-4 intelligence, testnet demos, and the story of a vault thesis—exploratory, not a live product.">
+  <title>Compost — Hyperliquid builder markets, watched live</title>
+  <meta name="description" content="Live HIP-3 board, HIP-4 outcome notes, vault-mechanic demos on testnet, and the cHYPE concept paper. Independent, on-chain, refreshed continuously.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Compost Finance">
-  <meta property="og:description" content="Hyperliquid-native experiments: builder-market data, demos, and design. Exploratory project—not a live vault.">
+  <meta property="og:title" content="Compost — Hyperliquid builder markets, watched live">
+  <meta property="og:description" content="Live HIP-3 board, HIP-4 outcome notes, vault-mechanic demos on testnet, and the cHYPE concept paper.">
   <meta property="og:image" content="/assets/og-image.png">
   <meta property="og:type" content="website">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@compostfi">
-  <meta name="twitter:title" content="Compost Finance">
-  <meta name="twitter:description" content="Hyperliquid-native experiments: builder-market data, demos, and design. Exploratory—not a live vault.">
+  <meta name="twitter:title" content="Compost — Hyperliquid builder markets, watched live">
+  <meta name="twitter:description" content="Live HIP-3 board, HIP-4 outcome notes, vault-mechanic demos on testnet, and the cHYPE concept paper.">
   <meta name="twitter:image" content="/assets/og-image.png">
 
   <!-- Fonts -->
@@ -334,6 +334,24 @@
       color: var(--accent);
     }
 
+    .hero-aside {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      max-width: 36rem;
+    }
+
+    .hero-aside a {
+      color: var(--accent-bright);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(77, 207, 106, 0.3);
+      transition: border-color 0.2s;
+    }
+
+    .hero-aside a:hover {
+      border-color: var(--accent-bright);
+    }
+
     /* Hero mark - large, right side */
     .hero-mark-container {
       position: relative;
@@ -452,63 +470,6 @@
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
-    }
-
-    /* ==================== STORY (was / nearly / now) ==================== */
-    .story-section {
-      border-top: 1px solid var(--border);
-    }
-
-    .story-section .section-subtitle {
-      max-width: 640px;
-    }
-
-    .story-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .story-card {
-      background: var(--bg-subtle);
-      border: 1px solid var(--border);
-      padding: 1.75rem 1.5rem;
-      min-height: 100%;
-    }
-
-    .story-card-label {
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent-bright);
-      margin-bottom: 0.75rem;
-    }
-
-    .story-card h3 {
-      font-size: 1.125rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 0.75rem;
-      line-height: 1.35;
-    }
-
-    .story-card p {
-      font-size: 0.9375rem;
-      font-weight: 300;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-
-    .story-card .inline-link {
-      color: var(--accent-bright);
-      text-decoration: none;
-      font-weight: 400;
-    }
-
-    .story-card .inline-link:hover {
-      text-decoration: underline;
     }
 
     /* ==================== THE OPPORTUNITY ==================== */
@@ -820,6 +781,30 @@
     .flow-step .inline-link {
       color: var(--accent-bright);
       font-weight: 400;
+    }
+
+    /* Linked flow-step (entire card is a link) */
+    .flow-step-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.25s ease;
+    }
+
+    .flow-step-link:hover {
+      border-color: var(--border-2);
+    }
+
+    .flow-step-cta {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--accent-bright);
+      text-transform: uppercase;
     }
 
     /* Second row */
@@ -1189,46 +1174,51 @@
     }
 
     .status-cta {
-      margin-bottom: 1.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
     }
 
-    /* Waitlist form */
-    .waitlist-form {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-    }
-
-    .waitlist-form input {
-      padding: 1rem 1.5rem;
-      font-family: var(--font);
-      font-size: 1rem;
-      background: var(--bg-subtle);
-      border: 1px solid var(--border);
-      color: var(--text-primary);
-      min-width: min(280px, calc(100vw - 3rem));
-      transition: border-color 0.2s;
-    }
-
-    .waitlist-form input:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
-    .waitlist-form input::placeholder {
+    .status-meta {
+      font-size: 0.85rem;
       color: var(--text-muted);
     }
 
-    .waitlist-message {
-      font-size: 0.9375rem;
-      color: var(--accent);
-      min-height: 1.5rem;
+    .status-meta a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border-2);
+      transition: color 0.2s, border-color 0.2s;
     }
 
-    .waitlist-message.error {
-      color: #ef4444;
+    .status-meta a:hover {
+      color: var(--accent-bright);
+      border-color: var(--accent-bright);
+    }
+
+    /* Concept block */
+    .concept-section {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+
+    .concept-body {
+      max-width: 44rem;
+    }
+
+    .concept-body p {
+      font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+
+    .concept-cta-row {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.5rem;
+      align-items: center;
     }
 
     .status-link {
@@ -1335,8 +1325,10 @@
         margin-bottom: 2rem;
       }
 
-      .story-grid {
-        grid-template-columns: 1fr;
+      .hero-aside {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
       }
 
       .flow {
@@ -1498,15 +1490,6 @@
         padding: 6rem 0;
       }
 
-      .waitlist-form {
-        width: 100%;
-      }
-
-      .waitlist-form input {
-        width: 100%;
-        min-width: unset;
-      }
-
       .footer-inner {
         flex-direction: column;
         gap: 1.5rem;
@@ -1526,7 +1509,7 @@
         <a href="/demo.html" class="nav-link">Demo</a>
         <a href="/hip3.html" class="nav-link">HIP-3</a>
         <a href="/hip4.html" class="nav-link">HIP-4</a>
-        <a href="/litepaper.html" class="nav-link">Litepaper</a>
+        <a href="/litepaper.html" class="nav-link">Concept</a>
       </div>
       <div class="nav-right">
         <a href="https://docs.compost.fi" class="nav-link">Docs</a>
@@ -1539,16 +1522,17 @@
     <div class="container">
       <div class="hero-content">
         <h1 class="hero-headline">compost<span class="tld">.fi</span></h1>
-        <p class="hero-kicker">Exploratory project · not a live vault product</p>
-        <p class="hero-tagline">Hyperliquid builder markets—in data, demos, and design.</p>
-        <p class="hero-punchline">The September 2025 litepaper laid out the vault thesis for HIP-3 and HIP-4. What shipped was the craft—demos, data, and a clear view of why builder fees and counterparty risk don’t compress into a simple pitch unless you already live in HIP-3.</p>
+        <p class="hero-tagline">Hyperliquid builder markets, watched live.</p>
+        <p class="hero-punchline">A live HIP-3 board, HIP-4 outcome notes, vault-mechanic demos on testnet, and the September 2025 <span class="highlight">cHYPE</span> concept paper. Independent, on-chain, refreshed continuously.</p>
 
         <div class="hero-cta">
-          <a href="/hip3.html" class="btn">HIP-3 live board</a>
-          <a href="/demo.html" class="btn btn-outline">Demos</a>
-          <a href="#story" class="hero-link">Our story →</a>
-          <a href="#waitlist" class="hero-link">Updates →</a>
+          <a href="/hip3.html" class="btn">HIP-3 board</a>
+          <a href="/hip4.html" class="btn btn-outline">HIP-4 board</a>
+          <a href="/demo.html" class="hero-link">Vault demos →</a>
+          <a href="/litepaper.html" class="hero-link">Concept →</a>
         </div>
+
+        <p class="hero-aside">Built by HL-curious folks. HL-native and shipping in this lane? <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
       </div>
 
       <div class="hero-mark-container">
@@ -1567,132 +1551,59 @@
         </svg>
       </div>
     </div>
-    <a href="#story" class="scroll-cue" aria-label="Scroll to our story section">Scroll</a>
+    <a href="#ecosystem" class="scroll-cue" aria-label="Scroll to live ecosystem snapshot">Scroll</a>
   </section>
 
   <main>
-    <!-- Our story -->
-    <section class="story-section" id="story">
-      <div class="container">
-        <div class="reveal">
-          <div class="section-divider"></div>
-          <h2 class="section-header">Our story</h2>
-          <p class="section-subtitle">The September 2025 litepaper captured the original concept. Below is how that experiment played out—and what remains on this site.</p>
-        </div>
-
-        <div class="story-grid reveal">
-          <div class="story-card">
-            <div class="story-card-label">What it was</div>
-            <h3>The original concept (Sept 2025)</h3>
-            <p>The <a href="/litepaper.html" class="inline-link">litepaper</a> spelled out a Hyperliquid-native vault: pool HYPE toward builder-market economics, capture fee exposure from HIP-3 (and later HIP-4) routes, wrap it in one receipt token (<span class="highlight">cHYPE</span>)—full mechanics and custody narrative on paper.</p>
-          </div>
-          <div class="story-card">
-            <div class="story-card-label">Why it didn’t land</div>
-            <h3>Complexity, not missing polish</h3>
-            <p>Builder fees don’t map to a single clean LP story—growth mode, wrappers, deployer economics, and <strong>counterparty / default risk</strong> stack up. The model only felt obvious to people who already <strong>deeply understood HIP-3</strong> markets; everyone else hit a wall.</p>
-          </div>
-          <div class="story-card">
-            <div class="story-card-label">What it is now</div>
-            <h3>Experiment in concept &amp; craft</h3>
-            <p>As a product raise, it’s parked—but the work isn’t erased: testnet demos, HIP intelligence boards, ecosystem stats, and honest writing. Same curiosity, without pretending a live vault is here.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Ecosystem context -->
+    <!-- Live ecosystem snapshot -->
     <section class="opportunity-section" id="ecosystem">
       <div class="container">
         <div class="reveal">
           <div class="section-divider"></div>
-          <h2 class="section-header">Why Hyperliquid</h2>
+          <h2 class="section-header">HIP-3 ecosystem, right now</h2>
+          <p class="section-subtitle">Builder-deployed perpetuals on Hyperliquid. Public-dashboard aggregates — not Compost performance.</p>
         </div>
 
         <div class="opportunity-setup reveal">
           <div class="opportunity-text">
-            <p class="opportunity-lead">Decentralised, on-chain, and built for serious volume—perps and builder-deployed markets on one stack.</p>
-            <p><span class="highlight">HIP-3</span> lets teams launch their own perp markets; deployers earn a protocol-defined share of fees. <a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-3-builder-deployed-perpetuals" target="_blank" rel="noopener" class="inline-link">Read the HIP-3 spec →</a></p>
-            <p><span class="highlight">HIP-4</span> adds outcome-style markets—early, mostly testnet, still evolving. <a href="/hip4.html" class="inline-link">Our HIP-4 notes →</a></p>
-            <p class="opportunity-coming">The numbers beside are <strong>ecosystem</strong> aggregates (HIP-3), not Compost TVL or performance.</p>
+            <p class="opportunity-lead">Teams deploy their own perp markets on HL and earn a protocol-defined share of trading fees. <a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-3-builder-deployed-perpetuals" target="_blank" rel="noopener" class="inline-link">HIP-3 spec →</a></p>
+            <p>HIP-4 adds outcome-style markets — early, mostly testnet, under-covered. <a href="/hip4.html" class="inline-link">HIP-4 board →</a></p>
+            <p class="opportunity-coming">For the live deployer-by-deployer view, open the <a href="/hip3.html" class="inline-link">HIP-3 board</a>.</p>
           </div>
           <div class="opportunity-stats-wrap">
             <div class="opportunity-stats">
               <div class="opportunity-stat">
                 <div class="opportunity-stat-value">$87.32B</div>
-                <div class="opportunity-stat-label">volume traded</div>
+                <div class="opportunity-stat-label">cumulative volume</div>
               </div>
               <div class="opportunity-stat">
                 <div class="opportunity-stat-value">$13.63M</div>
-                <div class="opportunity-stat-label">fees generated</div>
+                <div class="opportunity-stat-label">cumulative fees</div>
               </div>
               <div class="opportunity-stat">
                 <div class="opportunity-stat-value">$2.07B</div>
                 <div class="opportunity-stat-label">open interest</div>
               </div>
             </div>
-            <p class="opportunity-stats-asof">HIP-3 aggregates (Dune). As of April 14, 2026.</p>
+            <p class="opportunity-stats-asof">HIP-3 aggregates · source Dune yandhii/hip3 · as of April 14, 2026</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- What we built -->
-    <section class="flow-section" id="experiments">
+    <!-- Three things you can do here -->
+    <section class="flow-section" id="boards">
       <div class="container">
         <div class="reveal">
           <div class="section-divider"></div>
-          <h2 class="section-header">What we built</h2>
-          <p class="section-subtitle">Prototypes and public surfaces—labeled honestly, no live mainnet vault product.</p>
+          <h2 class="section-header">What you can do here</h2>
+          <p class="section-subtitle">Three live surfaces. No login, no waitlist, no "coming soon".</p>
         </div>
 
         <div class="flow reveal">
-          <div class="flow-step">
-            <!-- Stage 1: Empty pot with soil -->
+          <a href="/hip3.html" class="flow-step flow-step-link">
             <svg class="flow-step-mark" viewBox="0 0 64 80" fill="none">
-              <ellipse cx="32" cy="46" rx="12" ry="3" fill="#5c5347"/>
-              <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
-              <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
-              <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
-            </svg>
-            <span class="flow-step-num">1</span>
-            <h3>Vault demos</h3>
-            <p>Static preview and HyperEVM testnet contract—deposit, withdraw, synthetic APR for proof of accounting only.</p>
-          </div>
-          <div class="flow-step">
-            <!-- Stage 2: Seed sprouting -->
-            <svg class="flow-step-mark" viewBox="0 0 64 80" fill="none">
-              <ellipse cx="32" cy="46" rx="12" ry="3" fill="#5c5347"/>
-              <path d="M32 46 L32 40" stroke="#4dcf6a" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="32" cy="38" r="3" fill="#4dcf6a"/>
-              <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
-              <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
-              <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
-            </svg>
-            <span class="flow-step-num">2</span>
-            <h3>cHYPE design</h3>
-            <p>Receipt-token model we explored: exchange-rate appreciation, not rebasing—documented, not offered as live product.</p>
-          </div>
-          <div class="flow-step">
-            <!-- Stage 3: Small shoot with leaf -->
-            <svg class="flow-step-mark" viewBox="0 0 64 80" fill="none">
-              <ellipse cx="32" cy="46" rx="12" ry="3" fill="#5c5347"/>
-              <path d="M32 46 L32 34" stroke="#2ba84a" stroke-width="2" stroke-linecap="round"/>
-              <path d="M32 38 C32 38 38 36 40 32 C38 36 32 38 32 38 Z" fill="#4dcf6a"/>
-              <path d="M32 42 C32 42 26 40 24 36 C26 40 32 42 32 42 Z" fill="#2ba84a"/>
-              <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
-              <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
-              <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
-            </svg>
-            <span class="flow-step-num">3</span>
-            <h3>HIP intelligence</h3>
-            <p>Live HIP-3 board, HIP-4 notes, Dune cross-checks—our curated view of builder-market activity.</p>
-          </div>
-        </div>
-
-        <div class="flow flow-row-2 reveal">
-          <div class="flow-step">
-            <!-- Stage 4: Growing plant with multiple leaves -->
-            <svg class="flow-step-mark" viewBox="0 0 64 80" fill="none">
+              <!-- Growing plant -->
               <ellipse cx="32" cy="46" rx="12" ry="3" fill="#5c5347"/>
               <path d="M32 46 L32 28" stroke="#2ba84a" stroke-width="2.5" stroke-linecap="round"/>
               <path d="M32 32 C32 32 40 30 44 24 C40 30 32 32 32 32 Z" fill="#4dcf6a"/>
@@ -1703,78 +1614,54 @@
               <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
               <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
             </svg>
-            <span class="flow-step-num">4</span>
-            <h3>Yield mechanics</h3>
-            <p>Long-form explainers on staking, builder fees, and growth mode—see <a href="/yield.html" class="inline-link">yield</a> and <a href="https://docs.compost.fi" class="inline-link">docs</a>.</p>
-          </div>
-          <div class="flow-step">
-            <!-- Stage 5: Standard logo (clean) -->
+            <span class="flow-step-num">01</span>
+            <h3>Track HIP-3 deployers</h3>
+            <p>Live volume, fees, and OI across every HIP-3 builder market. One page, refreshed every 60 seconds.</p>
+            <span class="flow-step-cta">Open board →</span>
+          </a>
+          <a href="/hip4.html" class="flow-step flow-step-link">
             <svg class="flow-step-mark" viewBox="0 0 64 80" fill="none">
-              <!-- Standard sprout -->
+              <!-- Full plant with mirrored second leaf -->
               <path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/>
               <path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/>
-              <!-- Pot -->
-              <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
-              <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
-              <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
-            </svg>
-            <span class="flow-step-num">5</span>
-            <h3>Writing &amp; litepaper</h3>
-            <p>Archived product thinking—litepaper remains in the nav; treat it as historical context, not an offering.</p>
-          </div>
-          <div class="flow-step">
-            <!-- Stage 6: Full plant with mirrored second leaf -->
-            <svg class="flow-step-mark" viewBox="0 0 64 80" fill="none">
-              <!-- Original sprout (right leaf) -->
-              <path d="M29 44 C27 38 29 34 32 30 C34 28 38 29 40 32 C42 35 39 37 36 36 C33 35 33 33 32 31 C31 35 30 41 31 44 Z" fill="#4dcf6a"/>
-              <path d="M29 44 C27 38 30 34 32 30 L34 31 C31 34 30 40 31 44 Z" fill="#2ba84a"/>
-              <!-- Mirrored leaf (left side) -->
               <path d="M35 44 C37 38 35 34 32 30 C30 28 26 29 24 32 C22 35 25 37 28 36 C31 35 31 33 32 31 C33 35 34 41 35 44 Z" fill="#4dcf6a"/>
               <path d="M35 44 C37 38 34 34 32 30 L30 31 C33 34 34 40 33 44 Z" fill="#2ba84a"/>
-              <!-- Pot -->
               <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
               <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
               <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
             </svg>
-            <span class="flow-step-num">6</span>
-            <h3>What’s next</h3>
-            <p>Richer data layer, Hyperliquid-native tooling ideas (e.g. terminal-style UX)—exploratory. Reach out if you’re HL-native and aligned.</p>
-          </div>
+            <span class="flow-step-num">02</span>
+            <h3>Watch HIP-4 outcome books</h3>
+            <p>Outcome-style markets, mostly testnet so far, mostly under-covered. Our notes plus a live board.</p>
+            <span class="flow-step-cta">Open board →</span>
+          </a>
+          <a href="/demo.html" class="flow-step flow-step-link">
+            <svg class="flow-step-mark" viewBox="0 0 64 80" fill="none">
+              <!-- Small shoot with leaf -->
+              <ellipse cx="32" cy="46" rx="12" ry="3" fill="#5c5347"/>
+              <path d="M32 46 L32 34" stroke="#2ba84a" stroke-width="2" stroke-linecap="round"/>
+              <path d="M32 38 C32 38 38 36 40 32 C38 36 32 38 32 38 Z" fill="#4dcf6a"/>
+              <path d="M32 42 C32 42 26 40 24 36 C26 40 32 42 32 42 Z" fill="#2ba84a"/>
+              <rect x="10" y="48" width="44" height="9" rx="4" fill="#8a7d6d"/>
+              <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
+              <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
+            </svg>
+            <span class="flow-step-num">03</span>
+            <h3>Try the vault demo</h3>
+            <p>HyperEVM testnet contracts: deposit vHYPE, mint cHYPE, watch the share price tick. Proof of accounting, not a live product.</p>
+            <span class="flow-step-cta">Open demo →</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Market Context -->
+    <!-- Who's shipping on HIP-3 -->
     <section id="markets">
       <div class="container">
         <div class="reveal">
           <div class="section-divider"></div>
-          <h2 class="section-header">Builder-market activity</h2>
-          <p class="section-subtitle">On-chain volume and fees across HIP-3 deployers—context for the thesis, not Compost performance.</p>
-        </div>
-
-        <div class="market-stats-row reveal">
-          <div class="market-stat">
-            <div class="market-stat-value">$87.32B</div>
-            <div class="market-stat-label">Cumulative volume</div>
-          </div>
-          <div class="market-stat">
-            <div class="market-stat-value">$13.63M</div>
-            <div class="market-stat-label">Total fees</div>
-          </div>
-          <div class="market-stat">
-            <div class="market-stat-value">$2.07B</div>
-            <div class="market-stat-label">Open interest</div>
-          </div>
-        </div>
-
-        <div class="market-stats-cta reveal">
-          <div class="market-stats-ctas">
-            <a href="/hip3.html" class="dune-cta">Open HIP-3 Live Board</a>
-            <a href="/hip4.html" class="dune-cta dune-cta-secondary">HIP-4 Outcome Books</a>
-            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="dune-cta dune-cta-secondary">Also On Dune</a>
-          </div>
-          <div class="market-stats-updated">Last updated: April 14, 2026 · Live board refreshes every 60s</div>
+          <h2 class="section-header">Who's shipping on HIP-3</h2>
+          <p class="section-subtitle">A few of the deployers driving HIP-3 volume today. Examples, not endorsements — open the board for the full list.</p>
         </div>
 
         <div class="market-cards reveal">
@@ -1804,20 +1691,39 @@
           </a>
         </div>
 
-        <div class="market-footer reveal">
-          <div class="market-footer-note">Deployers typically earn a <span class="accent">builder share</span> of trading fees per market config—verify per venue. Cards are examples, not endorsements.</div>
-        </div>
-
-        <div class="trust-statements reveal">
-          <p class="trust-line"><span class="accent">Ecosystem stats.</span> From public dashboards (e.g. Dune)—refreshed on a schedule, not real-time for every figure.</p>
-          <p class="trust-line"><span class="accent">No live vault.</span> Demos and boards are educational; not investment advice.</p>
-          <p class="trust-line"><span class="accent">HL-native?</span> <a href="mailto:grow@compost.fi" class="inline-link">Say hello</a> if you want to collaborate on data or tooling.</p>
+        <div class="market-stats-cta reveal">
+          <div class="market-stats-ctas">
+            <a href="/hip3.html" class="dune-cta">Open HIP-3 board</a>
+            <a href="/hip4.html" class="dune-cta dune-cta-secondary">HIP-4 board</a>
+            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="dune-cta dune-cta-secondary">Source on Dune</a>
+          </div>
+          <div class="market-stats-updated">Live board refreshes every 60s · last snapshot April 14, 2026</div>
         </div>
       </div>
     </section>
 
-    <!-- Status -->
-    <section class="status-section" id="waitlist">
+    <!-- Concept (was Litepaper) -->
+    <section class="concept-section" id="concept">
+      <div class="container">
+        <div class="reveal">
+          <div class="section-divider"></div>
+          <h2 class="section-header">The cHYPE concept</h2>
+        </div>
+
+        <div class="concept-body reveal">
+          <p>In September 2025 we wrote a short concept paper: pool HYPE toward HIP-3 builder-market economics, capture fee exposure across deployers, wrap it in one receipt token — <span class="highlight">cHYPE</span>.</p>
+          <p>We still think the question is real. The product is parked while we sharpen the data layer instead — builder fees, growth-mode wrappers, and counterparty risk don't compress into a clean LP story without first building the public view of the market itself.</p>
+          <p class="concept-cta-row">
+            <a href="/litepaper.html" class="btn btn-outline">Read the concept paper</a>
+            <a href="/yield.html" class="hero-link">Yield mechanics →</a>
+            <a href="https://docs.compost.fi" class="hero-link">Docs →</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Collaborate -->
+    <section class="status-section" id="collaborate">
       <div class="container">
         <div class="status-divider"></div>
         <div class="status-content">
@@ -1829,15 +1735,12 @@
             <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
           </svg>
 
-          <h2 class="status-headline">compost<span class="tld">.fi</span></h2>
-          <p class="status-text">Exploratory project—updates on demos, data, and writing. Not a live vault offering.</p>
-          <p class="status-contact">Collaborate: <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
-
-          <form id="waitlist-form" class="waitlist-form">
-            <input type="email" id="waitlist-email" placeholder="Enter your email" required />
-            <button type="submit" class="btn">Get updates</button>
-          </form>
-          <p id="waitlist-message" class="waitlist-message"></p>
+          <h2 class="status-headline">Building HL-native?</h2>
+          <p class="status-text">If you're working on Hyperliquid data, HIP-3 / HIP-4 tooling, or vault primitives — let's compare notes.</p>
+          <p class="status-cta">
+            <a href="mailto:grow@compost.fi" class="btn">grow@compost.fi</a>
+          </p>
+          <p class="status-meta"><a href="https://twitter.com/compostfi" target="_blank" rel="noopener">@compostfi</a> · <a href="https://docs.compost.fi">docs</a> · <a href="/litepaper.html">concept paper</a></p>
         </div>
       </div>
     </section>
@@ -1881,41 +1784,5 @@
     window.addEventListener('load', updateScrollCue);
   </script>
 
-  <!-- Waitlist form -->
-  <script>
-    const form = document.getElementById('waitlist-form');
-    const emailInput = document.getElementById('waitlist-email');
-    const message = document.getElementById('waitlist-message');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = emailInput.value.trim();
-
-      if (!email) return;
-
-      message.textContent = 'Joining...';
-      message.className = 'waitlist-message';
-
-      try {
-        const res = await fetch('/api/waitlist', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email })
-        });
-
-        if (res.ok) {
-          message.textContent = "You're on the list.";
-          emailInput.value = '';
-        } else {
-          const data = await res.json();
-          message.textContent = data.error || 'Something went wrong';
-          message.className = 'waitlist-message error';
-        }
-      } catch (err) {
-        message.textContent = 'Something went wrong';
-        message.className = 'waitlist-message error';
-      }
-    });
-  </script>
 </body>
 </html>

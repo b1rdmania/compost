@@ -28,4 +28,14 @@ alwaysApply: true
 
 When editing site copy, **do not** imply live production vaults or guaranteed yield unless the user explicitly asks. Stats about Hyperliquid / HIP-3 are **ecosystem context**, not Compost performance.
 
-The **homepage (`index.html`)** is framed as exploratory: story section ties to the **September 2025 litepaper** (original concept), why it stalled (builder-fee complexity, default/counterparty risk, HIP-3 literacy bar), and what remains (demos + data). **`litepaper.html`** is labeled a **September 2025 concept archive** with a top callout pointing to current framing on `/`.
+## Site framing (current)
+
+- **External voice, not internal retro.** No "Our story / Why it didn't land / Experiment in craft" sections on the homepage. That confessional tone is for the team, not first-time visitors.
+- **Primary audience = aligned HL builders / collaborators.** The site's job is to surface HL-native folks who want to compare notes — data + writing is the hook, `grow@compost.fi` is the conversion action. No email signup form, no waitlist.
+- **HIP-3 and HIP-4 are co-headline products.** Twin board CTAs above the fold.
+- **Litepaper is "Concept" in the nav** (file stays at `/litepaper.html`). Treat it as opinion / thesis from Sept 2025, not a launch artefact.
+- **Homepage hero**: "Hyperliquid builder markets, watched live." → live HIP-3 + HIP-4 boards, testnet vault demo, cHYPE concept paper. Independent, on-chain, refreshed continuously.
+
+## Marketing skills installed
+
+`.claude/skills/` includes cherry-picked marketing skills from coreyhaines31/marketingskills: `product-marketing-context`, `copywriting`, `page-cro`, `customer-research`, `marketing-psychology`, `copy-editing`, `site-architecture`, `marketing-ideas`. Foundation context for these lives at `.agents/product-marketing-context.md` — read it before any copy work.

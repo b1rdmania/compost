@@ -168,12 +168,12 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 
 ### index.html (Landing Page)
 - Nav active: "Overview"
-- Hero: exploratory framing (not a live vault product); links to HIP-3 board, demos, story, updates
-- **Our story** — three beats: what Compost was / nearly was / is now (experiments + data)
-- **Why Hyperliquid** — short HL + HIP-3/HIP-4 context; HIP-3 ecosystem stats (Dune), clearly not Compost TVL
-- **What we built** — six-step grid: demos, cHYPE design, HIP intelligence, yield/docs, litepaper as archive, what’s next
-- **Builder-market activity** — example deployers + stats CTAs (HIP-3/HIP-4 boards, Dune)
-- Email updates form → `/api/waitlist` → Neon Postgres (positioned as updates, not a vault waitlist)
+- Hero: **"Hyperliquid builder markets, watched live."** Twin primary CTAs (HIP-3 board, HIP-4 board); secondary links to vault demos + concept paper; small `grow@compost.fi` aside.
+- **HIP-3 ecosystem snapshot** — live HIP-3 stats (Dune), labelled as ecosystem aggregates, not Compost TVL. Includes HIP-3 spec link + HIP-4 board link.
+- **What you can do here** — three action-led cards: track HIP-3 deployers / watch HIP-4 outcome books / try the vault demo. Each card is a link to its destination.
+- **Who's shipping on HIP-3** — example deployers (trade.xyz, Kinetiq, Felix, Ventuals) + CTAs to boards and Dune source.
+- **The cHYPE concept** — short two-paragraph block linking to `/litepaper.html` (Sept 2025 concept paper).
+- **Building HL-native?** — single direct collab CTA: `grow@compost.fi`. **No email signup form** (was removed; `/api/waitlist` endpoint still exists but is no longer wired into the homepage).
 
 ### demo.html (Demo Hub)
 - Nav active: "Demo"
@@ -198,9 +198,9 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 - Displays live `pricePerShare` (grows with synthetic APR)
 - Configurable contract addresses (saved to localStorage)
 
-### litepaper.html (Litepaper)
-- Long-form document page; **September 2025 original concept** (hero + archive callout links to current homepage framing)
-- Nav active: "Litepaper"
+### litepaper.html (Concept Paper)
+- Long-form document page; **September 2025 cHYPE concept paper** (hero + archive callout links to current homepage framing)
+- Nav active: "Concept" (file path stays at `/litepaper.html` for URL stability; nav label is "Concept")
 
 ### yield.html (Yield Page)
 - Yield mechanics explainer
@@ -225,7 +225,7 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
       <a href="/demo.html" class="nav-link active">Demo</a>  <!-- active on demo + vault.html + vault-test.html -->
       <a href="/hip3.html" class="nav-link active">HIP-3</a> <!-- active on hip3.html -->
       <a href="/hip4.html" class="nav-link active">HIP-4</a> <!-- active on hip4.html -->
-      <a href="/litepaper.html" class="nav-link active">Litepaper</a> <!-- active on litepaper -->
+      <a href="/litepaper.html" class="nav-link active">Concept</a> <!-- active on litepaper.html (file stays, nav label changed) -->
     </div>
     <div class="nav-right">
       <a href="https://docs.compost.fi" class="nav-link">Docs</a>
