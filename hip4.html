@@ -725,6 +725,149 @@
 
     .side-chip strong { color: var(--text-primary); font-weight: 500; }
 
+    /* Resolves cell */
+    .resolves-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .resolves-when {
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      letter-spacing: -0.01em;
+    }
+    .resolves-relative {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+    }
+    .resolves-period {
+      color: var(--accent-bright);
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* No-side probability cell */
+    .prob-no {
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.01em;
+    }
+
+    /* Click-to-expand row affordance */
+    .table tbody tr.is-toggle {
+      cursor: pointer;
+    }
+    .table tbody tr.is-toggle:hover {
+      background: rgba(77, 207, 106, 0.035);
+    }
+    .table tbody tr.is-toggle.is-open {
+      background: rgba(77, 207, 106, 0.05);
+    }
+    .id-cell {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+    }
+    .row-chevron {
+      display: inline-block;
+      width: 0; height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--text-muted);
+      transition: transform 0.18s ease, border-top-color 0.18s ease;
+    }
+    .table tbody tr.is-toggle:hover .row-chevron { border-top-color: var(--accent-bright); }
+    .table tbody tr.is-toggle.is-open .row-chevron {
+      transform: rotate(180deg);
+      border-top-color: var(--accent-bright);
+    }
+
+    /* Expanded detail row */
+    .details-row { display: none; }
+    .details-row.is-open { display: table-row; }
+    .details-row > td {
+      padding: 0;
+      background: rgba(0, 0, 0, 0.18);
+      border-bottom: 1px solid var(--border);
+    }
+    .details-pane {
+      padding: 1.25rem 1.4rem 1.4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 2rem;
+    }
+    .details-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .details-block-label {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .details-kv {
+      display: grid;
+      grid-template-columns: minmax(8.5rem, auto) 1fr;
+      gap: 0.35rem 1rem;
+      font-size: 0.88rem;
+    }
+    .details-kv dt {
+      color: var(--text-muted);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    .details-kv dd {
+      color: var(--text-primary);
+      margin: 0;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.01em;
+    }
+    .details-kv dd .table-muted { color: var(--text-muted); }
+    .details-description {
+      color: var(--text-secondary);
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.78rem;
+      line-height: 1.55;
+      padding: 0.65rem 0.8rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      word-break: break-word;
+    }
+    .sides-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .sides-table th, .sides-table td {
+      text-align: left;
+      padding: 0.5rem 0.7rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .sides-table th {
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .sides-table tr:last-child td { border-bottom: none; }
+    .sides-table td.side-name { color: var(--text-primary); font-weight: 500; }
+    .sides-table td.side-coin { color: var(--text-secondary); font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+    .sides-table td.is-empty { color: var(--text-muted); }
+
+    @media (max-width: 720px) {
+      .details-pane { grid-template-columns: 1fr; }
+    }
+
     /* Compare table — distinct from regular tables */
     .compare-shell {
       overflow-x: auto;
@@ -1146,8 +1289,10 @@
               <tr>
                 <th class="is-sortable" data-sort="name">Outcome</th>
                 <th class="is-sortable" data-sort="type">Type</th>
-                <th class="is-sortable sort-desc" data-sort="prob">Implied Prob (YES)</th>
+                <th class="is-sortable sort-desc" data-sort="prob">YES</th>
+                <th class="is-sortable" data-sort="probNo">NO</th>
                 <th class="is-sortable" data-sort="dayVolume">24h Volume</th>
+                <th class="is-sortable" data-sort="resolves">Resolves</th>
                 <th class="is-sortable" data-sort="outcomeId">ID</th>
               </tr>
             </thead>
@@ -1157,11 +1302,16 @@
                 <td class="table-muted">—</td>
                 <td class="table-muted">—</td>
                 <td class="table-muted">—</td>
+                <td class="table-muted">—</td>
+                <td class="table-muted">—</td>
                 <td class="table-muted">Loading outcomes from Hyperliquid testnet.</td>
               </tr>
             </tbody>
           </table>
         </div>
+        <p class="hint-row" style="color: var(--text-muted); font-size: 0.82rem; margin-top: 0.6rem; letter-spacing: 0.01em;">
+          Click any row for the full per-side breakdown (coin IDs, mark/mid prices, side volume, raw description).
+        </p>
       </div>
     </section>
 
@@ -1397,6 +1547,7 @@
       lastUpdated: null,
       sort: { key: "prob", dir: "desc" },
       filter: { search: "", mode: "all" },
+      openOutcomeIds: new Set(),
       inflight: false,
       refreshTimer: null,
       relativeTimer: null
@@ -1491,6 +1642,28 @@
       return `${y}-${mo}-${d}${hh ? ` ${hh}:${mm} UTC` : ""}`;
     }
 
+    function expiryToMs(raw) {
+      if (!raw || typeof raw !== "string") return null;
+      const m = raw.match(/^(\d{4})(\d{2})(\d{2})(?:-(\d{2})(\d{2}))?$/);
+      if (!m) return null;
+      const [, y, mo, d, hh, mm] = m;
+      const iso = `${y}-${mo}-${d}T${hh || "00"}:${mm || "00"}:00Z`;
+      const ts = Date.parse(iso);
+      return Number.isFinite(ts) ? ts : null;
+    }
+
+    function fmtRelativeFuture(ms) {
+      if (!Number.isFinite(ms)) return null;
+      const delta = ms - Date.now();
+      const past = delta < 0;
+      const abs = Math.abs(delta);
+      const m = Math.floor(abs / 60000);
+      const h = Math.floor(abs / 3600000);
+      const d = Math.floor(abs / 86400000);
+      const label = d >= 1 ? `${d}d` : (h >= 1 ? `${h}h` : `${m}m`);
+      return past ? `${label} ago` : `in ${label}`;
+    }
+
     function buildOutcomeRows() {
       return state.outcomes.map((outcome) => {
         const classification = classifyOutcome(outcome);
@@ -1501,22 +1674,45 @@
           const markPx = ctx ? Number(ctx.markPx) : null;
           const midPx = ctx ? Number(ctx.midPx) : null;
           const dayNtlVlm = ctx ? Number(ctx.dayNtlVlm) : 0;
+          const openInterest = ctx && ctx.openInterest != null ? Number(ctx.openInterest) : null;
+          const prevDayPx = ctx && ctx.prevDayPx != null ? Number(ctx.prevDayPx) : null;
           return {
             name: spec?.name || `Side ${index + 1}`,
             coin,
             markPx: Number.isFinite(markPx) ? markPx : null,
             midPx: Number.isFinite(midPx) ? midPx : null,
-            dayVolume: Number.isFinite(dayNtlVlm) ? dayNtlVlm : 0
+            dayVolume: Number.isFinite(dayNtlVlm) ? dayNtlVlm : 0,
+            openInterest: Number.isFinite(openInterest) ? openInterest : null,
+            prevDayPx: Number.isFinite(prevDayPx) ? prevDayPx : null
           };
         });
 
         const dayVolume = sides.reduce((sum, side) => sum + (side.dayVolume || 0), 0);
         const yesSide = sides.find((side) => side.name.toLowerCase() === "yes") || sides[0];
-        const yesProb = yesSide && Number.isFinite(yesSide.markPx)
-          ? yesSide.markPx
-          : (yesSide && Number.isFinite(yesSide.midPx) ? yesSide.midPx : null);
+        const noSide = sides.find((side) => side.name.toLowerCase() === "no") || (sides.length === 2 ? sides[1] : null);
+
+        function priceOf(side) {
+          if (!side) return null;
+          if (Number.isFinite(side.markPx)) return side.markPx;
+          if (Number.isFinite(side.midPx)) return side.midPx;
+          return null;
+        }
+        const yesProb = priceOf(yesSide);
+        const noProb = priceOf(noSide);
+        const spread = (Number.isFinite(yesProb) && Number.isFinite(noProb))
+          ? (yesProb + noProb)
+          : null;
 
         const question = state.questionByOutcomeId.get(outcome.outcome) || null;
+
+        const expiryRaw = classification.parsed?.expiry || null;
+        const expiryFormatted = expiryRaw ? formatExpiry(expiryRaw) : null;
+        const expiryMs = expiryRaw ? expiryToMs(expiryRaw) : null;
+        const period = classification.parsed?.period || null;
+
+        let resolvesSort = Number.POSITIVE_INFINITY;
+        if (Number.isFinite(expiryMs)) resolvesSort = expiryMs;
+        else if (period) resolvesSort = Date.now() + 1e15;
 
         return {
           outcomeId: outcome.outcome,
@@ -1527,7 +1723,14 @@
           sides,
           dayVolume,
           prob: yesProb,
-          question
+          probNo: noProb,
+          spread,
+          question,
+          expiryRaw,
+          expiryFormatted,
+          expiryMs,
+          period,
+          resolvesSort
         };
       });
     }
@@ -1556,7 +1759,9 @@
       name: (row) => (row.name || "").toLowerCase(),
       type: (row) => row.type,
       prob: (row) => Number.isFinite(row.prob) ? row.prob : -1,
+      probNo: (row) => Number.isFinite(row.probNo) ? row.probNo : -1,
       dayVolume: (row) => row.dayVolume,
+      resolves: (row) => row.resolvesSort,
       outcomeId: (row) => row.outcomeId
     };
 
@@ -1569,7 +1774,10 @@
         if (typeof av === "string" && typeof bv === "string") {
           return av.localeCompare(bv) * direction;
         }
-        return ((av ?? 0) - (bv ?? 0)) * direction;
+        const an = (av ?? 0);
+        const bn = (bv ?? 0);
+        if (an === bn) return 0;
+        return (an - bn) * direction;
       });
     }
 
@@ -1596,6 +1804,112 @@
       `;
     }
 
+    function probNoCell(row) {
+      if (!Number.isFinite(row.probNo)) return '<span class="table-muted">—</span>';
+      const pct = Math.max(0, Math.min(1, row.probNo));
+      return `<span class="prob-no">${(pct * 100).toFixed(1)}%</span>`;
+    }
+
+    function resolvesCell(row) {
+      if (row.expiryFormatted) {
+        const rel = Number.isFinite(row.expiryMs) ? fmtRelativeFuture(row.expiryMs) : null;
+        const relHtml = rel ? `<span class="resolves-relative">${escapeHtml(rel)}</span>` : "";
+        return `<div class="resolves-cell"><span class="resolves-when">${escapeHtml(row.expiryFormatted)}</span>${relHtml}</div>`;
+      }
+      if (row.period) {
+        return `<div class="resolves-cell"><span class="resolves-period">every ${escapeHtml(row.period)}</span><span class="resolves-relative">recurring</span></div>`;
+      }
+      if (row.question) {
+        return `<div class="resolves-cell"><span class="resolves-when table-muted" style="color: var(--text-secondary); font-size:0.85rem;">${escapeHtml(row.question.name)}</span><span class="resolves-relative">parent question</span></div>`;
+      }
+      return '<span class="table-muted">—</span>';
+    }
+
+    function fmtPriceCell(value) {
+      if (!Number.isFinite(value)) return '<span class="table-muted">—</span>';
+      return `${value.toFixed(4)}`;
+    }
+
+    function detailsRow(row) {
+      const sidesRows = row.sides.map((side) => {
+        const probStr = Number.isFinite(side.markPx) ? `${(side.markPx * 100).toFixed(2)}%` : "—";
+        return `
+          <tr>
+            <td class="side-name">${escapeHtml(side.name)}</td>
+            <td class="side-coin">${escapeHtml(side.coin)}</td>
+            <td>${fmtPriceCell(side.markPx)}</td>
+            <td>${fmtPriceCell(side.midPx)}</td>
+            <td>${probStr}</td>
+            <td>${side.dayVolume > 0 ? fmtUsdShort(side.dayVolume) : '<span class="table-muted">—</span>'}</td>
+            <td>${Number.isFinite(side.openInterest) && side.openInterest > 0 ? fmtUsdShort(side.openInterest) : '<span class="table-muted">—</span>'}</td>
+          </tr>
+        `;
+      }).join("");
+
+      const spreadHtml = Number.isFinite(row.spread)
+        ? `${row.spread.toFixed(4)} <span class="table-muted">(${(row.spread * 100).toFixed(2)}% of $1.00; ${row.spread > 1 ? "+" : ""}${((row.spread - 1) * 100).toFixed(2)}pp from fair)</span>`
+        : '<span class="table-muted">—</span>';
+
+      const settlementBits = [];
+      if (row.parsed?.class) settlementBits.push(`<dt>Class</dt><dd>${escapeHtml(row.parsed.class)}</dd>`);
+      if (row.parsed?.underlying) settlementBits.push(`<dt>Underlying</dt><dd>${escapeHtml(row.parsed.underlying)}</dd>`);
+      if (row.parsed?.targetPrice) {
+        const tp = Number(row.parsed.targetPrice);
+        settlementBits.push(`<dt>Strike</dt><dd>${Number.isFinite(tp) ? `$${fmtInt(tp)}` : escapeHtml(row.parsed.targetPrice)}</dd>`);
+      }
+      if (row.parsed?.direction) settlementBits.push(`<dt>Direction</dt><dd>${escapeHtml(row.parsed.direction)}</dd>`);
+      if (row.expiryFormatted) settlementBits.push(`<dt>Expires</dt><dd>${escapeHtml(row.expiryFormatted)}${Number.isFinite(row.expiryMs) ? ` <span class="table-muted">(${escapeHtml(fmtRelativeFuture(row.expiryMs))})</span>` : ""}</dd>`);
+      if (row.period) settlementBits.push(`<dt>Period</dt><dd>${escapeHtml(row.period)} <span class="table-muted">(auto-respawned)</span></dd>`);
+      if (row.question) settlementBits.push(`<dt>Question</dt><dd>${escapeHtml(row.question.name)} <span class="table-muted">(${escapeHtml(row.question.questionId != null ? `#${row.question.questionId}` : "—")})</span></dd>`);
+
+      const settlementHtml = settlementBits.length
+        ? `<dl class="details-kv">${settlementBits.join("")}</dl>`
+        : '<span class="table-muted">No additional settlement metadata.</span>';
+
+      const descHtml = row.description
+        ? `<div class="details-description">${escapeHtml(row.description)}</div>`
+        : '<span class="table-muted">No description on this outcome.</span>';
+
+      return `
+        <tr class="details-row" data-details-for="${row.outcomeId}">
+          <td colspan="7">
+            <div class="details-pane">
+              <div class="details-block">
+                <div class="details-block-label">Settlement &amp; lifecycle</div>
+                ${settlementHtml}
+                <dl class="details-kv">
+                  <dt>Outcome ID</dt><dd>#${fmtInt(row.outcomeId)}</dd>
+                  <dt>Type</dt><dd>${escapeHtml(row.type)}</dd>
+                  <dt>YES + NO</dt><dd>${spreadHtml}</dd>
+                </dl>
+              </div>
+              <div class="details-block">
+                <div class="details-block-label">Sides &amp; pricing</div>
+                <table class="sides-table">
+                  <thead>
+                    <tr>
+                      <th>Side</th>
+                      <th>Coin</th>
+                      <th>Mark</th>
+                      <th>Mid</th>
+                      <th>Implied %</th>
+                      <th>24h Vol</th>
+                      <th>OI</th>
+                    </tr>
+                  </thead>
+                  <tbody>${sidesRows}</tbody>
+                </table>
+              </div>
+              <div class="details-block" style="grid-column: 1 / -1;">
+                <div class="details-block-label">Raw outcome description</div>
+                ${descHtml}
+              </div>
+            </div>
+          </td>
+        </tr>
+      `;
+    }
+
     function typePill(type) {
       const labels = { binary: "Price binary", recurring: "Recurring", custom: "Custom" };
       const cls = `type-pill type-${type}`;
@@ -1609,7 +1923,8 @@
 
       if (row.type === "binary" || row.type === "recurring") {
         if (parsed?.underlying) {
-          metaBits.push(`<strong>${escapeHtml(parsed.underlying)}</strong> binary`);
+          const dirSuffix = parsed?.direction ? ` ${escapeHtml(parsed.direction)}` : "";
+          metaBits.push(`<strong>${escapeHtml(parsed.underlying)}</strong>${dirSuffix} binary`);
         }
         if (parsed?.targetPrice) {
           const target = Number(parsed.targetPrice);
@@ -1617,27 +1932,7 @@
             metaBits.push(`strike $${fmtInt(target)}`);
           }
         }
-        if (parsed?.expiry) {
-          const formatted = formatExpiry(parsed.expiry);
-          if (formatted) metaBits.push(`expires ${escapeHtml(formatted)}`);
-        }
-        if (parsed?.period) {
-          metaBits.push(`every ${escapeHtml(parsed.period)}`);
-        }
-      } else if (row.question) {
-        metaBits.push(`Part of: <strong>${escapeHtml(row.question.name)}</strong>`);
       }
-
-      const sidesHtml = row.sides.length
-        ? `<div class="market-cell-sides">${
-            row.sides.map((side) => {
-              const probStr = Number.isFinite(side.markPx)
-                ? ` <strong>${(side.markPx * 100).toFixed(1)}%</strong>`
-                : "";
-              return `<span class="side-chip">${escapeHtml(side.name)} <span class="table-muted">${escapeHtml(side.coin)}</span>${probStr}</span>`;
-            }).join("")
-          }</div>`
-        : "";
 
       const metaHtml = metaBits.length
         ? `<div class="market-cell-meta">${metaBits.join(" · ")}</div>`
@@ -1647,7 +1942,6 @@
         <div>
           <span class="market-cell-name">${name}</span>
           ${metaHtml}
-          ${sidesHtml}
         </div>
       `;
     }
@@ -1678,19 +1972,46 @@
       }
 
       if (sorted.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="table-error" style="padding:2rem 1rem;">No outcomes match this filter.<br><span class="table-muted">Try clearing the search box or switching the toggle to "All".</span></td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="table-error" style="padding:2rem 1rem;">No outcomes match this filter.<br><span class="table-muted">Try clearing the search box or switching the toggle to "All".</span></td></tr>`;
         return;
       }
 
-      tbody.innerHTML = sorted.map((row) => `
-        <tr>
-          <td>${nameCell(row)}</td>
-          <td>${typePill(row.type)}</td>
-          <td>${probCell(row)}</td>
-          <td>${row.dayVolume > 0 ? `<strong>${fmtUsdShort(row.dayVolume)}</strong>` : '<span class="table-muted">—</span>'}</td>
-          <td><span class="mono">#${fmtInt(row.outcomeId)}</span></td>
-        </tr>
-      `).join("");
+      const previouslyOpen = state.openOutcomeIds || new Set();
+
+      tbody.innerHTML = sorted.map((row) => {
+        const openClass = previouslyOpen.has(row.outcomeId) ? " is-open" : "";
+        return `
+          <tr class="is-toggle${openClass}" data-outcome-id="${row.outcomeId}">
+            <td>${nameCell(row)}</td>
+            <td>${typePill(row.type)}</td>
+            <td>${probCell(row)}</td>
+            <td>${probNoCell(row)}</td>
+            <td>${row.dayVolume > 0 ? `<strong>${fmtUsdShort(row.dayVolume)}</strong>` : '<span class="table-muted">—</span>'}</td>
+            <td>${resolvesCell(row)}</td>
+            <td><span class="id-cell"><span class="mono">#${fmtInt(row.outcomeId)}</span><span class="row-chevron" aria-hidden="true"></span></span></td>
+          </tr>
+          ${detailsRow(row).replace('class="details-row"', `class="details-row${openClass}"`)}
+        `;
+      }).join("");
+
+      attachRowToggleHandlers();
+    }
+
+    function attachRowToggleHandlers() {
+      const tbody = document.getElementById("outcome-table-body");
+      if (!tbody) return;
+      tbody.querySelectorAll("tr.is-toggle").forEach((tr) => {
+        tr.addEventListener("click", () => {
+          const id = Number(tr.dataset.outcomeId);
+          const detailsTr = tbody.querySelector(`tr.details-row[data-details-for="${id}"]`);
+          if (!detailsTr) return;
+          const isOpen = tr.classList.toggle("is-open");
+          detailsTr.classList.toggle("is-open", isOpen);
+          if (!state.openOutcomeIds) state.openOutcomeIds = new Set();
+          if (isOpen) state.openOutcomeIds.add(id);
+          else state.openOutcomeIds.delete(id);
+        });
+      });
     }
 
     function renderScoreboard() {
@@ -1765,7 +2086,7 @@
     function renderError() {
       const tbody = document.getElementById("outcome-table-body");
       if (tbody) {
-        tbody.innerHTML = `<tr><td colspan="5" class="table-error"><strong>Testnet fetch failed</strong>Couldn't reach Hyperliquid's public testnet API. The board will retry automatically.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="table-error"><strong>Testnet fetch failed</strong>Couldn't reach Hyperliquid's public testnet API. The board will retry automatically.</td></tr>`;
       }
       ["stat-outcomes", "stat-questions", "stat-with-volume", "stat-volume"].forEach((id) => {
         const el = document.getElementById(id);
