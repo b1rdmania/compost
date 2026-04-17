@@ -168,10 +168,12 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 
 ### index.html (Landing Page)
 - Nav active: "Overview"
-- Hero with large wordmark
-- Growth visualization (6-stage plant icons)
-- Waitlist form → `/api/waitlist` → Neon Postgres
-- Market stats section
+- Hero: exploratory framing (not a live vault product); links to HIP-3 board, demos, story, updates
+- **Our story** — three beats: what Compost was / nearly was / is now (experiments + data)
+- **Why Hyperliquid** — short HL + HIP-3/HIP-4 context; HIP-3 ecosystem stats (Dune), clearly not Compost TVL
+- **What we built** — six-step grid: demos, cHYPE design, HIP intelligence, yield/docs, litepaper as archive, what’s next
+- **Builder-market activity** — example deployers + stats CTAs (HIP-3/HIP-4 boards, Dune)
+- Email updates form → `/api/waitlist` → Neon Postgres (positioned as updates, not a vault waitlist)
 
 ### demo.html (Demo Hub)
 - Nav active: "Demo"
@@ -197,7 +199,7 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 - Configurable contract addresses (saved to localStorage)
 
 ### litepaper.html (Litepaper)
-- Long-form document page
+- Long-form document page; **September 2025 original concept** (hero + archive callout links to current homepage framing)
 - Nav active: "Litepaper"
 
 ### yield.html (Yield Page)
@@ -221,6 +223,8 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
       </a>
       <a href="/" class="nav-link active">Overview</a>       <!-- active on index -->
       <a href="/demo.html" class="nav-link active">Demo</a>  <!-- active on demo + vault.html + vault-test.html -->
+      <a href="/hip3.html" class="nav-link active">HIP-3</a> <!-- active on hip3.html -->
+      <a href="/hip4.html" class="nav-link active">HIP-4</a> <!-- active on hip4.html -->
       <a href="/litepaper.html" class="nav-link active">Litepaper</a> <!-- active on litepaper -->
     </div>
     <div class="nav-right">

@@ -1,0 +1,31 @@
+---
+description: Internal strategy & handoff context for Compost — parked status, audience, and site direction (HIP-3 / HIP-4).
+globs:
+alwaysApply: true
+---
+
+# Compost — strategy context (handoff)
+
+**Status:** Project is **parked / exploratory**, not an active full-time build. Treat copy and roadmap as **iterative** unless the user says otherwise.
+
+## What it was
+
+- Hyperliquid-focused DeFi: vault / yield mechanics around **HLP (Hyperliquid Liquidity Provider)** and HL ecosystem participation.
+- Intended audience: **Hyperliquid whales and DeFi power users**, not generic crypto retail or “general” VC theses.
+
+## Why it stalled (signal, not marketing copy)
+
+- Fundraising feedback often came from people **without deep Hyperliquid context**, so it was hard to treat as product validation.
+- The model was **hard to fully explain** in one pass — either too complex or not simplified enough for the audience.
+- Distribution likely needs **HL-native whales and operators**, not broad crypto VC; planned intros (e.g. Denver) **did not materialize meaningfully**; specific outreach **did not convert**.
+- Execution needs **aligned collaborators with HL-specific knowledge**; scope is **beyond a solo technical build**.
+
+## What we’re doing in this repo now (first principles)
+
+- Explore **angles around HIP-3 and HIP-4** — what’s real, what’s narrative, what’s defensible.
+- **Tweak the marketing site** over time: clarify **what Compost was**, **what it is today** (parked / exploratory / proof-of-concepts), and where it might go — **honest, not performative**.
+- Prefer **clear, simple framing** over hype; when in doubt, align with `DESIGN.md` and existing tone.
+
+When editing site copy, **do not** imply live production vaults or guaranteed yield unless the user explicitly asks. Stats about Hyperliquid / HIP-3 are **ecosystem context**, not Compost performance.
+
+The **homepage (`index.html`)** is framed as exploratory: story section ties to the **September 2025 litepaper** (original concept), why it stalled (builder-fee complexity, default/counterparty risk, HIP-3 literacy bar), and what remains (demos + data). **`litepaper.html`** is labeled a **September 2025 concept archive** with a top callout pointing to current framing on `/`.
