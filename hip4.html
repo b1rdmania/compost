@@ -997,23 +997,15 @@
             <span class="eyebrow-dot"></span>
             <span>HIP-4 · Outcome Trading</span>
           </div>
-          <h1 class="hero-title">
-            Hyperliquid's prediction primitive,<br>
-            in plain view.<span class="testnet-badge">Testnet</span>
-          </h1>
+          <h1 class="hero-title">HIP-4 outcome books. <span class="testnet-badge">Testnet</span></h1>
           <p class="hero-subtitle">
-            HIP-4 introduces fully collateralized outcome contracts to HyperCore: native L1 markets
-            that settle to <strong>0 or 1 in USDH</strong> based on real-world events. No leverage,
-            no liquidations, instant settlement when the outcome is known.
+            Polymarket-style markets on the same L1 as Hyperliquid's perps. Fully collateralized,
+            settled in a single block by the protocol — not a separate venue, not an oracle round-trip.
+            Live on testnet today; no mainnet spec yet.
           </p>
           <div class="hero-actions">
             <a href="#testnet-board" class="btn btn-primary">Jump To Markets</a>
             <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener" class="btn btn-secondary">Full Research ↗</a>
-          </div>
-          <div class="testnet-strip">
-            <strong>Testnet only.</strong> HIP-4 is live on Hyperliquid testnet, instrumented from
-            <span class="mono" style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:0.85em;">api.hyperliquid-testnet.xyz</span>.
-            No official mainnet spec has been published yet; what's below is read directly from public testnet endpoints.
           </div>
         </div>
 
@@ -1074,45 +1066,44 @@
             <div class="lifecycle-step"><span class="lifecycle-step-num">1</span> Create</div>
             <h3 class="lifecycle-title">A YES/NO pair is minted on L1.</h3>
             <p class="lifecycle-body">
-              The HIP-4 operator calls <span class="lifecycle-tag">registerTokensAndStandaloneOutcome</span>
-              on HyperCore. Two #-prefixed spot tokens spawn — one for each side — and the opening price
-              defaults near 50/50 unless seeded otherwise.
+              An operator calls <span class="lifecycle-tag">registerTokensAndStandaloneOutcome</span> on
+              HyperCore. Two #-prefixed spot tokens are minted — one per side — opening near 50/50 unless
+              seeded.
             </p>
             <span class="lifecycle-tag">YES = #(id × 10) · NO = #(id × 10 + 1)</span>
           </article>
 
           <article class="lifecycle-card reveal">
             <div class="lifecycle-step"><span class="lifecycle-step-num">2</span> Trade</div>
-            <h3 class="lifecycle-title">CLOB trading in USDH, fully collateralized.</h3>
+            <h3 class="lifecycle-title">Either leg trades on the standard CLOB.</h3>
             <p class="lifecycle-body">
-              Anyone can trade either leg on the standard order book. Pair minting keeps the books mirrored —
-              a buy on YES at 0.40 reflects an ask on NO at 0.60. Collateral locks until settlement; there's
-              no leverage and no liquidation path.
+              Pair minting mirrors the books — a buy on YES at 0.40 reflects an ask on NO at 0.60.
+              Collateral locks until settlement; no leverage, no liquidation path, no funding to pay.
             </p>
             <span class="lifecycle-tag">YES + NO = 1.00 USDH</span>
           </article>
 
           <article class="lifecycle-card reveal">
             <div class="lifecycle-step"><span class="lifecycle-step-num">3</span> Settle</div>
-            <h3 class="lifecycle-title">One block, instant payout.</h3>
+            <h3 class="lifecycle-title">One block, no claim, no dispute.</h3>
             <p class="lifecycle-body">
-              At expiry the operator submits <span class="lifecycle-tag">VoteGlobalAction</span> with a
-              settle fraction (0 or 1). All positions resolve in a single L1 block — winner credited 1.00
-              per token, loser zero, no Merkle claim, no dispute window.
+              At expiry an operator submits <span class="lifecycle-tag">VoteGlobalAction</span> with a
+              settle fraction of 0 or 1. Every position resolves in a single L1 block — winner credited
+              1.00 per token, loser zero.
             </p>
-            <span class="lifecycle-tag">Native L1 settlement</span>
+            <span class="lifecycle-tag">Protocol-driven settlement</span>
           </article>
         </div>
 
         <div class="lifecycle-note reveal">
-          <strong>Implied probability lives in the YES mark.</strong> Because pair minting forces YES + NO to
-          1.00, the mark price of the YES leg reads directly as the market's view on the outcome — no oracle
-          inference needed. A YES at <span class="mono">0.65</span> means the book is pricing a 65% chance.
+          <strong>The YES mark is the implied probability.</strong> Pair minting forces YES + NO to 1.00,
+          so the YES leg's price reads directly as the book's belief — no oracle, no inference. A YES at
+          <span class="mono">0.65</span> means the market is pricing 65%.
           <br><br>
-          Three outcome shapes show up on testnet today: <strong>Custom</strong> (multi-named questions like
-          "who wins the race"), <strong>priceBinary</strong> (above/below a strike at expiry), and
-          <strong>Recurring</strong> (auto-recreated priceBinaries on a schedule — 15m, 1h, 1d). All three
-          trade as ordinary # spot pairs once minted.
+          Three shapes are live on testnet: <strong>Custom</strong> (multi-named questions like "who wins
+          the race"), <strong>priceBinary</strong> (above/below a strike at expiry), and
+          <strong>Recurring</strong> (auto-respawned priceBinaries every 15m, 1h, or 1d). All three trade
+          as ordinary # spot pairs once minted.
         </div>
       </div>
     </section>
@@ -1266,52 +1257,55 @@
             <h2 class="section-title">The capital formation thesis extends to outcome books.</h2>
           </div>
           <div class="section-copy">
-            Compost is a capital formation layer for HIP-3 builder markets today. HIP-4 introduces a second
-            HyperCore primitive that needs the same thing: deep books, opening-auction liquidity, and
-            disciplined LP rotation. The shape of the opportunity is different, but the playbook rhymes.
+            Compost is a capital formation layer for HIP-3 builder markets. HIP-4 is the same engine
+            producing a different shape, and the most interesting parts aren't the LP mechanics in
+            isolation — they're what composability across primitives unlocks.
           </div>
         </div>
 
         <div class="angle-grid">
           <article class="angle-card reveal">
-            <span class="angle-tag">Bounded Risk</span>
-            <h3 class="angle-title">Fully collateralized by construction.</h3>
+            <span class="angle-tag">Symmetric Inventory</span>
+            <h3 class="angle-title">Equal YES + NO holds zero outcome exposure.</h3>
             <p class="angle-body">
-              Every YES + NO pair sums to 1.00 USDH. Maximum loss on either leg is the premium paid — there's
-              no leverage to unwind, no liquidation cascade to absorb. That makes outcome books a cleaner
-              container for vault capital than levered perps.
+              A maker carrying balanced YES and NO of a fairly-priced outcome doesn't care which way it
+              resolves — every pair pays out 1.00 USDH at settlement. They keep the spread, inventory is
+              bounded by definition, and there's no funding to pay or liquidation to dodge.
             </p>
-            <div class="angle-foot">e.g. delta-neutral spread capture across YES/NO</div>
+            <div class="angle-foot">e.g. delta-neutral two-sided quoting</div>
           </article>
 
           <article class="angle-card reveal">
             <span class="angle-tag">Recurring Premium</span>
-            <h3 class="angle-title">Recurring binaries look like systematic options.</h3>
+            <h3 class="angle-title">Systematic short-vol, on-chain.</h3>
             <p class="angle-body">
-              The <strong>Recurring priceBinary</strong> shape — auto-recreated 15m / 1h / 1d markets on
-              BTC, ETH, etc. — produces a steady stream of short-dated binaries. That's structurally similar
-              to selling options spreads, except settlement is deterministic and on-chain.
+              Recurring priceBinaries — auto-respawned BTC / ETH binaries every 15 minutes, hour, or day —
+              are mechanically a stream of cash-secured short options. Strategies that trade premium in
+              CME or Deribit translate directly, but with deterministic L1 settlement instead of a
+              clearinghouse.
             </p>
-            <div class="angle-foot">e.g. systematic premium harvest, fully collateralized</div>
+            <div class="angle-foot">e.g. weekly BTC&gt;$X programmatic underwriting</div>
           </article>
 
           <article class="angle-card reveal">
-            <span class="angle-tag">Liquidity Routing</span>
-            <h3 class="angle-title">Opening auctions need disciplined LP.</h3>
+            <span class="angle-tag">Unified Margin</span>
+            <h3 class="angle-title">Hedges that span perps and outcome books.</h3>
             <p class="angle-body">
-              New HIP-4 markets are reported to launch with a 15-minute opening call auction. Cold-start
-              books are exactly the moment a capital formation layer matters most — programmatic LP across
-              outcome openings is a natural extension of what Compost does for HIP-3 builder launches.
+              HyperCore is one account system. If outcome books share margin with perps on mainnet — as the
+              testnet design suggests — a perp vault can carry tail-risk insurance directly in outcome
+              books, and an outcome-LP strategy can hedge directional drift in spot. That's composability
+              you can't replicate by stitching together separate venues.
             </p>
-            <div class="angle-foot">e.g. opening-auction quoting, decay-aware withdrawal</div>
+            <div class="angle-foot">e.g. cross-primitive hedge construction</div>
           </article>
         </div>
 
         <div class="lifecycle-note reveal" style="margin-top: 2rem;">
-          <strong>This is forward-looking, not a shipped product.</strong> HIP-4 is testnet-only at the time
-          of writing and Hyperliquid hasn't published a formal spec. None of the strategies above are live
-          on the Compost vault, and the surface itself may change before mainnet. We're tracking it because
-          the same primitive that makes HIP-3 worth a capital formation layer makes HIP-4 worth one too.
+          <strong>None of the above is shipped.</strong> HIP-4 is testnet-only, the spec hasn't been
+          published, and Compost's vault doesn't trade outcome books today. We're tracking it because the
+          same primitive that makes HIP-3 worth a capital formation layer makes HIP-4 worth one too — and
+          because the unified-margin angle only really works if someone's there with capital when mainnet
+          ships.
         </div>
       </div>
     </section>
