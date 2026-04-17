@@ -1626,24 +1626,39 @@
     const HL_TRADE_BASE = "https://app.hyperliquid.xyz/trade/";
     const HL_EXPLORER_ADDRESS_BASE = "https://app.hyperliquid.xyz/explorer/address/";
 
-    const BUILDER_URLS = {
-      xyz: "https://trade.xyz",
-      flx: "https://felix.fi",
-      vntl: "https://ventuals.com",
-      km: "https://kinetiq.xyz",
-      hyna: "https://hyena.finance",
-      cash: "https://dreamcash.xyz",
-      para: "https://paragon.trade"
+    // Builder routing — per-market URLs verified live in-browser.
+    // Only confirmed URL patterns are listed; unknown builders fall back to
+    // app.hyperliquid.xyz which exposes some HIP-3 markets directly.
+    const BUILDER_PROFILES = {
+      xyz:  { home: "https://app.trade.xyz",     market: (coin) => `https://app.trade.xyz/?market=${coin}` },
+      vntl: { home: "https://app.ventuals.com",  market: (coin) => `https://app.ventuals.com/trade/${coin}` },
+      hyna: { home: "https://app.hyena.trade",   market: (coin) => `https://app.hyena.trade/trade/${coin}-USDE` },
+      km:   { home: "https://kinetiq.xyz",       market: null },
+      para: { home: "https://paragon.trade",     market: null },
+      cash: { home: "https://dreamcash.xyz",     market: null },
+      flx:  { home: null,                        market: null },
+      abcd: { home: null,                        market: null }
     };
 
-    function marketTradeUrl(coin) {
-      return `${HL_TRADE_BASE}${encodeURIComponent(coin)}`;
+    function hyperliquidFallbackUrl(fullCoin) {
+      return `${HL_TRADE_BASE}${fullCoin}`;
+    }
+
+    function marketTradeUrlForDex(dex, fullCoin) {
+      const profile = BUILDER_PROFILES[dex];
+      if (profile?.market) return profile.market(cleanCoinName(fullCoin));
+      return hyperliquidFallbackUrl(fullCoin);
+    }
+
+    function marketTradeUrl(market) {
+      return marketTradeUrlForDex(market.dex, market.coin);
     }
 
     function builderHomeUrl(builder) {
-      if (BUILDER_URLS[builder.name]) return BUILDER_URLS[builder.name];
-      if (builder.topMarketCoin) return marketTradeUrl(builder.topMarketCoin);
-      return `${HL_TRADE_BASE}${encodeURIComponent(builder.name)}`;
+      const profile = BUILDER_PROFILES[builder.name];
+      if (profile?.home) return profile.home;
+      if (builder.topMarketCoin) return marketTradeUrlForDex(builder.name, builder.topMarketCoin);
+      return `${HL_TRADE_BASE}${builder.name}`;
     }
 
     function shortAddress(address) {
@@ -1652,9 +1667,9 @@
       return `${address.slice(0, 6)}…${address.slice(-4)}`;
     }
 
-    function marketLinkCell(coin) {
-      const clean = cleanCoinName(coin);
-      return `<a class="cell-link" href="${marketTradeUrl(coin)}" target="_blank" rel="noopener"><strong>${clean}</strong><span class="cell-link-out">↗</span><br><span class="table-muted">${coin}</span></a>`;
+    function marketLinkCell(market) {
+      const clean = cleanCoinName(market.coin);
+      return `<a class="cell-link" href="${marketTradeUrl(market)}" target="_blank" rel="noopener"><strong>${clean}</strong><span class="cell-link-out">↗</span><br><span class="table-muted">${market.coin}</span></a>`;
     }
 
     function builderLinkCell(builder) {
@@ -1746,7 +1761,7 @@
           : `<span class="table-muted">No cap configured</span>`;
 
         const topMarketHtml = builder.topMarketCoin
-          ? `<a class="cell-link" href="${marketTradeUrl(builder.topMarketCoin)}" target="_blank" rel="noopener">${builder.topMarketName}<span class="cell-link-out">↗</span></a>`
+          ? `<a class="cell-link" href="${marketTradeUrlForDex(builder.name, builder.topMarketCoin)}" target="_blank" rel="noopener">${builder.topMarketName}<span class="cell-link-out">↗</span></a>`
           : "N/A";
 
         return `
@@ -1814,7 +1829,7 @@
 
         return `
           <tr>
-            <td>${marketLinkCell(market.coin)}</td>
+            <td>${marketLinkCell(market)}</td>
             <td>${builderLinkCell(builderMap.get(market.dex))}</td>
             <td>${formatUsdCompact(market.dayVolume)}</td>
             <td>${weekCell}</td>
@@ -1865,7 +1880,7 @@
 
         return `
           <tr>
-            <td>${marketLinkCell(market.coin)}</td>
+            <td>${marketLinkCell(market)}</td>
             <td>${builderLinkCell(builderMap.get(market.dex))}</td>
             <td>${formatUsdCompact(market.openInterestUsd)}</td>
             <td>${formatUsdCompact(market.oiCap)}</td>
@@ -1882,7 +1897,7 @@
 
       tbody.innerHTML = markets.map((market) => `
         <tr>
-          <td>${marketLinkCell(market.coin)}</td>
+          <td>${marketLinkCell(market)}</td>
           <td>${builderLinkCell(builderMap.get(market.dex))}</td>
           <td>${formatFunding(market.funding)}</td>
           <td>${formatUsdCompact(market.dayVolume)}</td>
@@ -1935,10 +1950,10 @@
           <article class="market-detail-card reveal visible">
             <div class="market-detail-rank">Rank #${index + 1}</div>
             <h3 class="market-detail-name">
-              <a class="cell-link" href="${marketTradeUrl(market.coin)}" target="_blank" rel="noopener">${cleanCoinName(market.coin)}<span class="cell-link-out">↗</span></a>
+              <a class="cell-link" href="${marketTradeUrl(market)}" target="_blank" rel="noopener">${cleanCoinName(market.coin)}<span class="cell-link-out">↗</span></a>
             </h3>
             <div class="market-detail-builder">
-              <a class="cell-link" href="${builder ? builderHomeUrl(builder) : marketTradeUrl(market.coin)}" target="_blank" rel="noopener" style="color:inherit;">${builder?.display || market.dex}</a>
+              <a class="cell-link" href="${builder ? builderHomeUrl(builder) : marketTradeUrl(market)}" target="_blank" rel="noopener" style="color:inherit;">${builder?.display || market.dex}</a>
             </div>
             ${spark}
             <div class="market-detail-stats" style="margin-top:0.6rem;">
