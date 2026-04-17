@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Live Demo - Compost HyperEVM Testnet Vault</title>
-  <meta name="description" content="Live HyperEVM testnet proof vault for Compost. Synthetic 10% APR demonstration.">
+  <title>Live testnet demo — Compost</title>
+  <meta name="description" content="HyperEVM testnet demo of the cHYPE share-rate mechanic. Drip vHYPE, deposit, mint cHYPE shares, withdraw. Synthetic 10% APR for demonstration only.">
 
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -388,31 +388,31 @@
   <main class="container">
     <section class="hero">
       <div>
-        <h1>HyperEVM <span>Live Demo</span></h1>
-        <p>Mechanism demo on HyperEVM testnet. HYPE for gas, vHYPE for deposits, cHYPE for shares.</p>
+        <h1>Live testnet <span>demo</span></h1>
+        <p>The cHYPE share-rate mechanic, on-chain on HyperEVM testnet. HYPE for gas, vHYPE as the demo deposit asset, cHYPE as the share token.</p>
       </div>
-      <div class="badge">Synthetic APR Demo</div>
+      <div class="badge">Synthetic 10% APR</div>
     </section>
 
     <div class="context-banner">
-      <strong>Testnet only:</strong> this page demonstrates mechanics on HyperEVM testnet and is not the production mainnet vault.
+      <strong>Testnet only.</strong> The APR here is synthetic — minted on-chain when state updates — purely to make the share-rate mechanic visible. There is no mainnet vault.
     </div>
 
     <section class="grid">
       <article class="card span-12">
-        <h2>Simple Flow</h2>
+        <h2>Three steps</h2>
         <div class="flow-strip">
           <div class="flow-step">
             <div class="flow-step-num">Step 1</div>
-            <div class="flow-step-text">Get <strong>HYPE (gas only)</strong> from the testnet faucet for transaction fees.</div>
+            <div class="flow-step-text">Get <strong>HYPE</strong> from the testnet faucet — gas only, no real value.</div>
           </div>
           <div class="flow-step">
             <div class="flow-step-num">Step 2</div>
-            <div class="flow-step-text">Mint <strong>vHYPE</strong> from the Compost faucet (demo deposit asset).</div>
+            <div class="flow-step-text">Drip <strong>vHYPE</strong> from the Compost faucet — the demo deposit asset.</div>
           </div>
           <div class="flow-step">
             <div class="flow-step-num">Step 3</div>
-            <div class="flow-step-text">Deposit vHYPE, receive <strong>cHYPE</strong>, and withdraw anytime.</div>
+            <div class="flow-step-text">Deposit vHYPE, receive <strong>cHYPE</strong> shares, watch the share price tick, withdraw anytime.</div>
           </div>
         </div>
       </article>
@@ -531,11 +531,11 @@
       </article>
 
       <article class="card span-12">
-        <h2>Model Note</h2>
+        <h2>Model notes</h2>
         <div class="stack">
-          <div class="muted">This page proves vault mechanics, not production yield routing.</div>
-          <div class="muted">Interest is synthetic, minted on-chain when vault state updates (`accrue`).</div>
-          <div class="muted">Roles: HYPE = gas only, vHYPE = deposit asset, cHYPE = share token.</div>
+          <div class="muted">This proves the share-rate accounting works on-chain — not that production yield routing is live.</div>
+          <div class="muted">Interest is synthetic, minted on-chain whenever the vault's <code>accrue()</code> is called.</div>
+          <div class="muted">Token roles: HYPE = gas, vHYPE = deposit asset, cHYPE = share token (ERC4626-style).</div>
         </div>
       </article>
 
@@ -550,7 +550,7 @@
     <div class="site-footer-inner">
       <div class="site-footer-domain">compost<span style="color: var(--accent-bright);">.fi</span></div>
       <nav class="site-footer-links">
-        <a href="/litepaper.html" class="site-footer-link">Litepaper v1</a>
+        <a href="/litepaper.html" class="site-footer-link">Concept</a>
         <a href="/demo.html" class="site-footer-link">Demo</a>
         <a href="/process.html" class="site-footer-link">Build Process</a>
         <a href="/process.html#design-system" class="site-footer-link">Design System</a>

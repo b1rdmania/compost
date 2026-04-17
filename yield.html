@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How Compost Generates Yield</title>
-  <meta name="description" content="How we deploy capital, what APR we expect, and what the protocol earns.">
+  <title>Compost — cHYPE yield design (concept, Sept 2025)</title>
+  <meta name="description" content="Archive of the September 2025 cHYPE yield design: where the fee pool would have come from, how the vault would have routed, and the math behind the original APR ranges. Compost is parked / exploratory — this page is a concept reference, not a live product.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -590,49 +590,58 @@
   <!-- Hero -->
   <section class="hero">
     <div class="article">
-      <h1>How Compost Generates Yield</h1>
-      <p class="hero-subtitle">Where the money comes from. What we take. What you keep.</p>
+      <h1>cHYPE yield design</h1>
+      <p class="hero-subtitle">The September 2025 concept: where the fee pool would have come from, how the vault would have routed, and the math behind the original APR ranges.</p>
     </div>
   </section>
 
   <main>
+    <section class="section" style="padding-top: 0;">
+      <div class="article">
+        <div class="callout reveal" style="margin-bottom: 2rem;">
+          <div class="callout-label">Read this in context</div>
+          <p>This is a <strong>concept reference</strong> from the September 2025 design, archived as part of the <a href="/litepaper.html">cHYPE concept paper</a>. There is no live cHYPE vault, no live APR, and no deposits open. Numbers below describe how the model <em>would have</em> worked at the time the paper was written — they are not a prediction or an offer. For where Compost is today, see the <a href="/">homepage</a>.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Section 1: The Simple Version -->
     <section class="section" id="simple">
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
           <div class="label">The simple version</div>
-          <h2 class="section-header">You deposit HYPE. We put it to work. You earn yield.</h2>
+          <h2 class="section-header">Deposit HYPE. Vault routes it. cHYPE accrues value.</h2>
         </div>
 
         <div class="flow reveal">
           <div class="flow-step">
             <img src="/assets/icons/deposit.svg" alt="" class="flow-icon">
             <div class="flow-step-name">Deposit</div>
-            <div class="flow-step-desc">You send HYPE</div>
+            <div class="flow-step-desc">Depositor sends HYPE</div>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step">
             <img src="/assets/icons/allocate.svg" alt="" class="flow-icon">
             <div class="flow-step-name">Allocate</div>
-            <div class="flow-step-desc">We deploy it</div>
+            <div class="flow-step-desc">Vault routes capital</div>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step">
             <img src="/assets/icons/yield.svg" alt="" class="flow-icon">
-            <div class="flow-step-name">Earn</div>
-            <div class="flow-step-desc">Yield accrues</div>
+            <div class="flow-step-name">Accrue</div>
+            <div class="flow-step-desc">Fees flow back</div>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step">
             <img src="/assets/icons/chart.svg" alt="" class="flow-icon">
             <div class="flow-step-name">Compound</div>
-            <div class="flow-step-desc">Reinvested daily</div>
+            <div class="flow-step-desc">cHYPE/HYPE rate grows</div>
           </div>
         </div>
 
         <div class="prose reveal">
-          <p>Your receipt is <strong>cHYPE</strong>. It's worth more HYPE over time as yield compounds. When you want your HYPE back, you burn cHYPE and withdraw.</p>
+          <p>The receipt token in the design is <strong>cHYPE</strong>. As builder fees and staking rewards accrue to the vault, the cHYPE/HYPE exchange rate climbs — burning cHYPE returns the underlying HYPE plus accrued share of fees. Exchange-rate model, not rebasing. (See the <a href="/demo.html">vault demos</a> for a working interaction of this mechanic on testnet.)</p>
         </div>
       </div>
     </section>
@@ -651,8 +660,8 @@
             <thead>
               <tr>
                 <th>Source</th>
-                <th>Allocation</th>
-                <th>Yield</th>
+                <th>Target allocation</th>
+                <th>Indicative range</th>
               </tr>
             </thead>
             <tbody>
@@ -671,7 +680,7 @@
         </div>
 
         <div class="prose reveal">
-          <p>Validator staking is the floor. HIP-3 is the upside. Both compound into cHYPE.</p>
+          <p>Validator staking sits as the floor. HIP-3 routing is the variable upside. In the original design both would have compounded into a single cHYPE share price.</p>
         </div>
       </div>
     </section>
@@ -682,11 +691,11 @@
         <div class="reveal">
           <div class="section-divider"></div>
           <div class="label">HIP-3 mechanisms</div>
-          <h2 class="section-header">How we access HIP-3 yield</h2>
+          <h2 class="section-header">Five ways to touch the HIP-3 fee pool</h2>
         </div>
 
         <div class="prose reveal">
-          <p>HIP-3 markets require 500K HYPE to deploy. The builder earns ~50% of trading fees. But there are different ways to participate:</p>
+          <p>HIP-3 markets require 500K HYPE to deploy. The deployer captures ~50% of trading fees. There are several ways a vault could route into that fee pool — the design considered the following five:</p>
         </div>
 
         <div class="table-wrap reveal">
@@ -735,9 +744,9 @@
         </div>
 
         <div class="prose reveal">
-          <p><strong>Planned strategies:</strong> Pooled wrappers (e.g. Kinetiq kmHYPE) and LP vaults (e.g. Ventuals VLP). Collateral yield where it makes sense. Stake provider deals if terms are transparent.</p>
-          <p><strong>With scale:</strong> Direct deployment when we have 500K+ HYPE.</p>
-          <p><strong>LP vault warning:</strong> Market-making can lose money. VLP yield depends on trading profits, not fee share. We'd size this smaller.</p>
+          <p><strong>Default mix in the design:</strong> pooled wrappers (e.g. Kinetiq kmHYPE) and LP vaults (e.g. Ventuals VLP), with collateral yield where it makes sense and stake-provider deals only if terms were transparent.</p>
+          <p><strong>At scale:</strong> direct deployment becomes possible past 500K+ HYPE.</p>
+          <p><strong>LP vault caveat:</strong> market-making can lose money. VLP-style yield depends on trading P&L, not a clean fee share — the design sized this smaller for that reason.</p>
         </div>
       </div>
     </section>
@@ -747,12 +756,12 @@
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="label">The numbers</div>
-          <h2 class="section-header">$87.32B traded. And it's accelerating.</h2>
+          <div class="label">The fee pool</div>
+          <h2 class="section-header">$87.32B traded — and most of it ran cheap</h2>
         </div>
 
         <div class="prose reveal">
-          <p>HIP-3 markets have done <strong>$87.32B cumulative volume</strong> and growing weekly. But most runs in Growth Mode (90% fee reduction). <em>Figures as of April 14, 2026</em> (aggregate dashboards, e.g. <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>).</p>
+          <p>HIP-3 markets have done <strong>$87.32B cumulative volume</strong> and are still growing weekly. The catch: most volume runs in Growth Mode, a 90% fee reduction. <em>Figures as of April 14, 2026</em> (aggregate dashboards, e.g. <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a> — for live ecosystem data, see the <a href="/hip3.html">HIP-3 board</a>).</p>
         </div>
 
         <div class="math-block reveal">
@@ -760,11 +769,11 @@
 <pre>
 <span class="muted">Growth Mode (now):</span>
 $87.32B × 0.45 bps = <span class="val">$3.93M</span> total fees
-Builder share (50%) = <span class="val">$1.96M</span> to stakers
+Builder share (50%) = <span class="val">$1.96M</span> available to deployers
 
 <span class="muted">Standard Mode:</span>
 $87.32B × 4.5 bps = <span class="val">$39.3M</span> total fees
-Builder share (50%) = <span class="val">$19.6M</span> to stakers
+Builder share (50%) = <span class="val">$19.6M</span> available to deployers
 </pre>
         </div>
 
@@ -775,16 +784,16 @@ Builder share (50%) = <span class="val">$19.6M</span> to stakers
         <div class="math-block reveal">
           <div class="math-block-label">As Hyperliquid scales</div>
 <pre>
-<span class="muted">Now:</span>       $87.32B → <span class="val">$19.6M</span>/year to builders (if Standard)
-<span class="muted">3x:</span>        $100B → <span class="val">$22.5M</span>/year to builders
-<span class="muted">30x:</span>       $1T → <span class="val">$225M</span>/year to builders
+<span class="muted">Now:</span>       $87.32B → <span class="val">$19.6M</span>/year (if Standard Mode)
+<span class="muted">3x:</span>        $100B → <span class="val">$22.5M</span>/year
+<span class="muted">30x:</span>       $1T → <span class="val">$225M</span>/year
 
 <span class="muted">Context: Nasdaq futures do $200B+ daily.</span>
 </pre>
         </div>
 
         <div class="prose reveal">
-          <p>HIP-3 is early. Volume is ramping. When markets exit Growth Mode — and as Hyperliquid captures more of global trading — the fee pool scales with it.</p>
+          <p>HIP-3 is early. Volume is ramping. As markets exit Growth Mode and as Hyperliquid captures more global flow, the fee pool scales with it. The cHYPE design assumed this trajectory; whether and how a vault should chase it is a separate question, and one we ultimately stepped back from for now.</p>
         </div>
       </div>
     </section>
@@ -794,35 +803,35 @@ Builder share (50%) = <span class="val">$19.6M</span> to stakers
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="label">Realistic numbers</div>
-          <h2 class="section-header">What APR looks like</h2>
+          <div class="label">Indicative ranges</div>
+          <h2 class="section-header">What the design's APR ranges looked like</h2>
         </div>
 
         <div class="scenario-cards reveal">
           <div class="scenario-card">
-            <div class="scenario-card-label">Worst case</div>
+            <div class="scenario-card-label">Floor scenario</div>
             <div class="scenario-card-apr">2-4%</div>
-            <div class="scenario-card-conditions">All Growth Mode. Validator yield only.</div>
+            <div class="scenario-card-conditions">All Growth Mode. Validator staking only.</div>
           </div>
           <div class="scenario-card">
-            <div class="scenario-card-label">Base case</div>
+            <div class="scenario-card-label">Base scenario</div>
             <div class="scenario-card-apr">5-7%</div>
-            <div class="scenario-card-conditions">Mixed modes. Some HIP-3 yield.</div>
+            <div class="scenario-card-conditions">Mixed fee modes. Some HIP-3 routing.</div>
           </div>
           <div class="scenario-card">
-            <div class="scenario-card-label">Good case</div>
+            <div class="scenario-card-label">Upside scenario</div>
             <div class="scenario-card-apr">10-15%</div>
-            <div class="scenario-card-conditions">Standard Mode. Full fee capture.</div>
+            <div class="scenario-card-conditions">Standard Mode. Full fee-pool exposure.</div>
           </div>
         </div>
 
         <div class="callout reveal" style="margin-top: 2rem;">
-          <div class="callout-label">Who this is for</div>
-          <p><strong>HYPE holders who want yield without selling.</strong> The 5-7% base case is respectable. The 10-15% upside is what makes it interesting. The 2-4% floor is the honest risk — you're betting on HIP-3 growth, not guaranteed returns.</p>
+          <div class="callout-label">Who the design was for</div>
+          <p>HYPE holders who wanted directional exposure to HIP-3 builder fees without selling spot. The 5-7% base would have been respectable; the 10-15% upside was the bet; the 2-4% floor was the honest worst case — wagering on HIP-3 growth, not promising a return. None of these are live numbers.</p>
         </div>
 
         <div class="prose reveal" style="margin-top: 1.5rem;">
-          <p>Plain HYPE staking earns ~2.5%. If we can't beat that consistently, just stake directly.</p>
+          <p>Plain HYPE validator staking pays ~2.5%. The product test in the design was simple: if cHYPE can't consistently beat that, there's no reason to wrap it.</p>
         </div>
       </div>
     </section>
@@ -833,27 +842,27 @@ Builder share (50%) = <span class="val">$19.6M</span> to stakers
         <div class="reveal">
           <div class="section-divider"></div>
           <div class="label">Aligned incentives</div>
-          <h2 class="section-header">We only make money when you make money</h2>
+          <h2 class="section-header">A fee design built around the staking floor</h2>
         </div>
 
         <div class="prose reveal">
-          <p>Compost exists to maximise yield. That's how you make money. That's how we make money. Our incentives are directly aligned.</p>
-          <p><strong>Performance fee:</strong> 15% of returns above HYPE staking rate (~2.5%). If we don't beat vanilla staking, we earn almost nothing.</p>
-          <p><strong>Management fee:</strong> 0.5%/year on the HIP-3 portion only.</p>
+          <p>The design pinned protocol take to the part of yield that beats validator staking — so a vault that didn't outperform vanilla staking would earn almost nothing.</p>
+          <p><strong>Performance fee:</strong> 15% of returns above the HYPE validator-staking rate (~2.5%).</p>
+          <p><strong>Management fee:</strong> 0.5%/year, charged on the HIP-3 portion only.</p>
           <p>No deposit fees. No withdrawal fees.</p>
         </div>
 
         <div class="math-block reveal">
-          <div class="math-block-label">Example: 8% vault yield</div>
+          <div class="math-block-label">Worked example: 8% gross vault APR</div>
 <pre>
-Vault yield: <span class="val">8%</span>
+Gross vault APR: <span class="val">8%</span>
 HYPE staking rate: <span class="muted">2.5%</span>
 Excess return: <span class="val">5.5%</span>
 
 Performance fee: 15% × 5.5% = <span class="val">0.825%</span>
 Management fee: 0.5% × 50% = <span class="val">0.25%</span>
 
-<span class="muted">Your net yield:</span> <span class="val">~6.92%</span>
+<span class="muted">Net to depositor:</span> <span class="val">~6.92%</span>
 </pre>
         </div>
       </div>
@@ -865,7 +874,7 @@ Management fee: 0.5% × 50% = <span class="val">0.25%</span>
         <div class="reveal">
           <div class="section-divider"></div>
           <div class="label">Protocol revenue</div>
-          <h2 class="section-header">What Compost earns</h2>
+          <h2 class="section-header">What the protocol would have earned</h2>
         </div>
 
         <div class="table-wrap reveal">
@@ -903,28 +912,26 @@ Management fee: 0.5% × 50% = <span class="val">0.25%</span>
         </div>
 
         <div class="prose reveal">
-          <p>At low AUM and low APR, we barely cover costs. At scale with decent yield, the protocol becomes self-sustaining.</p>
+          <p>At low AUM and low APR, the protocol barely covers costs. At scale with decent realised yield, it becomes self-sustaining. This was the financial logic behind the design — not a forecast.</p>
         </div>
       </div>
     </section>
 
-    <!-- Section 8: Next Steps -->
+    <!-- Section 8: Why we stepped back -->
     <section class="section" id="summary">
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="label">Next steps</div>
-          <h2 class="section-header">Validating the model</h2>
+          <div class="label">Why we stepped back</div>
+          <h2 class="section-header">What this concept ran into</h2>
         </div>
 
         <div class="prose reveal">
-          <p>These are projected yields based on current HIP-3 mechanics and market conditions. The numbers will change as we refine deployment strategies and markets evolve.</p>
-          <p><strong>What comes next:</strong></p>
-          <p>• Deeper analysis on specific deployment allocations and projected yields<br>
-          • Beta founders vault ($10M cap) to track real stats and APR transparently<br>
-          • Wider rollout if the model proves out</p>
-          <p>The founders vault lets us validate assumptions with real capital before scaling. Early stakers see the same data we do — full transparency on what's working and what isn't.</p>
-          <p>If we can't beat vanilla HYPE staking (~2.5%), you should just stake directly.</p>
+          <p>The design above was internally consistent. The reasons it isn't a live product are honest ones, and they're worth naming:</p>
+          <p>• <strong>Fee routing complexity.</strong> The path from a HIP-3 trade to a depositor's cHYPE rate touches multiple counterparties (deployers, market-makers, custody). Each link adds operational and trust cost.</p>
+          <p>• <strong>Counterparty / default risk.</strong> Pooled wrappers and stake-provider deals carry credit risk that's hard to price ahead of time and hard to communicate to a depositor.</p>
+          <p>• <strong>HIP-3 literacy bar.</strong> Outside HL-native audiences the model is hard to compress into a one-line pitch — and the people most equipped to evaluate it are also the most equipped to do it themselves.</p>
+          <p>None of those make the underlying fee pool less real. They do mean a credible product needs HL-aligned operators, not a solo build. <a href="/">See the homepage</a> for what Compost is doing now (live HIP-3/HIP-4 boards, vault-mechanic demos), and the <a href="/litepaper.html">cHYPE concept paper</a> for the original full thesis.</p>
         </div>
       </div>
     </section>
@@ -937,7 +944,7 @@ Management fee: 0.5% × 50% = <span class="val">0.25%</span>
       <nav class="footer-links">
         <a href="/" class="footer-link">Home</a>
         <a href="/demo.html" class="footer-link">Demo</a>
-        <a href="/litepaper.html" class="footer-link">Litepaper v1</a>
+        <a href="/litepaper.html" class="footer-link">Concept</a>
         <a href="/process.html" class="footer-link">Build Process</a>
         <a href="/process.html#design-system" class="footer-link">Design System</a>
         <a href="https://docs.compost.fi" class="footer-link">Docs</a>
