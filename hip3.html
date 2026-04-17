@@ -524,6 +524,113 @@
       background: rgba(255, 255, 255, 0.02);
     }
 
+    .table-shell.is-scrollable {
+      max-height: 720px;
+      overflow-y: auto;
+    }
+
+    .table-shell.is-scrollable thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: #15140f;
+      box-shadow: inset 0 -1px 0 var(--border);
+    }
+
+    .market-filter-bar {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) auto auto;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .market-filter-bar input.filter-input {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 300;
+      padding: 0.65rem 0.85rem;
+      letter-spacing: 0.01em;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .market-filter-bar input.filter-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .market-filter-bar input.filter-input:focus {
+      outline: none;
+      border-color: var(--accent-bright);
+      background: rgba(77, 207, 106, 0.04);
+    }
+
+    .filter-toggles {
+      display: inline-flex;
+      gap: 0.4rem;
+    }
+
+    .filter-chip {
+      appearance: none;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.55rem 0.9rem;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .filter-chip:hover {
+      color: var(--text-primary);
+      border-color: var(--text-muted);
+    }
+
+    .filter-chip.is-active {
+      color: var(--bg-deep);
+      background: var(--accent-bright);
+      border-color: var(--accent-bright);
+    }
+
+    .filter-count {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      text-align: right;
+      min-width: 9rem;
+    }
+
+    .filter-count strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    @media (max-width: 820px) {
+      .market-filter-bar {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+      }
+
+      .filter-count {
+        text-align: left;
+      }
+
+      .table-shell.is-scrollable {
+        max-height: 560px;
+      }
+    }
+
     .table {
       width: 100%;
       border-collapse: collapse;
@@ -1214,14 +1321,14 @@
             <h2 class="section-title">How the HIP-3 surface has traded this fortnight.</h2>
           </div>
           <div class="section-copy">
-            Daily notional volume summed across every active builder market, pulled from Hyperliquid's public
-            <strong>candleSnapshot</strong> endpoint. Each bar is one UTC day.
+            Daily notional volume summed across every market in the builder registry, pulled from Hyperliquid's public
+            <strong>candleSnapshot</strong> endpoint. Each bar is one UTC day. Source coverage shown below the chart.
           </div>
         </div>
 
         <div class="trend-panel reveal">
           <div class="trend-head">
-            <div class="trend-title">Daily HIP-3 volume · last 14 days</div>
+            <div class="trend-title">Daily HIP-3 volume · last 14 days · <span id="trend-coverage" class="table-muted" style="font-weight:400;">—</span></div>
             <div class="trend-meta">
               <span>Total: <strong id="trend-total">—</strong></span>
               <span style="margin-left:1.25rem;">Peak day: <strong id="trend-peak">—</strong></span>
@@ -1260,12 +1367,29 @@
             <h2 class="section-title">The live board underneath the builder rollup.</h2>
           </div>
           <div class="section-copy">
-            The clearest public way to avoid fake storytelling is to show the markets themselves. Click any market to
-            trade it on Hyperliquid. Click any column header to sort.
+            Every HIP-3 market live on Hyperliquid right now — no curated subset, no aggregation. Filter by ticker or
+            builder, click any column header to sort, click any market to trade it on the right venue.
           </div>
         </div>
 
-        <div class="table-shell reveal" id="top-markets">
+        <div class="market-filter-bar reveal" id="market-filter-bar">
+          <input
+            type="search"
+            id="market-filter-input"
+            class="filter-input"
+            placeholder="Filter by ticker or builder…"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <div class="filter-toggles" role="tablist" aria-label="Market filters">
+            <button type="button" class="filter-chip is-active" data-filter-mode="all">All</button>
+            <button type="button" class="filter-chip" data-filter-mode="volume">With volume</button>
+            <button type="button" class="filter-chip" data-filter-mode="growth">Growth mode</button>
+          </div>
+          <div class="filter-count" id="market-filter-count"><strong>—</strong> markets</div>
+        </div>
+
+        <div class="table-shell is-scrollable reveal" id="top-markets">
           <table class="table" id="market-table">
             <thead>
               <tr>
@@ -1442,7 +1566,7 @@
         </div>
 
         <div class="double-table-grid">
-          <div class="table-shell reveal">
+          <div class="table-shell is-scrollable reveal">
             <table class="table">
               <thead>
                 <tr>
@@ -1467,7 +1591,7 @@
             </table>
           </div>
 
-          <div class="table-shell reveal">
+          <div class="table-shell is-scrollable reveal">
             <table class="table">
               <thead>
                 <tr>
@@ -1808,7 +1932,21 @@
       });
     }
 
-    function renderMarketTable(markets, builderMap, sort) {
+    function applyMarketFilter(markets, builderMap, filter) {
+      const search = (filter.search || "").trim().toLowerCase();
+      return markets.filter((market) => {
+        if (filter.mode === "volume" && !(market.dayVolume > 0)) return false;
+        if (filter.mode === "growth" && market.growthMode !== "enabled") return false;
+        if (!search) return true;
+        const ticker = cleanCoinName(market.coin).toLowerCase();
+        const rawCoin = String(market.coin || "").toLowerCase();
+        const builder = builderMap.get(market.dex);
+        const builderText = `${builder?.display || ""} ${builder?.fullName || ""} ${market.dex || ""}`.toLowerCase();
+        return ticker.includes(search) || rawCoin.includes(search) || builderText.includes(search);
+      });
+    }
+
+    function renderMarketTable(markets, builderMap, sort, filter) {
       const tbody = document.getElementById("market-table-body");
       const table = document.getElementById("market-table");
       if (!tbody || !table) return;
@@ -1820,12 +1958,29 @@
         }
       });
 
-      const sorted = sortMarkets(markets, builderMap, sort).slice(0, 15);
+      const filtered = applyMarketFilter(markets, builderMap, filter);
+      const sorted = sortMarkets(filtered, builderMap, sort);
+
+      const countEl = document.getElementById("market-filter-count");
+      if (countEl) {
+        const total = markets.length;
+        const shown = sorted.length;
+        const totalLabel = formatInteger(total);
+        const shownLabel = formatInteger(shown);
+        countEl.innerHTML = shown === total
+          ? `<strong>${totalLabel}</strong> markets`
+          : `<strong>${shownLabel}</strong> of ${totalLabel} markets`;
+      }
+
+      if (sorted.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="table-error" style="padding:2rem 1rem;">No markets match this filter.<br><span class="table-muted">Try clearing the search box or switching the toggle to “All”.</span></td></tr>`;
+        return;
+      }
 
       tbody.innerHTML = sorted.map((market) => {
         const weekCell = Number.isFinite(market.weekVolume)
           ? formatUsdCompact(market.weekVolume)
-          : '<span class="table-muted">Loading…</span>';
+          : '<span class="table-muted">—</span>';
 
         return `
           <tr>
@@ -1991,7 +2146,8 @@
     const RELATIVE_TICK_MS = 1_000;
     const HISTORICAL_DAYS = 14;
     const DAY_MS = 24 * 60 * 60 * 1000;
-    const MAX_HISTORICAL_MARKETS = 24;
+    const HISTORICAL_CONCURRENCY = 6;
+    const HISTORICAL_HARD_CAP = 250;
 
     const state = {
       builders: [],
@@ -2000,13 +2156,33 @@
       totalVolume: 0,
       lastUpdated: null,
       sort: { key: "dayVolume", dir: "desc" },
+      filter: { search: "", mode: "all" },
       inflight: false,
       historicalInflight: false,
       historicalLoaded: false,
+      historicalCoverage: { fetched: 0, requested: 0 },
       refreshTimer: null,
       relativeTimer: null,
       dailyTotals: []
     };
+
+    async function runWithConcurrency(items, limit, worker) {
+      const results = new Array(items.length);
+      let cursor = 0;
+      const runners = Array.from({ length: Math.min(limit, items.length) }, async () => {
+        while (true) {
+          const index = cursor++;
+          if (index >= items.length) return;
+          try {
+            results[index] = { status: "fulfilled", value: await worker(items[index], index) };
+          } catch (error) {
+            results[index] = { status: "rejected", reason: error };
+          }
+        }
+      });
+      await Promise.all(runners);
+      return results;
+    }
 
     function setLiveStatus(mode, message) {
       const dot = document.getElementById("live-dot");
@@ -2143,12 +2319,14 @@
       state.historicalInflight = true;
 
       try {
-        const activeMarkets = state.markets
-          .filter((m) => m.dayVolume > 0 || m.openInterestUsd > 0)
+        const eligibleMarkets = state.markets
+          .filter((m) => m.dayVolume > 0 || m.openInterestUsd > 0 || m.oiCap > 0)
           .sort((a, b) => b.dayVolume - a.dayVolume)
-          .slice(0, MAX_HISTORICAL_MARKETS);
+          .slice(0, HISTORICAL_HARD_CAP);
 
-        if (activeMarkets.length === 0) {
+        state.historicalCoverage = { fetched: 0, requested: eligibleMarkets.length };
+
+        if (eligibleMarkets.length === 0) {
           state.historicalInflight = false;
           return;
         }
@@ -2158,18 +2336,21 @@
         const dayBuckets = buildUtcDayBuckets(HISTORICAL_DAYS);
         const marketIndex = new Map(state.markets.map((m) => [m.coin, m]));
 
-        const results = await Promise.allSettled(activeMarkets.map((market) =>
-          postInfo({
+        const results = await runWithConcurrency(eligibleMarkets, HISTORICAL_CONCURRENCY, async (market) => {
+          const candles = await postInfo({
             type: "candleSnapshot",
             req: { coin: market.coin, interval: "1d", startTime, endTime }
-          }).then((candles) => ({ market, candles }))
-        ));
+          });
+          return { market, candles };
+        });
 
+        let fulfilled = 0;
         for (const result of results) {
           if (result.status !== "fulfilled") continue;
           const { market, candles } = result.value;
           const target = marketIndex.get(market.coin);
           if (!target || !Array.isArray(candles)) continue;
+          fulfilled += 1;
 
           let weekVolume = 0;
           const priceHistory = [];
@@ -2198,9 +2379,15 @@
 
         state.dailyTotals = dayBuckets;
         state.historicalLoaded = true;
+        state.historicalCoverage.fetched = fulfilled;
+
+        const coverage = document.getElementById("trend-coverage");
+        if (coverage) {
+          coverage.textContent = `summed across ${formatInteger(fulfilled)} of ${formatInteger(eligibleMarkets.length)} active markets`;
+        }
 
         renderTrendChart(dayBuckets);
-        renderMarketTable(state.markets, state.builderMap, state.sort);
+        renderMarketTable(state.markets, state.builderMap, state.sort, state.filter);
         renderMarketDetailCards(state.topMarketsByVolume, state.builderMap, state.totalVolume);
       } catch (error) {
         console.error("Historical candle fetch failed", error);
@@ -2238,7 +2425,7 @@
       renderBuilderStrip(state.builders);
       renderBuilderTable(state.builders);
       renderConfigTable(state.builders);
-      renderMarketTable(state.markets, state.builderMap, state.sort);
+      renderMarketTable(state.markets, state.builderMap, state.sort, state.filter);
       renderMarketDetailCards(state.topMarketsByVolume, state.builderMap, state.totalVolume);
       renderOiTable(state.topOiMarkets, state.builderMap);
       renderFundingTable(state.topFundingMarkets, state.builderMap);
@@ -2257,7 +2444,32 @@
             key,
             dir: state.sort.key === key && state.sort.dir === "desc" ? "asc" : "desc"
           };
-          renderMarketTable(state.markets, state.builderMap, state.sort);
+          renderMarketTable(state.markets, state.builderMap, state.sort, state.filter);
+        });
+      });
+    }
+
+    function attachFilterHandlers() {
+      const bar = document.getElementById("market-filter-bar");
+      if (!bar || bar.dataset.filterBound === "true") return;
+      bar.dataset.filterBound = "true";
+
+      const input = document.getElementById("market-filter-input");
+      if (input) {
+        input.addEventListener("input", (event) => {
+          state.filter = { ...state.filter, search: event.target.value };
+          renderMarketTable(state.markets, state.builderMap, state.sort, state.filter);
+        });
+      }
+
+      bar.querySelectorAll(".filter-chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          const mode = chip.dataset.filterMode || "all";
+          state.filter = { ...state.filter, mode };
+          bar.querySelectorAll(".filter-chip").forEach((other) => {
+            other.classList.toggle("is-active", other === chip);
+          });
+          renderMarketTable(state.markets, state.builderMap, state.sort, state.filter);
         });
       });
     }
@@ -2349,8 +2561,11 @@
           ? builderData.slice(0, 3).reduce((sum, builder) => sum + builder.dayVolume, 0) / totalVolume
           : 0;
         const topMarketsByVolume = [...allMarkets].sort((a, b) => b.dayVolume - a.dayVolume).slice(0, 12);
-        const topOiMarkets = [...allMarkets].sort((a, b) => b.openInterestUsd - a.openInterestUsd).slice(0, 10);
-        const topFundingMarkets = [...allMarkets].sort((a, b) => Math.abs(b.funding) - Math.abs(a.funding)).slice(0, 10);
+        const topOiMarkets = [...allMarkets].sort((a, b) => b.openInterestUsd - a.openInterestUsd).slice(0, 25);
+        const topFundingMarkets = [...allMarkets]
+          .filter((market) => market.dayVolume > 0)
+          .sort((a, b) => Math.abs(b.funding) - Math.abs(a.funding))
+          .slice(0, 15);
         const totalConfiguredOiCap = builderData.reduce((sum, builder) => sum + builder.configuredOiCap, 0);
         const largestBuilderByCap = [...builderData].sort((a, b) => b.configuredOiCap - a.configuredOiCap)[0];
         const largestMarketCap = builderData
@@ -2384,6 +2599,7 @@
 
         renderEverything();
         attachSortHandlers();
+        attachFilterHandlers();
 
         const retry = document.getElementById("panel-retry");
         if (retry) retry.hidden = true;
