@@ -209,8 +209,9 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 - Nav active: "WAR.MARKET"
 - Tone: hackathon-honest (live demo, unaudited, kept online as reference)
 
-### litepaper.html (cHYPE — concept + demo)
-- Combined page: **live testnet demo cards near the top** (preview + live HyperEVM demo) followed by the **September 2025 cHYPE concept paper** (long-form). The hero introduces cHYPE as a concept + something built; an "About the paper below" callout situates the paper as an archival design doc.
+### litepaper.html (cHYPE — parked concept + working demo)
+- Short, ELI18 page. Structure: **hero (worked-but-parked framing) → demo cards (preview + live testnet) → Status callout → What cHYPE is (4 numbered ELI18 steps + flow diagram) → Why we parked it (HIP-3 unproven in Sept 2025, builder-fee complexity, counterparty risk, literacy bar)**.
+- All fundraising sections from the original Sept 2025 concept paper (Founding Syndicate, Protocol Revenue tables, Team, Why Now, Risks, Links) have been **pruned** — they belong to a different moment. The page is positioned as a project retrospective + working demo.
 - Uses warm site palette and sticky nav, matching `index.html` / `hip3.html` / `hip4.html` / `war.html`.
 - Nav active: "cHYPE" (file path stays at `/litepaper.html` for URL stability; nav label is "cHYPE").
 

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>cHYPE — Compost vault concept + live testnet demo</title>
-  <meta name="description" content="cHYPE: a receipt token for pooled HYPE routed into HIP-3 builder markets. Live HyperEVM testnet demo of the share-rate mechanic, plus the September 2025 concept paper that frames the design.">
+  <title>cHYPE — a parked Hyperliquid vault concept (with working demo)</title>
+  <meta name="description" content="cHYPE: a vault concept for pooled HYPE routed into HIP-3 builder markets, wrapped in a single receipt token. The mechanic works on testnet (live demo). The full product is parked — HIP-3 itself was still unproven when we drafted this in September 2025.">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="cHYPE — Compost vault concept + live testnet demo">
-  <meta property="og:description" content="A receipt token for pooled HYPE routed into HIP-3 builder markets. Live HyperEVM testnet demo + September 2025 concept paper.">
+  <meta property="og:title" content="cHYPE — a parked Hyperliquid vault concept (with working demo)">
+  <meta property="og:description" content="Pooled HYPE → HIP-3 builder markets, wrapped in one receipt token. Mechanic works on testnet; full product parked. Drafted September 2025.">
   <meta property="og:image" content="https://compost.fi/assets/og-image.png">
   <meta property="og:url" content="https://compost.fi/litepaper.html">
   <meta property="og:type" content="website">
@@ -16,8 +16,8 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@compostfi">
-  <meta name="twitter:title" content="cHYPE — Compost vault concept + live testnet demo">
-  <meta name="twitter:description" content="A receipt token for pooled HYPE routed into HIP-3 builder markets. Live HyperEVM testnet demo + September 2025 concept paper.">
+  <meta name="twitter:title" content="cHYPE — a parked Hyperliquid vault concept (with working demo)">
+  <meta name="twitter:description" content="Pooled HYPE → HIP-3 builder markets, wrapped in one receipt token. Mechanic works on testnet; full product parked. Drafted September 2025.">
   <meta name="twitter:image" content="https://compost.fi/assets/og-image.png">
 
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -459,8 +459,8 @@
         <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
       </svg>
       <h1>cHYPE</h1>
-      <p class="hero-subtitle">A receipt token for pooled HYPE routed into HIP-3 builder markets. Live testnet demo of the share-rate mechanic, plus the September 2025 concept paper that frames it.</p>
-      <p class="hero-version">Vault concept · live testnet demo · Sept 2025 paper</p>
+      <p class="hero-subtitle">A vault concept for pooled HYPE → HIP-3 builder markets, wrapped in a single receipt token. The accounting works on testnet (demo below). The full product is parked.</p>
+      <p class="hero-version">Concept that worked · flawed enough to park · drafted September 2025</p>
     </div>
   </section>
 
@@ -501,51 +501,23 @@
   </section>
 
   <main>
+    <!-- Status: worked-but-parked -->
     <section class="section">
       <div class="article">
         <div class="callout reveal" style="margin: 0;">
-          <div class="callout-label">About the paper below</div>
-          <p>What follows is the <strong>September 2025 concept paper</strong> — the original design document for cHYPE. It is the cleanest single-source statement of the thesis (capital formation for HIP-3 builder markets, fee pool, founding-syndicate framing) and useful background for HL-native operators and depositors. It is <strong>not</strong> a description of a live product — see the demos above for what's actually been built, and the <a href="/">homepage</a> for current framing. Pair it with the <a href="/yield.html">cHYPE yield design</a> for the math.</p>
-        </div>
-      </div>
-    </section>
-    <!-- Opportunity -->
-    <section class="section">
-      <div class="article">
-        <div class="reveal">
-          <div class="section-divider"></div>
-          <div class="label">The opportunity</div>
-          <h2 class="section-header">$87.32B+ traded on HIP-3</h2>
-        </div>
-        <div class="prose reveal">
-          <p>Most markets run Growth Mode — 90% reduced fees. When it ends, yield 10x's. <em>HIP-3 aggregates as of April 14, 2026</em> (e.g. <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a>).</p>
-        </div>
-        <div class="card-grid reveal">
-          <div class="card">
-            <img src="/assets/icons/clock.svg" alt="" class="card-icon">
-            <div class="card-title">Growth Mode (now)</div>
-            <div class="card-value">$1.96M</div>
-          </div>
-          <div class="card">
-            <img src="/assets/icons/chart.svg" alt="" class="card-icon">
-            <div class="card-title">Standard Mode</div>
-            <div class="card-value">$19.6M</div>
-          </div>
-        </div>
-        <div class="prose reveal">
-          <p>HYPE market cap: ~$9B. Stakeable: ~$4B. If HYPE 5x's, our TVL 5x's. No new depositors needed.</p>
-          <p><strong>Compost scales with Hyperliquid.</strong></p>
+          <div class="callout-label">Status</div>
+          <p>A conceptual project that <strong>worked, but was flawed enough that we parked it</strong>. The accounting mechanic proved out as a clean ERC4626-style vault on testnet — that's the demo above. The full product never shipped because, with hindsight, <strong>HIP-3 itself wasn't yet a proven model in September 2025</strong>. Real volume came later. Nice to be ahead of the curve. Less nice to wrap an unproven model into a one-token LP product before the market underneath it was even mapped.</p>
         </div>
       </div>
     </section>
 
-    <!-- What Compost Does -->
+    <!-- ELI18: what cHYPE is -->
     <section class="section">
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="label">The product</div>
-          <h2 class="section-header">What Compost Does</h2>
+          <div class="label">In plain English</div>
+          <h2 class="section-header">What cHYPE is</h2>
         </div>
 
         <div class="flow reveal">
@@ -564,163 +536,39 @@
           <div class="flow-step">
             <img src="/assets/icons/yield.svg" alt="" class="flow-icon">
             <div class="flow-step-name">Earn</div>
-            <div class="flow-step-desc">Fee-backed yield</div>
+            <div class="flow-step-desc">Trading-fee yield</div>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-step">
             <img src="/assets/icons/token.svg" alt="" class="flow-icon">
             <div class="flow-step-name">cHYPE</div>
-            <div class="flow-step-desc">One token</div>
+            <div class="flow-step-desc">One receipt token</div>
           </div>
         </div>
 
         <div class="prose reveal">
-          <p>Expected <strong>5-7% base case</strong>. 10-15% if Growth Mode ends. 2-4% floor if it persists.</p>
-          <p>We only make money when you make money. 15% performance fee on returns above staking rate. 0.5% management on HIP-3. No deposit or withdrawal fees.</p>
-          <div class="link-row">
-            <a href="/">compost.fi</a>
-            <a href="/yield.html">Yield mechanics</a>
-            <a href="https://docs.compost.fi">Full docs</a>
-          </div>
+          <p><strong>1.</strong> You deposit HYPE into a vault.</p>
+          <p><strong>2.</strong> The vault routes that HYPE into <a href="/hip3.html">HIP-3 builder markets</a> — the perp markets that teams deploy on Hyperliquid (e.g. trade.xyz, Kinetiq, Felix, Ventuals).</p>
+          <p><strong>3.</strong> Those markets pay a defined share of trading fees back to whoever provides the underlying capital. The vault collects that fee revenue.</p>
+          <p><strong>4.</strong> Your <strong>cHYPE balance stays the same</strong>; the cHYPE/HYPE rate ticks up as fees accrue. Burn cHYPE later, get more HYPE back than you put in. Exchange-rate model — not rebasing. The <a href="/vault-test.html">testnet demo</a> shows this rate climbing in real time.</p>
         </div>
       </div>
     </section>
 
-    <!-- Founding Syndicate -->
+    <!-- Why we parked it -->
     <section class="section">
       <div class="article">
         <div class="reveal">
           <div class="section-divider"></div>
-          <div class="label">Early stakers</div>
-          <h2 class="section-header">Founding Syndicate</h2>
-        </div>
-
-        <div class="callout reveal">
-          <div class="callout-label">The deal</div>
-          <p><strong>$10M beta vault. Whitelist only.</strong><br>
-          Founding stakers share <strong>25% of protocol revenue for 24 months</strong>, split pro-rata by deposit.</p>
-        </div>
-
-        <div class="table-wrap reveal">
-          <table>
-            <thead><tr><th>Protocol Revenue</th><th>Founding Pool (25%)</th></tr></thead>
-            <tbody>
-              <tr><td>$350K/yr</td><td class="table-num">$87K/yr</td></tr>
-              <tr><td>$1.1M/yr</td><td class="table-num">$275K/yr</td></tr>
-              <tr><td>$3.5M/yr</td><td class="table-num">$875K/yr</td></tr>
-            </tbody>
-          </table>
+          <div class="label">The flaws</div>
+          <h2 class="section-header">Why we parked it</h2>
         </div>
         <div class="prose reveal">
-          <p><strong>No lock.</strong> Withdraw anytime. You keep your yield — you just forfeit future revenue share.</p>
-          <p>Early stakers take risk when yield is uncertain. They deserve upside when it scales.</p>
-          <p><strong>Applications:</strong> <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Protocol Revenue -->
-    <section class="section">
-      <div class="article">
-        <div class="reveal">
-          <div class="section-divider"></div>
-          <div class="label">The business</div>
-          <h2 class="section-header">Protocol Revenue</h2>
-        </div>
-        <div class="table-wrap reveal">
-          <table>
-            <thead><tr><th>AUM</th><th>Vault APR</th><th>Protocol Revenue</th></tr></thead>
-            <tbody>
-              <tr><td>$10M</td><td>4%</td><td class="table-num">~$35K/yr</td></tr>
-              <tr><td>$50M</td><td>6%</td><td class="table-num">~$350K/yr</td></tr>
-              <tr><td>$100M</td><td>8%</td><td class="table-num">~$1.1M/yr</td></tr>
-              <tr><td>$250M</td><td>10%</td><td class="table-num">~$3.5M/yr</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="prose reveal">
-          <p>Early stage = tight margins. At scale = real business.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Team -->
-    <section class="section">
-      <div class="article">
-        <div class="reveal">
-          <div class="section-divider"></div>
-          <div class="label">Trust</div>
-          <h2 class="section-header">Team</h2>
-        </div>
-        <div class="prose reveal">
-          <p>4 years ecosystem lead at Sonic (Fantom). Scaled developer programs, managed 50+ events across 15 cities, grew Sonic World to 600-person conference.</p>
-          <p>Then: Nomos project, Bank of England regulatory sandbox.</p>
-          <p>Winner, Hyperliquid London Hackathon (January 2025).</p>
-        </div>
-        <div class="card-grid reveal">
-          <div class="card">
-            <img src="/assets/icons/vault.svg" alt="" class="card-icon">
-            <div class="card-title">Vault architecture</div>
-            <div class="card-value" style="font-size: 1rem;"><a href="https://infrasingularity.com" style="color: var(--accent);">Infrasingularity</a></div>
-          </div>
-          <div class="card">
-            <img src="/assets/icons/verify.svg" alt="" class="card-icon">
-            <div class="card-title">GitHub</div>
-            <div class="card-value" style="font-size: 1rem;"><a href="https://github.com/b1rdmania" style="color: var(--accent);">b1rdmania</a></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Why Now -->
-    <section class="section">
-      <div class="article">
-        <div class="reveal">
-          <div class="section-divider"></div>
-          <div class="label">Timing</div>
-          <h2 class="section-header">Why Now</h2>
-        </div>
-        <div class="prose reveal">
-          <p>• HIP-3 is live, volume is real<br>
-          • Growth Mode = low yield now, but 10x upside baked in<br>
-          • HIP-4 (prediction markets, options) coming<br>
-          • First mover in curated HIP-3 aggregation<br>
-          • Window to build TVL before fees normalise</p>
-          <p><strong>Early stakers are positioned for the inflection.</strong></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Risks -->
-    <section class="section">
-      <div class="article">
-        <div class="reveal">
-          <div class="section-divider"></div>
-          <div class="label">Disclosure</div>
-          <h2 class="section-header">Risks</h2>
-        </div>
-        <div class="prose reveal">
-          <p>Smart contract risk (audit planned). Slashing risk. 7-14 day unstake queue. Operator decisions. Growth Mode may persist longer than expected.</p>
-          <p><strong>Only deposit what you can afford to lose.</strong></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Links -->
-    <section class="section">
-      <div class="article">
-        <div class="reveal">
-          <div class="section-divider"></div>
-          <div class="label">Resources</div>
-          <h2 class="section-header">Links</h2>
-        </div>
-        <div class="prose reveal">
-          <p><strong>Website:</strong> <a href="https://compost.fi">compost.fi</a><br>
-          <strong>Yield mechanics:</strong> <a href="/yield.html">compost.fi/yield</a><br>
-          <strong>Docs:</strong> <a href="https://docs.compost.fi">docs.compost.fi</a><br>
-          <strong>Twitter:</strong> <a href="https://twitter.com/compostfi">@compostfi</a><br>
-          <strong>GitHub:</strong> <a href="https://github.com/b1rdmania">github.com/b1rdmania</a><br>
-          <strong>Contact:</strong> <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
+          <p><strong>HIP-3 wasn't proven yet.</strong> In September 2025 the spec existed and a few markets were live, but real, sustained volume showed up months later. Building a yield wrapper around a primitive that hadn't found product-market fit was getting ahead of the order of operations.</p>
+          <p><strong>Builder-fee plumbing was complex.</strong> Different deployers, different fee splits, different growth-mode programs. Wrapping that into a single vault APR before the ecosystem settled meant a lot of moving parts that depositors couldn't audit cleanly.</p>
+          <p><strong>Counterparty risk wasn't trivial.</strong> Vault deposits would sit behind operator decisions and individual deployer health. Bad market selection or operator failure could hit depositors before fees ever caught up.</p>
+          <p><strong>The literacy bar was high.</strong> Even HL-native depositors had to learn HIP-3 mechanics, builder fees, growth mode, and exchange-rate accounting before the value prop made sense — and harder still to explain to anyone outside the Hyperliquid bubble.</p>
+          <p style="margin-top: 1.5rem;"><strong>What we did instead:</strong> focus on the data first. The <a href="/hip3.html">HIP-3 board</a>, the <a href="/hip4.html">HIP-4 board</a>, the <a href="/war.html">WAR.MARKET</a> hackathon writeup, and the <a href="/vault-test.html">testnet vault demo</a> are what's running today.</p>
         </div>
       </div>
     </section>
