@@ -1,0 +1,127 @@
+/* ============================================================
+   Shared site nav: hamburger toggle + mobile overlay menu.
+   Loaded on every site page. Paired with /assets/site-nav.js,
+   which injects the toggle button + clones .nav-link items into
+   a mobile overlay. Desktop layout is left untouched.
+   ============================================================ */
+
+/* Hamburger button: hidden by default, shown at narrow widths */
+.nav-toggle {
+  display: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--border-hover, #252422);
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  z-index: 105;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.nav-toggle:hover {
+  border-color: var(--accent, #2ba84a);
+}
+
+.nav-toggle span {
+  position: absolute;
+  left: 50%;
+  width: 18px;
+  height: 1.5px;
+  background: var(--text-primary, #e8e4df);
+  border-radius: 1px;
+  transform: translateX(-50%);
+  transition: top 0.2s ease, transform 0.2s ease, opacity 0.15s ease;
+}
+
+.nav-toggle span:nth-child(1) { top: 13px; }
+.nav-toggle span:nth-child(2) { top: 19px; }
+.nav-toggle span:nth-child(3) { top: 25px; }
+
+.nav-toggle.is-open span:nth-child(1) { top: 19px; transform: translateX(-50%) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open span:nth-child(3) { top: 19px; transform: translateX(-50%) rotate(-45deg); }
+
+/* Full-screen mobile menu overlay */
+.nav-mobile {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 9, 0.98);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  z-index: 104;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: calc(5.5rem + env(safe-area-inset-top)) max(1.5rem, env(safe-area-inset-left)) calc(2rem + env(safe-area-inset-bottom)) max(1.5rem, env(safe-area-inset-left));
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.18s ease, transform 0.22s ease;
+}
+
+.nav-mobile.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.nav-mobile a {
+  color: var(--text-primary, #e8e4df);
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: -0.005em;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--border, #1a1918);
+  display: block;
+  transition: color 0.15s;
+}
+
+.nav-mobile a:hover { color: var(--accent-bright, #4dcf6a); }
+.nav-mobile a.active { color: var(--accent-bright, #4dcf6a); font-weight: 400; }
+
+.nav-mobile-footer {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted, #5c574f);
+}
+
+/* Lock body scroll when overlay is open */
+body.nav-locked { overflow: hidden; }
+
+/* When the overlay is open, raise the nav so the close button stays on top.
+   Each page sets its own .nav z-index (usually 100). The overlay sits at 104. */
+body.nav-locked .nav { z-index: 110; }
+
+/* Mobile breakpoint: hide horizontal links, show toggle */
+@media (max-width: 760px) {
+  .nav-toggle { display: block; }
+
+  /* Hide every link inside the nav (except the lockup) on mobile */
+  .nav .nav-left .nav-link,
+  .nav .nav-right .nav-link {
+    display: none;
+  }
+
+  /* Keep the nav-inner one-line (no wrapping) so the lockup + toggle stay aligned */
+  .nav .nav-inner {
+    flex-wrap: nowrap !important;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* Tighten left/right groups so just lockup + toggle remain visible */
+  .nav .nav-left,
+  .nav .nav-right {
+    gap: 0.75rem;
+  }
+}

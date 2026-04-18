@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site-nav.css">
 
   <style>
     :root {
@@ -51,7 +52,8 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 1.25rem 3rem;
+      padding: 1.25rem calc(3rem + env(safe-area-inset-right)) 1.25rem calc(3rem + env(safe-area-inset-left));
+      padding-top: calc(1.25rem + env(safe-area-inset-top));
       background: rgba(10, 10, 9, 0.92);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(6px);
@@ -184,7 +186,7 @@
     .footer {
       border-top: 1px solid var(--border);
       margin-top: 1rem;
-      padding: 2rem 0;
+      padding: 2rem 0 calc(2rem + env(safe-area-inset-bottom));
     }
 
     .footer-inner {
@@ -244,7 +246,7 @@
   <main class="container">
     <section class="hero">
       <h1>Vault <span>demos</span></h1>
-      <p>Two ways to see the cHYPE share-rate mechanic. Start with the preview to read the interface; open the live demo to deposit, mint shares, and withdraw on HyperEVM testnet.</p>
+      <p>Two ways to see the cHYPE share-rate mechanic. The preview shows the interface. The live demo lets you deposit, mint shares, and withdraw on HyperEVM testnet.</p>
     </section>
 
     <section class="grid">
@@ -284,5 +286,6 @@
       </nav>
     </div>
   </footer>
+  <script src="/assets/site-nav.js" defer></script>
 </body>
 </html>

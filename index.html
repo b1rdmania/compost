@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Compost — Hyperliquid builder markets, watched live</title>
-  <meta name="description" content="Live HIP-3 board, HIP-4 outcome notes, vault-mechanic demos on testnet, and the cHYPE concept paper. Independent, on-chain, refreshed continuously.">
+  <meta name="description" content="Live HIP-3 deployer board, HIP-4 outcome board, a testnet vault demo, the WAR.MARKET hackathon build, and the cHYPE concept paper. Independent, on-chain, refreshed continuously.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Compost — Hyperliquid builder markets, watched live">
-  <meta property="og:description" content="Live HIP-3 board, HIP-4 outcome notes, vault-mechanic demos on testnet, and the cHYPE concept paper.">
+  <meta property="og:description" content="Live HIP-3 board, HIP-4 outcome board, testnet vault demo, the WAR.MARKET hackathon build, and the cHYPE concept paper.">
   <meta property="og:image" content="/assets/og-image.png">
   <meta property="og:type" content="website">
 
@@ -19,13 +19,14 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@compostfi">
   <meta name="twitter:title" content="Compost — Hyperliquid builder markets, watched live">
-  <meta name="twitter:description" content="Live HIP-3 board, HIP-4 outcome notes, vault-mechanic demos on testnet, and the cHYPE concept paper.">
+  <meta name="twitter:description" content="Live HIP-3 board, HIP-4 outcome board, testnet vault demo, the WAR.MARKET hackathon build, and the cHYPE concept paper.">
   <meta name="twitter:image" content="/assets/og-image.png">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site-nav.css">
 
   <style>
     :root {
@@ -1524,17 +1525,17 @@
       <div class="hero-content">
         <h1 class="hero-headline">compost<span class="tld">.fi</span></h1>
         <p class="hero-tagline">Hyperliquid builder markets, watched live.</p>
-        <p class="hero-punchline">A live HIP-3 board, HIP-4 outcome notes, vault-mechanic demos on testnet, <span class="highlight">WAR.MARKET</span> (the hackathon-winning macro-basket build), and the September 2025 <span class="highlight">cHYPE</span> concept paper. Public data, on-chain — no narrative in front of it.</p>
+        <p class="hero-punchline">Five live surfaces: an HIP-3 deployer board, an HIP-4 outcome board, a testnet vault demo, the <span class="highlight">WAR.MARKET</span> hackathon build, and the September 2025 <span class="highlight">cHYPE</span> concept paper. Public data. All on-chain.</p>
 
         <div class="hero-cta">
           <a href="/hip3.html" class="btn">HIP-3 board</a>
           <a href="/hip4.html" class="btn btn-outline">HIP-4 board</a>
-          <a href="/demo.html" class="hero-link">Vault demos →</a>
+          <a href="/demo.html" class="hero-link">Vault demo →</a>
           <a href="/war.html" class="hero-link">WAR.MARKET →</a>
           <a href="/litepaper.html" class="hero-link">Concept →</a>
         </div>
 
-        <p class="hero-aside">Built solo, out of curiosity for HL. If you're HL-native and shipping in this lane — <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
+        <p class="hero-aside">Built solo, out of curiosity. If you're HL-native and shipping in this lane — <a href="mailto:grow@compost.fi">grow@compost.fi</a></p>
       </div>
 
       <div class="hero-mark-container">
@@ -1563,14 +1564,14 @@
         <div class="reveal">
           <div class="section-divider"></div>
           <h2 class="section-header">HIP-3 ecosystem, right now</h2>
-          <p class="section-subtitle">Builder-deployed perpetuals on Hyperliquid. Public-dashboard aggregates — not Compost performance.</p>
+          <p class="section-subtitle">Builder-deployed perpetuals on Hyperliquid. Numbers below are ecosystem-wide (Dune) — not Compost performance.</p>
         </div>
 
         <div class="opportunity-setup reveal">
           <div class="opportunity-text">
-            <p class="opportunity-lead">Teams deploy their own perp markets on HL and earn a protocol-defined share of trading fees. <a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-3-builder-deployed-perpetuals" target="_blank" rel="noopener" class="inline-link">HIP-3 spec →</a></p>
-            <p>HIP-4 adds outcome-style markets — early, mostly testnet, under-covered. <a href="/hip4.html" class="inline-link">HIP-4 board →</a></p>
-            <p class="opportunity-coming">For the live deployer-by-deployer view, open the <a href="/hip3.html" class="inline-link">HIP-3 board</a>.</p>
+            <p class="opportunity-lead">Teams deploy their own perp markets on Hyperliquid and earn a defined share of the trading fees. <a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-3-builder-deployed-perpetuals" target="_blank" rel="noopener" class="inline-link">HIP-3 spec →</a></p>
+            <p>HIP-4 adds outcome markets (yes/no contracts) — early, mostly testnet, under-covered. <a href="/hip4.html" class="inline-link">HIP-4 board →</a></p>
+            <p class="opportunity-coming">For the deployer-by-deployer view, open the <a href="/hip3.html" class="inline-link">HIP-3 board</a>.</p>
           </div>
           <div class="opportunity-stats-wrap">
             <div class="opportunity-stats">
@@ -1618,7 +1619,7 @@
             </svg>
             <span class="flow-step-num">01</span>
             <h3>Track HIP-3 deployers</h3>
-            <p>Live volume, fees, and OI across every HIP-3 builder market. One page, refreshed every 60 seconds.</p>
+            <p>Live volume, fees, and open interest across every HIP-3 builder market. One page, refreshed every 60 seconds.</p>
             <span class="flow-step-cta">Open board →</span>
           </a>
           <a href="/hip4.html" class="flow-step flow-step-link">
@@ -1634,7 +1635,7 @@
             </svg>
             <span class="flow-step-num">02</span>
             <h3>Watch HIP-4 outcome books</h3>
-            <p>Outcome-style markets, mostly testnet so far, mostly under-covered. Our notes plus a live board.</p>
+            <p>Yes/no outcome markets — mostly testnet, mostly under-covered. Our notes plus a live board.</p>
             <span class="flow-step-cta">Open board →</span>
           </a>
           <a href="/demo.html" class="flow-step flow-step-link">
@@ -1650,7 +1651,7 @@
             </svg>
             <span class="flow-step-num">03</span>
             <h3>Try the vault demo</h3>
-            <p>HyperEVM testnet contracts: deposit vHYPE, mint cHYPE, watch the share price tick. Proof of accounting, not a live product.</p>
+            <p>On HyperEVM testnet: deposit vHYPE, mint cHYPE, watch the share price tick up. Proof of accounting — not a live product.</p>
             <span class="flow-step-cta">Open demo →</span>
           </a>
         </div>
@@ -1713,8 +1714,8 @@
         </div>
 
         <div class="concept-body reveal">
-          <p>A weekend build that won the <strong>Hyperliquid London Hackathon at Encode Club</strong>: one-click macro baskets on Hyperliquid. Pick a thesis (Taiwan invasion, oil shock, AI collapse), set size and leverage, and the basket fans out through the Pear Protocol API and settles on HL.</p>
-          <p>Same exploratory thread as the rest of this site — what HIP-3 unlocks once the surrounding execution layer catches up — just from the trade-construction angle instead of the capital-formation angle. Live demo, open source, kept online as a reference.</p>
+          <p>A weekend build that won the <strong>Hyperliquid London Hackathon at Encode Club</strong>. One-click macro baskets on Hyperliquid: pick a thesis (Taiwan invasion, oil shock, AI collapse), set size and leverage, and the trades fan out through Pear Protocol and settle on HL.</p>
+          <p>Same thread as the rest of this site — what HIP-3 unlocks once the execution layer catches up — but from the trade side instead of the deposit side. Live demo, open source, kept online for reference.</p>
           <p class="concept-cta-row">
             <a href="/war.html" class="btn btn-outline">Read the writeup</a>
             <a href="https://www.war.market" target="_blank" rel="noopener" class="hero-link">war.market →</a>
@@ -1733,8 +1734,8 @@
         </div>
 
         <div class="concept-body reveal">
-          <p>In September 2025 we wrote a short concept paper: pool HYPE toward HIP-3 builder-market economics, capture fee exposure across deployers, wrap it in one receipt token — <span class="highlight">cHYPE</span>.</p>
-          <p>We still think the question is real. The product is parked while we sharpen the data layer instead — builder fees, growth-mode wrappers, and counterparty risk don't compress into a clean LP story without first building the public view of the market itself.</p>
+          <p>In September 2025 we wrote a short concept paper: pool HYPE, route it toward HIP-3 builder markets, share the fee revenue, wrap the whole thing in one receipt token — <span class="highlight">cHYPE</span>.</p>
+          <p>The question still feels real. We parked the product to focus on the data first — builder fees, growth incentives, and counterparty risk are too tangled to wrap into a clean LP token before the market itself is even mapped.</p>
           <p class="concept-cta-row">
             <a href="/litepaper.html" class="btn btn-outline">Read the concept paper</a>
             <a href="/yield.html" class="hero-link">Yield mechanics →</a>
@@ -1806,5 +1807,6 @@
     window.addEventListener('load', updateScrollCue);
   </script>
 
+  <script src="/assets/site-nav.js" defer></script>
 </body>
 </html>

@@ -25,7 +25,9 @@ Capital formation layer for Hyperliquid builder markets (HIP-3).
 │   │   ├── lockup-domain-stacked.svg
 │   │   ├── logo-primary.svg
 │   │   └── logo-favicon.svg
-│   └── icons/        # Icon library (18 SVGs)
+│   ├── icons/        # Icon library (18 SVGs)
+│   ├── site-nav.css  # Shared nav styles + mobile hamburger overlay
+│   └── site-nav.js   # Mobile nav toggle (auto-injects on every page)
 ├── contracts/
 │   ├── CompostProofVault.sol   # ERC4626-style vault with synthetic APR accrual
 │   └── MockHype.sol            # vHYPE test asset with wallet drip faucet

@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site-nav.css">
 
   <style>
     :root {
@@ -53,7 +54,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 1.25rem 3rem;
+      padding: 1.25rem calc(3rem + env(safe-area-inset-right)) 1.25rem calc(3rem + env(safe-area-inset-left));
       padding-top: calc(1.25rem + env(safe-area-inset-top));
       background: rgba(10, 10, 9, 0.92);
       border-bottom: 1px solid var(--border);
@@ -433,7 +434,7 @@
     <section class="hero">
       <div class="hero-eyebrow">Hackathon winner · Hyperliquid London (Encode Club)</div>
       <h1>WAR<span class="accent">.MARKET</span></h1>
-      <p class="hero-tagline">A weekend demo: one-click macro baskets on Hyperliquid. Pick a thesis — Taiwan invasion, oil shock, AI collapse — set size and leverage, and execute the whole basket in one flow instead of legging it together by hand.</p>
+      <p class="hero-tagline">A weekend demo: one-click macro baskets on Hyperliquid. Pick a thesis — Taiwan invasion, oil shock, AI collapse — set size and leverage, fire the whole basket in one click instead of legging it by hand.</p>
 
       <div class="hero-meta">
         <span class="meta-pill"><strong>Status:</strong> live demo</span>
@@ -452,7 +453,7 @@
       <div class="section-kicker">What it is</div>
       <h2>The global tension terminal.</h2>
       <p class="lede">Global risk moves as one system. Execution doesn't. A single macro shock can hit chips, energy, FX, and beta at once — but most traders still build that exposure leg-by-leg across fragmented venues.</p>
-      <p class="lede"><strong style="color: var(--text-primary); font-weight: 400;">WAR.MARKET</strong> packages a narrative thesis (e.g. "Taiwan invasion") into a ready-to-trade long/short basket. You pick the view, set size and leverage, and the whole structure executes through Pear Protocol and settles on Hyperliquid.</p>
+      <p class="lede"><strong style="color: var(--text-primary); font-weight: 400;">WAR.MARKET</strong> packages a thesis ("Taiwan invasion", say) into a ready-to-trade long/short basket. Pick the view, set size and leverage — the whole structure executes through Pear Protocol and settles on Hyperliquid.</p>
 
       <div class="basket-grid">
         <div class="basket-card">
@@ -530,8 +531,8 @@
     <section class="block">
       <div class="section-kicker">Origin &amp; status</div>
       <h2>A weekend build that won, then stayed online.</h2>
-      <p class="lede">WAR.MARKET was built at the <strong style="color: var(--text-primary); font-weight: 400;">Hyperliquid London Community Hackathon (Encode Club)</strong> as a single-weekend demo of how HIP-3 plus a routing layer like Pear can collapse a multi-leg macro view into one click. It won the build category and has been left online as a working reference rather than spun out as a separate product.</p>
-      <p class="lede">It's part of the same exploratory thread as the rest of this site: figuring out what HIP-3 unlocks once the surrounding execution layer catches up. Compost is the capital-formation angle on that question; WAR.MARKET is the trade-construction angle.</p>
+      <p class="lede">WAR.MARKET was built at the <strong style="color: var(--text-primary); font-weight: 400;">Hyperliquid London Community Hackathon (Encode Club)</strong> — a single-weekend demo of how HIP-3, plus a routing layer like Pear, collapses a multi-leg macro view into one click. It won the build category and stayed online as a working reference rather than turning into a separate product.</p>
+      <p class="lede">Same thread as the rest of this site: figuring out what HIP-3 unlocks once the execution layer catches up. Compost is the deposit side of that question; WAR.MARKET is the trading side.</p>
 
       <div class="callout">
         <div class="callout-label">What this is — and isn't</div>
@@ -563,5 +564,6 @@
       </nav>
     </div>
   </footer>
+  <script src="/assets/site-nav.js" defer></script>
 </body>
 </html>

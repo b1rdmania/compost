@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Compost — cHYPE yield design (concept, Sept 2025)</title>
   <meta name="description" content="Archive of the September 2025 cHYPE yield design: where the fee pool would have come from, how the vault would have routed, and the math behind the original APR ranges. Compost is parked / exploratory — this page is a concept reference, not a live product.">
 
@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site-nav.css">
 
   <style>
     :root {
@@ -72,7 +73,8 @@
       left: 0;
       right: 0;
       z-index: 100;
-      padding: 1.5rem 3rem;
+      padding: 1.5rem calc(3rem + env(safe-area-inset-right)) 1.5rem calc(3rem + env(safe-area-inset-left));
+      padding-top: calc(1.5rem + env(safe-area-inset-top));
       background: rgba(10, 10, 10, 0.8);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
@@ -474,7 +476,7 @@
 
     /* ==================== FOOTER ==================== */
     .footer {
-      padding: 3rem;
+      padding: 3rem calc(3rem + env(safe-area-inset-right)) calc(3rem + env(safe-area-inset-bottom)) calc(3rem + env(safe-area-inset-left));
       border-top: 1px solid var(--border);
     }
 
@@ -532,7 +534,8 @@
 
     @media (max-width: 640px) {
       .nav {
-        padding: 1rem 1.5rem;
+        padding: 1rem calc(1.5rem + env(safe-area-inset-right)) 1rem calc(1.5rem + env(safe-area-inset-left));
+        padding-top: calc(1rem + env(safe-area-inset-top));
       }
 
       .article {
@@ -971,5 +974,6 @@ Management fee: 0.5% × 50% = <span class="val">0.25%</span>
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
   </script>
+  <script src="/assets/site-nav.js" defer></script>
 </body>
 </html>

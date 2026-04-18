@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site-nav.css">
 
   <style>
     :root {
@@ -52,7 +53,8 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 1.25rem 2rem;
+      padding: 1.25rem calc(2rem + env(safe-area-inset-right)) 1.25rem calc(2rem + env(safe-area-inset-left));
+      padding-top: calc(1.25rem + env(safe-area-inset-top));
       background: rgba(10, 10, 9, 0.95);
       backdrop-filter: blur(6px);
       border-bottom: 1px solid var(--border);
@@ -269,7 +271,7 @@
     .site-footer {
       border-top: 1px solid var(--border);
       margin-top: 2rem;
-      padding: 1.5rem 0;
+      padding: 1.5rem 0 calc(1.5rem + env(safe-area-inset-bottom));
     }
 
     .site-footer-inner {
@@ -329,7 +331,9 @@
         <a href="/war.html" class="nav-link">WAR.MARKET</a>
         <a href="/litepaper.html" class="nav-link">Concept</a>
       </div>
-      <a href="https://docs.compost.fi" class="nav-link" target="_blank" rel="noopener">Docs</a>
+      <div class="nav-right">
+        <a href="https://docs.compost.fi" class="nav-link" target="_blank" rel="noopener">Docs</a>
+      </div>
     </div>
   </nav>
 
@@ -488,5 +492,6 @@
       alert('Preview mode only. Use Live Demo for testnet transactions.');
     });
   </script>
+  <script src="/assets/site-nav.js" defer></script>
 </body>
 </html>
