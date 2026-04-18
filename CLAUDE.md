@@ -12,6 +12,7 @@ Capital formation layer for Hyperliquid builder markets (HIP-3).
 ├── vault-test.html   # Live HyperEVM testnet demo UI
 ├── hip3.html         # HIP-3 live intelligence board (perp builder markets)
 ├── hip4.html         # HIP-4 outcome trading explainer + live testnet board
+├── war.html          # WAR.MARKET — hackathon side-project writeup (links out to war.market + GitHub)
 ├── litepaper.html    # Litepaper page
 ├── yield.html        # Yield page
 ├── process.html      # Design process page
@@ -198,6 +199,13 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 - Displays live `pricePerShare` (grows with synthetic APR)
 - Configurable contract addresses (saved to localStorage)
 
+### war.html (WAR.MARKET — side project)
+- Writeup for **WAR.MARKET** — a hackathon side project (winner, Hyperliquid London Hackathon @ Encode Club) that packages narrative macro views into one-click long/short baskets, routed via Pear Protocol API and settled on Hyperliquid (HIP-3)
+- Hosted separately at https://www.war.market (code at https://github.com/b1rdmania/WarGames)
+- This page on compost.fi is a writeup + outbound links — not a re-host
+- Nav active: "WAR.MARKET"
+- Tone: hackathon-honest (live demo, unaudited, kept online as reference)
+
 ### litepaper.html (Concept Paper)
 - Long-form document page; **September 2025 cHYPE concept paper** (hero + archive callout links to current homepage framing)
 - Nav active: "Concept" (file path stays at `/litepaper.html` for URL stability; nav label is "Concept")
@@ -225,6 +233,7 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
       <a href="/demo.html" class="nav-link active">Demo</a>  <!-- active on demo + vault.html + vault-test.html -->
       <a href="/hip3.html" class="nav-link active">HIP-3</a> <!-- active on hip3.html -->
       <a href="/hip4.html" class="nav-link active">HIP-4</a> <!-- active on hip4.html -->
+      <a href="/war.html" class="nav-link active">WAR.MARKET</a> <!-- active on war.html -->
       <a href="/litepaper.html" class="nav-link active">Concept</a> <!-- active on litepaper.html (file stays, nav label changed) -->
     </div>
     <div class="nav-right">

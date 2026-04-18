@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>WAR.MARKET — narrative baskets on Hyperliquid</title>
+  <meta name="description" content="A hackathon demo: one-click macro baskets on Hyperliquid (HIP-3) routed through the Pear Protocol API. Pick a thesis — Taiwan invasion, oil shock, AI collapse — set size and leverage, execute in one trade. Winner of the Hyperliquid London Hackathon (Encode Club).">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #0a0a09;
+      --bg-layer-1: #111110;
+      --bg-layer-2: #1a1918;
+      --bg-layer-3: #252422;
+      --border: #1a1918;
+      --border-hover: #252422;
+      --text-primary: #e8e4df;
+      --text-secondary: #9a958d;
+      --text-muted: #5c574f;
+      --accent-bright: #4dcf6a;
+      --accent: #2ba84a;
+      --accent-muted: #1d7a35;
+      --warning: #f5b94c;
+      --font: 'Outfit', -apple-system, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      padding-top: calc(1.25rem + env(safe-area-inset-top));
+      background: rgba(10, 10, 9, 0.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(6px);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-lockup { display: block; line-height: 0; }
+    .nav-lockup-img { height: 32px; display: block; }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--accent-bright); }
+    .nav-link.active { color: var(--text-primary); font-weight: 500; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .hero {
+      padding: 5rem 0 3rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--warning);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.7rem;
+      border: 1px solid rgba(245, 185, 76, 0.35);
+      background: rgba(245, 185, 76, 0.06);
+      border-radius: 999px;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 6.5vw, 4.4rem);
+      font-weight: 200;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    h1 .accent { color: var(--accent-bright); }
+
+    .hero-tagline {
+      max-width: 720px;
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .meta-pill {
+      padding: 0.32rem 0.7rem;
+      border: 1px solid var(--border-hover);
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    .meta-pill strong { color: var(--text-primary); font-weight: 500; }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.75rem 1.1rem;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: var(--bg-deep);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(77, 207, 106, 0.24);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent-bright);
+    }
+
+    .text-link {
+      color: var(--accent-bright);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(77, 207, 106, 0.35);
+      transition: border-color 0.2s;
+    }
+    .text-link:hover { border-bottom-color: var(--accent-bright); }
+
+    section.block {
+      margin-bottom: 4rem;
+    }
+
+    .section-kicker {
+      color: var(--accent-bright);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 3vw, 2.1rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.1rem;
+      max-width: 780px;
+    }
+
+    .lede {
+      max-width: 720px;
+      color: var(--text-secondary);
+      font-size: 1.02rem;
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+    }
+
+    .lede + .lede { margin-top: -0.4rem; }
+
+    .basket-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .basket-card {
+      padding: 1.2rem 1.25rem;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(245, 185, 76, 0.05), rgba(255, 255, 255, 0.01));
+    }
+
+    .basket-tag {
+      display: inline-block;
+      padding: 0.22rem 0.55rem;
+      margin-bottom: 0.7rem;
+      border: 1px solid rgba(245, 185, 76, 0.3);
+      background: rgba(245, 185, 76, 0.06);
+      color: var(--warning);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .basket-title {
+      color: var(--text-primary);
+      font-size: 1.05rem;
+      font-weight: 400;
+      margin-bottom: 0.45rem;
+    }
+
+    .basket-body {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .flow-step {
+      padding: 1.1rem 1.15rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      position: relative;
+    }
+
+    .flow-num {
+      color: var(--accent-bright);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      margin-bottom: 0.55rem;
+    }
+
+    .flow-title {
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 0.45rem;
+    }
+
+    .flow-body {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 300;
+      line-height: 1.55;
+    }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .stack-block {
+      padding: 1.2rem 1.3rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .stack-label {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .stack-value {
+      color: var(--text-primary);
+      font-size: 1.02rem;
+      font-weight: 400;
+      margin-bottom: 0.4rem;
+    }
+
+    .stack-note {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 300;
+    }
+
+    .callout {
+      padding: 1.25rem 1.4rem;
+      border-left: 2px solid var(--warning);
+      background: rgba(245, 185, 76, 0.04);
+      margin-top: 1.5rem;
+    }
+
+    .callout-label {
+      color: var(--warning);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .callout p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 300;
+    }
+
+    .links-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      padding: 2rem 0;
+      padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-domain { color: var(--text-muted); }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .footer-link:hover { color: var(--accent-bright); }
+
+    @media (max-width: 900px) {
+      .basket-grid { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr 1fr; }
+      .stack-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .nav { padding: 1rem 1.25rem; }
+      .container, .footer-inner { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .nav-inner { flex-wrap: wrap; gap: 0.75rem; }
+      .nav-left { gap: 1.1rem; }
+      .nav-right { gap: 1rem; }
+      .flow { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="/" class="nav-lockup"><img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img"></a>
+        <a href="/" class="nav-link">Overview</a>
+        <a href="/demo.html" class="nav-link">Demo</a>
+        <a href="/hip3.html" class="nav-link">HIP-3</a>
+        <a href="/hip4.html" class="nav-link">HIP-4</a>
+        <a href="/war.html" class="nav-link active">WAR.MARKET</a>
+        <a href="/litepaper.html" class="nav-link">Concept</a>
+      </div>
+      <div class="nav-right">
+        <a href="https://docs.compost.fi" class="nav-link">Docs</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-eyebrow">Hackathon winner · Hyperliquid London (Encode Club)</div>
+      <h1>WAR<span class="accent">.MARKET</span></h1>
+      <p class="hero-tagline">A weekend demo: one-click macro baskets on Hyperliquid. Pick a thesis — Taiwan invasion, oil shock, AI collapse — set size and leverage, and execute the whole basket in one flow instead of legging it together by hand.</p>
+
+      <div class="hero-meta">
+        <span class="meta-pill"><strong>Status:</strong> live demo</span>
+        <span class="meta-pill"><strong>Settlement:</strong> Hyperliquid (HIP-3)</span>
+        <span class="meta-pill"><strong>Execution:</strong> Pear Protocol API</span>
+        <span class="meta-pill"><strong>Code:</strong> open source</span>
+      </div>
+
+      <div class="hero-cta-row">
+        <a class="btn" href="https://www.war.market" target="_blank" rel="noopener">Open war.market →</a>
+        <a class="btn btn-outline" href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noopener">GitHub: b1rdmania/WarGames →</a>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-kicker">What it is</div>
+      <h2>The global tension terminal.</h2>
+      <p class="lede">Global risk moves as one system. Execution doesn't. A single macro shock can hit chips, energy, FX, and beta at once — but most traders still build that exposure leg-by-leg across fragmented venues.</p>
+      <p class="lede"><strong style="color: var(--text-primary); font-weight: 400;">WAR.MARKET</strong> packages a narrative thesis (e.g. "Taiwan invasion") into a ready-to-trade long/short basket. You pick the view, set size and leverage, and the whole structure executes through Pear Protocol and settles on Hyperliquid.</p>
+
+      <div class="basket-grid">
+        <div class="basket-card">
+          <span class="basket-tag">Geopolitical</span>
+          <div class="basket-title">Taiwan invasion</div>
+          <div class="basket-body">Long defense / oil / USD beta, short chips and Asia tech beta.</div>
+        </div>
+        <div class="basket-card">
+          <span class="basket-tag">Energy</span>
+          <div class="basket-title">Oil shock</div>
+          <div class="basket-body">Long energy and inflation hedges, short rate-sensitive growth.</div>
+        </div>
+        <div class="basket-card">
+          <span class="basket-tag">Tech</span>
+          <div class="basket-title">AI collapse</div>
+          <div class="basket-body">Short AI beta and capex names, long defensives and cash-yield proxies.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-kicker">How it works</div>
+      <h2>Four steps, one trade.</h2>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-num">01</div>
+          <div class="flow-title">Pick a thesis</div>
+          <div class="flow-body">Browse pre-built narrative baskets, each with a transparent set of long/short legs.</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">02</div>
+          <div class="flow-title">Size &amp; leverage</div>
+          <div class="flow-body">Set notional and leverage at the basket level — no per-leg fiddling.</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">03</div>
+          <div class="flow-title">Route through Pear</div>
+          <div class="flow-body">EIP-712 auth with Pear Protocol; the basket fans out into the underlying perp orders.</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">04</div>
+          <div class="flow-title">Settle on Hyperliquid</div>
+          <div class="flow-body">Positions land on HL's books. Verify on Pear or directly on Hyperliquid.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-kicker">Stack</div>
+      <h2>Built thin, on top of two real protocols.</h2>
+      <div class="stack-grid">
+        <div class="stack-block">
+          <div class="stack-label">Frontend</div>
+          <div class="stack-value">Next.js · TypeScript · wagmi · viem</div>
+          <div class="stack-note">Wallet auth, basket UI, P&amp;L view, terminal-style aesthetic.</div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Execution</div>
+          <div class="stack-value">Pear Protocol API</div>
+          <div class="stack-note">Authenticates with EIP-712; turns a basket spec into the underlying long/short orders.</div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Settlement</div>
+          <div class="stack-value">Hyperliquid (HIP-3 perps)</div>
+          <div class="stack-note">All positions resolve on HL's matching engine — same books as the rest of the ecosystem.</div>
+        </div>
+        <div class="stack-block">
+          <div class="stack-label">Code</div>
+          <div class="stack-value"><a href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noopener" class="text-link">github.com/b1rdmania/WarGames</a></div>
+          <div class="stack-note">Open source. Hackathon code — useful as a reference, not as audited infrastructure.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-kicker">Origin &amp; status</div>
+      <h2>A weekend build that won, then stayed online.</h2>
+      <p class="lede">WAR.MARKET was built at the <strong style="color: var(--text-primary); font-weight: 400;">Hyperliquid London Community Hackathon (Encode Club)</strong> as a single-weekend demo of how HIP-3 plus a routing layer like Pear can collapse a multi-leg macro view into one click. It won the build category and has been left online as a working reference rather than spun out as a separate product.</p>
+      <p class="lede">It's part of the same exploratory thread as the rest of this site: figuring out what HIP-3 unlocks once the surrounding execution layer catches up. Compost is the capital-formation angle on that question; WAR.MARKET is the trade-construction angle.</p>
+
+      <div class="callout">
+        <div class="callout-label">What this is — and isn't</div>
+        <p>A live hackathon build, not an audited product. Use small sizes, verify every position on Hyperliquid directly, and treat it as a UX reference for how HIP-3 baskets could be packaged — not a recommendation to size into one.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-kicker">Links</div>
+      <h2>Open the demo or the code.</h2>
+      <div class="links-row">
+        <a class="btn" href="https://www.war.market" target="_blank" rel="noopener">war.market →</a>
+        <a class="btn btn-outline" href="https://github.com/b1rdmania/WarGames" target="_blank" rel="noopener">github.com/b1rdmania/WarGames →</a>
+        <a class="text-link" href="/hip3.html">HIP-3 board on Compost →</a>
+        <a class="text-link" href="/">Back to compost.fi →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-domain">compost<span style="color: var(--accent-bright);">.fi</span></div>
+      <nav class="footer-links">
+        <a href="/litepaper.html" class="footer-link">Concept</a>
+        <a href="/process.html" class="footer-link">Build Process</a>
+        <a href="/process.html#design-system" class="footer-link">Design System</a>
+        <a href="https://docs.compost.fi" class="footer-link">Docs</a>
+        <a href="https://twitter.com/compostfi" class="footer-link" target="_blank" rel="noopener">Twitter</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
