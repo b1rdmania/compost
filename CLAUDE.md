@@ -178,8 +178,9 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 - **The cHYPE concept** — short two-paragraph block linking to `/litepaper.html` (Sept 2025 concept paper).
 - **Building HL-native?** — single direct collab CTA: `grow@compost.fi`. **No email signup form** (was removed; `/api/waitlist` endpoint still exists but is no longer wired into the homepage).
 
-### demo.html (Demo Hub)
-- Nav active: "Demo"
+### demo.html (Demo Hub — no longer in nav)
+- Demo cards (preview + live testnet) are now embedded near the top of `litepaper.html` (the "cHYPE" page).
+- `demo.html` still exists for direct linking and as the standalone hub. Nav active state on this page falls under the "cHYPE" tab.
 - Routes between two experiences:
   - **Experience A – Vault Preview** → `/vault.html` (static mockup, no wallet needed)
   - **Experience B – Live Demo** → `/vault-test.html` (HyperEVM testnet, wallet required)
@@ -208,9 +209,10 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
 - Nav active: "WAR.MARKET"
 - Tone: hackathon-honest (live demo, unaudited, kept online as reference)
 
-### litepaper.html (Concept Paper)
-- Long-form document page; **September 2025 cHYPE concept paper** (hero + archive callout links to current homepage framing)
-- Nav active: "Concept" (file path stays at `/litepaper.html` for URL stability; nav label is "Concept")
+### litepaper.html (cHYPE — concept + demo)
+- Combined page: **live testnet demo cards near the top** (preview + live HyperEVM demo) followed by the **September 2025 cHYPE concept paper** (long-form). The hero introduces cHYPE as a concept + something built; an "About the paper below" callout situates the paper as an archival design doc.
+- Uses warm site palette and sticky nav, matching `index.html` / `hip3.html` / `hip4.html` / `war.html`.
+- Nav active: "cHYPE" (file path stays at `/litepaper.html` for URL stability; nav label is "cHYPE").
 
 ### yield.html (Yield Page)
 - Yield mechanics explainer
@@ -232,11 +234,10 @@ The "How it works" section uses 6 growth-stage icons showing plant progression:
         <img src="/assets/logo/lockup-domain-horizontal.svg" class="nav-lockup-img">
       </a>
       <a href="/" class="nav-link active">Overview</a>       <!-- active on index -->
-      <a href="/demo.html" class="nav-link active">Demo</a>  <!-- active on demo + vault.html + vault-test.html -->
       <a href="/hip3.html" class="nav-link active">HIP-3</a> <!-- active on hip3.html -->
       <a href="/hip4.html" class="nav-link active">HIP-4</a> <!-- active on hip4.html -->
       <a href="/war.html" class="nav-link active">WAR.MARKET</a> <!-- active on war.html -->
-      <a href="/litepaper.html" class="nav-link active">Concept</a> <!-- active on litepaper.html (file stays, nav label changed) -->
+      <a href="/litepaper.html" class="nav-link active">cHYPE</a> <!-- active on litepaper.html, demo.html, vault.html, vault-test.html (cHYPE page hosts the demos) -->
     </div>
     <div class="nav-right">
       <a href="https://docs.compost.fi" class="nav-link">Docs</a>

@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Compost — cHYPE Concept Paper (Sept 2025)</title>
-  <meta name="description" content="September 2025 concept archive — original Compost vault thesis for Hyperliquid HIP-3. Historical document; see compost.fi for current framing.">
+  <title>cHYPE — Compost vault concept + live testnet demo</title>
+  <meta name="description" content="cHYPE: a receipt token for pooled HYPE routed into HIP-3 builder markets. Live HyperEVM testnet demo of the share-rate mechanic, plus the September 2025 concept paper that frames the design.">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Compost — cHYPE Concept Paper (Sept 2025)">
-  <meta property="og:description" content="September 2025 concept archive — original Compost vault thesis for Hyperliquid HIP-3. Historical document.">
+  <meta property="og:title" content="cHYPE — Compost vault concept + live testnet demo">
+  <meta property="og:description" content="A receipt token for pooled HYPE routed into HIP-3 builder markets. Live HyperEVM testnet demo + September 2025 concept paper.">
   <meta property="og:image" content="https://compost.fi/assets/og-image.png">
   <meta property="og:url" content="https://compost.fi/litepaper.html">
   <meta property="og:type" content="website">
@@ -16,8 +16,8 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@compostfi">
-  <meta name="twitter:title" content="Compost — cHYPE Concept Paper (Sept 2025)">
-  <meta name="twitter:description" content="September 2025 concept archive — original Compost vault thesis. Historical document.">
+  <meta name="twitter:title" content="cHYPE — Compost vault concept + live testnet demo">
+  <meta name="twitter:description" content="A receipt token for pooled HYPE routed into HIP-3 builder markets. Live HyperEVM testnet demo + September 2025 concept paper.">
   <meta name="twitter:image" content="https://compost.fi/assets/og-image.png">
 
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -28,18 +28,20 @@
 
   <style>
     :root {
-      --bg: #0a0a0a;
-      --bg-card: #0f0f0f;
-      --border: #1a1a1a;
-      --border-hover: #2a2a2a;
-      --text-primary: #e5e5e5;
-      --text-secondary: #a3a3a3;
-      --text-muted: #666666;
+      --bg: #0a0a09;
+      --bg-card: #111110;
+      --bg-elev: #1a1918;
+      --border: #1a1918;
+      --border-hover: #252422;
+      --text-primary: #e8e4df;
+      --text-secondary: #9a958d;
+      --text-muted: #5c574f;
       --accent: #4dcf6a;
       --accent-dim: #2ba84a;
-      --accent-glow: rgba(77, 207, 106, 0.15);
-      --accent-glow-strong: rgba(77, 207, 106, 0.3);
-      --font: 'Outfit', -apple-system, sans-serif;
+      --accent-muted: #1d7a35;
+      --accent-glow: rgba(77, 207, 106, 0.12);
+      --accent-glow-strong: rgba(77, 207, 106, 0.24);
+      --font: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -68,13 +70,14 @@
     }
 
     .nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
+      position: sticky;
+      top: 0;
       z-index: 100;
-      padding: 1.25rem 3rem;
+      padding: 1.25rem calc(3rem + env(safe-area-inset-right)) 1.25rem calc(3rem + env(safe-area-inset-left));
       padding-top: calc(1.25rem + env(safe-area-inset-top));
-      background: var(--bg);
+      background: rgba(10, 10, 9, 0.92);
       border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(6px);
     }
 
     .nav-inner {
@@ -85,27 +88,14 @@
       align-items: center;
     }
 
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-    }
-
-    .nav-right {
+    .nav-left, .nav-right {
       display: flex;
       align-items: center;
       gap: 2rem;
     }
 
-    .nav-lockup {
-      display: block;
-      line-height: 0;
-    }
-
-    .nav-lockup-img {
-      height: 32px;
-      display: block;
-    }
+    .nav-lockup { display: block; line-height: 0; }
+    .nav-lockup-img { height: 32px; display: block; }
 
     .nav-link {
       font-size: 0.9375rem;
@@ -132,7 +122,7 @@
 
     /* Hero with glow */
     .hero {
-      padding: 10rem 0 4rem;
+      padding: 5rem 0 4rem;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -169,6 +159,76 @@
     }
 
     .hero-version { font-size: 0.875rem; color: var(--text-muted); }
+
+    /* Wider container for the demo cards section */
+    .article-wide { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin: 1.5rem 0 0;
+    }
+
+    .demo-card {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(37, 36, 34, 0.45), rgba(17, 17, 16, 0.85));
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .demo-card:hover { border-color: var(--border-hover); }
+
+    .demo-card h3 {
+      font-size: 1.6rem;
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .demo-card p {
+      color: var(--text-secondary);
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .demo-chip-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .demo-chip {
+      border: 1px solid var(--border-hover);
+      color: var(--text-muted);
+      border-radius: 999px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.78rem;
+    }
+
+    .demo-btn {
+      margin-top: 0.35rem;
+      width: fit-content;
+      border: 1px solid var(--accent-dim);
+      background: var(--accent-dim);
+      color: var(--bg);
+      text-decoration: none;
+      padding: 0.68rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .demo-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(77, 207, 106, 0.24);
+    }
 
     .section {
       padding: 4rem 0;
@@ -329,16 +389,17 @@
     .link-row a:hover { text-decoration: underline; }
 
     .footer {
-      padding: 2.5rem 3rem;
+      padding: 2.5rem calc(3rem + env(safe-area-inset-right)) calc(2.5rem + env(safe-area-inset-bottom)) calc(3rem + env(safe-area-inset-left));
       border-top: 1px solid var(--border);
     }
 
     .footer-inner {
-      max-width: 800px;
+      max-width: 1100px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
     }
 
     .footer-domain { font-size: 1rem; font-weight: 300; color: var(--text-primary); }
@@ -356,11 +417,12 @@
       .nav-link { font-size: 0.875rem; }
       .nav-left { gap: 1.25rem; }
       .nav-right { gap: 1.25rem; }
-      .article { padding: 0 1.5rem; }
-      .hero { padding: 7rem 0 3rem; }
+      .article, .article-wide { padding: 0 1.5rem; }
+      .hero { padding: 3rem 0 2.5rem; }
       .hero-glow { width: 300px; height: 300px; }
       .section { padding: 3rem 0; }
       .card-grid { grid-template-columns: 1fr; }
+      .demo-grid { grid-template-columns: 1fr; }
       .flow { flex-direction: column; gap: 1rem; }
       .flow-arrow { transform: rotate(90deg); }
       .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
@@ -375,11 +437,10 @@
           <img src="/assets/logo/lockup-domain-horizontal.svg" alt="compost.fi" class="nav-lockup-img">
         </a>
         <a href="/" class="nav-link">Overview</a>
-        <a href="/demo.html" class="nav-link">Demo</a>
         <a href="/hip3.html" class="nav-link">HIP-3</a>
         <a href="/hip4.html" class="nav-link">HIP-4</a>
         <a href="/war.html" class="nav-link">WAR.MARKET</a>
-        <a href="/litepaper.html" class="nav-link active">Concept</a>
+        <a href="/litepaper.html" class="nav-link active">cHYPE</a>
       </div>
       <div class="nav-right">
         <a href="https://docs.compost.fi" class="nav-link">Docs</a>
@@ -397,18 +458,54 @@
         <rect x="14" y="59" width="36" height="9" rx="4" fill="#5c5347"/>
         <rect x="18" y="70" width="28" height="8" rx="4" fill="#3d3630"/>
       </svg>
-      <h1>The cHYPE concept</h1>
-      <p class="hero-subtitle">The original thesis on capital formation for HIP-3 builder markets, the cHYPE receipt token, and where the fee pool comes from.</p>
-      <p class="hero-version">September 2025 · concept paper</p>
+      <h1>cHYPE</h1>
+      <p class="hero-subtitle">A receipt token for pooled HYPE routed into HIP-3 builder markets. Live testnet demo of the share-rate mechanic, plus the September 2025 concept paper that frames it.</p>
+      <p class="hero-version">Vault concept · live testnet demo · Sept 2025 paper</p>
+    </div>
+  </section>
+
+  <!-- Live demo: surfaced high so the first thing you see is something built -->
+  <section class="section" style="padding-top: 0; border-top: 0;">
+    <div class="article-wide">
+      <div class="reveal">
+        <div class="section-divider"></div>
+        <div class="label">Try it</div>
+        <h2 class="section-header">See the share-rate mechanic running</h2>
+        <p class="prose" style="margin-bottom: 1rem;">Two ways to look at the cHYPE vault. The <strong>preview</strong> shows the interface with example numbers — no wallet, no gas. The <strong>live demo</strong> runs on HyperEVM testnet: drip vHYPE from the faucet, deposit, mint cHYPE shares, watch the share price tick up, withdraw.</p>
+      </div>
+
+      <div class="demo-grid reveal">
+        <a href="/vault.html" class="demo-card">
+          <h3>Vault preview</h3>
+          <p>Static interface with example numbers. No wallet, no gas, no on-chain calls — just the layout and the flow.</p>
+          <div class="demo-chip-row">
+            <span class="demo-chip">Example data</span>
+            <span class="demo-chip">No wallet</span>
+            <span class="demo-chip">Read-only</span>
+          </div>
+          <span class="demo-btn">Open preview →</span>
+        </a>
+
+        <a href="/vault-test.html" class="demo-card">
+          <h3>Live testnet demo</h3>
+          <p>HyperEVM testnet. Drip vHYPE from the faucet, approve, deposit, receive cHYPE shares, watch the share price tick up, withdraw.</p>
+          <div class="demo-chip-row">
+            <span class="demo-chip">HyperEVM testnet</span>
+            <span class="demo-chip">Wallet + gas</span>
+            <span class="demo-chip">Live contracts</span>
+          </div>
+          <span class="demo-btn">Open live demo →</span>
+        </a>
+      </div>
     </div>
   </section>
 
   <main>
-    <section class="section" style="padding-top: 0;">
+    <section class="section">
       <div class="article">
-        <div class="callout reveal" style="margin-bottom: 2rem;">
-          <div class="callout-label">Read this in context</div>
-          <p>This is the <strong>September 2025 design document</strong>, not a live product. It still reads as the cleanest single-source statement of the cHYPE thesis — useful background for HL-native operators, builders, and depositors thinking about HIP-3 capital formation. Pair it with the <a href="/yield.html">cHYPE yield design</a> for the math, and the <a href="/">homepage</a> for what Compost is actively running today (live HIP-3/HIP-4 boards, vault demos).</p>
+        <div class="callout reveal" style="margin: 0;">
+          <div class="callout-label">About the paper below</div>
+          <p>What follows is the <strong>September 2025 concept paper</strong> — the original design document for cHYPE. It is the cleanest single-source statement of the thesis (capital formation for HIP-3 builder markets, fee pool, founding-syndicate framing) and useful background for HL-native operators and depositors. It is <strong>not</strong> a description of a live product — see the demos above for what's actually been built, and the <a href="/">homepage</a> for current framing. Pair it with the <a href="/yield.html">cHYPE yield design</a> for the math.</p>
         </div>
       </div>
     </section>
