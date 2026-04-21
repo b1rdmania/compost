@@ -1,0 +1,43 @@
+{
+  "_comment": "Compost HIP-4 Conditional Trigger Config. Run: node scripts/trigger-monitor.js",
+
+  "triggers": [
+    {
+      "outcomeId": 4751,
+      "label": "BTC priceBinary > $75,615 by 2026-04-22 03:00 UTC",
+      "perpAsset": "BTC",
+
+      "onYes": {
+        "direction": "long",
+        "size": 0.001,
+        "leverage": 5,
+        "note": "Market resolves YES → go long BTC 5x"
+      },
+
+      "onNo": {
+        "direction": "short",
+        "size": 0.001,
+        "leverage": 3,
+        "note": "Market resolves NO → short BTC 3x"
+      }
+    },
+
+    {
+      "outcomeId": 4801,
+      "label": "HYPE priceBinary > $37.6 by 2026-04-21 15:30 UTC",
+      "perpAsset": "HYPE",
+
+      "onYes": {
+        "direction": "long",
+        "size": 1,
+        "leverage": 3,
+        "note": "HYPE resolves YES → long HYPE 3x"
+      },
+
+      "onNo": {
+        "skip": true,
+        "note": "HYPE resolves NO → do nothing"
+      }
+    }
+  ]
+}

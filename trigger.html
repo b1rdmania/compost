@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Conditional Trigger — Compost</title>
+  <meta name="description" content="HIP-4 binary outcome resolves → perp order fires automatically. Live testnet demo.">
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/site-nav.css">
+
+  <style>
+    :root {
+      --bg-deep: #0a0a09;
+      --bg-layer-1: #111110;
+      --bg-layer-2: #1a1918;
+      --bg-layer-3: #252422;
+      --text-primary: #e8e4df;
+      --text-secondary: #9a958d;
+      --text-muted: #5c574f;
+      --accent-bright: #4dcf6a;
+      --accent: #2ba84a;
+      --accent-muted: #1d7a35;
+      --accent-glow: rgba(77, 207, 106, 0.12);
+      --accent-glow-strong: rgba(77, 207, 106, 0.28);
+      --testnet: #f5b94c;
+      --testnet-soft: rgba(245, 185, 76, 0.10);
+      --yes-color: #4dcf6a;
+      --no-color: #ef4444;
+      --yes-glow: rgba(77, 207, 106, 0.18);
+      --no-glow: rgba(239, 68, 68, 0.18);
+      --font: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      --border: rgba(232, 228, 223, 0.08);
+      --border-strong: rgba(232, 228, 223, 0.14);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font);
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 0%, rgba(77, 207, 106, 0.07), transparent),
+        radial-gradient(ellipse 50% 30% at 80% 10%, rgba(138, 130, 121, 0.06), transparent),
+        var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      z-index: 1000;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    a { color: inherit; }
+
+    /* ─── Nav ─────────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem calc(3rem + env(safe-area-inset-right)) 1.25rem calc(3rem + env(safe-area-inset-left));
+      padding-top: calc(1.25rem + env(safe-area-inset-top));
+      background: rgba(10, 10, 9, 0.88);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-left, .nav-right { display: flex; align-items: center; }
+    .nav-left { gap: 2.5rem; }
+    .nav-right { gap: 2rem; }
+    .nav-lockup { display: block; line-height: 0; }
+    .nav-lockup-img { height: 32px; display: block; }
+
+    .nav-link {
+      font-size: 0.9375rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover { color: var(--accent-bright); }
+    .nav-link.active { color: var(--text-primary); font-weight: 500; }
+
+    /* ─── Layout ─────────────────────────────────────────────────── */
+    .container {
+      width: min(1200px, calc(100vw - 3rem));
+      margin: 0 auto;
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────────── */
+    .hero {
+      padding: calc(8rem + env(safe-area-inset-top)) 0 4rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 0.75rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(77, 207, 106, 0.22);
+      background: rgba(77, 207, 106, 0.07);
+      color: var(--accent-bright);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-bright);
+      box-shadow: 0 0 14px rgba(77, 207, 106, 0.9);
+      animation: pulse-dot 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 14px rgba(77, 207, 106, 0.9); }
+      50% { opacity: 0.5; box-shadow: 0 0 4px rgba(77, 207, 106, 0.4); }
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 200;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--accent-bright);
+    }
+
+    .hero-subtitle {
+      color: var(--text-secondary);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      font-weight: 300;
+      line-height: 1.75;
+      max-width: 36rem;
+      margin-bottom: 2rem;
+    }
+
+    .testnet-strip {
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(245, 185, 76, 0.28);
+      background: var(--testnet-soft);
+      color: var(--testnet);
+      font-size: 0.82rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .testnet-strip strong { font-weight: 600; }
+
+    /* ─── Flow diagram ─────────────────────────────────────────── */
+    .flow-card {
+      background: var(--bg-layer-1);
+      border: 1px solid var(--border);
+      padding: 2rem;
+    }
+
+    .flow-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .flow-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .flow-step:last-child { border-bottom: none; padding-bottom: 0; }
+    .flow-step:first-child { padding-top: 0; }
+
+    .flow-num {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .flow-step-content {}
+    .flow-step-title {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.2rem;
+    }
+
+    .flow-step-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .flow-arrow {
+      display: flex;
+      justify-content: center;
+      padding: 0.2rem 0;
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    /* ─── Trigger section ──────────────────────────────────────── */
+    .section {
+      padding: 3rem 0 4rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    .section-meta {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Trigger cards ─────────────────────────────────────────── */
+    .triggers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .trigger-card {
+      background: var(--bg-layer-1);
+      border: 1px solid var(--border);
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.3s ease;
+    }
+
+    .trigger-card:hover { border-color: var(--border-strong); }
+
+    .trigger-card.resolved-yes {
+      border-color: rgba(77, 207, 106, 0.4);
+      box-shadow: 0 0 32px rgba(77, 207, 106, 0.08);
+    }
+
+    .trigger-card.resolved-no {
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .trigger-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-layer-2);
+      gap: 1rem;
+    }
+
+    .trigger-card-id {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    .trigger-status {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+    }
+
+    .status-watching .status-dot {
+      background: var(--accent-bright);
+      box-shadow: 0 0 10px rgba(77, 207, 106, 0.8);
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+
+    .status-watching { color: var(--accent-bright); }
+
+    .status-loading .status-dot { background: var(--text-muted); }
+    .status-loading { color: var(--text-muted); }
+
+    .status-resolved-yes .status-dot { background: var(--yes-color); }
+    .status-resolved-yes { color: var(--yes-color); }
+
+    .status-resolved-no .status-dot { background: var(--no-color); }
+    .status-resolved-no { color: var(--no-color); }
+
+    .trigger-card-body { padding: 1.25rem; }
+
+    .outcome-name {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+      line-height: 1.3;
+    }
+
+    .outcome-desc {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    /* Probability bar */
+    .prob-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .prob-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .prob-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .prob-label.yes { color: var(--yes-color); }
+    .prob-label.no { color: var(--no-color); }
+
+    .prob-value {
+      font-family: var(--mono);
+      font-size: 1.35rem;
+      font-weight: 500;
+    }
+
+    .prob-value.yes { color: var(--yes-color); }
+    .prob-value.no { color: var(--no-color); }
+
+    .prob-bar-track {
+      height: 6px;
+      background: var(--bg-layer-3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prob-bar-fill {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      background: linear-gradient(90deg, var(--yes-color), rgba(77, 207, 106, 0.6));
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .prob-bar-fill.no-fill {
+      right: 0; left: auto;
+      background: linear-gradient(90deg, rgba(239, 68, 68, 0.6), var(--no-color));
+    }
+
+    .prob-bar-midline {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: var(--border-strong);
+    }
+
+    .prob-no-data {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 0;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* Trigger rule rows */
+    .trigger-rules {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .trigger-rule {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trigger-rule.yes-rule {
+      border-left: 2px solid rgba(77, 207, 106, 0.4);
+      background: rgba(77, 207, 106, 0.04);
+    }
+
+    .trigger-rule.no-rule {
+      border-left: 2px solid rgba(239, 68, 68, 0.3);
+      background: rgba(239, 68, 68, 0.03);
+    }
+
+    .trigger-rule.skip-rule {
+      border-left: 2px solid var(--border);
+      background: transparent;
+    }
+
+    .rule-condition {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      min-width: 2.5rem;
+    }
+
+    .yes-rule .rule-condition { color: var(--yes-color); }
+    .no-rule .rule-condition { color: var(--no-color); }
+    .skip-rule .rule-condition { color: var(--text-muted); }
+
+    .rule-arrow {
+      color: var(--text-muted);
+      margin: 0 0.75rem;
+      font-size: 0.75rem;
+    }
+
+    .rule-action {
+      color: var(--text-primary);
+      font-weight: 500;
+      flex: 1;
+    }
+
+    .skip-rule .rule-action { color: var(--text-muted); font-weight: 400; }
+
+    .rule-direction {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-left: 0.5rem;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .dir-long { background: rgba(77, 207, 106, 0.15); color: var(--yes-color); }
+    .dir-short { background: rgba(239, 68, 68, 0.12); color: var(--no-color); }
+
+    /* Expiry countdown */
+    .trigger-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .expiry-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .expiry-value {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--testnet);
+      font-weight: 500;
+    }
+
+    /* ─── Activity log ──────────────────────────────────────────── */
+    .log-container {
+      background: var(--bg-layer-1);
+      border: 1px solid var(--border);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .log-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-layer-2);
+    }
+
+    .log-title {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .log-live {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent-bright);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .log-live-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--accent-bright);
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+
+    .log-body {
+      padding: 1rem 1.25rem;
+      min-height: 160px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.8;
+    }
+
+    .log-entry {
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+      opacity: 0;
+      transform: translateY(4px);
+      animation: log-in 0.35s ease forwards;
+    }
+
+    @keyframes log-in {
+      to { opacity: 1; transform: none; }
+    }
+
+    .log-ts { color: var(--text-muted); flex-shrink: 0; }
+    .log-icon { flex-shrink: 0; }
+    .log-msg { color: var(--text-secondary); }
+    .log-msg .hi { color: var(--text-primary); }
+    .log-msg .yes-hi { color: var(--yes-color); }
+    .log-msg .no-hi { color: var(--no-color); }
+    .log-msg .warn-hi { color: var(--testnet); }
+
+    /* ─── Bottom explainer ──────────────────────────────────────── */
+    .explainer-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 6rem;
+    }
+
+    .explainer-cell {
+      background: var(--bg-layer-1);
+      padding: 1.75rem;
+    }
+
+    .explainer-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .explainer-title {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .explainer-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .code-snippet {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent-bright);
+      margin-top: 0.75rem;
+      padding: 0.6rem 0.75rem;
+      background: rgba(77, 207, 106, 0.06);
+      border-left: 2px solid rgba(77, 207, 106, 0.3);
+      line-height: 1.6;
+    }
+
+    /* ─── Reveal animations ──────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── Mobile ─────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .hero-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .triggers-grid { grid-template-columns: 1fr; }
+      .explainer-grid { grid-template-columns: 1fr; }
+
+      .nav {
+        padding: 1rem calc(1.5rem + env(safe-area-inset-right)) 1rem calc(1.5rem + env(safe-area-inset-left));
+        padding-top: calc(1rem + env(safe-area-inset-top));
+      }
+
+      .hero {
+        padding: calc(7rem + env(safe-area-inset-top)) 0 2rem;
+      }
+
+      .container { width: calc(100vw - 2rem); }
+    }
+
+    @media (max-width: 480px) {
+      .trigger-rules { gap: 0.4rem; }
+      .hero-title { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="/" class="nav-lockup">
+          <img src="/assets/logo/lockup-domain-horizontal.svg" class="nav-lockup-img" alt="compost.fi">
+        </a>
+        <a href="/" class="nav-link">Overview</a>
+        <a href="/hip3.html" class="nav-link">HIP-3</a>
+        <a href="/hip4.html" class="nav-link">HIP-4</a>
+        <a href="/war.html" class="nav-link">WAR.MARKET</a>
+        <a href="/litepaper.html" class="nav-link">cHYPE</a>
+      </div>
+      <div class="nav-right">
+        <a href="https://docs.compost.fi" class="nav-link">Docs</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-layout">
+
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Prototype · Testnet only
+          </div>
+
+          <h1 class="hero-title">
+            Conditional<br><em>trigger</em>
+          </h1>
+
+          <p class="hero-subtitle">
+            A HIP-4 binary outcome resolves. A perp order fires.
+            One automated loop — no click required.
+          </p>
+
+          <div class="testnet-strip">
+            <strong>Testnet prototype.</strong> Watching live outcome markets on Hyperliquid testnet. When a monitored binary resolves YES or NO, a pre-configured perp order executes automatically on the same exchange.
+          </div>
+        </div>
+
+        <!-- Flow steps -->
+        <div class="flow-card reveal">
+          <div class="flow-label">// execution flow</div>
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-num">1</div>
+              <div class="flow-step-content">
+                <div class="flow-step-title">Watch</div>
+                <div class="flow-step-desc">Poll <code>outcomeMeta</code> + <code>spotMetaAndAssetCtxs</code> every 8s. Track YES probability for each monitored outcome.</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-num">2</div>
+              <div class="flow-step-content">
+                <div class="flow-step-title">Detect</div>
+                <div class="flow-step-desc">Resolution fires when YES price crosses 95% or 5%. One detection per outcome — no duplicate orders.</div>
+              </div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-num">3</div>
+              <div class="flow-step-content">
+                <div class="flow-step-title">Execute</div>
+                <div class="flow-step-desc">EIP-712 signed market order placed via <code>/exchange</code>. Leverage set, FrontendMarket IOC fills immediately.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Active triggers -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-title">Active triggers</div>
+        <div class="section-meta" id="last-updated">Connecting…</div>
+      </div>
+
+      <div class="triggers-grid" id="triggers-grid">
+        <!-- Cards injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Activity log -->
+  <section class="section">
+    <div class="container">
+      <div class="log-container reveal">
+        <div class="log-header">
+          <div class="log-title">// monitor log</div>
+          <div class="log-live"><span class="log-live-dot"></span>Live</div>
+        </div>
+        <div class="log-body" id="log-body">
+          <!-- entries appended by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explainer -->
+  <section class="section">
+    <div class="container">
+      <div class="explainer-grid reveal">
+        <div class="explainer-cell">
+          <div class="explainer-num">01 / WHAT</div>
+          <div class="explainer-title">Conditional claim</div>
+          <div class="explainer-desc">
+            A parametric trigger that links a binary outcome to a contingent perp action. The HIP-4 market provides the signal. The HL order book provides the execution.
+          </div>
+          <code class="code-snippet">IF outcome #4751 → YES<br>THEN long BTC 5×</code>
+        </div>
+        <div class="explainer-cell">
+          <div class="explainer-num">02 / WHY</div>
+          <div class="explainer-title">Outcome-informed positioning</div>
+          <div class="explainer-desc">
+            Binary markets encode probability-weighted information about future price. A conditional trigger lets you act on that signal at the moment of maximum certainty — resolution.
+          </div>
+        </div>
+        <div class="explainer-cell">
+          <div class="explainer-num">03 / NEXT</div>
+          <div class="explainer-title">What this becomes</div>
+          <div class="explainer-desc">
+            On-chain conditional orders. Multi-leg strategies. Outcome-collateralised positions. Bracket triggers (YES → long / NO → short) at resolution. One primitive, many shapes.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ─── Config ──────────────────────────────────────────────────────────────
+
+    const TESTNET_URL = 'https://api.hyperliquid-testnet.xyz';
+    const POLL_MS = 8_000;
+    const YES_THRESHOLD = 0.95;
+    const NO_THRESHOLD  = 0.05;
+
+    // Mirrors scripts/trigger-config.json
+    const TRIGGERS = [
+      {
+        outcomeId: 4751,
+        label: 'BTC priceBinary',
+        perpAsset: 'BTC',
+        onYes: { direction: 'long',  size: 0.001, leverage: 5 },
+        onNo:  { direction: 'short', size: 0.001, leverage: 3 },
+      },
+      {
+        outcomeId: 4801,
+        label: 'HYPE priceBinary',
+        perpAsset: 'HYPE',
+        onYes: { direction: 'long', size: 1, leverage: 3 },
+        onNo:  { skip: true },
+      },
+    ];
+
+    // ─── State ────────────────────────────────────────────────────────────────
+
+    const outcomeState = {};  // outcomeId → { yesPrice, noPrice, status, name, desc }
+    const fired = new Set();
+    let logCount = 0;
+
+    // ─── Helpers ──────────────────────────────────────────────────────────────
+
+    function ts() {
+      return new Date().toISOString().slice(11, 19);
+    }
+
+    function addLog(icon, html) {
+      const body = document.getElementById('log-body');
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.style.animationDelay = '0ms';
+      entry.innerHTML = `
+        <span class="log-ts">${ts()}</span>
+        <span class="log-icon">${icon}</span>
+        <span class="log-msg">${html}</span>
+      `;
+      body.prepend(entry);
+      logCount++;
+      // Keep log at 40 entries
+      while (body.children.length > 40) body.removeChild(body.lastChild);
+    }
+
+    function pct(p) {
+      if (p === null || p === undefined) return null;
+      return (p * 100).toFixed(1);
+    }
+
+    // Parse structured descriptions like "class:priceBinary|underlying:BTC|expiry:20260422-0300|targetPrice:75615"
+    function parseDesc(desc) {
+      if (!desc || !desc.includes('|')) return { raw: desc };
+      const parts = {};
+      desc.split('|').forEach(part => {
+        const [k, v] = part.split(':');
+        if (k && v) parts[k] = v;
+      });
+      return parts;
+    }
+
+    function formatExpiry(expiryStr) {
+      // "20260422-0300" → Date
+      if (!expiryStr) return null;
+      const m = expiryStr.match(/^(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})$/);
+      if (!m) return expiryStr;
+      const [, y, mo, d, h, min] = m;
+      const date = new Date(`${y}-${mo}-${d}T${h}:${min}:00Z`);
+      return date;
+    }
+
+    function countdown(date) {
+      if (!date) return null;
+      const diff = date - Date.now();
+      if (diff <= 0) return 'Expired';
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      if (h > 24) return `${Math.floor(h/24)}d ${h%24}h`;
+      if (h > 0) return `${h}h ${m}m`;
+      return `${m}m`;
+    }
+
+    // ─── API ──────────────────────────────────────────────────────────────────
+
+    async function hlInfo(type) {
+      const res = await fetch(`${TESTNET_URL}/info`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }
+
+    async function fetchData() {
+      const [outcomeMeta, spotData] = await Promise.all([
+        hlInfo('outcomeMeta'),
+        hlInfo('spotMetaAndAssetCtxs').catch(() => null),
+      ]);
+
+      const ctxByCoin = new Map();
+      if (Array.isArray(spotData) && spotData.length >= 2) {
+        const universe = spotData[0]?.universe ?? [];
+        const ctxs     = spotData[1] ?? [];
+        universe.forEach((asset, i) => {
+          if (asset?.name) ctxByCoin.set(asset.name, ctxs[i]);
+        });
+      }
+
+      const outcomes = outcomeMeta?.outcomes ?? [];
+      const result = {};
+
+      for (const outcome of outcomes) {
+        const yesCoin = `#${outcome.outcome * 10}`;
+        const noCoin  = `#${outcome.outcome * 10 + 1}`;
+        const yesCtx  = ctxByCoin.get(yesCoin);
+        const noCtx   = ctxByCoin.get(noCoin);
+        const px = ctx => ctx ? Number(ctx.markPx ?? ctx.midPx ?? 0) : null;
+
+        result[outcome.outcome] = {
+          name:      outcome.name || `Outcome #${outcome.outcome}`,
+          desc:      outcome.description || '',
+          yesPrice:  px(yesCtx),
+          noPrice:   px(noCtx),
+        };
+      }
+
+      return result;
+    }
+
+    // ─── Render ───────────────────────────────────────────────────────────────
+
+    function renderTriggerCard(trigger, data) {
+      const id = trigger.outcomeId;
+      const state = data[id];
+      const name  = state?.name  ?? trigger.label ?? `#${id}`;
+      const desc  = state?.desc  ?? '';
+      const yes   = state?.yesPrice;
+      const no    = state?.noPrice;
+      const parsed = parseDesc(desc);
+      const hasPrices = yes !== null && yes !== undefined;
+
+      // Status
+      let statusClass = 'status-loading';
+      let statusLabel = 'Loading';
+
+      if (fired.has(id)) {
+        const resolution = outcomeState[id]?.resolution;
+        statusClass = resolution === 'YES' ? 'status-resolved-yes' : 'status-resolved-no';
+        statusLabel = resolution === 'YES' ? 'Resolved YES' : 'Resolved NO';
+      } else if (hasPrices) {
+        if (yes >= YES_THRESHOLD) { statusClass = 'status-resolved-yes'; statusLabel = 'Resolved YES'; }
+        else if (yes <= NO_THRESHOLD) { statusClass = 'status-resolved-no'; statusLabel = 'Resolved NO'; }
+        else { statusClass = 'status-watching'; statusLabel = 'Watching'; }
+      } else if (state) {
+        statusClass = 'status-watching';
+        statusLabel = 'Watching';
+      }
+
+      const cardClass = statusClass === 'status-resolved-yes' ? 'trigger-card resolved-yes'
+                      : statusClass === 'status-resolved-no'  ? 'trigger-card resolved-no'
+                      : 'trigger-card';
+
+      // Probability display
+      let probHTML;
+      if (hasPrices) {
+        const yesPct = (yes * 100).toFixed(1);
+        const noPct  = (no  * 100).toFixed(1);
+        probHTML = `
+          <div class="prob-container">
+            <div class="prob-labels">
+              <div>
+                <div class="prob-label yes">YES</div>
+                <div class="prob-value yes">${yesPct}%</div>
+              </div>
+              <div style="text-align:right">
+                <div class="prob-label no">NO</div>
+                <div class="prob-value no">${noPct}%</div>
+              </div>
+            </div>
+            <div class="prob-bar-track">
+              <div class="prob-bar-fill" style="width:${yesPct}%"></div>
+              <div class="prob-bar-midline"></div>
+            </div>
+          </div>
+        `;
+      } else {
+        probHTML = `
+          <div class="prob-no-data">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M6 4v2.4M6 8v.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Price feed not yet active for these tokens
+          </div>
+        `;
+      }
+
+      // Trigger rules
+      const yesAction = trigger.onYes;
+      const noAction  = trigger.onNo;
+
+      function ruleHTML(condition, action) {
+        if (!action) return '';
+        if (action.skip) {
+          return `
+            <div class="trigger-rule skip-rule">
+              <span class="rule-condition">${condition}</span>
+              <span class="rule-arrow">→</span>
+              <span class="rule-action">No action</span>
+            </div>
+          `;
+        }
+        const dirClass = action.direction === 'long' ? 'dir-long' : 'dir-short';
+        return `
+          <div class="trigger-rule ${condition.toLowerCase()}-rule">
+            <span class="rule-condition">${condition}</span>
+            <span class="rule-arrow">→</span>
+            <span class="rule-action">
+              ${action.size} ${trigger.perpAsset} perp
+              <span class="rule-direction ${dirClass}">${action.direction} ${action.leverage}×</span>
+            </span>
+          </div>
+        `;
+      }
+
+      // Expiry
+      let expiryHTML = '';
+      if (parsed.expiry || parsed.targetPrice) {
+        const expDate = formatExpiry(parsed.expiry);
+        const remaining = expDate ? countdown(expDate) : null;
+        expiryHTML = `
+          <div class="trigger-footer">
+            ${parsed.targetPrice ? `<div><span class="expiry-label">Target: </span><span class="expiry-value">${parsed.underlying ?? ''} > $${Number(parsed.targetPrice).toLocaleString()}</span></div>` : ''}
+            ${remaining ? `<div><span class="expiry-label">Expires: </span><span class="expiry-value">${remaining}</span></div>` : ''}
+          </div>
+        `;
+      }
+
+      return `
+        <div class="${cardClass}" data-outcome="${id}">
+          <div class="trigger-card-header">
+            <span class="trigger-card-id">OUTCOME #${id} · ${trigger.perpAsset}</span>
+            <span class="trigger-status ${statusClass}">
+              <span class="status-dot"></span>${statusLabel}
+            </span>
+          </div>
+          <div class="trigger-card-body">
+            <div class="outcome-name">${name}</div>
+            <div class="outcome-desc">${desc || '&nbsp;'}</div>
+            ${probHTML}
+            <div class="trigger-rules">
+              ${ruleHTML('YES', yesAction)}
+              ${ruleHTML('NO', noAction)}
+            </div>
+            ${expiryHTML}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAll(data) {
+      const grid = document.getElementById('triggers-grid');
+      grid.innerHTML = TRIGGERS.map(t => renderTriggerCard(t, data)).join('');
+    }
+
+    // ─── Poll loop ────────────────────────────────────────────────────────────
+
+    let firstLoad = true;
+
+    async function tick() {
+      let data;
+      try {
+        data = await fetchData();
+      } catch (err) {
+        addLog('⚠', `<span class="warn-hi">Fetch error</span> — ${err.message}`);
+        return;
+      }
+
+      const now = new Date().toLocaleTimeString('en-GB', { hour12: false });
+      document.getElementById('last-updated').textContent = `Updated ${now} · ${POLL_MS/1000}s refresh`;
+
+      if (firstLoad) {
+        addLog('·', `Monitor connected · polling ${TRIGGERS.length} triggers`);
+        firstLoad = false;
+      }
+
+      for (const trigger of TRIGGERS) {
+        const id = trigger.outcomeId;
+        const state = data[id];
+
+        if (!state) {
+          // Outcome not in feed
+          continue;
+        }
+
+        const { yesPrice, noPrice } = state;
+        const prevState = outcomeState[id] || {};
+
+        // Detect resolution
+        if (!fired.has(id) && yesPrice !== null) {
+          if (yesPrice >= YES_THRESHOLD) {
+            fired.add(id);
+            outcomeState[id] = { ...state, resolution: 'YES' };
+            addLog('🔥', `<span class="yes-hi">RESOLVED YES</span> — Outcome #${id} "${state.name}" · firing <span class="hi">${trigger.onYes?.direction ?? '—'} ${trigger.perpAsset}</span>`);
+          } else if (yesPrice <= NO_THRESHOLD) {
+            fired.add(id);
+            outcomeState[id] = { ...state, resolution: 'NO' };
+            const noAction = trigger.onNo;
+            const actionStr = noAction?.skip ? 'no action (skip)' : `${noAction?.direction} ${trigger.perpAsset}`;
+            addLog('🔥', `<span class="no-hi">RESOLVED NO</span> — Outcome #${id} "${state.name}" · ${actionStr}`);
+          } else {
+            const pctStr = (yesPrice * 100).toFixed(1);
+            if (!prevState.yesPrice || Math.abs(prevState.yesPrice - yesPrice) > 0.005) {
+              addLog('·', `#${id} ${state.name} — YES <span class="hi">${pctStr}%</span>`);
+            }
+          }
+        }
+
+        outcomeState[id] = { ...state, ...(outcomeState[id] || {}) };
+      }
+
+      renderAll(data);
+    }
+
+    // ─── Init ─────────────────────────────────────────────────────────────────
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initial placeholder cards
+      const grid = document.getElementById('triggers-grid');
+      grid.innerHTML = TRIGGERS.map(t => renderTriggerCard(t, {})).join('');
+
+      addLog('·', `Compost conditional trigger · testnet`);
+
+      tick();
+      setInterval(tick, POLL_MS);
+    });
+
+    // ─── Scroll reveal ────────────────────────────────────────────────────────
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+        });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    });
+  </script>
+
+</body>
+</html>
