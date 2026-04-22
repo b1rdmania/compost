@@ -14,37 +14,23 @@ Live dashboards tracking HIP-3 builder market activity and HIP-4 outcome trading
 
 **[Conditional Trigger](https://compost.fi/trigger)** — A HIP-4 binary market resolves → a signed perp order fires. Polls live testnet outcomes every 8 seconds via raw fetch (the `@nktkas/hyperliquid` SDK's schema validation rejects testnet data, so the info layer uses raw fetch; the exchange client handles EIP-712 order signing). Configure which outcomes to watch and what to do on resolution in `scripts/trigger-config.json`.
 
+```mermaid
+flowchart LR
+    A([trigger-config.json]) --> B[trigger-monitor.js]
+    B -->|poll every 8s| C[(HIP-4 Testnet)]
+    C -->|YES ≥ 0.95| D[resolve YES]
+    C -->|NO ≤ 0.05| E[resolve NO]
+    C -->|pending| B
+    D --> F[EIP-712 signed\nperp order]
+    E --> F
+    F --> G([HL Exchange])
+```
+
 **[HIP-3 Intelligence Board](https://compost.fi/hip3)** — Live dashboard pulling builder market data from the Hyperliquid API. Active deployers, volume, fee structures, market metadata.
 
 **[HIP-4 Outcome Board](https://compost.fi/hip4)** — Live testnet board for HIP-4 binary prediction markets. YES/NO prices, settlement mechanics, how outcome trading sits alongside the perp book.
 
 **[cHYPE Vault Demo](https://compost.fi/litepaper)** — ERC4626 vault on HyperEVM testnet. Deposit `vHYPE`, receive `cHYPE` shares, `pricePerShare` accrues via synthetic APR. Contracts deployed and working; the capital formation concept behind it is parked until HIP-3 builder fee routing matures.
-
-## Running the trigger
-
-```bash
-npm run outcomes     # list live HIP-4 outcomes on testnet
-npm run trigger:dry  # log what would fire — no orders placed
-npm run trigger      # live mode (requires TRIGGER_PRIVATE_KEY in .env)
-```
-
-Configure which outcomes to watch in `scripts/trigger-config.json`:
-
-```json
-{
-  "triggers": [
-    {
-      "outcomeId": 4751,
-      "label": "BTC > $75,615 by 2026-04-22 03:00 UTC",
-      "perpAsset": "BTC",
-      "onYes": { "direction": "long",  "size": 0.001, "leverage": 5 },
-      "onNo":  { "direction": "short", "size": 0.001, "leverage": 3 }
-    }
-  ]
-}
-```
-
-Get live outcome IDs from `npm run outcomes` or the [HIP-4 board](https://compost.fi/hip4). Use an API-only wallet key from Hyperliquid settings — never your main wallet.
 
 ## HyperEVM vault
 
