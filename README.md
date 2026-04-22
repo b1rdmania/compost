@@ -32,6 +32,14 @@ flowchart LR
 
 **[cHYPE Vault Demo](https://compost.fi/litepaper)** — ERC4626 vault on HyperEVM testnet. Deposit `vHYPE`, receive `cHYPE` shares, `pricePerShare` accrues via synthetic APR. Contracts deployed and working; the capital formation concept behind it is parked until HIP-3 builder fee routing matures.
 
+```mermaid
+flowchart LR
+    A([Deposit vHYPE]) --> B[CompostProofVault]
+    B --> C([Mint cHYPE shares])
+    B -->|synthetic APR| D[pricePerShare rises]
+    D --> E([Withdraw vHYPE\nat higher rate])
+```
+
 ## HyperEVM vault
 
 Deployed testnet contracts:
