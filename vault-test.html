@@ -400,7 +400,7 @@
     </section>
 
     <div class="context-banner">
-      <strong>Testnet only.</strong> The APR here is synthetic — minted on-chain when state updates — purely to make the share-rate mechanic visible. There is no mainnet vault.
+      <strong>Testnet only.</strong> The APR is synthetic — minted on-chain when state updates — so the share-rate mechanic is visible. No mainnet vault.
     </div>
 
     <section class="grid">
@@ -417,7 +417,7 @@
           </div>
           <div class="flow-step">
             <div class="flow-step-num">Step 3</div>
-            <div class="flow-step-text">Deposit vHYPE, receive <strong>cHYPE</strong> shares, watch the share price tick, withdraw anytime.</div>
+            <div class="flow-step-text">Deposit vHYPE, receive <strong>cHYPE</strong> shares, watch the share price tick up, withdraw anytime.</div>
           </div>
         </div>
       </article>
@@ -538,7 +538,7 @@
       <article class="card span-12">
         <h2>Model notes</h2>
         <div class="stack">
-          <div class="muted">This proves the share-rate accounting works on-chain — not that production yield routing is live.</div>
+          <div class="muted">Proves the share-rate accounting on-chain. Does not prove production yield routing — that part isn't live.</div>
           <div class="muted">Interest is synthetic, minted on-chain whenever the vault's <code>accrue()</code> is called.</div>
           <div class="muted">Token roles: HYPE = gas, vHYPE = deposit asset, cHYPE = share token (ERC4626-style).</div>
         </div>
