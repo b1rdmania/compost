@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>HIP-4 outcome books (testnet) — Compost</title>
+  <title>HIP-4 outcome books — Compost</title>
   <meta name="description" content="Polymarket-style markets on the same L1 as Hyperliquid's perps. Live testnet board, lifecycle mechanics, and how outcome trading sits next to HIP-3 builder perps. No mainnet spec yet.">
 
-  <meta property="og:title" content="HIP-4 Intelligence | Compost">
-  <meta property="og:description" content="Hyperliquid's prediction-market primitive in plain view: testnet outcomes, native settlement, and what it means for capital formation.">
+  <meta property="og:title" content="HIP-4 outcome books — Compost">
+  <meta property="og:description" content="Hyperliquid's prediction-market primitive in plain view: testnet outcomes, native settlement, and what it opens up.">
   <meta property="og:image" content="https://compost.fi/assets/og-image.png">
   <meta property="og:url" content="https://compost.fi/hip4.html">
   <meta property="og:type" content="website">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@compostfi">
-  <meta name="twitter:title" content="HIP-4 Intelligence | Compost">
-  <meta name="twitter:description" content="Hyperliquid's prediction-market primitive in plain view: testnet outcomes, native settlement, and what it means for capital formation.">
+  <meta name="twitter:title" content="HIP-4 outcome books — Compost">
+  <meta name="twitter:description" content="Hyperliquid's prediction-market primitive in plain view: testnet outcomes, native settlement, and what it opens up.">
   <meta name="twitter:image" content="https://compost.fi/assets/og-image.png">
 
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -1146,11 +1146,11 @@
           <p class="hero-subtitle">
             Polymarket-style markets on the same L1 as Hyperliquid's perps. Fully collateralized,
             settled in a single block by the protocol — not a separate venue, not an oracle round-trip.
-            Live on testnet today; no mainnet spec yet.
+            Live on testnet. No mainnet spec yet.
           </p>
           <div class="hero-actions">
-            <a href="#testnet-board" class="btn btn-primary">Jump To Markets</a>
-            <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener" class="btn btn-secondary">Full Research ↗</a>
+            <a href="#testnet-board" class="btn btn-primary">Jump to markets</a>
+            <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener" class="btn btn-secondary">Full research ↗</a>
           </div>
         </div>
 
@@ -1171,22 +1171,22 @@
             <div class="score-card">
               <div class="score-label">Questions</div>
               <div class="score-value" id="stat-questions">—</div>
-              <div class="score-context">Multi-outcome question groups (each spans several outcomes).</div>
+              <div class="score-context">Multi-outcome question groups. Each spans several outcomes.</div>
             </div>
             <div class="score-card">
-              <div class="score-label">With Live Volume</div>
+              <div class="score-label">With live volume</div>
               <div class="score-value" id="stat-with-volume">—</div>
               <div class="score-context">Outcomes with non-zero 24h notional on the # spot books.</div>
             </div>
             <div class="score-card">
-              <div class="score-label">24h Testnet Vol</div>
+              <div class="score-label">24h testnet vol</div>
               <div class="score-value" id="stat-volume">—</div>
               <div class="score-context">Sum of YES + NO leg volume across every outcome (USDH).</div>
             </div>
           </div>
           <div class="panel-source" id="panel-source">
-            Hydrated from Hyperliquid's public testnet <strong>outcomeMeta</strong> and
-            <strong>spotMetaAndAssetCtxs</strong> endpoints. Auto-refreshes every 60 seconds.
+            Pulled direct from Hyperliquid's public testnet <strong>outcomeMeta</strong> and
+            <strong>spotMetaAndAssetCtxs</strong> endpoints. Refreshes every sixty seconds.
           </div>
           <button type="button" class="panel-retry" id="panel-retry" hidden>Retry now</button>
         </aside>
@@ -1242,13 +1242,13 @@
 
         <div class="lifecycle-note reveal">
           <strong>The YES mark is the implied probability.</strong> Pair minting forces YES + NO to 1.00,
-          so the YES leg's price reads directly as the book's belief — no oracle, no inference. A YES at
+          so the YES price reads directly as the book's belief — no oracle, no inference. A YES at
           <span class="mono">0.65</span> means the market is pricing 65%.
           <br><br>
-          Three shapes are live on testnet: <strong>Custom</strong> (multi-named questions like "who wins
-          the race"), <strong>priceBinary</strong> (above/below a strike at expiry), and
-          <strong>Recurring</strong> (auto-respawned priceBinaries every 15m, 1h, or 1d). All three trade
-          as ordinary # spot pairs once minted.
+          Three shapes are live on testnet: <strong>Custom</strong> (named questions — who wins the race),
+          <strong>priceBinary</strong> (above/below a strike at expiry), and <strong>Recurring</strong>
+          (auto-respawned priceBinaries every 15m, 1h, or 1d). All three trade as ordinary # spot pairs
+          once minted.
         </div>
       </div>
     </section>
@@ -1258,11 +1258,11 @@
         <div class="section-header reveal">
           <div>
             <div class="section-kicker">Testnet Outcomes</div>
-            <h2 class="section-title">Every outcome currently registered on testnet.</h2>
+            <h2 class="section-title">Every outcome registered on testnet.</h2>
           </div>
           <div class="section-copy">
-            Pulled live from the <strong>outcomeMeta</strong> endpoint and joined to <strong>spotMetaAndAssetCtxs</strong>
-            for implied probability and 24h volume. Filter by ticker, question, or outcome shape.
+            Pulled live from <strong>outcomeMeta</strong> and joined to <strong>spotMetaAndAssetCtxs</strong> for
+            implied probability and 24h volume. Filter by ticker, question, or outcome shape.
           </div>
         </div>
 
@@ -1405,59 +1405,57 @@
       <div class="container">
         <div class="section-header reveal">
           <div>
-            <div class="section-kicker">What This Means For Compost</div>
-            <h2 class="section-title">The capital formation thesis extends to outcome books.</h2>
+            <div class="section-kicker">What this opens up</div>
+            <h2 class="section-title">Same engine, different shape.</h2>
           </div>
           <div class="section-copy">
-            Compost is an exploratory project around HIP-3 capital formation. HIP-4 is the same engine
-            producing a different shape — and the most interesting parts aren't the LP mechanics in
-            isolation. They're what composability across primitives unlocks.
+            Compost is an early project around HIP-3. HIP-4 runs on the same engine, producing a different shape —
+            and the interesting part isn't the LP mechanics alone. It's what composability across primitives
+            makes possible.
           </div>
         </div>
 
         <div class="angle-grid">
           <article class="angle-card reveal">
-            <span class="angle-tag">Symmetric Inventory</span>
+            <span class="angle-tag">Symmetric inventory</span>
             <h3 class="angle-title">Equal YES + NO holds zero outcome exposure.</h3>
             <p class="angle-body">
-              A maker carrying balanced YES and NO of a fairly-priced outcome doesn't care which way it
-              resolves — every pair pays out 1.00 USDH at settlement. They keep the spread, inventory is
-              bounded by definition, and there's no funding to pay or liquidation to dodge.
+              A maker holding balanced YES and NO of a fairly-priced outcome doesn't care which way it resolves —
+              every pair pays 1.00 USDH at settlement. They keep the spread, inventory is bounded by definition,
+              no funding to pay, no liquidation to dodge.
             </p>
             <div class="angle-foot">e.g. delta-neutral two-sided quoting</div>
           </article>
 
           <article class="angle-card reveal">
-            <span class="angle-tag">Recurring Premium</span>
+            <span class="angle-tag">Recurring premium</span>
             <h3 class="angle-title">Systematic short-vol, on-chain.</h3>
             <p class="angle-body">
-              Recurring priceBinaries — auto-respawned BTC / ETH binaries every 15 minutes, hour, or day —
-              are mechanically a stream of cash-secured short options. Strategies that trade premium in
-              CME or Deribit translate directly, but with deterministic L1 settlement instead of a
-              clearinghouse.
+              Recurring priceBinaries — auto-respawned BTC / ETH binaries every 15 minutes, hour, or day — are
+              mechanically a stream of cash-secured short options. Premium strategies from CME or Deribit carry
+              over directly, but with deterministic L1 settlement in place of a clearinghouse.
             </p>
             <div class="angle-foot">e.g. weekly BTC&gt;$X programmatic underwriting</div>
           </article>
 
           <article class="angle-card reveal">
-            <span class="angle-tag">Unified Margin</span>
+            <span class="angle-tag">Unified margin</span>
             <h3 class="angle-title">Hedges that span perps and outcome books.</h3>
             <p class="angle-body">
               HyperCore is one account system. If outcome books share margin with perps on mainnet — as the
-              testnet design suggests — a perp vault can carry tail-risk insurance directly in outcome
-              books, and an outcome-LP strategy can hedge directional drift in spot. That's composability
-              you can't replicate by stitching together separate venues.
+              testnet design suggests — a perp vault can carry tail-risk insurance directly in outcome books, and
+              an outcome-LP strategy can hedge directional drift in spot. You can't stitch that together from
+              separate venues.
             </p>
             <div class="angle-foot">e.g. cross-primitive hedge construction</div>
           </article>
         </div>
 
         <div class="lifecycle-note reveal" style="margin-top: 2rem;">
-          <strong>None of the above is shipped.</strong> HIP-4 is testnet-only, the spec hasn't been
-          published, and there is no live Compost vault. We're tracking it openly because the same
-          primitive that makes HIP-3 interesting for capital formation makes HIP-4 interesting too —
-          and because the unified-margin angle only really works if capital is there on day one of
-          mainnet.
+          <strong>None of this is shipped.</strong> HIP-4 is testnet-only. The spec hasn't been published. There
+          is no live Compost vault. We're tracking it openly because the same primitive that makes HIP-3
+          interesting makes HIP-4 interesting too — and the unified-margin angle only really works if capital is
+          there on day one of mainnet.
         </div>
       </div>
     </section>
@@ -1471,7 +1469,7 @@
           </div>
           <div class="section-copy">
             HIP-4 has no official spec yet. The mechanics on this page are reverse-engineered from on-chain
-            transactions and the HyperCore API. Credit to the public researchers who did the legwork.
+            transactions and the HyperCore API. Credit to the public researchers who did the work.
           </div>
         </div>
 
@@ -1481,7 +1479,8 @@
             <h3>Liquid Terminal · HIP-4 docs</h3>
             <p>
               The most thorough public reverse-engineering of HIP-4 — lifecycle, info endpoint, pair minting,
-              system-wallet trace, and a clean industry comparison. <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener">liquidterminal.xyz/hip4/home ↗</a>
+              system-wallet trace, and a clean industry comparison.
+              <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener">liquidterminal.xyz/hip4/home ↗</a>
             </p>
           </article>
 
@@ -1500,7 +1499,7 @@
             <div class="source-label">Context</div>
             <h3>HIP-3 live board</h3>
             <p>
-              For the perp side of the same engine — every builder market, real volume, no narrative.
+              The perp side of the same engine — every builder market, real volume, no narrative.
               <a href="/hip3.html">/hip3.html →</a>
             </p>
           </article>
@@ -1514,15 +1513,15 @@
       <div class="reveal">
         <h2 class="footer-title">Same engine, new shape.</h2>
         <p class="footer-note">
-          Compost is an exploratory project around HIP-3 capital formation. HIP-4 sits on the same
-          HyperCore, with the same pair-minting and CLOB plumbing — just settling to 0 or 1 instead of
-          running forever. We're tracking it openly. Full reverse-engineering credit to
+          Compost is an early project around HIP-3. HIP-4 sits on the same HyperCore, with the same pair-minting
+          and CLOB plumbing — just settling to 0 or 1 instead of running forever. Tracked openly. Full
+          reverse-engineering credit to
           <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener">Liquid Terminal</a>.
         </p>
       </div>
 
       <div class="footer-links reveal">
-        <a href="/" class="btn btn-primary">Back To Compost</a>
+        <a href="/" class="btn btn-primary">Back to Compost</a>
         <a href="https://twitter.com/compostfi" target="_blank" rel="noopener" class="btn btn-secondary">Follow</a>
       </div>
     </div>
@@ -2034,8 +2033,8 @@
       if (!source || !state.lastUpdated) return;
       const relative = fmtRelative(state.lastUpdated);
       source.innerHTML = `
-        Hydrated from Hyperliquid's public testnet <strong>outcomeMeta</strong> and
-        <strong>spotMetaAndAssetCtxs</strong> endpoints. Updated ${relative}. Auto-refreshes every 60 seconds.
+        Pulled direct from Hyperliquid's public testnet <strong>outcomeMeta</strong> and
+        <strong>spotMetaAndAssetCtxs</strong> endpoints. Updated ${relative}. Refreshes every sixty seconds.
       `;
       const deltaSeconds = Math.max(0, Math.floor((Date.now() - state.lastUpdated.getTime()) / 1000));
       if (deltaSeconds < 90) {

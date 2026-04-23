@@ -4,18 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>HIP-3 live board — Compost</title>
-  <meta name="description" content="Every builder market on Hyperliquid, pulled from the public API: volume, open interest, concentration, growth-mode coverage, funding spikes. Public data only — no estimates, no hidden feeds.">
+  <meta name="description" content="Every builder market on Hyperliquid, straight from the public API: volume, open interest, concentration, growth-mode coverage, funding spikes. Public data only — no estimates, no hidden feeds.">
 
-  <meta property="og:title" content="HIP-3 Intelligence | Compost">
-  <meta property="og:description" content="A public record of Hyperliquid builder markets: launches, fees, volume, open interest, and what it means.">
+  <meta property="og:title" content="HIP-3 live board — Compost">
+  <meta property="og:description" content="Every builder market on Hyperliquid, straight from the public API. No narrative in front of the numbers.">
   <meta property="og:image" content="https://compost.fi/assets/og-image.png">
   <meta property="og:url" content="https://compost.fi/hip3.html">
   <meta property="og:type" content="website">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@compostfi">
-  <meta name="twitter:title" content="HIP-3 Intelligence | Compost">
-  <meta name="twitter:description" content="A public record of Hyperliquid builder markets: launches, fees, volume, open interest, and what it means.">
+  <meta name="twitter:title" content="HIP-3 live board — Compost">
+  <meta name="twitter:description" content="Every builder market on Hyperliquid, straight from the public API. No narrative in front of the numbers.">
   <meta name="twitter:image" content="https://compost.fi/assets/og-image.png">
 
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -1228,7 +1228,7 @@
             <div class="score-card">
               <div class="score-label">24h volume</div>
               <div class="score-value" id="stat-volume">$-.--</div>
-              <div class="score-context">Rolling notional volume across public HIP-3 perpetual DEXs.</div>
+              <div class="score-context">Rolling notional volume across public HIP-3 perp DEXs.</div>
             </div>
             <div class="score-card">
               <div class="score-label">Live open interest</div>
@@ -1238,17 +1238,17 @@
             <div class="score-card">
               <div class="score-label">Tracked builders</div>
               <div class="score-value" id="stat-builders">-</div>
-              <div class="score-context">Public perp DEXs returned by the Hyperliquid `perpDexs` registry.</div>
+              <div class="score-context">Public perp DEXs returned by Hyperliquid's `perpDexs` registry.</div>
             </div>
             <div class="score-card">
               <div class="score-label">Tracked markets</div>
               <div class="score-value" id="stat-markets">-</div>
-              <div class="score-context">Live market count across the currently registered HIP-3 builder surface.</div>
+              <div class="score-context">Live market count across every registered HIP-3 builder right now.</div>
             </div>
           </div>
           <div class="panel-source" id="panel-source">
-            Hydrated directly from Hyperliquid's public <strong>perpDexs</strong> and <strong>metaAndAssetCtxs</strong>
-            endpoints. Auto-refreshes every 60 seconds.
+            Pulled direct from Hyperliquid's public <strong>perpDexs</strong> and <strong>metaAndAssetCtxs</strong>
+            endpoints. Refreshes every sixty seconds.
           </div>
           <button type="button" class="panel-retry" id="panel-retry" hidden>Retry now</button>
         </aside>
@@ -1258,15 +1258,14 @@
             <span class="eyebrow-dot"></span>
             Live Board
           </div>
-          <h1 class="hero-title">HIP-3 live board.</h1>
+          <h1 class="hero-title">HIP-3, live.</h1>
           <p class="hero-subtitle">
-            Every builder market on Hyperliquid, pulled straight from the public API. Volume, open interest,
-            concentration, growth mode coverage, and where the funding is spiking — without anyone's narrative in front
-            of it.
+            Every builder market on Hyperliquid, straight from the public API. Volume, open interest, concentration,
+            growth-mode coverage, funding spikes — no narrative in front of the numbers.
           </p>
           <div class="hero-actions">
-            <a href="#top-markets" class="btn btn-primary">Jump To Markets</a>
-            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="btn btn-secondary">Also On Dune</a>
+            <a href="#top-markets" class="btn btn-primary">Jump to markets</a>
+            <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="btn btn-secondary">Also on Dune</a>
           </div>
           <p class="hero-note">
             Public data only. No estimates, no hidden feeds, no fake metrics.
@@ -1280,11 +1279,11 @@
         <div class="section-header reveal">
           <div>
             <div class="section-kicker">Live Structure</div>
-            <h2 class="section-title">What the public registry says right now.</h2>
+            <h2 class="section-title">What the public registry says, right now.</h2>
           </div>
           <div class="section-copy">
-            These are not editorial claims. They are direct rollups from Hyperliquid's builder DEX registry and live
-            asset contexts: concentration, breadth, growth mode coverage, and how much of the board is actually trading.
+            Not editorial claims. Direct rollups from Hyperliquid's builder DEX registry and live asset contexts —
+            concentration, breadth, growth-mode coverage, and how much of the board is actually trading.
           </div>
         </div>
 
@@ -1292,7 +1291,7 @@
           <article class="metric-card reveal">
             <div class="metric-card-label">Top builder share</div>
             <div class="metric-card-value" id="metric-top-share">-</div>
-            <p class="metric-card-copy">Share of total 24h HIP-3 builder volume captured by the single largest public builder DEX.</p>
+            <p class="metric-card-copy">Share of total 24h HIP-3 builder volume held by the single largest public builder DEX.</p>
           </article>
 
           <article class="metric-card reveal">
@@ -1304,13 +1303,13 @@
           <article class="metric-card reveal">
             <div class="metric-card-label">Growth mode markets</div>
             <div class="metric-card-value" id="metric-growth-markets">-</div>
-            <p class="metric-card-copy">Count of builder markets currently marked `growthMode: enabled` in the live registry.</p>
+            <p class="metric-card-copy">Builder markets flagged `growthMode: enabled` in the live registry.</p>
           </article>
 
           <article class="metric-card reveal">
             <div class="metric-card-label">Markets with volume</div>
             <div class="metric-card-value" id="metric-active-markets">-</div>
-            <p class="metric-card-copy">Builder markets showing non-zero 24h notional volume in the latest API read.</p>
+            <p class="metric-card-copy">Builder markets with non-zero 24h notional volume in the latest read.</p>
           </article>
         </div>
       </div>
@@ -1321,11 +1320,11 @@
         <div class="section-header reveal">
           <div>
             <div class="section-kicker">14-Day Trend</div>
-            <h2 class="section-title">How the HIP-3 surface has traded this fortnight.</h2>
+            <h2 class="section-title">How HIP-3 has traded this fortnight.</h2>
           </div>
           <div class="section-copy">
             Daily notional volume summed across every market in the builder registry, pulled from Hyperliquid's public
-            <strong>candleSnapshot</strong> endpoint. Each bar is one UTC day. Source coverage shown below the chart.
+            <strong>candleSnapshot</strong> endpoint. Each bar is one UTC day. Coverage shown below the chart.
           </div>
         </div>
 
@@ -1371,7 +1370,7 @@
           </div>
           <div class="section-copy">
             Every HIP-3 market live on Hyperliquid right now — no curated subset, no aggregation. Filter by ticker or
-            builder, click any column header to sort, click any market to trade it on the right venue.
+            builder, click a header to sort, click a market to trade it on the right venue.
           </div>
         </div>
 
@@ -1431,8 +1430,8 @@
             <h2 class="section-title">A closer read on the busiest live markets.</h2>
           </div>
           <div class="section-copy">
-            Same public source, less aggregation. These cards surface the top live builder markets with the actual fields
-            Hyperliquid returns: price, funding, OI, 24h volume, and growth mode state.
+            Same public source, less aggregation. The top live builder markets with the actual fields Hyperliquid
+            returns: price, funding, OI, 24h volume, growth-mode state.
           </div>
         </div>
 
@@ -1454,7 +1453,7 @@
             <h2 class="section-title">Builder rollup.</h2>
           </div>
           <div class="section-copy">
-            Public builder DEXs returned by Hyperliquid right now, ranked by live 24h volume with per-builder market
+            Every public builder DEX Hyperliquid returns right now, ranked by live 24h volume with per-builder market
             counts and open interest.
           </div>
         </div>
@@ -1498,8 +1497,8 @@
             <h2 class="section-title">Configured builder capacity on Hyperliquid.</h2>
           </div>
           <div class="section-copy">
-            Activity tells you what is trading now. Registry config tells you what builders have actually provisioned:
-            OI caps, funding settings, and permission surface.
+            Activity tells you what's trading now. Registry config tells you what builders have provisioned under
+            the hood: OI caps, funding settings, permission scope.
           </div>
         </div>
 
@@ -1507,7 +1506,7 @@
           <article class="metric-card reveal">
             <div class="metric-card-label">Configured OI cap</div>
             <div class="metric-card-value" id="metric-configured-cap">-</div>
-            <p class="metric-card-copy">Total streaming OI cap configured across public HIP-3 builder DEXs.</p>
+            <p class="metric-card-copy">Total streaming OI cap set across every public HIP-3 builder DEX.</p>
           </article>
           <article class="metric-card reveal">
             <div class="metric-card-label">Largest builder footprint</div>
@@ -1522,7 +1521,7 @@
           <article class="metric-card reveal">
             <div class="metric-card-label">Sub-deployer permissions</div>
             <div class="metric-card-value" id="metric-subdeployers">-</div>
-            <p class="metric-card-copy">Count of delegated permissions exposed through the public registry right now.</p>
+            <p class="metric-card-copy">Delegated permissions exposed through the public registry right now.</p>
           </article>
         </div>
 
@@ -1560,11 +1559,11 @@
         <div class="section-header reveal">
           <div>
             <div class="section-kicker">Open Interest + Funding</div>
-            <h2 class="section-title">Where positions are sitting and where carry is spiking.</h2>
+            <h2 class="section-title">Where positions are sitting. Where carry is spiking.</h2>
           </div>
           <div class="section-copy">
-            Volume is only one lens. These tables show where builder-market positioning is concentrated and which
-            markets currently have the largest positive or negative funding pressure.
+            Volume is one lens. These tables show where builder-market positioning is concentrated, and which
+            markets are carrying the largest positive or negative funding pressure right now.
           </div>
         </div>
 
@@ -1630,8 +1629,8 @@
             <h2 class="section-title">Open sources. Clear caveats.</h2>
           </div>
           <div class="section-copy">
-            Compost is intentionally not claiming secret data. The goal is disciplined public synthesis with explicit
-            provenance so the page can be trusted, challenged, and improved.
+            No secret data, no private feeds. Public synthesis with explicit provenance — so the page can be trusted,
+            challenged, and improved.
           </div>
         </div>
 
@@ -1640,8 +1639,8 @@
             <div class="source-label">Primary live data</div>
             <h3><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint/perpetuals" target="_blank" rel="noopener">Hyperliquid Info API</a></h3>
             <p>
-              Live figures on this page are loaded from the public `perpDexs` registry and `metaAndAssetCtxs` responses
-              for each builder DEX.
+              Every live figure on this page comes from the public `perpDexs` registry and `metaAndAssetCtxs`
+              responses for each builder DEX.
             </p>
           </article>
 
@@ -1649,17 +1648,17 @@
             <div class="source-label">Protocol reference</div>
             <h3><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-3-builder-deployed-perpetuals" target="_blank" rel="noopener">Hyperliquid HIP-3 docs</a></h3>
             <p>
-              Canonical protocol mechanics such as the 500K HYPE builder requirement, builder responsibilities, and fee
-              share structure.
+              Canonical protocol mechanics: the 500K HYPE builder requirement, builder responsibilities, and the
+              fee-share structure.
             </p>
           </article>
 
           <article class="source-card reveal">
-            <div class="source-label">Market context</div>
+            <div class="source-label">Ecosystem context</div>
             <h3><a href="https://hyperliquidguide.com/ecosystem/hip-3-builder-codes" target="_blank" rel="noopener">Hyperliquid Guide</a></h3>
             <p>
-              Useful narrative framing and public ecosystem context around builder markets, growth mode, and early
-              commercialization patterns.
+              Narrative framing and public context around builder markets, growth mode, and the first wave of
+              commercialization.
             </p>
           </article>
 
@@ -1667,8 +1666,8 @@
             <div class="source-label">Historical board</div>
             <h3><a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune HIP-3 dashboard</a></h3>
             <p>
-              Still the best public historical scoreboard for broader HIP-3 tracking, even though this page now
-              hydrates live top-line metrics directly from Hyperliquid.
+              Still the best public historical scoreboard for HIP-3 tracking — even though this page now pulls its
+              live top-line metrics direct from Hyperliquid.
             </p>
           </article>
         </div>
@@ -1681,15 +1680,15 @@
       <div class="reveal">
         <h2 class="footer-title">The numbers, kept honest.</h2>
         <p class="footer-note">
-          Compost is an exploratory project around HIP-3 capital formation. This page is a small public read on where
-          the builder surface actually stands — straight from Hyperliquid, no narrative in front of it. For a broader
-          historical board, <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a> is still the
-          best public reference.
+          Compost is an early project built around HIP-3 — who's deploying, where capital goes, what the data
+          actually shows. This page is a public read on where the builder ecosystem stands right now, straight from
+          Hyperliquid, no narrative in front of it. For the long historical view,
+          <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener">Dune</a> is still the best reference.
         </p>
       </div>
 
       <div class="footer-links reveal">
-        <a href="/" class="btn btn-primary">Back To Compost</a>
+        <a href="/" class="btn btn-primary">Back to Compost</a>
         <a href="/hip4.html" class="btn btn-secondary">HIP-4 →</a>
         <a href="https://twitter.com/compostfi" target="_blank" rel="noopener" class="btn btn-secondary">Follow</a>
       </div>
@@ -2211,8 +2210,8 @@
           : `${Math.floor(deltaSeconds / 60)}m ${deltaSeconds % 60}s ago`;
 
       source.innerHTML = `
-        Hydrated directly from Hyperliquid's public <strong>perpDexs</strong> and <strong>metaAndAssetCtxs</strong>
-        endpoints. Updated ${relative}. Auto-refreshes every 60 seconds.
+        Pulled direct from Hyperliquid's public <strong>perpDexs</strong> and <strong>metaAndAssetCtxs</strong>
+        endpoints. Updated ${relative}. Refreshes every sixty seconds.
       `;
 
       if (deltaSeconds < 90) {

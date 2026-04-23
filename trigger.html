@@ -755,7 +755,7 @@
           </p>
 
           <div class="testnet-strip">
-            <strong>Testnet prototype.</strong> Watching live outcome markets on Hyperliquid testnet. When a monitored binary resolves YES or NO, a pre-configured perp order executes automatically on the same exchange.
+            <strong>Testnet prototype.</strong> Watching live outcome markets on Hyperliquid testnet. When a monitored binary resolves YES or NO, a pre-configured perp order fires on the same exchange.
           </div>
         </div>
 
@@ -767,21 +767,21 @@
               <div class="flow-num">1</div>
               <div class="flow-step-content">
                 <div class="flow-step-title">Watch</div>
-                <div class="flow-step-desc">Poll <code>outcomeMeta</code> + <code>spotMetaAndAssetCtxs</code> every 8s. Track YES probability for each monitored outcome.</div>
+                <div class="flow-step-desc">Poll <code>outcomeMeta</code> + <code>spotMetaAndAssetCtxs</code> every 8s. Track YES probability for each outcome.</div>
               </div>
             </div>
             <div class="flow-step">
               <div class="flow-num">2</div>
               <div class="flow-step-content">
                 <div class="flow-step-title">Detect</div>
-                <div class="flow-step-desc">Resolution fires when YES price crosses 95% or 5%. One detection per outcome — no duplicate orders.</div>
+                <div class="flow-step-desc">Resolution fires when YES crosses 95% or 5%. One detection per outcome — no duplicate orders.</div>
               </div>
             </div>
             <div class="flow-step">
               <div class="flow-num">3</div>
               <div class="flow-step-content">
                 <div class="flow-step-title">Execute</div>
-                <div class="flow-step-desc">EIP-712 signed market order placed via <code>/exchange</code>. Leverage set, FrontendMarket IOC fills immediately.</div>
+                <div class="flow-step-desc">EIP-712 signed market order via <code>/exchange</code>. Leverage set. FrontendMarket IOC fills immediately.</div>
               </div>
             </div>
           </div>
@@ -828,7 +828,7 @@
           <div class="explainer-num">01 / WHAT</div>
           <div class="explainer-title">Conditional claim</div>
           <div class="explainer-desc">
-            A parametric trigger that links a binary outcome to a contingent perp action. The HIP-4 market provides the signal. The HL order book provides the execution.
+            A rule that links a binary outcome to a perp action. HIP-4 gives the signal. The HL order book gives the execution.
           </div>
           <code class="code-snippet">IF outcome #4751 → YES<br>THEN long BTC 5×</code>
         </div>
@@ -836,7 +836,7 @@
           <div class="explainer-num">02 / WHY</div>
           <div class="explainer-title">Outcome-informed positioning</div>
           <div class="explainer-desc">
-            Binary markets encode probability-weighted information about future price. A conditional trigger lets you act on that signal at the moment of maximum certainty — resolution.
+            Binary markets price future probability. A conditional trigger lets you act on that signal at the moment of maximum certainty — resolution.
           </div>
         </div>
         <div class="explainer-cell">
