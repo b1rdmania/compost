@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>HIP-4 outcome books — Compost</title>
-  <meta name="description" content="Polymarket-style markets on the same L1 as Hyperliquid's perps. Live testnet board, lifecycle mechanics, and how outcome trading sits next to HIP-3 builder perps. No mainnet spec yet.">
+  <title>HIP-4 is live on mainnet — Compost</title>
+  <meta name="description" content="Hyperliquid shipped HIP-4 outcome markets to mainnet on May 2, 2026. Polymarket-style books on the same L1 as the perps, fully collateralized, zero opening fees. Live mainnet data, the mechanics in plain English, and what it opens up.">
 
-  <meta property="og:title" content="HIP-4 outcome books — Compost">
-  <meta property="og:description" content="Hyperliquid's prediction-market primitive in plain view: testnet outcomes, native settlement, and what it opens up.">
+  <meta property="og:title" content="HIP-4 is live on mainnet — Compost">
+  <meta property="og:description" content="Hyperliquid shipped HIP-4 to mainnet on May 2. One market live: a daily BTC binary, fully collateralized, zero opening fees. Live data, mechanics, composability angle.">
   <meta property="og:image" content="https://compost.fi/assets/og-image.png">
   <meta property="og:url" content="https://compost.fi/hip4.html">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@compostfi">
-  <meta name="twitter:title" content="HIP-4 outcome books — Compost">
-  <meta name="twitter:description" content="Hyperliquid's prediction-market primitive in plain view: testnet outcomes, native settlement, and what it opens up.">
+  <meta name="twitter:title" content="HIP-4 is live on mainnet — Compost">
+  <meta name="twitter:description" content="Hyperliquid shipped HIP-4 to mainnet on May 2. One market live: a daily BTC binary. Live mainnet data, mechanics, composability angle.">
   <meta name="twitter:image" content="https://compost.fi/assets/og-image.png">
 
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -158,35 +158,19 @@
       box-shadow: 0 0 18px rgba(77, 207, 106, 0.8);
     }
 
-    .testnet-badge {
+    .mainnet-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       margin-left: 0.5rem;
       padding: 0.32rem 0.65rem;
-      border: 1px solid rgba(245, 185, 76, 0.4);
-      background: var(--testnet-soft);
-      color: var(--testnet);
+      border: 1px solid rgba(77, 207, 106, 0.45);
+      background: rgba(77, 207, 106, 0.1);
+      color: var(--accent-bright);
       font-size: 0.66rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-    }
-
-    .testnet-strip {
-      margin: 0.6rem 0 0;
-      padding: 0.7rem 0.95rem;
-      border: 1px solid rgba(245, 185, 76, 0.28);
-      background: rgba(245, 185, 76, 0.06);
-      color: var(--testnet);
-      font-size: 0.85rem;
-      font-weight: 400;
-      line-height: 1.5;
-    }
-
-    .testnet-strip strong {
-      font-weight: 600;
-      letter-spacing: 0.02em;
     }
 
     .hero-title {
@@ -313,6 +297,93 @@
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 0.9rem;
+    }
+
+    /* Hero compact live market card */
+    .hero-market-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1.1rem 1.15rem 1.2rem;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(77, 207, 106, 0.18);
+    }
+    .hero-market-name {
+      color: var(--text-primary);
+      font-size: 1.12rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+    .hero-market-meta {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      letter-spacing: 0.01em;
+      line-height: 1.5;
+      margin-top: -0.4rem;
+    }
+    .hero-market-meta .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.92em;
+    }
+    .hero-market-prob {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .hero-prob-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .hero-prob-row-no { color: var(--text-secondary); }
+    .hero-prob-label {
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .hero-prob-row-no .hero-prob-label { color: var(--text-muted); }
+    .hero-prob-value {
+      color: var(--text-primary);
+      font-size: 1.55rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-prob-row-no .hero-prob-value { font-size: 1.05rem; color: var(--text-secondary); }
+    .hero-market-card .prob-bar { height: 6px; }
+    .hero-market-tiles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .hero-market-tile {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    .hero-tile-label {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .hero-tile-value {
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-tile-sub {
+      color: var(--text-muted);
+      font-size: 0.76rem;
+      letter-spacing: 0.01em;
     }
 
     .score-card {
@@ -482,7 +553,176 @@
       font-size: 0.9em;
     }
 
-    /* Tables */
+    /* Live market detail */
+    .market-detail {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(77, 207, 106, 0.04), rgba(255, 255, 255, 0.01));
+      padding: 1.6rem 1.7rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .market-detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .market-detail-kicker {
+      color: var(--accent-bright);
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.55rem;
+    }
+    .market-detail-title {
+      font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+    .market-detail-sub {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 52ch;
+    }
+    .market-detail-sub .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.92em;
+      color: var(--text-muted);
+    }
+    .market-detail-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .market-detail-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1.05fr);
+      gap: 1.6rem;
+      align-items: stretch;
+    }
+    .market-detail-prob {
+      padding: 1.15rem 1.2rem;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(77, 207, 106, 0.18);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .market-prob-stack { display: flex; flex-direction: column; gap: 0.6rem; }
+    .market-prob-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    .market-prob-label {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .market-prob-row-no .market-prob-label { color: var(--text-muted); }
+    .market-prob-coin {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      color: var(--text-muted);
+      font-size: 0.78em;
+      letter-spacing: 0;
+      margin-left: 0.35rem;
+      text-transform: none;
+    }
+    .market-prob-pct {
+      color: var(--text-primary);
+      font-size: 2.2rem;
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+    .market-prob-row-no .market-prob-pct {
+      font-size: 1.4rem;
+      color: var(--text-secondary);
+    }
+    .market-detail-prob .prob-bar { height: 8px; }
+    .market-prob-explainer {
+      color: var(--text-muted);
+      font-size: 0.83rem;
+      font-weight: 300;
+      line-height: 1.6;
+      margin-top: 0.4rem;
+      padding-top: 0.85rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .market-detail-tiles {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.7rem;
+    }
+    .market-tile {
+      padding: 0.95rem 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .market-tile-label {
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .market-tile-value {
+      color: var(--text-primary);
+      font-size: 1.05rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      font-variant-numeric: tabular-nums;
+    }
+    .market-tile-sub {
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+    .market-detail-foot {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1.2rem;
+      align-items: center;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    .market-detail-foot strong { color: var(--text-primary); font-weight: 500; }
+
+    @media (max-width: 980px) {
+      .market-detail-grid { grid-template-columns: 1fr; }
+      .market-detail-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .market-detail-foot { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      .market-detail-tiles { grid-template-columns: 1fr; }
+    }
+
+    /* Tables (kept for future market list) */
     .table-shell {
       overflow-x: auto;
       border: 1px solid var(--border);
@@ -1109,7 +1349,7 @@
 
       .btn { width: 100%; }
 
-      .testnet-badge { margin-left: 0; margin-top: 0.5rem; }
+      .mainnet-badge { margin-left: 0; margin-top: 0.5rem; }
     }
   </style>
 </head>
@@ -1140,69 +1380,75 @@
         <div class="reveal">
           <div class="eyebrow">
             <span class="eyebrow-dot"></span>
-            <span>HIP-4 · Outcome Trading</span>
+            <span id="hero-day-counter">Mainnet · Live since May 2, 2026</span>
           </div>
-          <h1 class="hero-title">HIP-4 outcome books. <span class="testnet-badge">Testnet</span></h1>
+          <h1 class="hero-title">HIP-4 is live on mainnet. <span class="mainnet-badge">Mainnet</span></h1>
           <p class="hero-subtitle">
-            Polymarket-style markets on the same L1 as Hyperliquid's perps. Fully collateralized,
-            settled in a single block by the protocol — not a separate venue, not an oracle round-trip.
-            Live on testnet. No mainnet spec yet.
+            On May 2, 2026 Hyperliquid shipped HIP-4 — Polymarket-style outcome books on the same L1 as the perps.
+            Fully collateralized, zero opening fees, settled by the protocol in a single block.
+            One market live so far: a daily BTC binary, validating the primitive before the surface widens.
           </p>
           <div class="hero-actions">
-            <a href="#testnet-board" class="btn btn-primary">Jump to markets</a>
-            <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener" class="btn btn-secondary">Full research ↗</a>
+            <a href="#how-it-works" class="btn btn-primary">How it works</a>
+            <a href="#live-market" class="btn btn-secondary">See the live market ↓</a>
           </div>
         </div>
 
         <aside class="hero-panel reveal">
           <div class="panel-header">
-            <div class="panel-label">Testnet Snapshot</div>
+            <div class="panel-label">Live Market · Mainnet</div>
             <div class="live-status" id="live-status">
               <span class="live-dot" id="live-dot"></span>
               <span class="live-status-text" id="live-status-text">Connecting…</span>
             </div>
           </div>
-          <div class="scoreboard">
-            <div class="score-card">
-              <div class="score-label">Outcomes</div>
-              <div class="score-value" id="stat-outcomes">—</div>
-              <div class="score-context">Tradeable outcome contracts in the testnet registry.</div>
+          <div class="hero-market-card" id="hero-market-card">
+            <div class="hero-market-name" id="hero-market-name">Loading market…</div>
+            <div class="hero-market-meta" id="hero-market-meta">Fetching from <span class="mono">api.hyperliquid.xyz</span></div>
+            <div class="hero-market-prob">
+              <div class="hero-prob-row">
+                <span class="hero-prob-label">YES</span>
+                <span class="hero-prob-value" id="hero-yes-pct">—</span>
+              </div>
+              <div class="prob-bar"><div class="prob-bar-fill" id="hero-prob-fill" style="width:0%"></div></div>
+              <div class="hero-prob-row hero-prob-row-no">
+                <span class="hero-prob-label">NO</span>
+                <span class="hero-prob-value" id="hero-no-pct">—</span>
+              </div>
             </div>
-            <div class="score-card">
-              <div class="score-label">Questions</div>
-              <div class="score-value" id="stat-questions">—</div>
-              <div class="score-context">Multi-outcome question groups. Each spans several outcomes.</div>
-            </div>
-            <div class="score-card">
-              <div class="score-label">With live volume</div>
-              <div class="score-value" id="stat-with-volume">—</div>
-              <div class="score-context">Outcomes with non-zero 24h notional on the # spot books.</div>
-            </div>
-            <div class="score-card">
-              <div class="score-label">24h testnet vol</div>
-              <div class="score-value" id="stat-volume">—</div>
-              <div class="score-context">Sum of YES + NO leg volume across every outcome (USDH).</div>
+            <div class="hero-market-tiles">
+              <div class="hero-market-tile">
+                <div class="hero-tile-label">Resolves</div>
+                <div class="hero-tile-value" id="hero-resolves">—</div>
+                <div class="hero-tile-sub" id="hero-resolves-relative">—</div>
+              </div>
+              <div class="hero-market-tile">
+                <div class="hero-tile-label">24h volume</div>
+                <div class="hero-tile-value" id="hero-volume">—</div>
+                <div class="hero-tile-sub">USDH notional</div>
+              </div>
             </div>
           </div>
           <div class="panel-source" id="panel-source">
-            Pulled direct from Hyperliquid's public testnet <strong>outcomeMeta</strong> and
-            <strong>spotMetaAndAssetCtxs</strong> endpoints. Refreshes every sixty seconds.
+            Pulled live from Hyperliquid's public <strong>outcomeMeta</strong> +
+            <strong>l2Book</strong> endpoints on mainnet. Refreshes every sixty seconds.
           </div>
           <button type="button" class="panel-retry" id="panel-retry" hidden>Retry now</button>
         </aside>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="how-it-works">
       <div class="container">
         <div class="section-header reveal">
           <div>
             <div class="section-kicker">How HIP-4 Works</div>
-            <h2 class="section-title">Three phases, all on L1, no off-chain matching.</h2>
+            <h2 class="section-title">Three phases. All on L1. No off-chain matching.</h2>
           </div>
           <div class="section-copy">
-            HIP-4 markets share HyperCore's CLOB, matching engine, and account system with spot and perps. Pair
-            minting keeps YES + NO priced to exactly 1.00 — so the YES mark is the implied probability.
+            HIP-4 outcome books share HyperCore's CLOB, matching engine, and account system with spot and perps.
+            Pair minting keeps YES + NO priced to exactly 1.00 — so the YES price reads directly as the implied
+            probability.
           </div>
         </div>
 
@@ -1211,9 +1457,9 @@
             <div class="lifecycle-step"><span class="lifecycle-step-num">1</span> Create</div>
             <h3 class="lifecycle-title">A YES/NO pair is minted on L1.</h3>
             <p class="lifecycle-body">
-              An operator calls <span class="lifecycle-tag">registerTokensAndStandaloneOutcome</span> on
-              HyperCore. Two #-prefixed spot tokens are minted — one per side — opening near 50/50 unless
-              seeded.
+              The operator registers a new outcome on HyperCore. Two #-prefixed spot tokens are minted —
+              one per side. New markets open with a 15-minute call auction so price discovery isn't gamed
+              by the first trade.
             </p>
             <span class="lifecycle-tag">YES = #(id × 10) · NO = #(id × 10 + 1)</span>
           </article>
@@ -1223,97 +1469,127 @@
             <h3 class="lifecycle-title">Either leg trades on the standard CLOB.</h3>
             <p class="lifecycle-body">
               Pair minting mirrors the books — a buy on YES at 0.40 reflects an ask on NO at 0.60.
-              Collateral locks until settlement; no leverage, no liquidation path, no funding to pay.
+              Collateral locks until settlement. No leverage, no liquidation, no funding to pay. And
+              <strong>zero fees on the way in</strong> — fees only get charged at settlement.
             </p>
             <span class="lifecycle-tag">YES + NO = 1.00 USDH</span>
           </article>
 
           <article class="lifecycle-card reveal">
             <div class="lifecycle-step"><span class="lifecycle-step-num">3</span> Settle</div>
-            <h3 class="lifecycle-title">One block, no claim, no dispute.</h3>
+            <h3 class="lifecycle-title">One block. No claim. No dispute.</h3>
             <p class="lifecycle-body">
-              At expiry an operator submits <span class="lifecycle-tag">VoteGlobalAction</span> with a
-              settle fraction of 0 or 1. Every position resolves in a single L1 block — winner credited
-              1.00 per token, loser zero.
+              At expiry the protocol settles the outcome to 0 or 1 in a single L1 block. The launch market
+              uses Hyperliquid's own BTC mark price — the same feed already settling billions in perps —
+              so there's no external oracle to wait on.
             </p>
             <span class="lifecycle-tag">Protocol-driven settlement</span>
           </article>
         </div>
 
         <div class="lifecycle-note reveal">
-          <strong>The YES mark is the implied probability.</strong> Pair minting forces YES + NO to 1.00,
+          <strong>The YES price is the implied probability.</strong> Pair minting forces YES + NO to 1.00,
           so the YES price reads directly as the book's belief — no oracle, no inference. A YES at
-          <span class="mono">0.65</span> means the market is pricing 65%.
+          <span class="mono">0.43</span> means the market is pricing a 43% chance.
           <br><br>
-          Three shapes are live on testnet: <strong>Custom</strong> (named questions — who wins the race),
-          <strong>priceBinary</strong> (above/below a strike at expiry), and <strong>Recurring</strong>
-          (auto-respawned priceBinaries every 15m, 1h, or 1d). All three trade as ordinary # spot pairs
-          once minted.
+          The mainnet release is intentionally narrow: one recurring binary, settling daily to BTC mark, no
+          external oracle dependency. <strong>Range outcomes, bounded options-style instruments, and
+          event-based contracts</strong> are in the spec but rolling out in stages.
         </div>
       </div>
     </section>
 
-    <section class="section" id="testnet-board">
+    <section class="section" id="live-market">
       <div class="container">
         <div class="section-header reveal">
           <div>
-            <div class="section-kicker">Testnet Outcomes</div>
-            <h2 class="section-title">Every outcome registered on testnet.</h2>
+            <div class="section-kicker">Live Mainnet Market</div>
+            <h2 class="section-title">The first HIP-4 contract, in detail.</h2>
           </div>
           <div class="section-copy">
-            Pulled live from <strong>outcomeMeta</strong> and joined to <strong>spotMetaAndAssetCtxs</strong> for
-            implied probability and 24h volume. Filter by ticker, question, or outcome shape.
+            One market is live on mainnet — a recurring binary on Hyperliquid's BTC mark price, settling daily
+            at 06:00 UTC. The numbers below are pulled straight from the public mainnet API and refresh every
+            sixty seconds.
           </div>
         </div>
 
-        <div class="market-filter-bar reveal" id="outcome-filter-bar">
-          <input
-            type="search"
-            id="outcome-filter-input"
-            class="filter-input"
-            placeholder="Filter by question, asset, or outcome ID…"
-            autocomplete="off"
-            spellcheck="false"
-          >
-          <div class="filter-toggles" role="tablist" aria-label="Outcome filters">
-            <button type="button" class="filter-chip is-active" data-filter-mode="all">All</button>
-            <button type="button" class="filter-chip" data-filter-mode="volume">With volume</button>
-            <button type="button" class="filter-chip" data-filter-mode="binary">Price binary</button>
-            <button type="button" class="filter-chip" data-filter-mode="recurring">Recurring</button>
-            <button type="button" class="filter-chip" data-filter-mode="custom">Custom</button>
+        <div class="market-detail reveal" id="market-detail">
+          <div class="market-detail-header">
+            <div>
+              <div class="market-detail-kicker" id="market-kicker">Recurring · Daily BTC binary · Outcome #—</div>
+              <h3 class="market-detail-title" id="market-title">Loading market…</h3>
+              <p class="market-detail-sub" id="market-sub">Fetching outcomeMeta from <span class="mono">api.hyperliquid.xyz</span>…</p>
+            </div>
+            <div class="market-detail-status">
+              <span class="live-dot is-live"></span>
+              <span id="market-detail-relative">live</span>
+            </div>
           </div>
-          <div class="filter-count" id="outcome-filter-count"><strong>—</strong> outcomes</div>
-        </div>
 
-        <div class="table-shell is-scrollable reveal">
-          <table class="table" id="outcome-table">
-            <thead>
-              <tr>
-                <th class="is-sortable" data-sort="name">Outcome</th>
-                <th class="is-sortable" data-sort="type">Type</th>
-                <th class="is-sortable sort-desc" data-sort="prob">YES</th>
-                <th class="is-sortable" data-sort="probNo">NO</th>
-                <th class="is-sortable" data-sort="dayVolume">24h Volume</th>
-                <th class="is-sortable" data-sort="resolves">Resolves</th>
-                <th class="is-sortable" data-sort="outcomeId">ID</th>
-              </tr>
-            </thead>
-            <tbody id="outcome-table-body">
-              <tr>
-                <td><strong>Loading…</strong></td>
-                <td class="table-muted">—</td>
-                <td class="table-muted">—</td>
-                <td class="table-muted">—</td>
-                <td class="table-muted">—</td>
-                <td class="table-muted">—</td>
-                <td class="table-muted">Loading outcomes from Hyperliquid testnet.</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="market-detail-grid">
+            <div class="market-detail-prob">
+              <div class="market-prob-stack">
+                <div class="market-prob-row">
+                  <span class="market-prob-label">YES <span class="market-prob-coin" id="market-yes-coin">#—</span></span>
+                  <span class="market-prob-pct" id="market-yes-pct">—</span>
+                </div>
+                <div class="prob-bar"><div class="prob-bar-fill" id="market-prob-fill" style="width:0%"></div></div>
+                <div class="market-prob-row market-prob-row-no">
+                  <span class="market-prob-label">NO <span class="market-prob-coin" id="market-no-coin">#—</span></span>
+                  <span class="market-prob-pct" id="market-no-pct">—</span>
+                </div>
+                <p class="market-prob-explainer">
+                  Mid prices off the YES + NO order books. YES + NO sums to ~1.00 USDH by construction, so
+                  the YES mid is the market's implied probability.
+                </p>
+              </div>
+            </div>
+
+            <div class="market-detail-tiles">
+              <div class="market-tile">
+                <div class="market-tile-label">Strike</div>
+                <div class="market-tile-value" id="market-strike">—</div>
+                <div class="market-tile-sub">YES pays 1 if BTC ≥ strike at expiry</div>
+              </div>
+              <div class="market-tile">
+                <div class="market-tile-label">BTC mark</div>
+                <div class="market-tile-value" id="market-btc">—</div>
+                <div class="market-tile-sub" id="market-btc-delta">vs strike: —</div>
+              </div>
+              <div class="market-tile">
+                <div class="market-tile-label">Resolves</div>
+                <div class="market-tile-value" id="market-resolves">—</div>
+                <div class="market-tile-sub" id="market-resolves-relative">—</div>
+              </div>
+              <div class="market-tile">
+                <div class="market-tile-label">24h volume</div>
+                <div class="market-tile-value" id="market-volume">—</div>
+                <div class="market-tile-sub">YES + NO notional, USDH</div>
+              </div>
+              <div class="market-tile">
+                <div class="market-tile-label">YES + NO mid</div>
+                <div class="market-tile-value" id="market-spread">—</div>
+                <div class="market-tile-sub" id="market-spread-sub">distance from $1.00 fair</div>
+              </div>
+              <div class="market-tile">
+                <div class="market-tile-label">Settlement</div>
+                <div class="market-tile-value">Mark feed</div>
+                <div class="market-tile-sub">Hyperliquid BTC perp mark · 06:00 UTC</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="market-detail-foot">
+            <div>
+              <strong>Why one market?</strong> Hyperliquid is shipping HIP-4 the same way it shipped HIP-3 —
+              ship narrow, prove it under real volume, then widen. Range outcomes, bounded options-style
+              instruments, and event-based markets are in the spec; this is the validation phase.
+            </div>
+            <div class="market-detail-trade">
+              <a href="https://app.hyperliquid.xyz/trade" target="_blank" rel="noopener" class="btn btn-secondary">Trade on Hyperliquid ↗</a>
+            </div>
+          </div>
         </div>
-        <p class="hint-row" style="color: var(--text-muted); font-size: 0.82rem; margin-top: 0.6rem; letter-spacing: 0.01em;">
-          Click any row for the full per-side breakdown (coin IDs, mark/mid prices, side volume, raw description).
-        </p>
       </div>
     </section>
 
@@ -1349,7 +1625,7 @@
               </tr>
               <tr>
                 <th scope="row">Settlement</th>
-                <td class="compare-hl">Auto via <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">VoteGlobalAction</span>, instant</td>
+                <td class="compare-hl">Protocol-driven, single L1 block</td>
                 <td>UMA optimistic oracle, dispute window</td>
                 <td>Platform confirms</td>
               </tr>
@@ -1384,10 +1660,10 @@
                 <td>None</td>
               </tr>
               <tr>
-                <th scope="row">Cost</th>
-                <td class="compare-hl">Near-zero gas</td>
-                <td>Polygon gas + venue fee</td>
-                <td>Platform fees</td>
+                <th scope="row">Trading fees</th>
+                <td class="compare-hl">Zero on opening, charged at settlement</td>
+                <td>Up to 2% taken from winners</td>
+                <td>Platform fees on volume</td>
               </tr>
               <tr>
                 <th scope="row">Regulation</th>
@@ -1411,7 +1687,7 @@
           <div class="section-copy">
             Compost is an early project around HIP-3. HIP-4 runs on the same engine, producing a different shape —
             and the interesting part isn't the LP mechanics alone. It's what composability across primitives
-            makes possible.
+            makes possible now that both are on mainnet.
           </div>
         </div>
 
@@ -1422,7 +1698,7 @@
             <p class="angle-body">
               A maker holding balanced YES and NO of a fairly-priced outcome doesn't care which way it resolves —
               every pair pays 1.00 USDH at settlement. They keep the spread, inventory is bounded by definition,
-              no funding to pay, no liquidation to dodge.
+              no funding to pay, no liquidation to dodge. Zero opening fees mean rebalancing isn't a tax.
             </p>
             <div class="angle-foot">e.g. delta-neutral two-sided quoting</div>
           </article>
@@ -1431,31 +1707,31 @@
             <span class="angle-tag">Recurring premium</span>
             <h3 class="angle-title">Systematic short-vol, on-chain.</h3>
             <p class="angle-body">
-              Recurring priceBinaries — auto-respawned BTC / ETH binaries every 15 minutes, hour, or day — are
-              mechanically a stream of cash-secured short options. Premium strategies from CME or Deribit carry
-              over directly, but with deterministic L1 settlement in place of a clearinghouse.
+              The first mainnet market is exactly this shape — a daily BTC binary, auto-respawned. Mechanically
+              it's a stream of cash-secured short options on BTC mark. Premium strategies from CME or Deribit
+              translate directly, with L1 settlement instead of a clearinghouse and zero fees on entry.
             </p>
-            <div class="angle-foot">e.g. weekly BTC&gt;$X programmatic underwriting</div>
+            <div class="angle-foot">e.g. systematic BTC binary underwriting</div>
           </article>
 
           <article class="angle-card reveal">
             <span class="angle-tag">Unified margin</span>
             <h3 class="angle-title">Hedges that span perps and outcome books.</h3>
             <p class="angle-body">
-              HyperCore is one account system. If outcome books share margin with perps on mainnet — as the
-              testnet design suggests — a perp vault can carry tail-risk insurance directly in outcome books, and
-              an outcome-LP strategy can hedge directional drift in spot. You can't stitch that together from
-              separate venues.
+              HyperCore is one account system. Outcome positions and perp positions share collateral pools — a
+              perp vault can carry tail-risk insurance directly in outcome books, and an outcome-LP strategy
+              can hedge directional drift in spot. Prime-brokerage capital efficiency, no separate venues to
+              stitch together.
             </p>
             <div class="angle-foot">e.g. cross-primitive hedge construction</div>
           </article>
         </div>
 
         <div class="lifecycle-note reveal" style="margin-top: 2rem;">
-          <strong>None of this is shipped.</strong> HIP-4 is testnet-only. The spec hasn't been published. There
-          is no live Compost vault. We're tracking it openly because the same primitive that makes HIP-3
-          interesting makes HIP-4 interesting too — and the unified-margin angle only really works if capital is
-          there on day one of mainnet.
+          <strong>Not shipped on Compost.</strong> Compost is an early HIP-3 project; there's no live HIP-4
+          vault here. We're writing it up because the primitive that makes HIP-3 interesting makes HIP-4
+          interesting too, and the unified-margin angle only works if capital is there as Hyperliquid widens
+          the surface beyond the launch market.
         </div>
       </div>
     </section>
@@ -1468,30 +1744,32 @@
             <h2 class="section-title">Where the numbers and mechanics come from.</h2>
           </div>
           <div class="section-copy">
-            HIP-4 has no official spec yet. The mechanics on this page are reverse-engineered from on-chain
-            transactions and the HyperCore API. Credit to the public researchers who did the work.
+            HIP-4 launched on mainnet on May 2, 2026. The mechanics on this page come from Hyperliquid's
+            official docs and the public mainnet API. Credit to the researchers who covered the testnet
+            in the months before launch.
           </div>
         </div>
 
         <div class="sources-list">
           <article class="source-card reveal">
-            <div class="source-label">Primary research</div>
-            <h3>Liquid Terminal · HIP-4 docs</h3>
+            <div class="source-label">Official spec</div>
+            <h3>Hyperliquid · HIP-4 docs</h3>
             <p>
-              The most thorough public reverse-engineering of HIP-4 — lifecycle, info endpoint, pair minting,
-              system-wallet trace, and a clean industry comparison.
-              <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener">liquidterminal.xyz/hip4/home ↗</a>
+              Contract specifications, recurring outcome rules, and the asset ID encoding (
+              <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">10 × outcome + side</span>
+              ) used to derive the # trade coins.
+              <a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-4-outcome-markets" target="_blank" rel="noopener">Official HIP-4 docs ↗</a>
             </p>
           </article>
 
           <article class="source-card reveal">
             <div class="source-label">Live data</div>
-            <h3>Hyperliquid testnet API</h3>
+            <h3>Hyperliquid mainnet API</h3>
             <p>
-              <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">POST api.hyperliquid-testnet.xyz/info</span>
-              with <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">outcomeMeta</span>
-              and <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">spotMetaAndAssetCtxs</span>.
-              <a href="https://hyperliquid.gitbook.io/hyperliquid-docs" target="_blank" rel="noopener">Official docs ↗</a>
+              <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">POST api.hyperliquid.xyz/info</span>
+              with <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">outcomeMeta</span>,
+              per-coin <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">l2Book</span>,
+              and <span class="mono" style="font-family:ui-monospace,Menlo,monospace;font-size:0.92em;">candleSnapshot</span>.
             </p>
           </article>
 
@@ -1513,10 +1791,9 @@
       <div class="reveal">
         <h2 class="footer-title">Same engine, new shape.</h2>
         <p class="footer-note">
-          Compost is an early project around HIP-3. HIP-4 sits on the same HyperCore, with the same pair-minting
-          and CLOB plumbing — just settling to 0 or 1 instead of running forever. Tracked openly. Full
-          reverse-engineering credit to
-          <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener">Liquid Terminal</a>.
+          Compost is an early project around HIP-3. HIP-4 sits on the same HyperCore — same pair-minting, same
+          CLOB, same unified margin — just settling to 0 or 1 instead of running forever. One market live as of
+          May 2, 2026; tracked openly as the surface widens.
         </p>
       </div>
 
@@ -1536,22 +1813,22 @@
 
     document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
 
-    const API_URL = 'https://api.hyperliquid-testnet.xyz/info';
+    const API_URL = 'https://api.hyperliquid.xyz/info';
     const REFRESH_INTERVAL_MS = 60_000;
     const RELATIVE_TICK_MS = 1_000;
+    const LAUNCH_DATE = new Date('2026-05-02T00:00:00Z');
 
     const state = {
       outcomes: [],
       questions: [],
-      ctxByCoin: new Map(),
-      questionByOutcomeId: new Map(),
+      pricesByCoin: new Map(),
+      volumesByCoin: new Map(),
+      btcCtx: null,
       lastUpdated: null,
-      sort: { key: "prob", dir: "desc" },
-      filter: { search: "", mode: "all" },
-      openOutcomeIds: new Set(),
       inflight: false,
       refreshTimer: null,
-      relativeTimer: null
+      relativeTimer: null,
+      primary: null
     };
 
     async function postInfo(body) {
@@ -1658,450 +1935,327 @@
       const delta = ms - Date.now();
       const past = delta < 0;
       const abs = Math.abs(delta);
-      const m = Math.floor(abs / 60000);
-      const h = Math.floor(abs / 3600000);
+      const m = Math.floor((abs % 3600000) / 60000);
+      const h = Math.floor((abs % 86400000) / 3600000);
       const d = Math.floor(abs / 86400000);
-      const label = d >= 1 ? `${d}d` : (h >= 1 ? `${h}h` : `${m}m`);
+      let label;
+      if (d >= 1) label = `${d}d ${h}h`;
+      else if (h >= 1) label = `${h}h ${m}m`;
+      else label = `${m}m`;
       return past ? `${label} ago` : `in ${label}`;
     }
 
-    function buildOutcomeRows() {
-      return state.outcomes.map((outcome) => {
-        const classification = classifyOutcome(outcome);
-        const sideSpecs = outcome.sideSpecs || [];
-        const sides = sideSpecs.map((spec, index) => {
-          const coin = `#${outcome.outcome * 10 + index}`;
-          const ctx = state.ctxByCoin.get(coin) || null;
-          const markPx = ctx ? Number(ctx.markPx) : null;
-          const midPx = ctx ? Number(ctx.midPx) : null;
-          const dayNtlVlm = ctx ? Number(ctx.dayNtlVlm) : 0;
-          const openInterest = ctx && ctx.openInterest != null ? Number(ctx.openInterest) : null;
-          const prevDayPx = ctx && ctx.prevDayPx != null ? Number(ctx.prevDayPx) : null;
-          return {
-            name: spec?.name || `Side ${index + 1}`,
-            coin,
-            markPx: Number.isFinite(markPx) ? markPx : null,
-            midPx: Number.isFinite(midPx) ? midPx : null,
-            dayVolume: Number.isFinite(dayNtlVlm) ? dayNtlVlm : 0,
-            openInterest: Number.isFinite(openInterest) ? openInterest : null,
-            prevDayPx: Number.isFinite(prevDayPx) ? prevDayPx : null
-          };
-        });
+    function daysSinceLaunch() {
+      const ms = Date.now() - LAUNCH_DATE.getTime();
+      return Math.max(1, Math.floor(ms / 86400000) + 1);
+    }
 
-        const dayVolume = sides.reduce((sum, side) => sum + (side.dayVolume || 0), 0);
-        const yesSide = sides.find((side) => side.name.toLowerCase() === "yes") || sides[0];
-        const noSide = sides.find((side) => side.name.toLowerCase() === "no") || (sides.length === 2 ? sides[1] : null);
+    function midOfBook(book) {
+      if (!book || !Array.isArray(book.levels) || book.levels.length < 2) return null;
+      const bids = book.levels[0];
+      const asks = book.levels[1];
+      const bestBid = bids?.[0]?.px ? Number(bids[0].px) : null;
+      const bestAsk = asks?.[0]?.px ? Number(asks[0].px) : null;
+      if (Number.isFinite(bestBid) && Number.isFinite(bestAsk)) return (bestBid + bestAsk) / 2;
+      if (Number.isFinite(bestBid)) return bestBid;
+      if (Number.isFinite(bestAsk)) return bestAsk;
+      return null;
+    }
 
-        function priceOf(side) {
-          if (!side) return null;
-          if (Number.isFinite(side.markPx)) return side.markPx;
-          if (Number.isFinite(side.midPx)) return side.midPx;
-          return null;
-        }
-        const yesProb = priceOf(yesSide);
-        const noProb = priceOf(noSide);
-        const spread = (Number.isFinite(yesProb) && Number.isFinite(noProb))
-          ? (yesProb + noProb)
-          : null;
+    function sumCandleVolume(candles) {
+      if (!Array.isArray(candles)) return 0;
+      const cutoff = Date.now() - 86400000;
+      return candles.reduce((sum, c) => {
+        const ts = Number(c?.t);
+        if (!Number.isFinite(ts) || ts < cutoff) return sum;
+        const close = Number(c?.c);
+        const baseVol = Number(c?.v);
+        if (!Number.isFinite(close) || !Number.isFinite(baseVol)) return sum;
+        return sum + close * baseVol;
+      }, 0);
+    }
 
-        const question = state.questionByOutcomeId.get(outcome.outcome) || null;
-
-        const expiryRaw = classification.parsed?.expiry || null;
-        const expiryFormatted = expiryRaw ? formatExpiry(expiryRaw) : null;
-        const expiryMs = expiryRaw ? expiryToMs(expiryRaw) : null;
-        const period = classification.parsed?.period || null;
-
-        let resolvesSort = Number.POSITIVE_INFINITY;
-        if (Number.isFinite(expiryMs)) resolvesSort = expiryMs;
-        else if (period) resolvesSort = Date.now() + 1e15;
-
+    function buildOutcomeRow(outcome) {
+      const classification = classifyOutcome(outcome);
+      const sideSpecs = outcome.sideSpecs || [];
+      const sides = sideSpecs.map((spec, index) => {
+        const coin = `#${outcome.outcome * 10 + index}`;
+        const mid = state.pricesByCoin.get(coin) ?? null;
+        const dayVolume = state.volumesByCoin.get(coin) ?? 0;
         return {
-          outcomeId: outcome.outcome,
-          name: outcome.name || "(unnamed outcome)",
-          description: outcome.description || "",
-          type: classification.type,
-          parsed: classification.parsed,
-          sides,
-          dayVolume,
-          prob: yesProb,
-          probNo: noProb,
-          spread,
-          question,
-          expiryRaw,
-          expiryFormatted,
-          expiryMs,
-          period,
-          resolvesSort
+          name: spec?.name || `Side ${index + 1}`,
+          coin,
+          midPx: Number.isFinite(mid) ? mid : null,
+          dayVolume
         };
       });
+
+      const dayVolume = sides.reduce((sum, side) => sum + (side.dayVolume || 0), 0);
+      const yesSide = sides.find((side) => side.name.toLowerCase() === "yes") || sides[0];
+      const noSide = sides.find((side) => side.name.toLowerCase() === "no") || (sides.length === 2 ? sides[1] : null);
+
+      const yesProb = yesSide?.midPx ?? null;
+      let noProb = noSide?.midPx ?? null;
+      if (!Number.isFinite(noProb) && Number.isFinite(yesProb)) noProb = 1 - yesProb;
+
+      const spread = (Number.isFinite(yesSide?.midPx) && Number.isFinite(noSide?.midPx))
+        ? (yesSide.midPx + noSide.midPx)
+        : null;
+
+      const expiryRaw = classification.parsed?.expiry || null;
+      const expiryFormatted = expiryRaw ? formatExpiry(expiryRaw) : null;
+      const expiryMs = expiryRaw ? expiryToMs(expiryRaw) : null;
+      const period = classification.parsed?.period || null;
+      const targetPriceRaw = classification.parsed?.targetPrice || null;
+      const targetPrice = targetPriceRaw != null ? Number(targetPriceRaw) : null;
+      const underlying = classification.parsed?.underlying || null;
+
+      return {
+        outcomeId: outcome.outcome,
+        name: outcome.name || "(unnamed outcome)",
+        description: outcome.description || "",
+        type: classification.type,
+        parsed: classification.parsed,
+        sides,
+        yesSide,
+        noSide,
+        dayVolume,
+        prob: yesProb,
+        probNo: noProb,
+        spread,
+        expiryRaw,
+        expiryFormatted,
+        expiryMs,
+        period,
+        targetPrice,
+        underlying
+      };
     }
 
-    function applyFilter(rows, filter) {
-      const search = (filter.search || "").trim().toLowerCase();
-      return rows.filter((row) => {
-        if (filter.mode === "volume" && !(row.dayVolume > 0)) return false;
-        if (filter.mode === "binary" && row.type !== "binary") return false;
-        if (filter.mode === "recurring" && row.type !== "recurring") return false;
-        if (filter.mode === "custom" && row.type !== "custom") return false;
-        if (!search) return true;
-        const haystack = [
-          row.name,
-          row.description,
-          row.question?.name || "",
-          String(row.outcomeId),
-          row.parsed?.underlying || "",
-          ...row.sides.map((s) => `${s.name} ${s.coin}`)
-        ].join(" ").toLowerCase();
-        return haystack.includes(search);
-      });
+    function fmtUsdPrice(value) {
+      if (!Number.isFinite(value)) return "—";
+      return `$${new Intl.NumberFormat("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(value)}`;
     }
 
-    const SORT_ACCESSORS = {
-      name: (row) => (row.name || "").toLowerCase(),
-      type: (row) => row.type,
-      prob: (row) => Number.isFinite(row.prob) ? row.prob : -1,
-      probNo: (row) => Number.isFinite(row.probNo) ? row.probNo : -1,
-      dayVolume: (row) => row.dayVolume,
-      resolves: (row) => row.resolvesSort,
-      outcomeId: (row) => row.outcomeId
-    };
-
-    function sortRows(rows, sort) {
-      const accessor = SORT_ACCESSORS[sort.key] || SORT_ACCESSORS.prob;
-      const direction = sort.dir === "asc" ? 1 : -1;
-      return [...rows].sort((a, b) => {
-        const av = accessor(a);
-        const bv = accessor(b);
-        if (typeof av === "string" && typeof bv === "string") {
-          return av.localeCompare(bv) * direction;
-        }
-        const an = (av ?? 0);
-        const bn = (bv ?? 0);
-        if (an === bn) return 0;
-        return (an - bn) * direction;
-      });
+    function deltaLabel(btc, strike) {
+      if (!Number.isFinite(btc) || !Number.isFinite(strike)) return "vs strike: —";
+      const delta = btc - strike;
+      const sign = delta >= 0 ? "+" : "−";
+      const pct = strike !== 0 ? (delta / strike) * 100 : 0;
+      return `${sign}${fmtUsdPrice(Math.abs(delta))} (${sign}${Math.abs(pct).toFixed(2)}%)`;
     }
 
-    function escapeHtml(value) {
-      if (value === null || value === undefined) return "";
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-    }
+    function renderHeroPanel(row) {
+      const nameEl = document.getElementById("hero-market-name");
+      const metaEl = document.getElementById("hero-market-meta");
+      const yesEl = document.getElementById("hero-yes-pct");
+      const noEl = document.getElementById("hero-no-pct");
+      const fillEl = document.getElementById("hero-prob-fill");
+      const resolvesEl = document.getElementById("hero-resolves");
+      const resolvesRelEl = document.getElementById("hero-resolves-relative");
+      const volEl = document.getElementById("hero-volume");
+      const dayCounter = document.getElementById("hero-day-counter");
 
-    function probCell(row) {
-      if (!Number.isFinite(row.prob)) {
-        return '<span class="table-muted">—</span>';
-      }
-      const pct = Math.max(0, Math.min(1, row.prob));
-      return `
-        <div class="prob-cell">
-          <div class="prob-value">${(pct * 100).toFixed(1)}%</div>
-          <div class="prob-bar"><div class="prob-bar-fill" style="width:${(pct * 100).toFixed(2)}%"></div></div>
-        </div>
-      `;
-    }
+      if (dayCounter) dayCounter.textContent = `Mainnet · Day ${daysSinceLaunch()} · Live since May 2, 2026`;
 
-    function probNoCell(row) {
-      if (!Number.isFinite(row.probNo)) return '<span class="table-muted">—</span>';
-      const pct = Math.max(0, Math.min(1, row.probNo));
-      return `<span class="prob-no">${(pct * 100).toFixed(1)}%</span>`;
-    }
-
-    function resolvesCell(row) {
-      if (row.expiryFormatted) {
-        const rel = Number.isFinite(row.expiryMs) ? fmtRelativeFuture(row.expiryMs) : null;
-        const relHtml = rel ? `<span class="resolves-relative">${escapeHtml(rel)}</span>` : "";
-        return `<div class="resolves-cell"><span class="resolves-when">${escapeHtml(row.expiryFormatted)}</span>${relHtml}</div>`;
-      }
-      if (row.period) {
-        return `<div class="resolves-cell"><span class="resolves-period">every ${escapeHtml(row.period)}</span><span class="resolves-relative">recurring</span></div>`;
-      }
-      if (row.question) {
-        return `<div class="resolves-cell"><span class="resolves-when table-muted" style="color: var(--text-secondary); font-size:0.85rem;">${escapeHtml(row.question.name)}</span><span class="resolves-relative">parent question</span></div>`;
-      }
-      return '<span class="table-muted">—</span>';
-    }
-
-    function fmtPriceCell(value) {
-      if (!Number.isFinite(value)) return '<span class="table-muted">—</span>';
-      return `${value.toFixed(4)}`;
-    }
-
-    function detailsRow(row) {
-      const sidesRows = row.sides.map((side) => {
-        const probStr = Number.isFinite(side.markPx) ? `${(side.markPx * 100).toFixed(2)}%` : "—";
-        return `
-          <tr>
-            <td class="side-name">${escapeHtml(side.name)}</td>
-            <td class="side-coin">${escapeHtml(side.coin)}</td>
-            <td>${fmtPriceCell(side.markPx)}</td>
-            <td>${fmtPriceCell(side.midPx)}</td>
-            <td>${probStr}</td>
-            <td>${side.dayVolume > 0 ? fmtUsdShort(side.dayVolume) : '<span class="table-muted">—</span>'}</td>
-            <td>${Number.isFinite(side.openInterest) && side.openInterest > 0 ? fmtUsdShort(side.openInterest) : '<span class="table-muted">—</span>'}</td>
-          </tr>
-        `;
-      }).join("");
-
-      const spreadHtml = Number.isFinite(row.spread)
-        ? `${row.spread.toFixed(4)} <span class="table-muted">(${(row.spread * 100).toFixed(2)}% of $1.00; ${row.spread > 1 ? "+" : ""}${((row.spread - 1) * 100).toFixed(2)}pp from fair)</span>`
-        : '<span class="table-muted">—</span>';
-
-      const settlementBits = [];
-      if (row.parsed?.class) settlementBits.push(`<dt>Class</dt><dd>${escapeHtml(row.parsed.class)}</dd>`);
-      if (row.parsed?.underlying) settlementBits.push(`<dt>Underlying</dt><dd>${escapeHtml(row.parsed.underlying)}</dd>`);
-      if (row.parsed?.targetPrice) {
-        const tp = Number(row.parsed.targetPrice);
-        settlementBits.push(`<dt>Strike</dt><dd>${Number.isFinite(tp) ? `$${fmtInt(tp)}` : escapeHtml(row.parsed.targetPrice)}</dd>`);
-      }
-      if (row.parsed?.direction) settlementBits.push(`<dt>Direction</dt><dd>${escapeHtml(row.parsed.direction)}</dd>`);
-      if (row.expiryFormatted) settlementBits.push(`<dt>Expires</dt><dd>${escapeHtml(row.expiryFormatted)}${Number.isFinite(row.expiryMs) ? ` <span class="table-muted">(${escapeHtml(fmtRelativeFuture(row.expiryMs))})</span>` : ""}</dd>`);
-      if (row.period) settlementBits.push(`<dt>Period</dt><dd>${escapeHtml(row.period)} <span class="table-muted">(auto-respawned)</span></dd>`);
-      if (row.question) settlementBits.push(`<dt>Question</dt><dd>${escapeHtml(row.question.name)} <span class="table-muted">(${escapeHtml(row.question.questionId != null ? `#${row.question.questionId}` : "—")})</span></dd>`);
-
-      const settlementHtml = settlementBits.length
-        ? `<dl class="details-kv">${settlementBits.join("")}</dl>`
-        : '<span class="table-muted">No additional settlement metadata.</span>';
-
-      const descHtml = row.description
-        ? `<div class="details-description">${escapeHtml(row.description)}</div>`
-        : '<span class="table-muted">No description on this outcome.</span>';
-
-      return `
-        <tr class="details-row" data-details-for="${row.outcomeId}">
-          <td colspan="7">
-            <div class="details-pane">
-              <div class="details-block">
-                <div class="details-block-label">Settlement &amp; lifecycle</div>
-                ${settlementHtml}
-                <dl class="details-kv">
-                  <dt>Outcome ID</dt><dd>#${fmtInt(row.outcomeId)}</dd>
-                  <dt>Type</dt><dd>${escapeHtml(row.type)}</dd>
-                  <dt>YES + NO</dt><dd>${spreadHtml}</dd>
-                </dl>
-              </div>
-              <div class="details-block">
-                <div class="details-block-label">Sides &amp; pricing</div>
-                <table class="sides-table">
-                  <thead>
-                    <tr>
-                      <th>Side</th>
-                      <th>Coin</th>
-                      <th>Mark</th>
-                      <th>Mid</th>
-                      <th>Implied %</th>
-                      <th>24h Vol</th>
-                      <th>OI</th>
-                    </tr>
-                  </thead>
-                  <tbody>${sidesRows}</tbody>
-                </table>
-              </div>
-              <div class="details-block" style="grid-column: 1 / -1;">
-                <div class="details-block-label">Raw outcome description</div>
-                ${descHtml}
-              </div>
-            </div>
-          </td>
-        </tr>
-      `;
-    }
-
-    function typePill(type) {
-      const labels = { binary: "Price binary", recurring: "Recurring", custom: "Custom" };
-      const cls = `type-pill type-${type}`;
-      return `<span class="${cls}">${labels[type] || "Outcome"}</span>`;
-    }
-
-    function nameCell(row) {
-      const name = escapeHtml(row.name);
-      const parsed = row.parsed;
-      let metaBits = [];
-
-      if (row.type === "binary" || row.type === "recurring") {
-        if (parsed?.underlying) {
-          const dirSuffix = parsed?.direction ? ` ${escapeHtml(parsed.direction)}` : "";
-          metaBits.push(`<strong>${escapeHtml(parsed.underlying)}</strong>${dirSuffix} binary`);
-        }
-        if (parsed?.targetPrice) {
-          const target = Number(parsed.targetPrice);
-          if (Number.isFinite(target)) {
-            metaBits.push(`strike $${fmtInt(target)}`);
-          }
-        }
-      }
-
-      const metaHtml = metaBits.length
-        ? `<div class="market-cell-meta">${metaBits.join(" · ")}</div>`
-        : "";
-
-      return `
-        <div>
-          <span class="market-cell-name">${name}</span>
-          ${metaHtml}
-        </div>
-      `;
-    }
-
-    function renderOutcomeTable() {
-      const tbody = document.getElementById("outcome-table-body");
-      const table = document.getElementById("outcome-table");
-      if (!tbody || !table) return;
-
-      table.querySelectorAll("th.is-sortable").forEach((th) => {
-        th.classList.remove("sort-asc", "sort-desc");
-        if (th.dataset.sort === state.sort.key) {
-          th.classList.add(state.sort.dir === "asc" ? "sort-asc" : "sort-desc");
-        }
-      });
-
-      const rows = buildOutcomeRows();
-      const filtered = applyFilter(rows, state.filter);
-      const sorted = sortRows(filtered, state.sort);
-
-      const countEl = document.getElementById("outcome-filter-count");
-      if (countEl) {
-        const total = rows.length;
-        const shown = sorted.length;
-        countEl.innerHTML = shown === total
-          ? `<strong>${fmtInt(total)}</strong> outcomes`
-          : `<strong>${fmtInt(shown)}</strong> of ${fmtInt(total)} outcomes`;
-      }
-
-      if (sorted.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="table-error" style="padding:2rem 1rem;">No outcomes match this filter.<br><span class="table-muted">Try clearing the search box or switching the toggle to "All".</span></td></tr>`;
+      if (!row) {
+        if (nameEl) nameEl.textContent = "No outcomes registered yet.";
+        if (metaEl) metaEl.textContent = "outcomeMeta returned an empty list. Check back as the surface widens.";
         return;
       }
 
-      const previouslyOpen = state.openOutcomeIds || new Set();
+      const titleBits = [];
+      if (row.underlying) titleBits.push(row.underlying);
+      titleBits.push("binary");
+      if (row.targetPrice != null && Number.isFinite(row.targetPrice)) titleBits.push(`≥ ${fmtUsdPrice(row.targetPrice)}`);
+      if (nameEl) nameEl.textContent = `${row.name} · ${titleBits.join(" ")}`;
 
-      tbody.innerHTML = sorted.map((row) => {
-        const openClass = previouslyOpen.has(row.outcomeId) ? " is-open" : "";
-        return `
-          <tr class="is-toggle${openClass}" data-outcome-id="${row.outcomeId}">
-            <td>${nameCell(row)}</td>
-            <td>${typePill(row.type)}</td>
-            <td>${probCell(row)}</td>
-            <td>${probNoCell(row)}</td>
-            <td>${row.dayVolume > 0 ? `<strong>${fmtUsdShort(row.dayVolume)}</strong>` : '<span class="table-muted">—</span>'}</td>
-            <td>${resolvesCell(row)}</td>
-            <td><span class="id-cell"><span class="mono">#${fmtInt(row.outcomeId)}</span><span class="row-chevron" aria-hidden="true"></span></span></td>
-          </tr>
-          ${detailsRow(row).replace('class="details-row"', `class="details-row${openClass}"`)}
-        `;
-      }).join("");
+      const metaBits = [];
+      if (row.period) metaBits.push(`every ${row.period}`);
+      if (row.expiryFormatted) metaBits.push(`next: ${row.expiryFormatted}`);
+      if (metaEl) metaEl.textContent = metaBits.length ? metaBits.join(" · ") : "Recurring outcome";
 
-      attachRowToggleHandlers();
+      if (Number.isFinite(row.prob)) {
+        const pct = Math.max(0, Math.min(1, row.prob));
+        if (yesEl) yesEl.textContent = `${(pct * 100).toFixed(1)}%`;
+        if (fillEl) fillEl.style.width = `${(pct * 100).toFixed(2)}%`;
+      }
+      if (Number.isFinite(row.probNo) && noEl) noEl.textContent = `${(Math.max(0, Math.min(1, row.probNo)) * 100).toFixed(1)}%`;
+
+      if (resolvesEl) resolvesEl.textContent = row.expiryFormatted || (row.period ? `every ${row.period}` : "—");
+      if (resolvesRelEl) {
+        if (Number.isFinite(row.expiryMs)) resolvesRelEl.textContent = fmtRelativeFuture(row.expiryMs) || "—";
+        else resolvesRelEl.textContent = row.period ? "recurring" : "—";
+      }
+
+      if (volEl) volEl.textContent = row.dayVolume > 0 ? fmtUsdCompact(row.dayVolume) : "—";
     }
 
-    function attachRowToggleHandlers() {
-      const tbody = document.getElementById("outcome-table-body");
-      if (!tbody) return;
-      tbody.querySelectorAll("tr.is-toggle").forEach((tr) => {
-        tr.addEventListener("click", () => {
-          const id = Number(tr.dataset.outcomeId);
-          const detailsTr = tbody.querySelector(`tr.details-row[data-details-for="${id}"]`);
-          if (!detailsTr) return;
-          const isOpen = tr.classList.toggle("is-open");
-          detailsTr.classList.toggle("is-open", isOpen);
-          if (!state.openOutcomeIds) state.openOutcomeIds = new Set();
-          if (isOpen) state.openOutcomeIds.add(id);
-          else state.openOutcomeIds.delete(id);
-        });
-      });
-    }
+    function renderMarketDetail(row) {
+      const kicker = document.getElementById("market-kicker");
+      const title = document.getElementById("market-title");
+      const sub = document.getElementById("market-sub");
+      const yesCoin = document.getElementById("market-yes-coin");
+      const noCoin = document.getElementById("market-no-coin");
+      const yesPct = document.getElementById("market-yes-pct");
+      const noPct = document.getElementById("market-no-pct");
+      const fill = document.getElementById("market-prob-fill");
+      const strikeEl = document.getElementById("market-strike");
+      const btcEl = document.getElementById("market-btc");
+      const btcDeltaEl = document.getElementById("market-btc-delta");
+      const resolvesEl = document.getElementById("market-resolves");
+      const resolvesRelEl = document.getElementById("market-resolves-relative");
+      const volEl = document.getElementById("market-volume");
+      const spreadEl = document.getElementById("market-spread");
+      const spreadSubEl = document.getElementById("market-spread-sub");
 
-    function renderScoreboard() {
-      const rows = buildOutcomeRows();
-      const totalVolume = rows.reduce((sum, row) => sum + (row.dayVolume || 0), 0);
-      const withVolume = rows.filter((row) => row.dayVolume > 0).length;
+      if (!row) {
+        if (title) title.textContent = "No outcomes registered yet.";
+        if (sub) sub.textContent = "outcomeMeta returned an empty list. Check back as the surface widens.";
+        return;
+      }
 
-      document.getElementById("stat-outcomes").textContent = fmtInt(state.outcomes.length);
-      document.getElementById("stat-questions").textContent = fmtInt(state.questions.length);
-      document.getElementById("stat-with-volume").textContent = fmtInt(withVolume);
-      document.getElementById("stat-volume").textContent = totalVolume > 0
-        ? fmtUsdCompact(totalVolume)
-        : "—";
+      const typeLabel = row.type === "recurring" ? "Recurring" : (row.type === "binary" ? "Price binary" : "Custom");
+      const underlyingLabel = row.underlying ? `${row.underlying} mark` : "Hyperliquid mark";
+      if (kicker) kicker.textContent = `${typeLabel} · Daily ${row.underlying || ""} binary · Outcome #${row.outcomeId}`.replace("Daily  ", "Daily ");
+
+      const titleBits = [];
+      if (row.underlying) titleBits.push(`Will ${row.underlying} close ≥ ${fmtUsdPrice(row.targetPrice)} at ${row.expiryFormatted || "expiry"}?`);
+      else titleBits.push(row.name);
+      if (title) title.textContent = titleBits[0];
+      if (sub) sub.textContent = `Settles to Hyperliquid's ${underlyingLabel} feed. YES pays 1 USDH if the condition holds at expiry. NO pays 1 USDH otherwise.`;
+
+      if (yesCoin) yesCoin.textContent = row.yesSide?.coin || "#—";
+      if (noCoin) noCoin.textContent = row.noSide?.coin || "#—";
+
+      if (Number.isFinite(row.prob)) {
+        const pct = Math.max(0, Math.min(1, row.prob));
+        if (yesPct) yesPct.textContent = `${(pct * 100).toFixed(1)}%`;
+        if (fill) fill.style.width = `${(pct * 100).toFixed(2)}%`;
+      } else if (yesPct) yesPct.textContent = "—";
+      if (Number.isFinite(row.probNo) && noPct) noPct.textContent = `${(Math.max(0, Math.min(1, row.probNo)) * 100).toFixed(1)}%`;
+      else if (noPct) noPct.textContent = "—";
+
+      if (strikeEl) strikeEl.textContent = Number.isFinite(row.targetPrice) ? fmtUsdPrice(row.targetPrice) : "—";
+
+      const btcMark = state.btcCtx ? Number(state.btcCtx.markPx) : null;
+      if (btcEl) btcEl.textContent = Number.isFinite(btcMark) ? fmtUsdPrice(btcMark) : "—";
+      if (btcDeltaEl) btcDeltaEl.textContent = Number.isFinite(btcMark) && Number.isFinite(row.targetPrice)
+        ? deltaLabel(btcMark, row.targetPrice)
+        : "vs strike: —";
+
+      if (resolvesEl) resolvesEl.textContent = row.expiryFormatted || (row.period ? `every ${row.period}` : "—");
+      if (resolvesRelEl) {
+        if (Number.isFinite(row.expiryMs)) resolvesRelEl.textContent = fmtRelativeFuture(row.expiryMs) || "—";
+        else resolvesRelEl.textContent = row.period ? "recurring" : "—";
+      }
+
+      if (volEl) volEl.textContent = row.dayVolume > 0 ? fmtUsdCompact(row.dayVolume) : "—";
+
+      if (Number.isFinite(row.spread)) {
+        if (spreadEl) spreadEl.textContent = row.spread.toFixed(4);
+        if (spreadSubEl) {
+          const deltaPp = (row.spread - 1) * 100;
+          const sign = deltaPp >= 0 ? "+" : "−";
+          spreadSubEl.textContent = `${sign}${Math.abs(deltaPp).toFixed(2)}pp from $1.00 fair`;
+        }
+      }
     }
 
     function renderRelativeTime() {
       const source = document.getElementById("panel-source");
-      if (!source || !state.lastUpdated) return;
+      const detailRel = document.getElementById("market-detail-relative");
+      if (!state.lastUpdated) return;
       const relative = fmtRelative(state.lastUpdated);
-      source.innerHTML = `
-        Pulled direct from Hyperliquid's public testnet <strong>outcomeMeta</strong> and
-        <strong>spotMetaAndAssetCtxs</strong> endpoints. Updated ${relative}. Refreshes every sixty seconds.
-      `;
+      if (source) {
+        source.innerHTML = `
+          Pulled live from Hyperliquid's public <strong>outcomeMeta</strong> +
+          <strong>l2Book</strong> endpoints on mainnet. Updated ${relative}. Refreshes every sixty seconds.
+        `;
+      }
+      if (detailRel) detailRel.textContent = relative === "just now" ? "live · just now" : `live · ${relative}`;
       const deltaSeconds = Math.max(0, Math.floor((Date.now() - state.lastUpdated.getTime()) / 1000));
       if (deltaSeconds < 90) {
         setLiveStatus("live", deltaSeconds < 5 ? "Live · just now" : `Live · ${relative}`);
       }
-    }
+      const dayCounter = document.getElementById("hero-day-counter");
+      if (dayCounter) dayCounter.textContent = `Mainnet · Day ${daysSinceLaunch()} · Live since May 2, 2026`;
 
-    function attachSortHandlers() {
-      const table = document.getElementById("outcome-table");
-      if (!table || table.dataset.sortBound === "true") return;
-      table.dataset.sortBound = "true";
-      table.querySelectorAll("th.is-sortable").forEach((th) => {
-        th.addEventListener("click", () => {
-          const key = th.dataset.sort;
-          if (!key) return;
-          state.sort = {
-            key,
-            dir: state.sort.key === key && state.sort.dir === "desc" ? "asc" : "desc"
-          };
-          renderOutcomeTable();
-        });
-      });
-    }
-
-    function attachFilterHandlers() {
-      const bar = document.getElementById("outcome-filter-bar");
-      if (!bar || bar.dataset.filterBound === "true") return;
-      bar.dataset.filterBound = "true";
-
-      const input = document.getElementById("outcome-filter-input");
-      if (input) {
-        input.addEventListener("input", (event) => {
-          state.filter = { ...state.filter, search: event.target.value };
-          renderOutcomeTable();
-        });
+      const row = state.primary;
+      if (row) {
+        const heroResolves = document.getElementById("hero-resolves-relative");
+        const detailResolves = document.getElementById("market-resolves-relative");
+        if (heroResolves && Number.isFinite(row.expiryMs)) heroResolves.textContent = fmtRelativeFuture(row.expiryMs) || "—";
+        if (detailResolves && Number.isFinite(row.expiryMs)) detailResolves.textContent = fmtRelativeFuture(row.expiryMs) || "—";
       }
-
-      bar.querySelectorAll(".filter-chip").forEach((chip) => {
-        chip.addEventListener("click", () => {
-          const mode = chip.dataset.filterMode || "all";
-          state.filter = { ...state.filter, mode };
-          bar.querySelectorAll(".filter-chip").forEach((other) => {
-            other.classList.toggle("is-active", other === chip);
-          });
-          renderOutcomeTable();
-        });
-      });
     }
 
-    function renderError() {
-      const tbody = document.getElementById("outcome-table-body");
-      if (tbody) {
-        tbody.innerHTML = `<tr><td colspan="7" class="table-error"><strong>Testnet fetch failed</strong>Couldn't reach Hyperliquid's public testnet API. The board will retry automatically.</td></tr>`;
-      }
-      ["stat-outcomes", "stat-questions", "stat-with-volume", "stat-volume"].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el && (!state.lastUpdated || el.textContent === "—")) el.textContent = "—";
-      });
+    function renderError(message) {
       const source = document.getElementById("panel-source");
       if (source) {
-        source.innerHTML = `
-          Couldn't reach Hyperliquid's public testnet API. The board will retry automatically. For background,
-          see <a href="https://liquidterminal.xyz/hip4/home" target="_blank" rel="noopener">Liquid Terminal's HIP-4 research</a>.
-        `;
+        source.innerHTML = `Couldn't reach Hyperliquid's public mainnet API. The page will retry automatically.`;
       }
+      const heroName = document.getElementById("hero-market-name");
+      if (heroName && (!state.primary)) heroName.textContent = "Mainnet fetch failed";
+      const detailTitle = document.getElementById("market-title");
+      if (detailTitle && (!state.primary)) detailTitle.textContent = "Mainnet fetch failed";
       const retry = document.getElementById("panel-retry");
       if (retry) retry.hidden = false;
+    }
+
+    async function fetchOutcomePrices(outcomes) {
+      const tasks = [];
+      for (const outcome of outcomes) {
+        const sideCount = (outcome.sideSpecs || []).length || 2;
+        for (let i = 0; i < sideCount; i += 1) {
+          const coin = `#${outcome.outcome * 10 + i}`;
+          tasks.push(
+            postInfo({ type: "l2Book", coin })
+              .then((book) => ({ coin, mid: midOfBook(book) }))
+              .catch(() => ({ coin, mid: null }))
+          );
+        }
+      }
+      const results = await Promise.all(tasks);
+      const map = new Map();
+      for (const { coin, mid } of results) {
+        if (Number.isFinite(mid)) map.set(coin, mid);
+      }
+      return map;
+    }
+
+    async function fetchOutcomeVolumes(outcomes) {
+      const startTime = Date.now() - 86400000;
+      const endTime = Date.now();
+      const tasks = [];
+      for (const outcome of outcomes) {
+        const sideCount = (outcome.sideSpecs || []).length || 2;
+        for (let i = 0; i < sideCount; i += 1) {
+          const coin = `#${outcome.outcome * 10 + i}`;
+          tasks.push(
+            postInfo({ type: "candleSnapshot", req: { coin, interval: "1h", startTime, endTime } })
+              .then((candles) => ({ coin, volume: sumCandleVolume(candles) }))
+              .catch(() => ({ coin, volume: 0 }))
+          );
+        }
+      }
+      const results = await Promise.all(tasks);
+      const map = new Map();
+      for (const { coin, volume } of results) map.set(coin, volume);
+      return map;
+    }
+
+    async function fetchBtcCtx() {
+      try {
+        const data = await postInfo({ type: "metaAndAssetCtxs" });
+        if (!Array.isArray(data) || data.length < 2) return null;
+        const universe = Array.isArray(data[0]?.universe) ? data[0].universe : [];
+        const ctxs = Array.isArray(data[1]) ? data[1] : [];
+        const i = universe.findIndex((a) => a?.name === "BTC");
+        return i >= 0 ? ctxs[i] : null;
+      } catch {
+        return null;
+      }
     }
 
     async function loadHip4Data() {
@@ -2110,38 +2264,27 @@
       setLiveStatus("connecting", state.lastUpdated ? "Refreshing…" : "Connecting…");
 
       try {
-        const [meta, spot] = await Promise.all([
-          postInfo({ type: "outcomeMeta" }),
-          postInfo({ type: "spotMetaAndAssetCtxs" }).catch(() => null)
-        ]);
-
+        const meta = await postInfo({ type: "outcomeMeta" });
         state.outcomes = Array.isArray(meta?.outcomes) ? meta.outcomes : [];
         state.questions = Array.isArray(meta?.questions) ? meta.questions : [];
 
-        state.questionByOutcomeId = new Map();
-        for (const question of state.questions) {
-          const ids = [...(question.namedOutcomes || []), question.fallbackOutcome].filter((id) => id != null);
-          for (const id of ids) state.questionByOutcomeId.set(id, question);
-        }
+        const [prices, volumes, btcCtx] = await Promise.all([
+          fetchOutcomePrices(state.outcomes),
+          fetchOutcomeVolumes(state.outcomes),
+          fetchBtcCtx()
+        ]);
+        state.pricesByCoin = prices;
+        state.volumesByCoin = volumes;
+        state.btcCtx = btcCtx;
 
-        state.ctxByCoin = new Map();
-        if (Array.isArray(spot) && spot.length >= 2) {
-          const universe = Array.isArray(spot[0]?.universe) ? spot[0].universe : [];
-          const ctxs = Array.isArray(spot[1]) ? spot[1] : [];
-          for (let i = 0; i < universe.length; i += 1) {
-            const asset = universe[i];
-            const ctx = ctxs[i];
-            const coin = asset?.name;
-            if (coin && ctx) state.ctxByCoin.set(coin, ctx);
-          }
-        }
+        const rows = state.outcomes.map(buildOutcomeRow);
+        rows.sort((a, b) => (b.dayVolume || 0) - (a.dayVolume || 0));
+        state.primary = rows[0] || null;
 
         state.lastUpdated = new Date();
 
-        renderScoreboard();
-        renderOutcomeTable();
-        attachSortHandlers();
-        attachFilterHandlers();
+        renderHeroPanel(state.primary);
+        renderMarketDetail(state.primary);
 
         const retry = document.getElementById("panel-retry");
         if (retry) retry.hidden = true;
@@ -2149,8 +2292,8 @@
         setLiveStatus("live", "Live · just now");
         renderRelativeTime();
       } catch (error) {
-        console.error("HIP-4 testnet fetch failed", error);
-        setLiveStatus("error", "Testnet fetch failed");
+        console.error("HIP-4 mainnet fetch failed", error);
+        setLiveStatus("error", "Mainnet fetch failed");
         renderError();
       } finally {
         state.inflight = false;
