@@ -563,6 +563,36 @@
       font-size: 0.8rem;
       color: var(--text-muted);
       letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    .live-dot-inline {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--text-muted);
+      display: inline-block;
+      flex-shrink: 0;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .live-dot-inline.is-live {
+      background: #4dcf6a;
+      animation: home-live-pulse 2.2s ease-in-out infinite;
+    }
+    .live-dot-inline.is-error { background: #ef4444; animation: none; }
+
+    @keyframes home-live-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(77, 207, 106, 0.45); }
+      50% { box-shadow: 0 0 0 5px rgba(77, 207, 106, 0); }
+    }
+
+    @media (max-width: 720px) {
+      .opportunity-stats-asof {
+        justify-content: flex-start;
+      }
     }
 
     /* Beat 2: The Barrier */
@@ -1575,19 +1605,22 @@
           <div class="opportunity-stats-wrap">
             <div class="opportunity-stats">
               <div class="opportunity-stat">
-                <div class="opportunity-stat-value">$87.32B</div>
-                <div class="opportunity-stat-label">cumulative volume</div>
+                <div class="opportunity-stat-value" id="home-stat-volume">—</div>
+                <div class="opportunity-stat-label">24h volume</div>
               </div>
               <div class="opportunity-stat">
-                <div class="opportunity-stat-value">$13.63M</div>
-                <div class="opportunity-stat-label">cumulative fees</div>
-              </div>
-              <div class="opportunity-stat">
-                <div class="opportunity-stat-value">$2.07B</div>
+                <div class="opportunity-stat-value" id="home-stat-oi">—</div>
                 <div class="opportunity-stat-label">open interest</div>
               </div>
+              <div class="opportunity-stat">
+                <div class="opportunity-stat-value" id="home-stat-builders">—</div>
+                <div class="opportunity-stat-label">live builders</div>
+              </div>
             </div>
-            <p class="opportunity-stats-asof">HIP-3 aggregates · source Dune yandhii/hip3 · as of April 14, 2026</p>
+            <p class="opportunity-stats-asof">
+              <span class="live-dot-inline" id="home-stats-dot" aria-hidden="true"></span>
+              <span id="home-stats-status">Fetching from api.hyperliquid.xyz…</span>
+            </p>
           </div>
         </div>
       </div>
@@ -1699,7 +1732,7 @@
             <a href="/hip4.html" class="dune-cta dune-cta-secondary">HIP-4 board</a>
             <a href="https://dune.com/yandhii/hip3" target="_blank" rel="noopener" class="dune-cta dune-cta-secondary">Source on Dune</a>
           </div>
-          <div class="market-stats-updated">Live board refreshes every 60s · last snapshot April 14, 2026</div>
+          <div class="market-stats-updated" id="home-cta-updated">Live boards refresh every sixty seconds · fetching latest…</div>
         </div>
       </div>
     </section>
@@ -1804,6 +1837,152 @@
     };
     window.addEventListener('scroll', updateScrollCue);
     window.addEventListener('load', updateScrollCue);
+  </script>
+
+  <!-- Live HIP-3 aggregates for the "HIP-3, right now" section -->
+  <script>
+    (() => {
+      const API_URL = "https://api.hyperliquid.xyz/info";
+      const REFRESH_MS = 60_000;
+      const RELATIVE_TICK_MS = 1_000;
+
+      const els = {
+        volume: document.getElementById("home-stat-volume"),
+        oi: document.getElementById("home-stat-oi"),
+        builders: document.getElementById("home-stat-builders"),
+        status: document.getElementById("home-stats-status"),
+        dot: document.getElementById("home-stats-dot"),
+        ctaUpdated: document.getElementById("home-cta-updated")
+      };
+      if (!els.volume) return;
+
+      const state = { lastUpdated: null, builders: 0, markets: 0, inflight: false, hip4Outcomes: null };
+
+      const postInfo = async (body) => {
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      };
+
+      const fmtUsdCompact = (n) => {
+        const v = Number(n) || 0;
+        const abs = Math.abs(v);
+        if (abs >= 1e9) return `$${(v / 1e9).toFixed(2)}B`;
+        if (abs >= 1e6) return `$${(v / 1e6).toFixed(2)}M`;
+        if (abs >= 1e3) return `$${(v / 1e3).toFixed(1)}K`;
+        return `$${v.toFixed(0)}`;
+      };
+
+      const fmtInt = (n) => new Intl.NumberFormat("en-US").format(Math.round(n));
+
+      const fmtRelative = (date) => {
+        if (!date) return "—";
+        const delta = Math.max(0, Math.floor((Date.now() - date.getTime()) / 1000));
+        if (delta < 5) return "just now";
+        if (delta < 60) return `${delta}s ago`;
+        const m = Math.floor(delta / 60);
+        const s = delta % 60;
+        return `${m}m ${s}s ago`;
+      };
+
+      const setStatus = (mode, text) => {
+        if (!els.dot) return;
+        els.dot.classList.remove("is-live", "is-error");
+        if (mode === "live") els.dot.classList.add("is-live");
+        else if (mode === "error") els.dot.classList.add("is-error");
+        if (els.status) els.status.textContent = text;
+      };
+
+      const renderTimestamps = () => {
+        if (!state.lastUpdated) return;
+        const rel = fmtRelative(state.lastUpdated);
+        const hip4Bit = state.hip4Outcomes != null ? ` · ${fmtInt(state.hip4Outcomes)} HIP-4 outcomes live` : "";
+        setStatus("live", `Live · ${fmtInt(state.builders)} builders · ${fmtInt(state.markets)} markets${hip4Bit} · updated ${rel}`);
+        if (els.ctaUpdated) {
+          els.ctaUpdated.textContent = `Live boards refresh every sixty seconds · updated ${rel}`;
+        }
+      };
+
+      const loadHomeStats = async () => {
+        if (state.inflight) return;
+        state.inflight = true;
+        if (!state.lastUpdated) setStatus("loading", "Fetching from api.hyperliquid.xyz…");
+
+        try {
+          const perpDexs = await postInfo({ type: "perpDexs" });
+          const dexes = Array.isArray(perpDexs) ? perpDexs.filter((d) => d && d.name) : [];
+
+          const perDex = await Promise.all(
+            dexes.map(async (dex) => {
+              try {
+                const data = await postInfo({ type: "metaAndAssetCtxs", dex: dex.name });
+                if (!Array.isArray(data) || data.length < 2) return { markets: 0, volume: 0, oi: 0 };
+                const universe = Array.isArray(data[0]?.universe) ? data[0].universe : [];
+                const ctxs = Array.isArray(data[1]) ? data[1] : [];
+                let volume = 0;
+                let oi = 0;
+                for (let i = 0; i < universe.length; i += 1) {
+                  const ctx = ctxs[i];
+                  if (!ctx) continue;
+                  const vol = Number(ctx.dayNtlVlm || 0);
+                  const oiBase = Number(ctx.openInterest || 0);
+                  const mark = Number(ctx.markPx || 0);
+                  if (Number.isFinite(vol)) volume += vol;
+                  if (Number.isFinite(oiBase) && Number.isFinite(mark)) oi += oiBase * mark;
+                }
+                return { markets: universe.length, volume, oi };
+              } catch {
+                return { markets: 0, volume: 0, oi: 0 };
+              }
+            })
+          );
+
+          const totals = perDex.reduce(
+            (acc, d) => ({ markets: acc.markets + d.markets, volume: acc.volume + d.volume, oi: acc.oi + d.oi }),
+            { markets: 0, volume: 0, oi: 0 }
+          );
+
+          const livebuilders = perDex.filter((d) => d.markets > 0).length;
+
+          // HIP-4 outcome count is a small side stat surfaced in the status line
+          try {
+            const meta = await postInfo({ type: "outcomeMeta" });
+            state.hip4Outcomes = Array.isArray(meta?.outcomes) ? meta.outcomes.length : null;
+          } catch {
+            state.hip4Outcomes = null;
+          }
+
+          state.builders = livebuilders;
+          state.markets = totals.markets;
+          state.lastUpdated = new Date();
+
+          els.volume.textContent = fmtUsdCompact(totals.volume);
+          els.oi.textContent = fmtUsdCompact(totals.oi);
+          els.builders.textContent = fmtInt(livebuilders);
+
+          renderTimestamps();
+        } catch (err) {
+          console.error("home HIP-3 aggregates fetch failed", err);
+          setStatus("error", "Couldn't reach api.hyperliquid.xyz · will retry");
+        } finally {
+          state.inflight = false;
+        }
+      };
+
+      loadHomeStats();
+      setInterval(loadHomeStats, REFRESH_MS);
+      setInterval(renderTimestamps, RELATIVE_TICK_MS);
+
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && state.lastUpdated && Date.now() - state.lastUpdated.getTime() > REFRESH_MS) {
+          loadHomeStats();
+        }
+      });
+    })();
   </script>
 
   <script src="/assets/site-nav.js" defer></script>
